@@ -83,6 +83,9 @@ def make(spec, seed, fixed_iters=80):
         if hasattr(agent, "rng"):
             agent.rng = random.Random(seed)
         return agent
+    if kind == "v2":
+        from pokerbot.v2 import Agent as V2
+        return V2(params=spec.get("params"), seed=seed)
     if kind == "statbot":
         from sim.statbot import StatBot
         return StatBot(spec["profile"], seed=seed)
@@ -106,6 +109,8 @@ def label(spec):
         return "starter"
     if spec["kind"] == "file":
         return "real:" + spec.get("name", spec["path"])
+    if spec["kind"] == "v2":
+        return "v2:" + spec.get("strategy_id", "?")
     sid = spec.get("strategy_id", "?")
     return sid if sid.startswith(("clone:", "stat:")) else "pablo:%s" % sid
 
