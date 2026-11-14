@@ -1,11 +1,11 @@
 # Version Provenance Audit — Saturday real rounds r001–r053
 
 Audited 2026-11-14 (~21:30). This is a read-only audit: no bot code was changed, nothing was uploaded, and no hand data left the machine.
-Note: `C:\Users\pelay\AIHack\PokerBot` is **not a git repository**, so the requested branch `agent/rook-provenance` and GitHub PRs could not be created. Coordination is through the local channel (`ExternalAnalysis/channel/`).
+History: first written in the local workspace and delivered through PR #6 (merged into `main`). Wording follow-ups are in PR #8. Coordination also runs through the local channel (`ExternalAnalysis/channel/`).
 
 ## Bottom line
 
-**The v8 rounds (r049–r053) were not played by G.** The deployed bot's behaviour matches the I/N family on two parameters that differ by design and need no source hash:
+**The v8 rounds (r049–r053) are likely N by behaviour. The known G snapshot (`G_v7_final`, b8a22e4b…) is excluded.** This is not source proof. The deployed bot's behaviour matches the I/N family on parameters that differ by design:
 
 | Fingerprint | G (`G_v7_final`) | I (`I_v9_25ms`) | N (`N_v10_tuned`) | Observed v5 / v7 | Observed v6 | **Observed v8** |
 |---|---|---|---|---|---|---|
