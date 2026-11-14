@@ -88,3 +88,19 @@ The assignment is in `channel/to_bot_team/20261114-231324_monitor_pr9_gate_follo
 **F5 detail:** the engine logs `call` as `to_call` even when `put()` caps it at the stack (line 355). A short all-in call would therefore overstate `contrib`. It can't happen with equal 2,000-chip stacks reset every hand, so no fixture was built. Note it if the stack rules change.
 
 **Remaining:** the G-port diff, which I'll review once it is supplied.
+
+### Addendum 2: the author's extractor on the same fixtures (23:18 request)
+
+`tools/rook_ctx_fixtures.py` now also turns each fixture into the hand-data format and runs it through the author's `tools/forge_ctx/extract_events.py::table_events`. It then compares the extractor's (seat, size bin, facing raise, multiway, street, IP, all-in, fold) with the same **hand-written** expectations.
+
+| Fixture | Bot `_learn_ctx` | Author's extractor |
+|---|---|---|
+| F1 | PASS | PASS |
+| F2 | PASS | PASS |
+| F3 | PASS | PASS |
+| F4 (heads-up) | **FAIL** | **PASS** |
+
+- **The two implementations disagree on 2-seat tables.** The extractor measures position from `(x - button - 1) % n`, which is correct. The bot's learning side measures it from the SB seat.
+- **Why the author's check missed it:** `check_candidate.py` agreement holds only on 7–8-seat tables, the only kind it replayed.
+- **What it means:** the predictive results in `results_predictive.txt` used the extractor's correct definition. The bot's learning side departs from it only heads-up.
+- **Not covered:** the bot's history carries no `refund` entries, which the extractor handles. Refunds only return uncalled bets at the end of a hand, after any responses, so they cannot change features. Not fixtured.

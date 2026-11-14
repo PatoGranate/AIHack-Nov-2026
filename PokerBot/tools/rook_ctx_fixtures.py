@@ -44,7 +44,7 @@ f1 = [H(1, "preflop", "small_blind", 10), H(2, "preflop", "big_blind", 20), H(3,
      [H(s, "preflop", "fold") for s in (4, 5, 6, 7, 0)] + \
      [H(1, "preflop", "call", 50), H(2, "preflop", "call", 40),
       H(1, "flop", "raise", 90), H(2, "flop", "raise", 270), H(3, "flop", "fold"), H(1, "flop", "call", 180)]
-FIX.append(("F1 raise-to accounting / raise over bet / folded seat", 8, f1, {
+FIX.append(("F1 raise-to accounting / raise over bet / folded seat", 8, 0, f1, {
     2: [(2, 0, 1, "flop", 1, 0, False)],
     3: [(4, 1, 1, "flop", 1, 0, True)],
     1: [(4, 1, 0, "flop", 0, 0, False)],
@@ -57,7 +57,7 @@ FIX.append(("F1 raise-to accounting / raise over bet / folded seat", 8, f1, {
 f2 = [H(1, "preflop", "small_blind", 10), H(2, "preflop", "big_blind", 20), H(3, "preflop", "raise", 60)] + \
      [H(s, "preflop", "fold") for s in (4, 5, 6, 7, 0, 1)] + \
      [H(2, "preflop", "call", 40), H(2, "flop", "check"), H(3, "flop", "raise", 1940), H(2, "flop", "call", 1940)]
-FIX.append(("F2 all-in responder", 8, f2, {2: [(5, 0, 0, "flop", 0, 1, False)]}))
+FIX.append(("F2 all-in responder", 8, 0, f2, {2: [(5, 0, 0, "flop", 0, 1, False)]}))
 
 # F3: street transitions. Same preflop as F2 (pot 130). Flop: seat 2 bets 60 (ratio 60/130 = 0.46 -> bin 2);
 #   seat 3 (IP, heads-up) calls 60. Pot = 250.
@@ -68,7 +68,7 @@ f3 = [H(1, "preflop", "small_blind", 10), H(2, "preflop", "big_blind", 20), H(3,
      [H(s, "preflop", "fold") for s in (4, 5, 6, 7, 0, 1)] + \
      [H(2, "preflop", "call", 40), H(2, "flop", "raise", 60), H(3, "flop", "call", 60),
       H(2, "turn", "check"), H(3, "turn", "raise", 200), H(2, "turn", "fold")]
-FIX.append(("F3 street transitions / preflop excluded", 8, f3, {
+FIX.append(("F3 street transitions / preflop excluded", 8, 0, f3, {
     3: [(2, 0, 0, "flop", 1, 0, False)],
     2: [(4, 0, 0, "turn", 0, 0, True)],
 }))
@@ -78,10 +78,39 @@ FIX.append(("F3 street transitions / preflop excluded", 8, f3, {
 #   Seat 0 (the button) acts AFTER the bettor -> IP = 1 under engine semantics -> folds.
 f4 = [H(0, "preflop", "small_blind", 10), H(1, "preflop", "big_blind", 20), H(0, "preflop", "call", 10),
       H(1, "preflop", "check"), H(1, "flop", "raise", 20), H(0, "flop", "fold")]
-FIX.append(("F4 heads-up position (SB = button)", 2, f4, {0: [(2, 0, 0, "flop", 1, 0, True)]}))
+FIX.append(("F4 heads-up position (SB = button)", 2, 0, f4, {0: [(2, 0, 0, "flop", 1, 0, True)]}))
 
-ok_all = True
-for name, n, hist, exp in FIX:
+# Optional second implementation under test: the author's offline extractor (tools/forge_ctx/extract_events.py).
+import json, os, tempfile
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "forge_ctx"))
+try:
+    import extract_events as XE
+except Exception:
+    XE = None
+
+
+def to_handdata(n, button, hist):
+    ev = []; street = "preflop"; nb = {"flop": 3, "turn": 4, "river": 5}
+    for h in hist:
+        if h["street"] != street:
+            street = h["street"]; ev.append(["board", street, ["2c"] * nb[street]])
+        if h["action"] in ("small_blind", "big_blind"):
+            ev.append(["post", h["seat"], h["amount"]])
+        else:
+            ev.append(["act", h["seat"], h["action"], h["amount"]])
+    return {"ref": "fixture/r001", "players": ["p%d" % i for i in range(n)],
+            "hands": [{"n": 1, "button": button, "start_stacks": [2000] * n, "events": ev}]}
+
+
+def bin_of(r):
+    b = 0
+    while b < 5 and r >= M.CTX_EDGES[b]:
+        b += 1
+    return b
+
+
+ok_bot = ok_x = True
+for name, n, button, hist, exp in FIX:
     a = M.Agent()
     a.on_table_start({"num_players": n, "starting_stack": 2000, "seat": 0})
     a._learn_ctx({"history": hist})
@@ -92,9 +121,19 @@ for name, n, hist, exp in FIX:
         ef = sum(1 for e in E if e[6]); en = len(E); ee = sum(expected_p(*e[:6]) for e in E)
         good = (o.xf == ef and o.xn == en and abs(o.xe - ee) < 1e-9)
         if en or o.xn:
-            res.append("    seat %d: bot (xf %d, xn %d, xe %.6f)  expected (%d, %d, %.6f)  %s"
+            res.append("    [bot] seat %d: (xf %d, xn %d, xe %.6f)  expected (%d, %d, %.6f)  %s"
                        % (s, o.xf, o.xn, o.xe, ef, en, ee, "OK" if good else "MISMATCH"))
-        ok_all &= good
-    verdict = "PASS" if all(r.endswith("OK") for r in res) else "FAIL"
-    print("%s: %s" % (name, verdict)); print("\n".join(res))
-print("ALL PASS" if ok_all else "SOME FAIL")
+        ok_bot &= good
+    xres = []
+    if XE is not None:
+        p = os.path.join(tempfile.mkdtemp(), "fx.json"); json.dump(to_handdata(n, button, hist), open(p, "w"))
+        rows = XE.table_events(p)
+        got = sorted((r["seat"], bin_of(r["size"]), int(r["kind"] == "raise"), r["mw"], r["street"], r["ip"], r["allin_call"], bool(r["fold"])) for r in rows)
+        want = sorted((s,) + tuple(e) for s, L in exp.items() for e in L)
+        xg = got == want
+        ok_x &= xg
+        xres.append("    [extractor] %s%s" % ("OK" if xg else "MISMATCH", "" if xg else "  got %s want %s" % (got, want)))
+    vb = "PASS" if all(r.endswith("OK") for r in res) else "FAIL"
+    vx = ("PASS" if xres and xres[0].endswith("OK") else "FAIL") if xres else "PENDING"
+    print("%s: bot %s | extractor %s" % (name, vb, vx)); print(chr(10).join(res + xres))
+print("bot: %s; extractor: %s" % ("ALL PASS" if ok_bot else "SOME FAIL", "ALL PASS" if ok_x else "SOME FAIL"))
