@@ -104,3 +104,20 @@ The assignment is in `channel/to_bot_team/20261114-231324_monitor_pr9_gate_follo
 - **Why the author's check missed it:** `check_candidate.py` agreement holds only on 7–8-seat tables, the only kind it replayed.
 - **What it means:** the predictive results in `results_predictive.txt` used the extractor's correct definition. The bot's learning side departs from it only heads-up.
 - **Not covered:** the bot's history carries no `refund` entries, which the extractor handles. Refunds only return uncalled bets at the end of a hand, after any responses, so they cannot change features. Not fixtured.
+
+### Addendum 3: multi-seat position fixtures and failure exit status (23:22 request)
+
+- **Engine order reviewed:** postflop the first actor is `_next_alive(button)` (`kit/engine/game.py` l.124–129, l.199). Stacks reset to 2,000 every hand, so every seat is alive, and the order is `(seat - button - 1) % n` whatever folded preflop.
+- **Exit status:** the runner now exits **1 if any case fails** (bot or extractor) and 0 otherwise. Its current exit is 1, recorded in the output file.
+
+| Fixture | Bot | Extractor |
+|---|---|---|
+| F6: 8 seats, button 6 (wraparound to seats 7, 0, 1), button and intervening seats folded preflop | PASS | PASS |
+| F7: 7 seats, button 3, blinds and intervening seats folded, raise over a bet | PASS | PASS |
+| F8: heads-up, button rotated to seat 1, BB bets, button responds (expected IP) | **FAIL** (ip 0) | PASS |
+| F9: heads-up, button bets, BB responds (expected OOP) | **FAIL** (ip 1) | PASS |
+| F1–F4 (kept unchanged) | F1–F3 PASS, F4 FAIL | all PASS |
+
+**Scope of the bug.** With every seat alive, `(s - SB) % n` equals `(s - button - 1) % n` whenever SB = button + 1, which is every table of 3 or more seats. The 7- and 8-seat cases pass regardless of which seats folded or where the order wraps.
+
+The mismatch appears **only heads-up**, where SB = button, and there it inverts IP/OOP in both directions (F4, F8, F9). The evidence does not support a wider bug.

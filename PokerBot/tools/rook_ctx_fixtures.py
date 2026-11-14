@@ -80,6 +80,47 @@ f4 = [H(0, "preflop", "small_blind", 10), H(1, "preflop", "big_blind", 20), H(0,
       H(1, "preflop", "check"), H(1, "flop", "raise", 20), H(0, "flop", "fold")]
 FIX.append(("F4 heads-up position (SB = button)", 2, 0, f4, {0: [(2, 0, 0, "flop", 1, 0, True)]}))
 
+# Engine actor order (kit/engine/game.py l.199): postflop the first actor is _next_alive(button). All stacks are
+# 2,000 at the start of every hand, so every seat is "alive" and order is (seat - button - 1) % n, whatever folded
+# preflop. Expected IP below = responder's order > bettor's order, computed by hand.
+
+# F6: 8 seats, button 6 (wraparound): SB 7, BB 0, UTG 1. The button and intervening seats fold preflop.
+# Preflop: seat 1 raises to 60; seats 2-6 fold; SB 7 calls 50; BB 0 calls 40. Pot 180.
+# Flop order 7, 0, 1 (orders 0, 1, 2). Seat 7 checks; seat 0 bets 90 (0.50 -> bin 2).
+#   Seat 1 (order 2 > 1): IP, multiway (7, 0 live) -> calls.
+#   Seat 7 (order 0 < 1): OOP, multiway (0, 1 live) -> folds.
+f6 = [H(7, "preflop", "small_blind", 10), H(0, "preflop", "big_blind", 20), H(1, "preflop", "raise", 60)] +      [H(s, "preflop", "fold") for s in (2, 3, 4, 5, 6)] +      [H(7, "preflop", "call", 50), H(0, "preflop", "call", 40),
+      H(7, "flop", "check"), H(0, "flop", "raise", 90), H(1, "flop", "call", 90), H(7, "flop", "fold")]
+FIX.append(("F6 8-seat, button 6 wraparound, button folded preflop", 8, 6, f6, {
+    1: [(2, 0, 1, "flop", 1, 0, False)], 7: [(2, 0, 1, "flop", 0, 0, True)]}))
+
+# F7: 7 seats, button 3: SB 4, BB 5. Intervening seats and both blinds fold preflop.
+# Preflop: seat 6 raises to 60; seats 0, 1 fold; seat 2 calls 60; button 3 calls 60; SB 4 and BB 5 fold.
+# Pot 210. Flop live seats 6, 2, 3 with orders 2, 5, 6.
+#   Seat 6 checks; seat 2 bets 105 (0.50 -> bin 2).
+#   Seat 3 (order 6 > 5): IP, multiway -> raises to 315 (adds 315; ratio 315/315 = 1.00 -> bin 4).
+#   Seat 6 faces the raise (order 2 < 6): OOP, multiway (2, 3 live) -> folds.
+#   Seat 2 faces the raise (order 5 < 6): OOP, heads-up (6 folded) -> calls 210.
+f7 = [H(4, "preflop", "small_blind", 10), H(5, "preflop", "big_blind", 20), H(6, "preflop", "raise", 60),
+      H(0, "preflop", "fold"), H(1, "preflop", "fold"), H(2, "preflop", "call", 60), H(3, "preflop", "call", 60),
+      H(4, "preflop", "fold"), H(5, "preflop", "fold"),
+      H(6, "flop", "check"), H(2, "flop", "raise", 105), H(3, "flop", "raise", 315), H(6, "flop", "fold"),
+      H(2, "flop", "call", 210)]
+FIX.append(("F7 7-seat, button 3, blinds and intervening seats folded", 7, 3, f7, {
+    3: [(2, 0, 1, "flop", 1, 0, False)], 6: [(4, 1, 1, "flop", 0, 0, True)], 2: [(4, 1, 0, "flop", 0, 0, False)]}))
+
+# F8: heads-up with the button rotated to seat 1 (SB = button = 1, BB = 0). Postflop first actor = seat 0.
+# Preflop: seat 1 calls 10, seat 0 checks. Flop: seat 0 bets 20 (0.50 -> bin 2); seat 1 (button, order 1 > 0): IP -> folds.
+f8 = [H(1, "preflop", "small_blind", 10), H(0, "preflop", "big_blind", 20), H(1, "preflop", "call", 10),
+      H(0, "preflop", "check"), H(0, "flop", "raise", 20), H(1, "flop", "fold")]
+FIX.append(("F8 heads-up, button rotated to seat 1, BB bets", 2, 1, f8, {1: [(2, 0, 0, "flop", 1, 0, True)]}))
+
+# F9: heads-up, button 0 bets. Flop: seat 1 (BB, order 0) checks; seat 0 (button, order 1) bets 20 (bin 2);
+#   seat 1 faces it: OOP (0 < 1) -> calls.
+f9 = [H(0, "preflop", "small_blind", 10), H(1, "preflop", "big_blind", 20), H(0, "preflop", "call", 10),
+      H(1, "preflop", "check"), H(1, "flop", "check"), H(0, "flop", "raise", 20), H(1, "flop", "call", 20)]
+FIX.append(("F9 heads-up, button bets, BB responds", 2, 0, f9, {1: [(2, 0, 0, "flop", 0, 0, False)]}))
+
 # Optional second implementation under test: the author's offline extractor (tools/forge_ctx/extract_events.py).
 import json, os, tempfile
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "forge_ctx"))
@@ -137,3 +178,4 @@ for name, n, button, hist, exp in FIX:
     vx = ("PASS" if xres and xres[0].endswith("OK") else "FAIL") if xres else "PENDING"
     print("%s: bot %s | extractor %s" % (name, vb, vx)); print(chr(10).join(res + xres))
 print("bot: %s; extractor: %s" % ("ALL PASS" if ok_bot else "SOME FAIL", "ALL PASS" if ok_x else "SOME FAIL"))
+sys.exit(0 if (ok_bot and ok_x) else 1)
