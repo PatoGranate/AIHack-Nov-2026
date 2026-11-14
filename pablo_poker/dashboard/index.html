@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pablo Poker Live</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --text: #16191d; --muted: #66707a; --line: #e3e6ea;
+  --accent: #2f6fdf; --good: #1f8a4c; --bad: #c43d3d; --warn: #b7791f; --track: #eef1f4;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1216; --panel: #171b21; --text: #e7eaee; --muted: #8d97a3; --line: #262c34;
+    --accent: #6b9cff; --good: #46c27c; --bad: #ff6b6b; --warn: #e0a84a; --track: #222830;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1216; --panel: #171b21; --text: #e7eaee; --muted: #8d97a3; --line: #262c34;
+  --accent: #6b9cff; --good: #46c27c; --bad: #ff6b6b; --warn: #e0a84a; --track: #222830;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding: 20px 16px 8px; max-width: 1200px; margin: 0 auto; }
+h1 { font-size: 20px; margin: 0; }
+.sub { color: var(--muted); font-size: 13px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); display: inline-block; margin-right: 6px; }
+main { max-width: 1200px; margin: 0 auto; padding: 8px 16px 40px; display: grid; gap: 16px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.kpi, .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.kpi { padding: 12px 14px; }
+.kpi .v { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.kpi .l { color: var(--muted); font-size: 12px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } }
+.panel { padding: 14px; min-width: 0; }
+.panel h2 { font-size: 14px; margin: 0 0 10px; }
+.scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 500; font-size: 12px; }
+td.num, th.num { text-align: right; }
+.pos { color: var(--good); } .neg { color: var(--bad); }
+.bar { height: 6px; background: var(--track); border-radius: 3px; overflow: hidden; min-width: 80px; }
+.bar > i { display: block; height: 100%; background: var(--accent); }
+.tag { font-size: 11px; padding: 1px 6px; border-radius: 9px; border: 1px solid var(--line); color: var(--muted); }
+.tag.ok { color: var(--good); border-color: var(--good); } .tag.no { color: var(--bad); border-color: var(--bad); }
+svg text { fill: var(--muted); font-size: 11px; }
+.params { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 4px 12px; font-size: 12px; }
+.params span { color: var(--muted); }
+.empty { color: var(--muted); padding: 20px 0; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Pablo Poker</h1>
+  <span class="sub"><span class="dot" id="dot"></span><span id="status">connecting…</span></span>
+</header>
+<main>
+  <section class="kpis" id="kpis"></section>
+  <section class="panel">
+    <h2>Cumulative result, latest batch <span class="sub" id="curveLabel"></span></h2>
+    <div id="curve"></div>
+  </section>
+  <section class="grid2">
+    <div class="panel scroll"><h2>Batches</h2><div id="batches"></div></div>
+    <div class="panel scroll"><h2>Our strategies (last 200k hands)</h2><div id="strategies"></div></div>
+  </section>
+  <section class="grid2">
+    <div class="panel scroll"><h2>Champion by position</h2><div id="positions"></div></div>
+    <div class="panel scroll"><h2>Every seat, by bot (last 400 tables)</h2><div id="lineup"></div></div>
+  </section>
+  <section class="panel scroll"><h2>RSI trials</h2><div id="trials"></div></section>
+  <section class="grid2">
+    <div class="panel scroll"><h2>Promotions</h2><div id="promos"></div></div>
+    <div class="panel"><h2>Champion parameters</h2><div id="params"></div></div>
+  </section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const fmt = (x, d = 1) => (x == null || isNaN(x)) ? "–" : (x > 0 ? "+" : "") + Number(x).toFixed(d);
+const cls = x => x > 0 ? "pos" : x < 0 ? "neg" : "";
+const num = x => Number(x || 0).toLocaleString();
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ago = t => { const s = Date.now() / 1000 - t; return s < 60 ? Math.round(s) + "s ago" : s < 3600 ? Math.round(s / 60) + "m ago" : Math.round(s / 3600) + "h ago"; };
+
+function table(cols, rows) {
+  if (!rows.length) return '<div class="empty">nothing yet</div>';
+  return "<table><thead><tr>" + cols.map(c => `<th class="${c.n ? "num" : ""}">${c.h}</th>`).join("") +
+    "</tr></thead><tbody>" + rows.map(r => "<tr>" + cols.map(c => `<td class="${c.n ? "num " : ""}${c.c ? c.c(r) : ""}">${c.f(r)}</td>`).join("") + "</tr>").join("") +
+    "</tbody></table>";
+}
+
+function chart(points) {
+  if (points.length < 2) return '<div class="empty">no hands yet</div>';
+  const W = 1000, H = 220, P = 36;
+  const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(0, ...ys), y1 = Math.max(0, ...ys);
+  const X = x => P + (x - x0) / Math.max(1, x1 - x0) * (W - 2 * P);
+  const Y = y => H - P + 10 - (y - y0) / Math.max(1e-9, y1 - y0) * (H - 2 * P);
+  const d = points.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1)).join(" ");
+  const last = points[points.length - 1];
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="none" style="height:220px">
+    <line x1="${P}" x2="${W - P}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--line)"/>
+    <path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <text x="${P}" y="14">${num(Math.round(y1))} bb</text><text x="${P}" y="${H - 4}">${num(Math.round(y0))} bb</text>
+    <text x="${W - P}" y="${H - 4}" text-anchor="end">${num(last[0])} hands · ${num(Math.round(last[1]))} bb</text></svg>`;
+}
+
+async function refresh() {
+  try {
+    const [L, R] = await Promise.all([fetch("/api/live").then(r => r.json()), fetch("/api/rsi").then(r => r.json())]);
+    if (L.empty) { $("status").textContent = "no database yet: run python run_practice.py"; return; }
+    const running = L.batches.filter(b => b.status === "running");
+    const tablesLive = running.reduce((a, b) => a + (b.running || 0), 0);
+    $("status").textContent = running.length ? `${running.length} batch(es) running · ${tablesLive} tables in play` : "idle · updated " + new Date().toLocaleTimeString();
+    $("dot").style.background = running.length ? "var(--good)" : "var(--muted)";
+    const champ = L.champion;
+    const kpi = (v, l) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`;
+    $("kpis").innerHTML = kpi(num(L.total_hands), "hands recorded") + kpi(num(Math.round(L.hands_per_sec)), "hands / second") +
+      kpi(num(tablesLive), "tables in play") + kpi(champ ? "gen " + champ.generation : "–", "champion " + (champ ? esc(champ.id) : "")) +
+      kpi(num(R.cycles), "RSI cycles") + kpi(num(R.promotions.length), "promotions");
+    $("curveLabel").textContent = L.curve_batch ? "(batch " + L.curve_batch + ")" : "";
+    $("curve").innerHTML = chart(L.curve);
+    $("batches").innerHTML = table([
+      { h: "#", f: b => b.id }, { h: "kind", f: b => esc(b.kind) },
+      { h: "progress", f: b => `<div class="bar"><i style="width:${(100 * b.done / Math.max(1, b.n_tables)).toFixed(0)}%"></i></div>` },
+      { h: "tables", n: 1, f: b => `${b.done}/${b.n_tables}` }, { h: "hands", n: 1, f: b => num(b.hands_per_table) },
+      { h: "started", f: b => ago(b.started) }], L.batches);
+    $("strategies").innerHTML = table([
+      { h: "strategy", f: s => esc(s.strategy_id) + (champ && s.strategy_id === champ.id ? ' <span class="tag ok">champion</span>' : "") },
+      { h: "hands", n: 1, f: s => num(s.hands) }, { h: "bb/100", n: 1, c: s => cls(s.bb100), f: s => fmt(s.bb100) },
+      { h: "VPIP", n: 1, f: s => (100 * s.vpip).toFixed(1) + "%" }, { h: "PFR", n: 1, f: s => (100 * s.pfr).toFixed(1) + "%" }], L.strategies);
+    const order = ["EP", "MP", "HJ", "CO", "BTN", "SB", "BB"];
+    $("positions").innerHTML = table([{ h: "position", f: p => p.position }, { h: "hands", n: 1, f: p => num(p.hands) },
+      { h: "bb/100", n: 1, c: p => cls(p.bb100), f: p => fmt(p.bb100) }],
+      L.positions.sort((a, b) => order.indexOf(a.position) - order.indexOf(b.position)));
+    $("lineup").innerHTML = table([{ h: "bot", f: l => esc(l.label) }, { h: "seats", n: 1, f: l => num(l.seats) },
+      { h: "bb/100", n: 1, c: l => cls(l.bb100), f: l => fmt(l.bb100) }], L.lineup);
+    $("trials").innerHTML = table([
+      { h: "cycle", f: t => t.cycle }, { h: "stage", f: t => t.stage }, { h: "changed", f: t => esc(t.changed) },
+      { h: "tables", n: 1, f: t => t.n }, { h: "Δ bb/100", n: 1, c: t => cls(t.mean_bb100), f: t => fmt(t.mean_bb100) },
+      { h: "interval", n: 1, f: t => t.ci_low == null ? "" : `[${fmt(t.ci_low)}, ${fmt(t.ci_high)}]` },
+      { h: "verdict", f: t => t.stage === "holdout" ? (t.status === "approved" ? '<span class="tag ok">promoted</span>' :
+          `<span class="tag no">refused</span> <span class="sub">${esc((t.reasons || []).join(", "))}</span>`) : "" }], R.trials);
+    $("promos").innerHTML = table([{ h: "cycle", f: p => p.cycle }, { h: "gen", n: 1, f: p => p.generation },
+      { h: "new champion", f: p => esc(p.to_id) }, { h: "change", f: p => esc(p.hypothesis) }, { h: "when", f: p => ago(p.at) }], R.promotions);
+    if (champ) {
+      const ps = JSON.parse(champ.params);
+      $("params").innerHTML = '<div class="params">' + Object.keys(ps).sort().map(k => `<div><span>${esc(k)}</span> ${esc(ps[k])}</div>`).join("") + "</div>";
+    }
+  } catch (e) {
+    $("status").textContent = "dashboard server not reachable";
+    $("dot").style.background = "var(--bad)";
+  }
+}
+refresh();
+setInterval(refresh, 2000);
+</script>
+</body>
+</html>
