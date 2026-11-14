@@ -182,6 +182,9 @@ class Lab:
         thread_alive = self.fetch_thread is not None and self.fetch_thread.is_alive()
         if not thread_alive and (read_token() or os.path.exists(EXTERNAL_TOKENS)) and                 time.time() - last_fetch > self.fetch_minutes * 60:
             return "fetch"
+        idea0 = self.pending_idea()
+        if idea0 and idea0.get("package"):
+            return "idea"                         # whole-style packages first: big jumps escape the local optimum
         if self.near_misses():
             return "retest"
         if self.state("lab_stressed", None) != champ:
@@ -496,7 +499,7 @@ class Lab:
         return "bot.py = %s (gen %d); timing ok: %s" % (champ["id"], champ["generation"], info), info
 
 
-def timing_check(bot_path, hands=300, timeout_ms=5.0):
+def timing_check(bot_path, hands=300, timeout_ms=12.5):
     """Tournament harness (separate process, real clock) at HALF the real per-decision limit."""
     cmd = [sys.executable, os.path.join(ROOT, "local_sim.py"), bot_path, "--rounds", "1", "--hands", str(hands),
            "--timeout", str(timeout_ms), "--seed", "1"]
@@ -505,7 +508,7 @@ def timing_check(bot_path, hands=300, timeout_ms=5.0):
     except subprocess.TimeoutExpired:
         return False, {"error": "local_sim timed out"}
     for line in r.stdout.splitlines():
-        if line.startswith(os.path.basename(bot_path)):
+        if line.split() and os.path.basename(line.split()[0].replace("\\", "/")) == os.path.basename(bot_path):
             parts = line.split()
             try:
                 timeouts, errors = int(parts[3]), int(parts[4])

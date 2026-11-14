@@ -57,7 +57,7 @@ def main():
                     help="bot files (default: bot.py). Empty seats are filled with house bots.")
     ap.add_argument("--rounds", type=int, default=5, help="rounds to play (a new table each round)")
     ap.add_argument("--hands", type=int, default=1000, help="hands per round (tournament: 1000)")
-    ap.add_argument("--timeout", type=float, default=10.0, help="ms per decision (tournament: 10)")
+    ap.add_argument("--timeout", type=float, default=25.0, help="ms per decision (tournament: 25 since 16:30 Sat)")
     ap.add_argument("--bank", type=float, default=10.0,
                     help="seconds of thinking per bot per round (tournament: 10)")
     ap.add_argument("--seed", type=int, default=None, help="fix the cards so runs repeat")

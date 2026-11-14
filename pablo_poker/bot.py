@@ -21,30 +21,31 @@ Postflop   Monte Carlo equity against each live opponent's *estimated range*
 Exploit    every opponent is tracked for the round (1,000 hands, same
            table): calling stations get thinner value bets and no bluffs,
            nits get stolen from, maniacs get looser calls.
-Time       10 ms per decision, 10 s bank per round: the Monte Carlo budget
+Time       25 ms per decision, 10 s bank per round: the Monte Carlo budget
            adapts to the bank left, and every error falls back to check/fold.
 """
 import gc
 import random
 import time
 
-HARD_MS = 1.6          # never let one decision's own thinking exceed this (the limit is 10 ms incl. transport)
+HARD_MS = 12.0         # never let one decision's own thinking exceed this (the limit is 25 ms incl. transport)
 
 # ----------------------------------------------------------------- parameters
 # Every tunable knob. The RSI loop changes ONE of these at a time and only
 # keeps the change when it beats the champion on held-out games.
-# champion s-9419ed7949, generation 5 (exported by export_bot.py)
+# champion s-89a4092068, generation 7 (exported by export_bot.py)
 DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'bb_defend': 0.22,
     'bet_bluff': 0.55,
     'bet_value': 0.8,
-    'bluff_freq': 0.3,
+    'bluff_freq': 0.5,
     'call_3bet': 0.08,
     'call_margin': 0.06,
     'call_open': 0.11,
-    'cbet_freq': 0.55,
+    'cbet_freq': 0.85,
     'commit_penalty': 0.1,
     'draw_discount': 0.08,
+    'ev_mode': 0,
     'exploit': 1.0,
     'exploit_ramp': 0,
     'explore': 0.0,
@@ -53,7 +54,7 @@ DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'jam_call': 0.03,
     'jam_equity': 0,
     'mc_iters': 260,
-    'mc_ms': 1.0,
+    'mc_ms': 6.0,
     'open_btn': 0.42,
     'open_co': 0.27,
     'open_ep': 0.13,
@@ -62,13 +63,18 @@ DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'open_size': 2.5,
     'portfolio': 0,
     'raise_eq': 0.76,
+    'real_ip': 0.85,
+    'real_oop': 0.7,
     'river_overbet': 0.0,
+    'sd_read': 0.0,
     'semibluff_eq': 0.38,
+    'size_k': 0.5,
+    'tag_counter': 0,
     'threebet_bluff': 0.02,
     'threebet_size': 3.2,
     'threebet_value': 0.035,
     'value_flop': 0.58,
-    'value_river': 0.72,
+    'value_river': 0.66,
     'value_turn': 0.62}
 
 # Search space for the RSI loop: (low, high, step). Kept next to the defaults
@@ -85,6 +91,8 @@ PARAM_SPACE = {
     "bet_bluff": (0.30, 1.00, 0.08), "cbet_freq": (0.0, 1.0, 0.08), "bluff_freq": (0.0, 0.80, 0.06),
     "semibluff_eq": (0.25, 0.55, 0.03), "agg_tighten": (0.30, 0.90, 0.05), "exploit": (0.0, 1.0, 0.1),
     "jam_equity": (0, 1, 1), "exploit_ramp": (0, 400, 50), "portfolio": (0, 1, 1), "river_overbet": (0.0, 1.0, 0.25),
+    "tag_counter": (0, 1, 1), "sd_read": (0.0, 1.0, 0.5), "ev_mode": (0, 1, 1),
+    "real_ip": (0.6, 1.0, 0.05), "real_oop": (0.5, 0.95, 0.05), "size_k": (0.2, 1.0, 0.1),
 }
 
 # Portfolio arms (Bard et al. 2013): multipliers (or offsets for value_*) applied to the base parameters.
@@ -346,11 +354,24 @@ def mc_call_ev(hole, fixed, maybe, pot_after_call, rng, max_iters, deadline):
 
 # ----------------------------------------------------------- opponent model
 class OppStats:
-    __slots__ = ("hands", "vpip", "pfr", "aggr", "passive", "faced", "folded", "acts", "jams")
+    __slots__ = ("hands", "vpip", "pfr", "aggr", "passive", "faced", "folded", "acts", "jams",
+                 "pf_faced", "pf_folded", "f3_faced", "f3_folded", "sd_bets", "sd_strong")
 
     def __init__(self):
         self.hands = self.vpip = self.pfr = self.aggr = self.passive = self.faced = self.folded = self.acts = 0
         self.jams = 0
+        self.pf_faced = self.pf_folded = self.f3_faced = self.f3_folded = self.sd_bets = self.sd_strong = 0
+
+    # priors from the real field: folds 70% to a raise, ~50% to a 3-bet, postflop bets are two pair+ 57% of the time
+    def fold_to_raise(self):
+        return (self.pf_folded + 0.70 * 10) / (self.pf_faced + 10)
+
+    def fold_to_3bet(self):
+        return (self.f3_folded + 0.50 * 8) / (self.f3_faced + 8)
+
+    def bet_strength(self):
+        """Share of this player's postflop bets/raises that showed two pair or better at showdown."""
+        return (self.sd_strong + 0.57 * 6) / (self.sd_bets + 6)
 
     def jam_rate(self):
         """Share of hands this player shoves preflop (prior 4% over 20 hands)."""
@@ -518,6 +539,36 @@ class Agent:
                             s.folded += 1
             if act == "raise" and st != "preflop":
                 street_bet[st] = seat
+        pf = [h for h in hist if h["street"] == "preflop" and h["action"] not in ("small_blind", "big_blind")]
+        r_idx = [i for i, h in enumerate(pf) if h["action"] == "raise"]
+        if r_idx:
+            first, second = r_idx[0], (r_idx[1] if len(r_idx) > 1 else len(pf))
+            answered = set()
+            for h in pf[first + 1:second + 1]:
+                sx = h["seat"]
+                if sx != self.seat and sx != pf[first]["seat"] and sx not in answered and h["action"] in ("fold", "call", "raise"):
+                    answered.add(sx)
+                    st_ = self._stats(sx)
+                    st_.pf_faced += 1
+                    st_.pf_folded += h["action"] == "fold"
+            opener = pf[first]["seat"]
+            if len(r_idx) > 1 and opener != self.seat:
+                resp = next((h["action"] for h in pf[r_idx[1] + 1:] if h["seat"] == opener), None)
+                if resp in ("fold", "call", "raise"):
+                    st_ = self._stats(opener)
+                    st_.f3_faced += 1
+                    st_.f3_folded += resp == "fold"
+        shown = summary.get("shown") or {}
+        board = summary.get("board") or []
+        if shown and len(board) >= 3:
+            bettors = {h["seat"] for h in hist if h["street"] != "preflop" and h["action"] == "raise"}
+            for k, cards in shown.items():
+                sx = int(k)
+                if sx in bettors and sx != self.seat:
+                    cat = evaluate([card_int(c) for c in cards + board]) >> 20
+                    st_ = self._stats(sx)
+                    st_.sd_bets += 1
+                    st_.sd_strong += cat >= 2
         for seat in seen:
             if seat == self.seat:
                 continue
@@ -606,10 +657,19 @@ class Agent:
                 width = p["open_btn"]
             width *= p["iso_tighten"] ** limpers
             # steal more when the players left to act fold a lot (exploit)
-            folders = [self._stats(s).fold_to_bet() for s in order[order.index(me) + 1:]] if me in order else []
-            if folders:
-                avg_fold = sum(folders) / len(folders)
-                width *= 1 + p["exploit"] * max(-0.3, min(0.4, (avg_fold - 0.45) * 1.5))
+            left = order[order.index(me) + 1:] if me in order else []
+            if p["tag_counter"] and left and not limpers:
+                # steal math: an open of open_size bb that everyone folds to wins 1.5 bb
+                all_fold = 1.0
+                for s_ in left:
+                    all_fold *= self._stats(s_).fold_to_raise()
+                be = p["open_size"] / (p["open_size"] + 1.5)
+                width *= 1 + max(-0.3, min(0.6, 0.8 * (all_fold - be) / be))
+            else:
+                folders = [self._stats(s).fold_to_bet() for s in left]
+                if folders:
+                    avg_fold = sum(folders) / len(folders)
+                    width *= 1 + p["exploit"] * max(-0.3, min(0.4, (avg_fold - 0.45) * 1.5))
             if pct <= width and can_raise:
                 return self._raise(state, (p["open_size"] + limpers) * bb)
             if "check" in legal:
@@ -638,6 +698,10 @@ class Agent:
             if pct <= tv + width:
                 return {"action": "call"}
             suited = (hole[0] & 3) == (hole[1] & 3)
+            if p["tag_counter"] and can_raise and rs.fold_to_3bet() > 0.55 and pct <= tv + width + 2 * p["threebet_bluff"] * scale \
+                    and r < 0.8:
+                size = p["threebet_size"] + (0.0 if in_pos else 0.6)
+                return self._raise(state, current * size)
             if can_raise and suited and pct <= tv + width + p["threebet_bluff"] * scale and r < 0.65:
                 size = p["threebet_size"] + (0.0 if in_pos else 0.6)
                 return self._raise(state, current * size)
@@ -716,11 +780,83 @@ class Agent:
                 rng = 1.0                           # checked the big blind
             loosen = p["exploit"] * st.looseness()
             factor = p["agg_tighten"] + (1 - p["agg_tighten"]) * loosen
+            if p["sd_read"]:
+                factor = max(0.2, min(1.0, factor * (1 - p["sd_read"] * (st.bet_strength() - 0.5) * 1.2)))
             for h in hist:
                 if h["seat"] == s and h["street"] != "preflop" and h["action"] == "raise":
                     rng *= factor
             ranges[s] = max(0.03, min(1.0, rng))
         return ranges
+
+    def _ev_decide(self, state, legal, hole, board, hist, ranges, eq):
+        """Max-EV action. For every bet size: P(everyone folds) from each opponent's fold-to-bet rate
+        (falling with size), and equity against the stronger part of their range that continues."""
+        p = self.cur
+        me, street = state["seat"], state["street"]
+        pot, to_call = state["pot"], state["to_call"]
+        my_bet, current = state["bets"][me], max(state["bets"])
+        stack_total = state["stacks"][me] + my_bet
+        can_raise = "raise" in legal
+        opps = sorted(ranges, key=lambda x: ranges[x])[:4]
+        n = len(state["stacks"])
+        order = lambda x: (x - state["button"] - 1) % n          # noqa: E731
+        in_pos = all(order(me) > order(o) for o in ranges)
+        iters, deadline = self._budget(state["hand_number"])
+        sub = max(24, iters // 3)
+
+        def cont(o, frac, vs_raise=False):
+            f0 = self._stats(o).fold_to_bet()
+            # bigger bets get fewer calls, but only up to about pot size: strong hands call any size
+            c = (1.0 - f0) * (0.66 / min(1.2, max(0.25, frac))) ** p["size_k"]
+            if vs_raise:
+                c *= 0.8
+            return max(0.05, min(0.97, c))
+
+        def ev_aggr(R, vs_raise):
+            add = R - my_bet
+            frac = add / float(max(1, pot))
+            cs = {o: cont(o, frac, vs_raise) for o in opps}
+            all_fold = 1.0
+            for o in opps:
+                all_fold *= 1.0 - cs[o]
+            narrowed = [max(0.02, ranges[o] * cs[o]) for o in opps]
+            e = mc_equity(hole, board, narrowed, self.rng, sub, deadline)
+            callers = sum(cs.values())
+            called_pot = pot + add + sum(cs[o] * max(0, min(R, state["stacks"][o] + state["bets"][o]) - state["bets"][o])
+                                         for o in opps) / max(1e-9, callers)
+            return all_fold * pot + (1 - all_fold) * (e * called_pot - add)
+
+        best, act = None, None
+        cands = []
+        if can_raise:
+            lo, hi = state["min_raise_to"], state["max_raise_to"]
+            if to_call == 0:
+                fr = [0.33, 0.66, 1.0] + ([1.5] if street == "river" else [])
+                base = pot
+            else:
+                fr = [1.0, 2.0]
+                base = pot + to_call
+            seen = set()
+            for f in fr:
+                R = int(max(lo, min(hi, current + f * base)))
+                if R not in seen:
+                    seen.add(R)
+                    cands.append(R)
+            if hi not in seen and hi - my_bet <= 1.2 * pot:
+                cands.append(hi)
+        if to_call == 0:
+            best, act = eq * pot * (p["real_ip"] if in_pos else p["real_oop"]), self._passive(legal)
+        else:
+            best, act = 0.0, {"action": "fold"}
+            ev_call = eq * (pot + to_call) - to_call - p["call_margin"] * pot
+            if ev_call > best:
+                best, act = ev_call, {"action": "call"}
+        for R in cands:
+            ev = ev_aggr(R, to_call > 0)
+            if ev > best:
+                best = ev
+                act = {"action": "raise", "amount": int(R)}
+        return act
 
     def _postflop(self, state, legal, hole, board, hist):
         p = self.cur
@@ -738,6 +874,8 @@ class Agent:
         stack_total = state["stacks"][me] + state["bets"][me]
         current = max(state["bets"])
         can_raise = "raise" in legal
+        if p["ev_mode"]:
+            return self._ev_decide(state, legal, hole, board, hist, ranges, eq)
         r = self.rng.random()
         value_thr = {"flop": p["value_flop"], "turn": p["value_turn"], "river": p["value_river"]}[street]
 
@@ -763,6 +901,13 @@ class Agent:
             if can_raise and eq_hu >= value_thr:
                 frac = p["bet_value"] * (1.25 if eq_hu > 0.88 else 1.0)
                 return self._raise(state, current + frac * pot)
+            if p["tag_counter"] and can_raise and n_opp == 1 and not acted_this_street:
+                opp = next(iter(ranges))
+                checked = any(h["seat"] == opp and h["street"] == street and h["action"] == "check" for h in hist)
+                be = p["bet_bluff"] / (1 + p["bet_bluff"])
+                f_ = self._stats(opp).fold_to_bet()
+                if checked and f_ > be and r < min(0.85, 0.4 + (f_ - be) * 2):
+                    return self._raise(state, current + p["bet_bluff"] * pot)
             if can_raise and n_opp <= 2 and not acted_this_street:
                 s_b = p["bet_bluff"]
                 breakeven = s_b / (1 + s_b)

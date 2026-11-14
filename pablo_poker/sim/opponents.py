@@ -77,6 +77,12 @@ def make(spec, seed, fixed_iters=80):
         if hasattr(agent, "rng"):
             agent.rng = random.Random(seed)
         return agent
+    if kind == "file":
+        # a real competitor's bot.py, played exactly as written (hands/external/<team>/bot.py)
+        agent = _cls(spec["path"])()
+        if hasattr(agent, "rng"):
+            agent.rng = random.Random(seed)
+        return agent
     if kind == "statbot":
         from sim.statbot import StatBot
         return StatBot(spec["profile"], seed=seed)
@@ -98,6 +104,8 @@ def label(spec):
         return "%s:%s" % (spec["kind"], spec["name"])
     if spec["kind"] == "starter":
         return "starter"
+    if spec["kind"] == "file":
+        return "real:" + spec.get("name", spec["path"])
     sid = spec.get("strategy_id", "?")
     return sid if sid.startswith(("clone:", "stat:")) else "pablo:%s" % sid
 
@@ -142,4 +150,15 @@ def lineup(seed, n_opponents, league=(), league_weight=4, mix=None):
                 break
         else:
             out.append(pool[-1][1])
+    return out
+
+
+def real_bot_specs():
+    """Every competitor bot.py we have (hands/external/<team>/bot.py) as an opponent spec."""
+    import glob as _glob
+    out = []
+    for f in sorted(_glob.glob(os.path.join(ROOT, "hands", "external", "*", "bot.py"))):
+        team = os.path.basename(os.path.dirname(f))
+        out.append({"kind": "file", "path": os.path.relpath(f, ROOT).replace("\\", "/"), "name": team,
+                    "strategy_id": "real:" + team})
     return out

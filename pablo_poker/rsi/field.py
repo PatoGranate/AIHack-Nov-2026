@@ -167,7 +167,7 @@ def recent_stat_mix(last_rounds=3, min_hands=500, weight_total=24):
              {"kind": "statbot", "profile": profile(v), "strategy_id": "stat:" + k[:24]}) for k, v in agg.items()]
 
 
-def field_mix(min_hands=200, weight_total=24, stat_share=0.75):
+def field_mix(min_hands=200, weight_total=24, stat_share=0.25):
     """Opponent mix built from the real field: [(weight, spec), ...] or [] without data.
     stat_share of it are frequency clones (they over-fold like the real bots do), the
     rest equity-based clones."""

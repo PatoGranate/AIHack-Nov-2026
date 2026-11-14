@@ -56,6 +56,9 @@ def training_mix(share=0.7):
     """Real-field clones (if any hands were downloaded) blended with the synthetic pool."""
     from rsi.field import field_mix
     fm = field_mix()
+    real = opponents.real_bot_specs()             # the actual WBot / Red code: the most realistic opponents we have
+    if real:
+        fm = fm + [(max(1.0, sum(w for w, _ in fm) * 0.15 / len(real)), s) for s in real]
     if not fm:
         return list(opponents.DEFAULT_MIX)
     f_tot = sum(w for w, _ in fm)
@@ -152,6 +155,9 @@ def judge(db, cycle, champ, cand, cfg, log=print, trials_used=1, source="rsi"):
     from rsi.field import recent_stat_mix
     recent = recent_stat_mix()
     ch_mix = (recent + [(w * 0.25, s) for w, s in CHALLENGER_MIX if s["kind"] == "extreme"]) if recent else CHALLENGER_MIX
+    real = opponents.real_bot_specs()
+    if real:
+        ch_mix = ch_mix + [(sum(w for w, _ in ch_mix) * 0.15 / len(real), s) for s in real]
     bid, jobs = _paired_jobs(db, "challenger", ch_seeds, cfg["challenger_hands"], [base, cand["spec"]], (), ch_mix, cfg,
                              record_first=False, note="cycle %d trial %d" % (cycle, trial_id))
     res = _run(db, jobs, cfg, "challenger")

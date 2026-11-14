@@ -1,5 +1,35 @@
 [
  {
+  "id": "style-lag-post",
+  "params": {
+   "cbet_freq": 0.85,
+   "bluff_freq": 0.5,
+   "value_flop": 0.56,
+   "value_turn": 0.6,
+   "value_river": 0.66,
+   "bet_value": 0.9,
+   "raise_eq": 0.74,
+   "call_margin": 0.08
+  },
+  "source": "global style search on realistic fields (equity clones + self-play), 16:40",
+  "why": "LAG + river discipline beat gen5 by +9.4 (equity clones) and +13.1 (self-play); postflop half"
+ },
+ {
+  "id": "style-lag-pre",
+  "params": {
+   "open_ep": 0.2,
+   "open_mp": 0.27,
+   "open_co": 0.4,
+   "open_btn": 0.6,
+   "open_sb": 0.5,
+   "threebet_value": 0.06,
+   "threebet_bluff": 0.06,
+   "call_open": 0.08
+  },
+  "source": "global style search on realistic fields (equity clones + self-play), 16:40",
+  "why": "LAG preflop half: open wider and 3-bet more, like every team above us"
+ },
+ {
   "id": "pkg-counter-tag",
   "params": {
    "tag_counter": 1,
