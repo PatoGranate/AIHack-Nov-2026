@@ -1,11 +1,11 @@
 # Version Provenance Audit — Saturday real rounds r001–r053
 
 Audited 2026-11-14 (~21:30). This is a read-only audit: no bot code was changed, nothing was uploaded, and no hand data left the machine.
-Note: `C:\Users\pelay\AIHack\PokerBot` is **not a git repository**, so the requested branch `agent/rook-provenance` and GitHub PRs could not be created. Coordination is through the local channel (`ExternalAnalysis/channel/`).
+History: first written in the local workspace and delivered through PR #6 (merged into `main`). Wording follow-ups are in PR #8. Coordination also runs through the local channel (`ExternalAnalysis/channel/`).
 
 ## Bottom line
 
-**The v8 rounds (r049–r053) were not played by G.** The deployed bot's behaviour matches the I/N family on two parameters that differ by design and need no source hash:
+**The v8 rounds (r049–r053) are likely N by behaviour. The known G snapshot (`G_v7_final`, b8a22e4b…) is excluded.** This is not source proof. The deployed bot's behaviour matches the I/N family on parameters that differ by design:
 
 | Fingerprint | G (`G_v7_final`) | I (`I_v9_25ms`) | N (`N_v10_tuned`) | Observed v5 / v7 | Observed v6 | **Observed v8** |
 |---|---|---|---|---|---|---|
@@ -36,7 +36,7 @@ Errors and bank-outs were 0 in all 53 rounds.
 | v5 | **G** | open 3.5 bb, think ~2.6 s; `submissions/README.md` says v5=G | Behaviour plus documentation agree. G vs H is distinguishable only through tuned postflop params (both open 3.5); the README and the H "not uploaded" notes favour G. |
 | v6 | **I** | open 2.8 bb, think ~6 s, EP open 26.8% (= `o_ep` 0.22) | Behaviour plus documentation agree. Not N (EP rate too loose), not G/H (size). |
 | v7 | **G** (re-upload) | open 3.5 bb (183/199 opens), think 2.95 s | Behaviour plus documentation agree. Only 1 round. |
-| v8 | **N** (I/N family certain; N likely) | open 2.8 bb, think 5.5–7.1 s, EP open 22.1% | G is **excluded**. N is favoured over I (EP z≈3.9, descriptive only). |
+| v8 | **likely N by behaviour** (known G snapshot excluded) | open 2.8 bb, think 5.5–7.1 s, EP open 22.1% | G is **excluded**. N is favoured over I (EP z≈3.9, descriptive only). |
 | v9 | G per the user's later message | no rounds yet | Unverified until v9 rounds arrive: expect 3.5 bb opens and ~2–3 s think. |
 
 ## Hashes of likely submitted artifacts (sha256, first 16 hex; size; local mtime)
@@ -62,10 +62,11 @@ Errors and bank-outs were 0 in all 53 rounds.
      - `20261114-200119_high_commit_allin_audit.md`, which says "G's r049-r053"
      - the G ablation pilot's live framing
 2. **Local folder labels vs server versions.** `G_v7_final`, `H_v8_tuned`, `I_v9_25ms` and `N_v10_tuned` carry local generation numbers that collide with server numbers (H_v8 ≠ server v8, I_v9 ≠ server v9). Refer to bots by letter plus hash, never by "vN" alone.
-3. **Hash not proven.** The round JSON has no source hash. Any one of these would settle it:
-   - the website's upload history, or the downloadable copy of each version, hashed against the table above;
-   - a v9 round showing 3.5 bb opens and ~2–3 s think. That would support the README sequence, but it is still behavioural evidence and cannot settle exact source identity;
-   - a replay of r049–r053 preflop decisions through I and N, with both bots' opponent models fed the same history, measuring agreement. Not done here; ask before spending the compute.
+3. **Hash not proven.** The round JSON has no source hash.
+   - **What would close the gap:** only authoritative upload or download identity, meaning the website's upload history or the downloadable copy of each version, hashed against the table above.
+   - **What would add behavioural support only** (neither closes the gap):
+     - a v9 round showing 3.5 bb opens and ~2–3 s think;
+     - a replay of r049–r053 preflop decisions through I and N, with both bots' opponent models fed the same history, measuring agreement. Not done; ask before spending the compute.
 
 ## Limits of this evidence
 
