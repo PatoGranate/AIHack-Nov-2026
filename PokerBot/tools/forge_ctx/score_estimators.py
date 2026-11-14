@@ -29,6 +29,7 @@ SIZE_EDGES = [0.3, 0.45, 0.6, 0.8, 1.1]
 TABLE4 = ["Resonance Qt", "Anker Batteries", "Chinese people can fly", "GamesGone", "Poke", "Anton",
           "YSL_TWIZZY"]
 SPLITS = ["mw", "size3", "kind", "street", "ip"]
+HERO = False   # --hero: add a bettor==WBot covariate (static) and a per-seat "hero" split (SCOUT 231106 item 3)
 
 
 def size_bin(x):
@@ -47,6 +48,8 @@ def design(e):
     cols["ip"] = e["ip"].astype(float)
     cols["allin"] = e["allin_call"].astype(float)
     cols["mw_ip"] = cols["mw"] * cols["ip"]
+    if HERO:
+        cols["hero"] = e["hero"].astype(float)
     return pd.DataFrame(cols)
 
 
@@ -150,8 +153,14 @@ def main():
     ap.add_argument("--events", required=True)
     ap.add_argument("--out", default=None)
     ap.add_argument("--coef", default=None, help="write the all-rounds field model here (for the bot)")
+    ap.add_argument("--hero", action="store_true", help="add bettor==WBot covariate + per-seat hero split")
     args = ap.parse_args()
+    global HERO
     e = pd.read_csv(args.events)
+    if args.hero:
+        HERO = True
+        SPLITS.append("hero")
+        e["hero"] = (e["bettor"] == "WBot").astype(int)
     y = e["fold"].values.astype(float)
     train = (e["round"] <= 27).values
     test = ~train
@@ -197,6 +206,17 @@ def main():
     dj = (lg((C.Fj + k1a * Ej) / (C.Nj + k1a)) - lg(Ej)).values
     base["C0"] = 1 - (1 - sg(lref)) ** ex
     base["C"] = 1 - (1 - sg(lref + dj)) ** ex
+    if HERO:
+        # C + per-seat deviation of responses to OUR bets vs everyone else's, shrunk to the seat shift
+        Eb = np.where(C.N_hero > 0, C.E_hero / np.maximum(C.N_hero, 1), pf)
+        Eb = sg(lg(Eb) + dj)
+
+        def chs(k2):
+            db = (lg((C.F_hero + k2 * Eb) / (C.N_hero + k2)) - lg(Eb)).values
+            return 1 - (1 - sg(lref + dj + db)) ** ex
+        kh = min(((ll(y, chs(k2))[train].mean(), k2) for k2 in [10, 20, 40, 80, 160, 320]))[1]
+        best["C_hs"] = (None, k1a, kh)
+        base["C_hs"] = chs(kh)
     P("events", len(e), "tables", e.table.nunique(), "train events", int(train.sum()), "test events", int(test.sum()))
     P("field model coef (train):", dict(zip(X.columns, np.round(w, 3))))
     P("chosen shrinkage (train):", {k: v for k, v in best.items()})
@@ -247,6 +267,18 @@ def main():
             m = test & (e["mw"].values == mw) & (e["ip"].values == ip)
             P("mw=%d ip=%d n=%6d obs=%.3f N0s=%.3f C=%.3f AF=%.3f" % (
                 mw, ip, m.sum(), y[m].mean(), base["N0s"][m].mean(), base["C"][m].mean(), base["AF"][m].mean()))
+    P("")
+    P("== calibration on test, bettor=WBot vs others (observed vs mean predicted)")
+    for lab, m in (("bettor=WBot", subsets["test: bettor=WBot"]), ("bettor!=WBot", test & (e["bettor"].values != "WBot"))):
+        extra = (" C_hs=%.3f" % base["C_hs"][m].mean()) if "C_hs" in base else ""
+        P("%-13s n=%6d obs=%.3f N0s=%.3f C=%.3f A=%.3f%s" % (
+            lab, m.sum(), y[m].mean(), base["N0s"][m].mean(), base["C"][m].mean(), base["A"][m].mean(), extra))
+    if "C_hs" in base:
+        P("")
+        P("== C_hs minus C (per-seat hero deviation)")
+        for sname, m in subsets.items():
+            est, lo, hi, n, nt = paired(e, m, losses["C_hs"], losses["C"], rng, nboot=1000)
+            P("%-28s %+.4f [%+.4f, %+.4f]" % (sname, est, lo, hi))
     txt = "\n".join(lines)
     print(txt)
     if args.out:

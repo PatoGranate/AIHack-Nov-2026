@@ -109,3 +109,7 @@ mw=0 ip=0 n= 20303 obs=0.545 N0s=0.524 C=0.548 AF=0.535
 mw=0 ip=1 n= 33834 obs=0.324 N0s=0.450 C=0.360 AF=0.334
 mw=1 ip=0 n=  3600 obs=0.678 N0s=0.457 C=0.717 AF=0.683
 mw=1 ip=1 n=  6805 obs=0.595 N0s=0.463 C=0.636 AF=0.606
+
+== calibration on test, bettor=WBot vs others (observed vs mean predicted)
+bettor=WBot   n= 11045 obs=0.264 N0s=0.353 C=0.383 A=0.307
+bettor!=WBot  n= 53497 obs=0.479 N0s=0.500 C=0.486 A=0.472

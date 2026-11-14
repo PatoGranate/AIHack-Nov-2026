@@ -1,0 +1,31 @@
+## arena.py --field late --tables 480 --hands 300 --seed 73301
+field=late tables=480 hands=300
+  cand tools/cands/forge_ctx_v2.py         +46.4 bb/100 (se 4.6)
+  base tools/cands/forge_ctx_v1.py         +47.2 bb/100 (se 4.5)
+  DIFF                                      -0.9 bb/100 (se 2.4)  z=-0.35
+## arena.py --field real --tables 480 --hands 300 --seed 73302
+field=real tables=480 hands=300
+  cand tools/cands/forge_ctx_v2.py         +53.9 bb/100 (se 4.7)
+  base tools/cands/forge_ctx_v1.py         +53.7 bb/100 (se 4.8)
+  DIFF                                      +0.2 bb/100 (se 2.4)  z=0.07
+## arena.py --field heldout --tables 480 --hands 300 --seed 73303
+field=heldout tables=480 hands=300
+  cand tools/cands/forge_ctx_v2.py         +51.5 bb/100 (se 5.3)
+  base tools/cands/forge_ctx_v1.py         +54.9 bb/100 (se 5.3)
+  DIFF                                      -3.3 bb/100 (se 2.5)  z=-1.31
+## arena.py --field archive --tables 64 --hands 1000 --seed 73304
+field=archive tables=64 hands=1000
+  cand tools/cands/forge_ctx_v2.py         +74.6 bb/100 (se 10.0)
+  base tools/cands/forge_ctx_v1.py         +71.8 bb/100 (se 9.1)
+  DIFF                                      +2.8 bb/100 (se 5.0)  z=0.55
+## forge_ctx/arena_t4.py --field t4real --tables 480 --hands 300 --seed 73401
+field=t4real tables=480 hands=300 seed=73401
+  cand tools/cands/forge_ctx_v2.py         +59.8 bb/100 (se 5.6)
+  base tools/cands/forge_ctx_v1.py         +59.2 bb/100 (se 5.8)
+  DIFF                                      +0.6 bb/100 (se 2.7)  z=0.21
+## forge_ctx/arena_t4.py --field t4heldout --tables 480 --hands 300 --seed 73402
+field=t4heldout tables=480 hands=300 seed=73402
+  cand tools/cands/forge_ctx_v2.py         +59.2 bb/100 (se 5.9)
+  base tools/cands/forge_ctx_v1.py         +57.7 bb/100 (se 5.9)
+  DIFF                                      +1.6 bb/100 (se 2.6)  z=0.59
+done

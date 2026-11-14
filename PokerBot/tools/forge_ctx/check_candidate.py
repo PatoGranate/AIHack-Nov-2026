@@ -2,7 +2,7 @@
 
 Replays real tables through Agent.on_hand_end with the public history the engine would send, then
 compares per-seat (folds, responses, expected folds) against extract_events.py + field_coef.json.
-Usage: python check_candidate.py --root <dir containing PokerBot/> --tables <path.json> [...]
+Usage: python check_candidate.py [--cand forge_ctx_v1 --coef field_coef.json] --tables <path.json> [...]
 """
 import argparse
 import importlib.util
@@ -16,9 +16,9 @@ sys.path.insert(0, HERE)
 import extract_events  # noqa: E402
 
 
-def load_cand():
-    p = os.path.join(HERE, "..", "cands", "forge_ctx_v1.py")
-    spec = importlib.util.spec_from_file_location("forge_ctx_v1", p)
+def load_cand(name):
+    p = os.path.join(HERE, "..", "cands", name + ".py")
+    spec = importlib.util.spec_from_file_location(name, p)
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
     return m
@@ -47,15 +47,19 @@ def summaries(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tables", nargs="+", required=True)
+    ap.add_argument("--cand", default="forge_ctx_v1")
+    ap.add_argument("--coef", default="field_coef.json")
     args = ap.parse_args()
-    coef = json.load(open(os.path.join(HERE, "field_coef.json")))
+    coef = json.load(open(os.path.join(HERE, args.coef)))
     cw = dict(zip(coef["columns"], coef["coef"]))
-    cand = load_cand()
+    cand = load_cand(args.cand)
     worst = 0.0
     for path in args.tables:
         ag = cand.Agent()
-        npl = len(json.load(open(path, encoding="utf-8"))["players"])
-        ag.on_table_start({"seat": 0, "num_players": npl, "hands": 1000, "starting_stack": 2000})
+        players = json.load(open(path, encoding="utf-8"))["players"]
+        npl = len(players)
+        me = players.index("WBot") if "WBot" in players else -1   # hero seat for the bettor==us term
+        ag.on_table_start({"seat": me, "num_players": npl, "hands": 1000, "starting_stack": 2000})
         for s in summaries(path):
             ag.on_hand_end(s)
         exp = {}
@@ -63,7 +67,8 @@ def main():
             sb = sum(1 for e in coef["size_edges"] if r["size"] >= e)
             x = cw["const"] + (cw["sz%d" % sb] if sb else 0.0) + cw["raise"] * (r["kind"] == "raise") \
                 + cw["mw"] * r["mw"] + cw["turn"] * (r["street"] == "turn") + cw["river"] * (r["street"] == "river") \
-                + cw["ip"] * r["ip"] + cw["allin"] * r["allin_call"] + cw["mw_ip"] * r["mw"] * r["ip"]
+                + cw["ip"] * r["ip"] + cw["allin"] * r["allin_call"] + cw["mw_ip"] * r["mw"] * r["ip"] \
+                + cw.get("hero", 0.0) * (r["bettor"] == "WBot")
             a = exp.setdefault(r["seat"], [0, 0, 0.0])
             a[0] += r["fold"]; a[1] += 1; a[2] += 1 / (1 + math.exp(-x))
         for seat, (f, n, e) in sorted(exp.items()):

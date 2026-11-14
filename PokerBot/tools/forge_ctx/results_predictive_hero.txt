@@ -1,0 +1,134 @@
+events 124896 tables 135 train events 60354 test events 64542
+field model coef (train): {'const': np.float64(-1.068), 'sz1': np.float64(0.673), 'sz2': np.float64(1.259), 'sz3': np.float64(1.623), 'sz4': np.float64(1.958), 'sz5': np.float64(2.482), 'raise': np.float64(-1.175), 'mw': np.float64(1.053), 'turn': np.float64(-0.083), 'river': np.float64(0.336), 'ip': np.float64(-0.898), 'allin': np.float64(-0.257), 'mw_ip': np.float64(0.224), 'hero': np.float64(-0.389)}
+chosen shrinkage (train): {'A': (None, 20, None), 'AF': (800, 20, None), 'B:mw': (800, 20, 40), 'B:size3': (800, 20, 40), 'B:kind': (800, 20, 40), 'B:street': (800, 20, 40), 'B:ip': (800, 20, 80), 'B:hero': (800, 20, 80), 'C_hs': (None, 20, 80)}
+
+== test: all  (n=64542)
+est         logloss    brier   dLL vs N0 [95% table-bootstrap]
+N0           0.6827   0.2448   +0.0000 [+0.0000, +0.0000]  tables=66
+N0s          0.6300   0.2199   -0.0528 [-0.0587, -0.0471]  tables=66
+FIELD        0.5880   0.2023   -0.0947 [-0.1012, -0.0884]  tables=66
+A            0.5777   0.1978   -0.1050 [-0.1098, -0.1000]  tables=66
+AF           0.5778   0.1978   -0.1049 [-0.1099, -0.0999]  tables=66
+B:mw         0.5773   0.1976   -0.1055 [-0.1105, -0.1006]  tables=66
+B:size3      0.5761   0.1972   -0.1066 [-0.1119, -0.1014]  tables=66
+B:kind       0.5766   0.1973   -0.1061 [-0.1115, -0.1011]  tables=66
+B:street     0.5764   0.1973   -0.1064 [-0.1114, -0.1009]  tables=66
+B:ip         0.5770   0.1975   -0.1057 [-0.1110, -0.1006]  tables=66
+B:hero       0.5772   0.1976   -0.1055 [-0.1104, -0.1005]  tables=66
+C0           0.5942   0.2044   -0.0885 [-0.0937, -0.0825]  tables=66
+C            0.5841   0.1999   -0.0987 [-0.1031, -0.0943]  tables=66
+C_hs         0.5836   0.1997   -0.0992 [-0.1034, -0.0948]  tables=66
+
+== test: hands<250  (n=15868)
+est         logloss    brier   dLL vs N0 [95% table-bootstrap]
+N0           0.7009   0.2535   +0.0000 [+0.0000, +0.0000]  tables=66
+N0s          0.6458   0.2264   -0.0551 [-0.0634, -0.0467]  tables=66
+FIELD        0.5898   0.2028   -0.1110 [-0.1206, -0.1016]  tables=66
+A            0.5841   0.2004   -0.1168 [-0.1251, -0.1079]  tables=66
+AF           0.5841   0.2004   -0.1168 [-0.1250, -0.1084]  tables=66
+B:mw         0.5848   0.2007   -0.1161 [-0.1244, -0.1078]  tables=66
+B:size3      0.5841   0.2005   -0.1168 [-0.1256, -0.1085]  tables=66
+B:kind       0.5843   0.2005   -0.1166 [-0.1249, -0.1087]  tables=66
+B:street     0.5842   0.2004   -0.1167 [-0.1253, -0.1088]  tables=66
+B:ip         0.5842   0.2004   -0.1167 [-0.1248, -0.1083]  tables=66
+B:hero       0.5842   0.2005   -0.1166 [-0.1248, -0.1089]  tables=66
+C0           0.5953   0.2048   -0.1056 [-0.1128, -0.0980]  tables=66
+C            0.5897   0.2024   -0.1112 [-0.1184, -0.1043]  tables=66
+C_hs         0.5899   0.2025   -0.1110 [-0.1179, -0.1042]  tables=66
+
+== test: bettor=WBot  (n=11045)
+est         logloss    brier   dLL vs N0 [95% table-bootstrap]
+N0           0.6384   0.2235   +0.0000 [+0.0000, +0.0000]  tables=27
+N0s          0.5246   0.1722   -0.1138 [-0.1234, -0.1030]  tables=27
+FIELD        0.4636   0.1505   -0.1749 [-0.1875, -0.1628]  tables=27
+A            0.4608   0.1494   -0.1776 [-0.1896, -0.1666]  tables=27
+AF           0.4609   0.1494   -0.1775 [-0.1889, -0.1659]  tables=27
+B:mw         0.4610   0.1494   -0.1774 [-0.1890, -0.1668]  tables=27
+B:size3      0.4567   0.1481   -0.1817 [-0.1934, -0.1707]  tables=27
+B:kind       0.4594   0.1488   -0.1790 [-0.1901, -0.1671]  tables=27
+B:street     0.4600   0.1492   -0.1784 [-0.1895, -0.1675]  tables=27
+B:ip         0.4606   0.1492   -0.1778 [-0.1881, -0.1670]  tables=27
+B:hero       0.4592   0.1490   -0.1792 [-0.1902, -0.1687]  tables=27
+C0           0.4794   0.1547   -0.1590 [-0.1706, -0.1469]  tables=27
+C            0.4774   0.1539   -0.1610 [-0.1712, -0.1507]  tables=27
+C_hs         0.4756   0.1534   -0.1629 [-0.1727, -0.1533]  tables=27
+
+== test: responder in table 4  (n=12041)
+est         logloss    brier   dLL vs N0 [95% table-bootstrap]
+N0           0.6779   0.2425   +0.0000 [+0.0000, +0.0000]  tables=55
+N0s          0.6248   0.2175   -0.0532 [-0.0636, -0.0432]  tables=55
+FIELD        0.5772   0.1976   -0.1008 [-0.1133, -0.0871]  tables=55
+A            0.5642   0.1921   -0.1138 [-0.1242, -0.1020]  tables=55
+AF           0.5642   0.1921   -0.1137 [-0.1248, -0.1024]  tables=55
+B:mw         0.5633   0.1917   -0.1146 [-0.1250, -0.1032]  tables=55
+B:size3      0.5625   0.1915   -0.1154 [-0.1272, -0.1040]  tables=55
+B:kind       0.5624   0.1914   -0.1155 [-0.1266, -0.1041]  tables=55
+B:street     0.5642   0.1922   -0.1137 [-0.1246, -0.1017]  tables=55
+B:ip         0.5633   0.1917   -0.1146 [-0.1250, -0.1036]  tables=55
+B:hero       0.5638   0.1919   -0.1142 [-0.1255, -0.1027]  tables=55
+C0           0.5885   0.2016   -0.0894 [-0.1020, -0.0756]  tables=55
+C            0.5751   0.1959   -0.1028 [-0.1128, -0.0921]  tables=55
+C_hs         0.5746   0.1957   -0.1033 [-0.1145, -0.0918]  tables=55
+
+== test: table4 & hands<250  (n=2979)
+est         logloss    brier   dLL vs N0 [95% table-bootstrap]
+N0           0.6901   0.2483   +0.0000 [+0.0000, +0.0000]  tables=55
+N0s          0.6393   0.2232   -0.0507 [-0.0664, -0.0361]  tables=55
+FIELD        0.5904   0.2030   -0.0997 [-0.1178, -0.0812]  tables=55
+A            0.5790   0.1983   -0.1111 [-0.1272, -0.0948]  tables=55
+AF           0.5791   0.1983   -0.1109 [-0.1281, -0.0934]  tables=55
+B:mw         0.5788   0.1983   -0.1113 [-0.1289, -0.0949]  tables=55
+B:size3      0.5787   0.1983   -0.1114 [-0.1275, -0.0941]  tables=55
+B:kind       0.5782   0.1980   -0.1119 [-0.1281, -0.0967]  tables=55
+B:street     0.5790   0.1983   -0.1111 [-0.1263, -0.0944]  tables=55
+B:ip         0.5786   0.1981   -0.1115 [-0.1266, -0.0949]  tables=55
+B:hero       0.5786   0.1982   -0.1115 [-0.1278, -0.0961]  tables=55
+C0           0.6001   0.2067   -0.0900 [-0.1083, -0.0721]  tables=55
+C            0.5889   0.2019   -0.1012 [-0.1152, -0.0869]  tables=55
+C_hs         0.5885   0.2018   -0.1016 [-0.1154, -0.0867]  tables=55
+
+== opponent-specific context deviation (B:<split> minus AF), test: all / table4
+B:mw      test: all                    -0.00052 [-0.00100, -0.00010]
+B:mw      test: responder in table 4   -0.00094 [-0.00204, +0.00001]
+B:size3   test: all                    -0.00168 [-0.00243, -0.00099]
+B:size3   test: responder in table 4   -0.00172 [-0.00320, -0.00030]
+B:kind    test: all                    -0.00116 [-0.00156, -0.00074]
+B:kind    test: responder in table 4   -0.00181 [-0.00279, -0.00099]
+B:street  test: all                    -0.00141 [-0.00187, -0.00091]
+B:street  test: responder in table 4   -0.00003 [-0.00091, +0.00070]
+B:ip      test: all                    -0.00079 [-0.00115, -0.00046]
+B:ip      test: responder in table 4   -0.00093 [-0.00164, -0.00028]
+B:hero    test: all                    -0.00054 [-0.00089, -0.00021]
+B:hero    test: responder in table 4   -0.00048 [-0.00106, +0.00001]
+
+== candidate representation vs N's actual use (C minus N0s); C minus C0 = value of the per-seat shift
+test: all                    C-N0s -0.0459 [-0.0496, -0.0419]   C-C0 -0.0102 [-0.0130, -0.0078]
+test: hands<250              C-N0s -0.0561 [-0.0632, -0.0491]   C-C0 -0.0056 [-0.0078, -0.0033]
+test: bettor=WBot            C-N0s -0.0472 [-0.0577, -0.0384]   C-C0 -0.0020 [-0.0060, +0.0019]
+test: responder in table 4   C-N0s -0.0496 [-0.0586, -0.0407]   C-C0 -0.0134 [-0.0194, -0.0080]
+test: table4 & hands<250     C-N0s -0.0505 [-0.0627, -0.0377]   C-C0 -0.0112 [-0.0172, -0.0056]
+
+== calibration on test by bet-size bin (observed vs mean predicted)
+bin 0 n= 11041 obs=0.136 N0=0.447 N0s=0.236 AF=0.185 C=0.245
+bin 1 n= 10648 obs=0.319 N0=0.487 N0s=0.389 AF=0.313 C=0.384
+bin 2 n=  9436 obs=0.451 N0=0.501 N0s=0.473 AF=0.449 C=0.465
+bin 3 n= 12617 obs=0.534 N0=0.483 N0s=0.511 AF=0.538 C=0.524
+bin 4 n= 10805 obs=0.612 N0=0.482 N0s=0.569 AF=0.600 C=0.571
+bin 5 n=  9995 obs=0.602 N0=0.472 N0s=0.684 AF=0.591 C=0.564
+
+== calibration on test by HU/MW x IP (observed vs mean predicted)
+mw=0 ip=0 n= 20303 obs=0.545 N0s=0.524 C=0.540 AF=0.536
+mw=0 ip=1 n= 33834 obs=0.324 N0s=0.450 C=0.350 AF=0.334
+mw=1 ip=0 n=  3600 obs=0.678 N0s=0.457 C=0.707 AF=0.690
+mw=1 ip=1 n=  6805 obs=0.595 N0s=0.463 C=0.625 AF=0.609
+
+== calibration on test, bettor=WBot vs others (observed vs mean predicted)
+bettor=WBot   n= 11045 obs=0.264 N0s=0.353 C=0.322 A=0.275 C_hs=0.320
+bettor!=WBot  n= 53497 obs=0.479 N0s=0.500 C=0.487 A=0.480 C_hs=0.489
+
+== C_hs minus C (per-seat hero deviation)
+test: all                    -0.0005 [-0.0009, -0.0001]
+test: hands<250              +0.0002 [-0.0002, +0.0006]
+test: bettor=WBot            -0.0019 [-0.0031, -0.0007]
+test: responder in table 4   -0.0005 [-0.0011, +0.0001]
+test: table4 & hands<250     -0.0004 [-0.0015, +0.0006]

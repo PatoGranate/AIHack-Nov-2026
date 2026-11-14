@@ -8,7 +8,8 @@ are untouched, and nothing has been promoted, uploaded or merged.
 | | path | sha256 (working copy, CRLF, as the team quotes) | sha256 (git blob, LF) |
 |---|---|---|---|
 | parent | `submissions/N_v10_tuned/bot.py` (= `tools/cands/N_real.py`) | `5c2b4b2c0ed3ddd5177fe758959e1c32e3a113f8c500a373f6b5d11d5bb7845f` | `77ec8ca9006dc1f8638d9430209cd6ef9e404e7e9b2fd161df4e3a862955b6ee` |
-| candidate | `tools/cands/forge_ctx_v1.py` | `a6b222d15212aed0ee9ae80fadec2679cad2bb38432f9e8aaed1b9bf51d381d3` | `7bed0d20b1226c9595ba329f5f63118491b1eaca2afc3ff08fa6e466b02aae2b` |
+| candidate (primary, one factor vs parent) | `tools/cands/forge_ctx_v1.py` | `a6b222d15212aed0ee9ae80fadec2679cad2bb38432f9e8aaed1b9bf51d381d3` | `7bed0d20b1226c9595ba329f5f63118491b1eaca2afc3ff08fa6e466b02aae2b` |
+| variant (one factor vs v1, section 4b) | `tools/cands/forge_ctx_v2.py` | `506b3ffddda6ebf0bca21f04b9dd0e2a6f8f5bf8ecb7645e43330816ab12d0ee` | `e81e20ab73fe12752dbe9ec5caefa0775abd1c899099f617ec7f52eae7cc59b8` |
 
 **Parent choice.** The newest `to_reviewer/*status*` note (19:35) names `N_v10_tuned`. The later 21:35
 provenance note quotes the user saying "sorry, v9 is G". I asked the bot team to confirm in
@@ -113,13 +114,98 @@ Checks run:
   facing our raise 0.20-0.58.
 - Runtime and fuzz: see section 6.
 
+## 4b. Variant forge_ctx_v2: a "bettor is us" term (adopted from SCOUT)
+
+SCOUT's interim (`channel/to_bot_team/20261114-231106_scout_interim_context_findings.md`, item 4) found that
+opponents fold about 12 points less to WBot's bets than to other bettors' bets in the same stratified spot.
+v1's field model pools all bettors, so it should over-predict folds on exactly the bets the bot is valuing.
+I tested this in the same online harness (`score_estimators.py --hero`, output
+`tools/forge_ctx/results_predictive_hero.txt`):
+
+- A static `bettor == WBot` term: logit -0.39 on train, -0.32 refitted on all rounds.
+- Candidate representation vs the parent's actual use (C - N0s) on **WBot's own bets**: -0.047
+  [-0.058, -0.038], up from -0.021 without the term. Overall: -0.046 [-0.050, -0.042]. Table-4
+  responders: -0.050 [-0.059, -0.041].
+- Calibration on WBot's bets (held out): observed 0.264. The parent's representation predicts 0.353, the
+  candidate with the hero term 0.322, and the full field model A 0.275. The remaining over-prediction is
+  the parent's size curve at small sizes: 66% of WBot's bets are under 40% pot (SCOUT), which is where that
+  curve is worst.
+- A **per-seat** hero shift on top (shrunk to the seat shift, k = 80) adds only -0.0019 [-0.0031, -0.0007]
+  on WBot's bets. Not included, the same pattern as the other per-opponent splits.
+
+`forge_ctx_v2.py` = v1 with the field coefficients refitted including the hero term
+(`tools/forge_ctx/field_coef_hero.json`). `_learn_ctx` adds the term when the bettor was our own seat, and
+`ftb_ctx` always adds it, because at decision time we are the bettor. Diff vs v1: constants, one term in
+each of the two formulas, and the docstring. `check_candidate.py --cand forge_ctx_v2 --coef
+field_coef_hero.json`: 30/30 seats exact. Fuzz: 0 errors.
+
+Caveat (SCOUT item 5): the hero term lowers the average `m` on our bets, so it is a level change to the
+input of the tuned `c_*`. The `c_*` were tuned in clone arenas, and the clones don't fold less to us, so the
+tuned values cannot already contain this effect. That makes the term a correction rather than double
+counting, but its EV effect is untested: clones can't show it, so the arena below is only a harm check.
+Keep v1 as the clean one-factor test against the parent.
+
+SCOUT's other suggestion, a separate facing-a-raise level, corresponds to my `B:kind` split: -0.0012
+overall and -0.0019 at table 4, real but small. Within the bot it only matters when *we* raise
+(about 10 responses per opponent per round). Not adopted, given the size of the gain.
+
 ## 5. Arena results (paired, same seed, candidate vs parent; seeds 73000-73999 claimed for FORGE)
 
-RESULTS_PLACEHOLDER
+Commands are in `tools/forge_ctx/run_gate.sh`; raw output is in `tools/forge_ctx/gate_results.txt`. CAND =
+`tools/cands/forge_ctx_v1.py`, BASE = `tools/cands/N_real.py`. Both run in-process with the same local
+time settings. No hero or opponent errors on any table.
+
+| field | command | tables x hands | seed | cand | base | DIFF (se) | z |
+|---|---|---|---|---|---|---|---|
+| late | `tools/arena.py CAND BASE --field late` | 480 x 300 | 73101 | +44.1 | +42.9 | **+1.2 (2.3)** | 0.53 |
+| real | `tools/arena.py ... --field real` | 480 x 300 | 73102 | +41.6 | +39.9 | **+1.8 (2.5)** | 0.72 |
+| heldout | `tools/arena.py ... --field heldout` | 480 x 300 | 73103 | +55.7 | +51.2 | **+4.4 (2.5)** | 1.79 |
+| archive | `tools/arena.py ... --field archive` | 64 x 1000 | 73104 | +85.3 | +81.2 | **+4.1 (5.5)** | 0.75 |
+| table-4 clones (real fits) | `tools/forge_ctx/arena_t4.py ... --field t4real` | 480 x 300 | 73201 | +56.8 | +52.9 | **+3.9 (3.0)** | 1.32 |
+| table-4 clones (heldout fits) | `tools/forge_ctx/arena_t4.py ... --field t4heldout` | 480 x 300 | 73202 | +64.6 | +63.3 | **+1.3 (3.0)** | 0.43 |
+
+bb/100, paired same seed: same cards and seating, candidate vs parent in the hero seat. The table-4 fields
+seat exactly the 7 table-4 clones, shuffled per table. No GAUGE table-4 field existed when this ran, so
+`arena_t4.py` is FORGE's own.
+
+**Reading.** All six differences are positive and none is conclusive on its own (largest z = 1.79).
+Inverse-variance pooling gives +2.5 ± 1.1 bb/100 (z ≈ 2.2) across all six and +2.6 ± 2.1 for the two
+table-4 fields. Treat the pooled figure as descriptive: the fields share clone families, and per
+CONTRIBUTING a small sample is inconclusive. The honest summary is that the arena shows no sign of harm and
+a consistent small positive tilt, measured on clones that do not reproduce the effects the candidate models
+(section 7). The arena was run once and the candidate was not tuned or selected on it. A 48-table
+diagnostic run (seed 73902, used for the clone check) gave +8.7 ± 8.4 and is not counted.
+
+**v2 vs v1** (one factor: the hero term), `run_gate.sh $PY tools/cands/forge_ctx_v2.py tools/cands/forge_ctx_v1.py 733`.
+Raw output: `tools/forge_ctx/gate_results_v2_vs_v1.txt`. No errors.
+
+| field | tables x hands | seed | v2 | v1 | DIFF (se) | z |
+|---|---|---|---|---|---|---|
+| late | 480 x 300 | 73301 | +46.4 | +47.2 | -0.9 (2.4) | -0.35 |
+| real | 480 x 300 | 73302 | +53.9 | +53.7 | +0.2 (2.4) | 0.07 |
+| heldout | 480 x 300 | 73303 | +51.5 | +54.9 | -3.3 (2.5) | -1.31 |
+| archive | 64 x 1000 | 73304 | +74.6 | +71.8 | +2.8 (5.0) | 0.55 |
+| t4real | 480 x 300 | 73401 | +59.8 | +59.2 | +0.6 (2.7) | 0.21 |
+| t4heldout | 480 x 300 | 73402 | +59.2 | +57.7 | +1.6 (2.6) | 0.59 |
+
+Mixed signs, none conclusive, pooled about -0.3 ± 1.1. That's what a harm check should show here: the
+clones don't fold less to us, so the arena cannot see the effect the term corrects. The case for v2 rests
+entirely on the real-round predictive evidence in 4b. It is untested for EV.
 
 ## 6. Runtime
 
-RUNTIME_PLACEHOLDER
+- **Added cost, measured directly** (identical recorded states, minimum of repeats):
+  - `opp_models`: 6.8 → 10.6 µs per post-flop decision (+3.8 µs);
+  - `on_hand_end`: 11.4 → 24.1 µs per hand (+12.7 µs);
+  - total about +15 ms per 1,000-hand round, against a 10 s bank and a 25 ms per-decision cap.
+- `tools/latency.py BOT 300 6` (end-to-end `act()`, run in alternating order) had p50 6.1 ms for both bots.
+  The tails were dominated by machine jitter, since another agent session was running. The parent itself
+  showed max 85 ms and 0.7% of decisions over 25 ms in one run; the candidate showed 0.2-1.1%. These runs
+  cannot separate the bots, and the direct measurement above shows the change can't account for the tails.
+  This is a local, in-process measure that doesn't certify server IPC or the bank (same caveat as gate_T).
+- `tools/fuzz.py tools/cands/forge_ctx_v1.py` (DEBUG on, legality asserts): 0 errors in all four
+  configurations, no illegal actions. Worst single act was 117-176 ms, versus 330 ms for the parent on the
+  same noisy machine.
 
 ## 7. Assumptions and known limitations
 
@@ -168,10 +254,13 @@ RUNTIME_PLACEHOLDER
     PY=<python with numpy+pandas>
     $PY tools/forge_ctx/extract_events.py --root <ROOT> --manifest <ROOT>/PokerBot/ExternalAnalysis/SaturdayFieldPostmortem/data/input_manifest.csv --out events.csv
     $PY tools/forge_ctx/score_estimators.py --events events.csv --out tools/forge_ctx/results_predictive.txt --coef tools/forge_ctx/field_coef.json
-    $PY tools/forge_ctx/check_candidate.py --tables Hand_data/SaturdayRealRounds/saturday_r030.json ...
+    $PY tools/forge_ctx/score_estimators.py --hero --events events.csv --out tools/forge_ctx/results_predictive_hero.txt --coef tools/forge_ctx/field_coef_hero.json
+    $PY tools/forge_ctx/check_candidate.py --tables Hand_data/SaturdayRealRounds/saturday_r030.json ...   # outputs: check_v1.txt
+    $PY tools/forge_ctx/check_candidate.py --cand forge_ctx_v2 --coef field_coef_hero.json --tables ...   # check_v2.txt
     $PY tools/forge_ctx/arena_t4.py tools/cands/forge_ctx_v1.py tools/cands/N_real.py --tables 48 --hands 300 --field t4real --seed 73902 --dump <DIR>
     $PY tools/forge_ctx/clone_vs_real.py --events events.csv --dump <DIR>
     bash tools/forge_ctx/run_gate.sh $PY > tools/forge_ctx/gate_results.txt
+    bash tools/forge_ctx/run_gate.sh $PY tools/cands/forge_ctx_v2.py tools/cands/forge_ctx_v1.py 733 > tools/forge_ctx/gate_results_v2_vs_v1.txt
 
 events.csv sha256: `dec356ada4e73a81613cbcc20e319f32ed1213ad540bc034bc32ee9d917f85b6` (PR #7 branch
 `f7fbac4`). Environment: Python 3.12.13, numpy 2.4.6, pandas 3.0.3 (strategy-factory venv), for the
