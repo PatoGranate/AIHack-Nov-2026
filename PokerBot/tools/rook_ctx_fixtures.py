@@ -177,5 +177,7 @@ for name, n, button, hist, exp in FIX:
     vb = "PASS" if all(r.endswith("OK") for r in res) else "FAIL"
     vx = ("PASS" if xres and xres[0].endswith("OK") else "FAIL") if xres else "PENDING"
     print("%s: bot %s | extractor %s" % (name, vb, vx)); print(chr(10).join(res + xres))
-print("bot: %s; extractor: %s" % ("ALL PASS" if ok_bot else "SOME FAIL", "ALL PASS" if ok_x else "SOME FAIL"))
-sys.exit(0 if (ok_bot and ok_x) else 1)
+x_state = "PENDING (extractor not importable)" if XE is None else ("ALL PASS" if ok_x else "SOME FAIL")
+print("bot: %s; extractor: %s" % ("ALL PASS" if ok_bot else "SOME FAIL", x_state))
+# exit 0 = every case passed in BOTH implementations; 1 = any failure; 2 = no failure but extractor PENDING (not a full pass)
+sys.exit(1 if not (ok_bot and ok_x) else (2 if XE is None else 0))
