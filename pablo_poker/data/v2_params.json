@@ -1,9 +1,10 @@
 {
  "3b_oop": 3.4,
+ "bank_s": 7.0,
  "bluff_af": 0.4,
- "hard_ms": 12.0,
+ "hard_ms": 8.0,
  "ident": 1,
- "max_ms": 6.0,
+ "max_ms": 5.0,
  "max_sims": 6000,
  "size_read": 0.6,
  "w_b_weak": 0.45

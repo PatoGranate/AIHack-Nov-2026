@@ -437,7 +437,7 @@ class Agent:
         self.n = 8
         self.total_hands = 1000
         self.spent = 0.0
-        self.bank = 8.5
+        self.bank = self.P.get("bank_s", 8.5)
         self.hands_seen = 0
         self.st = {}
         self.post_decisions = 0
