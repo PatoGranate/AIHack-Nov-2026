@@ -111,8 +111,14 @@ class Lab:
                 if cand is not None:
                     out.append(dict(i, value=cand[i["param"]], id="%s@%s" % (i["id"], champ["id"])))
         for i in raw:
-            if isinstance(i, dict) and i.get("param") in PARAM_SPACE and "value" in i and i.get("id"):
+            if not isinstance(i, dict) or not i.get("id"):
+                continue
+            if isinstance(i.get("params"), dict) and all(k in PARAM_SPACE for k in i["params"]):
+                out.append(dict(i, package=True, param="+".join(sorted(i["params"])), value=i["params"]))
+            elif i.get("param") in PARAM_SPACE and "value" in i:
                 out.append(i)
+        # packages first (they survived the temporal overfitting test), then data-driven, then the rest
+        out.sort(key=lambda i: 0 if i.get("package") else 1 if i.get("auto") else 2)
         return out
 
     def pending_idea(self):
@@ -120,7 +126,10 @@ class Lab:
         tested = self.state("ideas_tested", {})
         for idea in self.ideas():
             rec = tested.get(idea["id"], {})
-            if champ["params"].get(idea["param"]) == idea["value"]:
+            if idea.get("package"):
+                if all(champ["params"].get(k) == v for k, v in idea["value"].items()):
+                    continue
+            elif champ["params"].get(idea["param"]) == idea["value"]:
                 continue                                  # already part of the champion
             if rec.get("champion") == champ["id"] or rec.get("attempts", 0) >= 3:
                 continue                                  # judged against this champion / given up
@@ -178,7 +187,7 @@ class Lab:
         if self.it % 8 == 7:
             return "practice"
         idea = self.pending_idea()
-        if idea and (idea.get("auto") or self.it % 2 == 1):
+        if idea and (idea.get("auto") or idea.get("package") or self.it % 2 == 1):
             return "idea"
         return "rsi"
 
@@ -233,6 +242,19 @@ class Lab:
                 self.finding("tendency", k, round(100 * v["rate"], 1), "info", {"n": v["n"]})
         auto = insights.ideas(tend)
         self.set_state("auto_ideas", auto)
+        # ground truth: our REAL results per uploaded version (the sim can be optimistic; this is what counts)
+        import glob as _glob
+        per = {}
+        for f in _glob.glob(os.path.join(ROOT, "hands", "*.json")):
+            try:
+                r = json.load(open(f, encoding="utf-8")).get("round") or {}
+            except (OSError, ValueError):
+                continue
+            if "version" in r and "bb100" in r:
+                per.setdefault(r["version"], []).append(r["bb100"])
+        for v, xs in sorted(per.items()):
+            self.finding("real", "upload v%s" % v, round(sum(xs) / len(xs), 1), "ok" if sum(xs) > 0 else "leak",
+                         {"rounds": len(xs), "per_round": [round(x, 1) for x in xs]})
         ext_txt = "; ".join("%s: %s" % (t, l.split(";")[0].split(":")[-1].strip()) for t, l in ext)
         return "%s | external: %s | %d bots profiled | %d data-driven ideas" % (
             line.split(";")[0], ext_txt or "none", len(prs), len(auto)), {"ok": ok, "tendencies": tend}
@@ -341,9 +363,13 @@ class Lab:
             return "no pending idea", {}
         champ = registry.champion(self.db)
         params = dict(champ["params"])
-        params[idea["param"]] = idea["value"]
+        if idea.get("package"):
+            params.update(idea["value"])
+        else:
+            params[idea["param"]] = idea["value"]
         cand = loop.make_candidate(self.db, champ, params, idea["param"],
-                                   "idea %s: %s=%s (%s)" % (idea["id"], idea["param"], idea["value"], idea.get("source", "")))
+                                   "idea %s: %s=%s (%s)" % (idea["id"], idea["param"], idea["value"], idea.get("source", "")),
+                                   package=bool(idea.get("package")))
         self.log("\n=== idea %s | %s" % (idea["id"], cand["hypothesis"]))
         r = loop.judge(self.db, loop.next_cycle(self.db), champ, cand, self.cfg, self.log, source="idea:" + idea["id"])
         tested = self.state("ideas_tested", {})

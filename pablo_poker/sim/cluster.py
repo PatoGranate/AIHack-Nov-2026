@@ -27,7 +27,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-CODE_FILES = ["pokerbot/strategy.py", "sim/arena.py", "sim/opponents.py", "sim/extremes.py", "engine/game.py",
+CODE_FILES = ["pokerbot/strategy.py", "sim/arena.py", "sim/opponents.py", "sim/extremes.py", "sim/statbot.py", "engine/game.py",
               "engine/cards.py", "examples/starter_bot.py", "examples/random_bot.py", "examples/tight_aggressive.py",
               "examples/calling_station.py"]
 

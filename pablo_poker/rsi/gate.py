@@ -69,7 +69,7 @@ def decide(candidate, parent, prereg, evidence, context):
 
     changed = changed_parameters(parent, candidate)
     p = []
-    if len(changed) > 1:
+    if len(changed) > (8 if prereg.get("package") else 1):          # a declared package may move up to 8 knobs together
         p.append("MORE_THAN_ONE_CHANGE")
     elif not changed:
         p.append("NO_CHANGE")

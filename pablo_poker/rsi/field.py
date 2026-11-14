@@ -135,8 +135,52 @@ def clone_params(pr):
     return out
 
 
-def field_mix(min_hands=200, weight_total=24):
-    """Opponent mix built from the real field: [(weight, spec), ...] or [] without data."""
+def stat_mix(min_hands=1000, weight_total=24):
+    """Frequency clones (sim/statbot.StatBot) of every real bot with enough hands."""
+    from tools.real_report import collect, profile
+    from rsi.evolution import forecasts
+    me = self_names()
+    st = {k: v for k, v in collect().items() if k not in me and v["hands"] >= min_hands}
+    fc = forecasts(min_rounds=2)              # where each bot is heading (rsi/evolution.py), not where it was
+    tot = sum(v["hands"] for v in st.values()) or 1
+    return [(max(1, round(weight_total * v["hands"] / tot)),
+             {"kind": "statbot", "profile": fc.get(k, profile(v)), "strategy_id": "stat:" + k[:24]}) for k, v in st.items()]
+
+
+def recent_stat_mix(last_rounds=3, min_hands=500, weight_total=24):
+    """Frequency clones from ONLY the most recent rounds: the temporal holdout for overfitting checks."""
+    from tools.real_report import collect, profile
+    from rsi.evolution import round_key
+    me = self_names()
+    per = collect(by_round=True)
+    refs = sorted({ref for (_, ref) in per}, key=round_key)[-last_rounds:]
+    agg = {}
+    for (name, ref), c in per.items():
+        if name in me or ref not in refs:
+            continue
+        a = agg.setdefault(name, {k: 0 for k in c})
+        for k, v in c.items():
+            a[k] += v
+    agg = {k: v for k, v in agg.items() if v["hands"] >= min_hands}
+    tot = sum(v["hands"] for v in agg.values()) or 1
+    return [(max(1, round(weight_total * v["hands"] / tot)),
+             {"kind": "statbot", "profile": profile(v), "strategy_id": "stat:" + k[:24]}) for k, v in agg.items()]
+
+
+def field_mix(min_hands=200, weight_total=24, stat_share=0.75):
+    """Opponent mix built from the real field: [(weight, spec), ...] or [] without data.
+    stat_share of it are frequency clones (they over-fold like the real bots do), the
+    rest equity-based clones."""
+    sm = stat_mix(weight_total=weight_total)
+    old = _equity_clone_mix(min_hands, weight_total)
+    if not sm:
+        return old
+    so, oo = sum(w for w, _ in sm), sum(w for w, _ in old) or 1
+    k = so * (1 - stat_share) / stat_share / oo
+    return sm + [(w * k, s) for w, s in old]
+
+
+def _equity_clone_mix(min_hands=200, weight_total=24):
     prs = [p for p in profiles() if not p["self"] and p["hands"] >= min_hands]
     if not prs:
         return []

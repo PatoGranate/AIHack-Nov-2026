@@ -125,7 +125,8 @@ def judge(db, cycle, champ, cand, cfg, log=print, trials_used=1, source="rsi"):
     fresh = registry.seeds_unused(db, hold)
     prereg = {"candidate_sha256": gate.sha(cand["params"]), "parent_sha256": gate.sha(champ["params"]),
               "changed": gate.changed_parameters(champ["params"], cand["params"]),
-              "holdout_sha256": gate.sha(hold), "lab_sha256": gate.LAB_SHA, "source": source}
+              "holdout_sha256": gate.sha(hold), "lab_sha256": gate.LAB_SHA, "source": source,
+              "package": bool(cand.get("package"))}
     trial_id = _record_trial(db, cycle, champ["id"], cand["id"], cand["changed"], "prereg", len(hold), None, None, None,
                              "registered", prereg)
 
@@ -147,7 +148,10 @@ def judge(db, cycle, champ, cand, cfg, log=print, trials_used=1, source="rsi"):
     folds = [round(sum(vals[i::k]) / max(1, len(vals[i::k])), 1) for i in range(k)]
 
     ch_seeds = registry.fresh_seeds(db, cfg["challenger_tables"])
-    bid, jobs = _paired_jobs(db, "challenger", ch_seeds, cfg["challenger_hands"], [base, cand["spec"]], (), CHALLENGER_MIX, cfg,
+    from rsi.field import recent_stat_mix
+    recent = recent_stat_mix()
+    ch_mix = (recent + [(w * 0.25, s) for w, s in CHALLENGER_MIX if s["kind"] == "extreme"]) if recent else CHALLENGER_MIX
+    bid, jobs = _paired_jobs(db, "challenger", ch_seeds, cfg["challenger_hands"], [base, cand["spec"]], (), ch_mix, cfg,
                              record_first=False, note="cycle %d trial %d" % (cycle, trial_id))
     res = _run(db, jobs, cfg, "challenger")
     store.finish_batch(db, bid)
@@ -177,11 +181,11 @@ def judge(db, cycle, champ, cand, cfg, log=print, trials_used=1, source="rsi"):
     return {"cycle": cycle, "promoted": False, "reason": decision["reasons"], "evidence": evidence}
 
 
-def make_candidate(db, champ, params, changed, hypothesis, direction=0, steps=1):
+def make_candidate(db, champ, params, changed, hypothesis, direction=0, steps=1, package=False):
     cid = registry.strategy_id(params)
     store.save_strategy(db, cid, params, champ["id"], champ["generation"] + 1, hypothesis, "candidate")
     return {"id": cid, "params": params, "changed": changed, "hypothesis": hypothesis, "direction": direction,
-            "steps": steps, "spec": {"kind": "strategy", "params": params, "strategy_id": cid}}
+            "steps": steps, "spec": {"kind": "strategy", "params": params, "strategy_id": cid}, "package": package}
 
 
 def run_cycle(db, cycle, cfg=None, log=print, extra_priority=()):

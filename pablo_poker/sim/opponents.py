@@ -77,6 +77,9 @@ def make(spec, seed, fixed_iters=80):
         if hasattr(agent, "rng"):
             agent.rng = random.Random(seed)
         return agent
+    if kind == "statbot":
+        from sim.statbot import StatBot
+        return StatBot(spec["profile"], seed=seed)
     if kind == "extreme":
         from sim.extremes import EXTREMES
         agent = EXTREMES[spec["name"]]()
@@ -96,7 +99,7 @@ def label(spec):
     if spec["kind"] == "starter":
         return "starter"
     sid = spec.get("strategy_id", "?")
-    return sid if sid.startswith("clone:") else "pablo:%s" % sid
+    return sid if sid.startswith(("clone:", "stat:")) else "pablo:%s" % sid
 
 
 # ---------------------------------------------------------------- lineups

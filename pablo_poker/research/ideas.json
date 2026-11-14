@@ -1,17 +1,62 @@
 [
-  {"id": "jam-equity", "param": "jam_equity", "value": 1,
-   "source": "Chen & Ankenman, The Mathematics of Poker (push/fold equilibria)",
-   "why": "vs a shove, call iff Monte Carlo equity vs the shover's observed shove range beats the price; fixes bleeding to always-all-in bots"},
-  {"id": "safe-exploit-ramp", "param": "exploit_ramp", "value": 150,
-   "source": "Ganzfried & Sandholm, Safe Opponent Exploitation (EC 2012)",
-   "why": "exploit only as the opponent model earns trust: ramp exploitation over the first 150 hands"},
-  {"id": "implicit-portfolio", "param": "portfolio", "value": 1,
-   "source": "Bard, Johanson, Burch & Bowling, Online Implicit Agent Modelling (AAMAS 2013)",
-   "why": "Exp3 picks base/loose/tight/aggressive per hand from how each performs at THIS table"},
-  {"id": "river-overbet", "param": "river_overbet", "value": 0.5,
-   "source": "Brown & Sandholm, Pluribus (Science 2019): large overbets",
-   "why": "polarised 1.5x pot river bets with near-nut hands extract more from callers"},
-  {"id": "full-exploit", "param": "exploit", "value": 1.0,
-   "source": "ACPC total-bankroll results; Johanson et al. RNR (NIPS 2007)",
-   "why": "against a weak mixed field the bankroll events were won by exploiters; test exploitation at full weight"}
+ {
+  "id": "pkg-aggression",
+  "params": {
+   "value_flop": 0.58,
+   "value_turn": 0.62,
+   "bet_value": 0.8,
+   "raise_eq": 0.76,
+   "call_margin": 0.06,
+   "draw_discount": 0.08,
+   "call_3bet": 0.08,
+   "fourbet_value": 0.03
+  },
+  "source": "real-data report: winners have AGG 28-42% vs our 22%; our real raises/bets win, our calls lose",
+  "why": "value-bet and raise more, call less; survived the temporal holdout as a package (+15.6 past, +8.1 recent)"
+ },
+ {
+  "id": "pkg-postflop-discipline",
+  "params": {
+   "call_margin": 0.09,
+   "raise_eq": 0.76,
+   "draw_discount": 0.03
+  },
+  "source": "tools/real_leaks.py: calling turn bets lost 10 bb per hand over the last 4 rounds; river bluffs are 0-8% everywhere",
+  "why": "the real field's bets are strong: fold more marginal hands and raise the strong ones instead of calling"
+ },
+ {
+  "id": "jam-equity",
+  "param": "jam_equity",
+  "value": 1,
+  "source": "Chen & Ankenman, The Mathematics of Poker (push/fold equilibria)",
+  "why": "vs a shove, call iff Monte Carlo equity vs the shover's observed shove range beats the price; fixes bleeding to always-all-in bots"
+ },
+ {
+  "id": "safe-exploit-ramp",
+  "param": "exploit_ramp",
+  "value": 150,
+  "source": "Ganzfried & Sandholm, Safe Opponent Exploitation (EC 2012)",
+  "why": "exploit only as the opponent model earns trust: ramp exploitation over the first 150 hands"
+ },
+ {
+  "id": "implicit-portfolio",
+  "param": "portfolio",
+  "value": 1,
+  "source": "Bard, Johanson, Burch & Bowling, Online Implicit Agent Modelling (AAMAS 2013)",
+  "why": "Exp3 picks base/loose/tight/aggressive per hand from how each performs at THIS table"
+ },
+ {
+  "id": "river-overbet",
+  "param": "river_overbet",
+  "value": 0.5,
+  "source": "Brown & Sandholm, Pluribus (Science 2019): large overbets",
+  "why": "polarised 1.5x pot river bets with near-nut hands extract more from callers"
+ },
+ {
+  "id": "full-exploit",
+  "param": "exploit",
+  "value": 1.0,
+  "source": "ACPC total-bankroll results; Johanson et al. RNR (NIPS 2007)",
+  "why": "against a weak mixed field the bankroll events were won by exploiters; test exploitation at full weight"
+ }
 ]
