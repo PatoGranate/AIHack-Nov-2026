@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS hands (
   id INTEGER PRIMARY KEY AUTOINCREMENT, batch_id INTEGER, table_id TEXT, hand_no INTEGER,
   seat INTEGER, strategy_id TEXT, position TEXT, hole TEXT, board TEXT, delta INTEGER,
   vpip INTEGER, pfr INTEGER, saw_flop INTEGER, showdown INTEGER, won INTEGER,
-  end_street TEXT, actions TEXT, ts REAL);
+  end_street TEXT, actions TEXT, ts REAL, ev_delta INTEGER);
 CREATE INDEX IF NOT EXISTS hands_strategy ON hands(strategy_id);
 CREATE INDEX IF NOT EXISTS hands_batch ON hands(batch_id);
 CREATE TABLE IF NOT EXISTS decisions (
@@ -67,6 +67,10 @@ def connect(path=None, readonly=False):
         db.execute("PRAGMA journal_mode=WAL")
         db.execute("PRAGMA synchronous=NORMAL")
         db.executescript(SCHEMA)
+        for table, col, typ in (("hands", "ev_delta", "INTEGER"),):      # migrations for older databases
+            cols = [r[1] for r in db.execute("PRAGMA table_info(%s)" % table)]
+            if col not in cols:
+                db.execute("ALTER TABLE %s ADD COLUMN %s %s" % (table, col, typ))
         db.commit()
     db.row_factory = sqlite3.Row
     return db
@@ -109,7 +113,7 @@ def write_message(db, msg):
     elif kind == "hands":
         db.executemany(
             "INSERT INTO hands(batch_id, table_id, hand_no, seat, strategy_id, position, hole, board, delta, vpip, pfr, "
-            "saw_flop, showdown, won, end_street, actions, ts) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "saw_flop, showdown, won, end_street, actions, ts, ev_delta) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             msg["rows"])
     elif kind == "decisions":
         db.executemany(

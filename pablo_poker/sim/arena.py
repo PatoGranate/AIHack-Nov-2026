@@ -1,17 +1,23 @@
-"""Parallel arena: run 100+ tables across every CPU core and stream every hand
-into the real-time database.
+"""Arena: one table = one seed, one lineup, H hands, bots in-process.
 
 Bots run in-process (no subprocess per seat) with a fixed amount of Monte
 Carlo work per decision, so results are repeatable and ~50x faster than the
 tournament harness. Use local_sim.py for the exact tournament timing checks.
 
+`table_steps` plays a table as a generator (one hand per step), so a worker
+can keep many tables in play at once (sim/cluster.py). Each result carries
+the raw chips AND the all-in-EV-adjusted chips (the chance-node part of
+AIVAT, Burch et al. 2018): when betting is over before the board is
+complete, the hero's result is replaced by its exact expected share over the
+remaining cards. Unbiased, and much less noisy.
+
     jobs = [make_job(...), ...]
-    results = run_batch(jobs, db, workers=8, kind="practice")
+    results = run_batch(jobs, db)       # runs on the cluster, streams into the DB
 """
-import multiprocessing as mp
+import itertools
 import os
+import random
 import sys
-import threading
 import time
 import traceback
 
@@ -42,8 +48,10 @@ def position_name(seat, button, n):
 class SeatPlayer:
     """Engine seat adapter: error-safe, timed, optionally records hero hands."""
 
-    def __init__(self, agent, record=False, strategy_id=None, sink=None, ctx=None, dsink=None):
+    def __init__(self, agent, record=False, strategy_id=None, sink=None, ctx=None, dsink=None, table=None):
         self.agent = agent
+        self.table = table          # set for the hero: lets hand_end read the engine's hand record (all hole cards)
+        self.ev_chips = 0
         self.record = record
         self.dsink = dsink
         self.strategy_id = strategy_id
@@ -96,6 +104,18 @@ class SeatPlayer:
                 self.agent.on_hand_end(summary)
             except Exception:
                 pass
+        ev = None
+        if self.table is not None:
+            log = self.table.log
+            rec = log[-1] if log and log[-1]["n"] == summary["hand_number"] else None
+            if rec is not None:
+                try:
+                    ev = allin_ev(rec, self.seat, random.Random(summary["hand_number"]))
+                except Exception:
+                    ev = None
+            log.clear()
+            raw = summary["stacks"][self.seat] - START_STACK
+            self.ev_chips += raw if ev is None else ev
         if not self.record:
             return
         seat = self.seat
@@ -113,7 +133,7 @@ class SeatPlayer:
         pos = h["pos"] if h else ("BB" if any(x["seat"] == seat and x["action"] == "big_blind" for x in hist) else "?")
         row = (self.ctx.get("batch_id"), self.ctx.get("table_id"), summary["hand_number"], seat, self.strategy_id,
                pos, h["hole"] if h else "", "".join(board), delta, vpip, pfr, saw_flop, showdown,
-               int(delta > 0), end, " ".join(h["acts"]) if h else "", time.time())
+               int(delta > 0), end, " ".join(h["acts"]) if h else "", time.time(), delta if ev is None else ev)
         self.sink(row)
 
 
@@ -128,20 +148,63 @@ def make_job(table_id, batch_id, seed, hands, hero, opponent_specs, hero_seat=No
             "fixed_iters": fixed_iters, "opp_iters": opp_iters, "decisions": decisions}
 
 
-def run_table(job, queue=None):
-    """Play one table. Streams hand rows to `queue` (if given) and returns the result."""
-    try:
-        return _run_table(job, queue)
-    except Exception:
-        return {"table_id": job["table_id"], "error": traceback.format_exc(limit=8)}
+def allin_ev(rec, seat, rng, samples=400):
+    """Hero's expected result when the betting ended before the board was complete, else None."""
+    sd = rec.get("showdown") or {}
+    if str(seat) not in sd or len(sd) < 2:
+        return None
+    ev = rec["events"]
+    last = max(i for i, e in enumerate(ev) if e[0] in ("act", "post"))
+    known = 0
+    for e in ev[:last + 1]:
+        if e[0] == "board":
+            known = len(e[2])
+    if known >= 5:
+        return None
+    from pokerbot.strategy import card_int, evaluate
+    n = len(rec["stacks"])
+    won = [0] * n
+    for e in ev:
+        if e[0] == "win":
+            won[e[1]] += e[2]
+    contrib = [rec["stacks"][i] - rec["end"][i] + won[i] for i in range(n)]
+    live = [int(s) for s in sd]
+    holes = {int(k): [card_int(c) for c in v] for k, v in rec["hole"].items()}
+    board = [card_int(c) for c in rec["board"][:known]]
+    dead = set(board)
+    for v in holes.values():
+        dead.update(v)
+    deck = [c for c in range(52) if c not in dead]
+    need = 5 - known
+    if need <= 2:
+        runouts = list(itertools.combinations(deck, need))
+    else:
+        runouts = [rng.sample(deck, need) for _ in range(samples)]
+    levels = sorted(set(c for c in contrib if c > 0))
+    total = 0.0
+    for extra in runouts:
+        full = board + list(extra)
+        scores = {i: evaluate(holes[i] + full) for i in live}
+        prev, mine = 0, 0.0
+        for lvl in levels:
+            portion = sum(min(c, lvl) - min(c, prev) for c in contrib)
+            elig = [i for i in live if contrib[i] >= lvl] or live
+            best = max(scores[i] for i in elig)
+            ws = [i for i in elig if scores[i] == best]
+            if seat in ws:
+                mine += portion / len(ws)
+            prev = lvl
+        total += mine
+    return int(round(total / len(runouts) - contrib[seat]))
 
 
-def _run_table(job, queue):
+def table_steps(job, queue=None):
+    """Generator: plays one hand per step; its return value is the table result."""
     n = len(job["opponents"]) + 1
     hs = job["hero_seat"]
     specs = list(job["opponents"])
     specs.insert(hs, job["hero"])
-    buf = []
+    buf, dbuf = [], []
     ctx = {"batch_id": job["batch_id"], "table_id": job["table_id"]}
 
     def flush():
@@ -153,8 +216,6 @@ def _run_table(job, queue):
         buf.append(row)
         if len(buf) >= FLUSH_EVERY:
             flush()
-
-    dbuf = []
 
     def dflush():
         if queue is not None and dbuf:
@@ -169,10 +230,7 @@ def _run_table(job, queue):
     players = []
     for i, spec in enumerate(specs):
         seat_seed = job["seed"] * 31 + i * 1009 + 7
-        if i == hs:
-            agent = opponents.make(spec, seat_seed, fixed_iters=job["fixed_iters"])
-        else:
-            agent = opponents.make(spec, seat_seed, fixed_iters=job["opp_iters"])
+        agent = opponents.make(spec, seat_seed, fixed_iters=job["fixed_iters"] if i == hs else job["opp_iters"])
         is_hero = i == hs
         players.append(SeatPlayer(agent, record=is_hero and job["record"],
                                   strategy_id=spec.get("strategy_id") or opponents.label(spec),
@@ -181,66 +239,56 @@ def _run_table(job, queue):
     if queue is not None:
         queue.put({"type": "table_start", "table_id": job["table_id"], "batch_id": job["batch_id"],
                    "seed": job["seed"], "n_seats": n, "hands": job["hands"], "hero_seat": hs, "lineup": labels})
-    res = FixedHandsTable(players, hands=job["hands"], config=job["config"], seed=job["seed"]).play()
+    table = FixedHandsTable(players, hands=job["hands"], config=job["config"], seed=job["seed"], record=True)
+    players[hs].table = table
+    # --- same sequence as FixedHandsTable.play(), one hand per step
+    start = table.cfg["starting_stack"]
+    from engine.game import effective_raise_cap
+    for seat, p in enumerate(players):
+        p.start_table(seat, {"seat": seat, "num_players": n, "format": "fixed_hands", "hands": job["hands"],
+                             "starting_stack": start, "stacks_reset_each_hand": True,
+                             "small_blind": table.cfg["blinds"][0][0], "big_blind": table.cfg["blinds"][0][1],
+                             "betting": table.cfg["betting"], "raise_cap": effective_raise_cap(table.cfg) or None})
+    chips = [0] * n
+    button = table.rng.randrange(n)
+    for hand_no in range(1, job["hands"] + 1):
+        table.stacks = [start] * n
+        button = (button + 1) % n
+        table._play_hand(hand_no, button)
+        for i in range(n):
+            chips[i] += table.stacks[i] - start
+        table.log.clear()
+        yield hand_no
     flush()
     dflush()
-    seats = [(job["table_id"], i, labels[i], specs[i].get("strategy_id") or labels[i], res["chips"][i], res["hands"],
+    seats = [(job["table_id"], i, labels[i], specs[i].get("strategy_id") or labels[i], chips[i], job["hands"],
               round(players[i].max_ms, 3), players[i].errors) for i in range(n)]
     if queue is not None:
         queue.put({"type": "table_end", "table_id": job["table_id"], "seats": seats})
-    return {"table_id": job["table_id"], "seed": job["seed"], "hero_seat": hs, "chips": res["chips"],
-            "hero_chips": res["chips"][hs], "hands": res["hands"], "labels": labels,
+    return {"table_id": job["table_id"], "seed": job["seed"], "hero_seat": hs, "chips": chips,
+            "hero_chips": chips[hs], "hero_ev_chips": players[hs].ev_chips, "hands": job["hands"], "labels": labels,
             "hero_errors": players[hs].errors, "hero_max_ms": players[hs].max_ms}
 
 
-# -------------------------------------------------------------- batches
-def _init_worker(root):
-    if root not in sys.path:
-        sys.path.insert(0, root)
+def run_table(job, queue=None):
+    """Play one table to the end in this process."""
+    try:
+        gen = table_steps(job, queue)
+        while True:
+            next(gen)
+    except StopIteration as stop:
+        return stop.value
+    except Exception:
+        return {"table_id": job["table_id"], "error": traceback.format_exc(limit=8)}
 
 
-def _work(args):
-    job, queue = args
-    return run_table(job, queue)
+def db_path_of(db):
+    row = db.execute("PRAGMA database_list").fetchone()
+    return row[2] if row else None
 
 
 def run_batch(jobs, db=None, workers=None, progress=None):
-    """Run jobs on a process pool. With `db`, every hand streams into it live."""
-    from storage.db import write_message
-    workers = workers or max(1, (os.cpu_count() or 2))
-    results = []
-    if workers == 1 and db is None:
-        for i, job in enumerate(jobs):
-            results.append(run_table(job))
-            if progress:
-                progress(i + 1, len(jobs), results[-1])
-        return results
-    mgr = mp.Manager()
-    queue = mgr.Queue() if db is not None else None
-    writer = None
-    if db is not None:
-        def drain():
-            while True:
-                msg = queue.get()
-                if msg is None:
-                    break
-                try:
-                    write_message(db, msg)
-                except Exception:
-                    traceback.print_exc()
-        writer = threading.Thread(target=drain, daemon=True)
-        writer.start()
-    try:
-        with mp.Pool(workers, initializer=_init_worker, initargs=(ROOT,)) as pool:
-            for i, res in enumerate(pool.imap_unordered(_work, [(j, queue) for j in jobs])):
-                if res.get("error"):
-                    print("\n[arena] table %s failed:\n%s" % (res["table_id"], res["error"]))
-                results.append(res)
-                if progress:
-                    progress(i + 1, len(jobs), res)
-    finally:
-        if writer is not None:
-            queue.put(None)
-            writer.join()
-        mgr.shutdown()
-    return results
+    """Run jobs on the cluster (persistent workers, many tables in flight). With `db`, hands stream into it live."""
+    from sim.cluster import get_cluster
+    cluster = get_cluster(db_path_of(db) if db is not None else None, workers)
+    return cluster.run(jobs, progress=progress)

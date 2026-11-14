@@ -82,6 +82,26 @@ def rsi(db):
     return {"trials": trials, "promotions": promos, "cycles": cycles}
 
 
+def lab(db):
+    def has(t):
+        return db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (t,)).fetchone() is not None
+    st = db.execute("SELECT value FROM state WHERE key='lab_status'").fetchone()
+    tested = db.execute("SELECT value FROM state WHERE key='ideas_tested'").fetchone()
+    out = {"status": json.loads(st[0]) if st else None, "log": [], "findings": [],
+           "ideas_tested": json.loads(tested[0]) if tested else {}}
+    if has("lab_log"):
+        out["log"] = q(db, "SELECT ts, iteration, task, status, seconds, summary FROM lab_log ORDER BY id DESC LIMIT 25")
+    if has("findings"):
+        out["findings"] = q(db, "SELECT f.ts, f.kind, f.subject, f.value, f.verdict, f.champion FROM findings f "
+                                "JOIN (SELECT kind, subject, MAX(id) AS mid FROM findings GROUP BY kind, subject) g "
+                                "ON f.id = g.mid ORDER BY f.kind, f.subject")
+    try:
+        out["ideas"] = json.load(open(os.path.join(ROOT, "research", "ideas.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        out["ideas"] = []
+    return out
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *a):
         pass
@@ -100,14 +120,14 @@ class Handler(BaseHTTPRequestHandler):
         if path in ("/", "/index.html"):
             with open(os.path.join(HERE, "index.html"), "rb") as f:
                 return self._send(200, f.read(), "text/html; charset=utf-8")
-        if path in ("/api/live", "/api/rsi"):
+        if path in ("/api/live", "/api/rsi", "/api/lab"):
             if not os.path.exists(DB_PATH):
                 return self._send(200, json.dumps({"empty": True}), "application/json")
             try:
                 db = sqlite3.connect("file:%s?mode=ro" % DB_PATH, uri=True, timeout=10)
                 db.row_factory = sqlite3.Row
                 try:
-                    body = live(db) if path == "/api/live" else rsi(db)
+                    body = {"/api/live": live, "/api/rsi": rsi, "/api/lab": lab}[path](db)
                 finally:
                     db.close()
                 return self._send(200, json.dumps(body, default=str), "application/json")

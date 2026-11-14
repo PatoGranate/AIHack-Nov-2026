@@ -71,6 +71,11 @@ svg text { fill: var(--muted); font-size: 11px; }
     <div class="panel scroll"><h2>Champion by position</h2><div id="positions"></div></div>
     <div class="panel scroll"><h2>Every seat, by bot (last 400 tables)</h2><div id="lineup"></div></div>
   </section>
+  <section class="panel scroll"><h2>Autonomous lab <span class="sub" id="labStatus"></span></h2><div id="labLog"></div></section>
+  <section class="grid2">
+    <div class="panel scroll"><h2>Findings (latest per subject)</h2><div id="findings"></div></div>
+    <div class="panel scroll"><h2>Research ideas (research/ideas.json)</h2><div id="ideas"></div></div>
+  </section>
   <section class="panel scroll"><h2>RSI trials</h2><div id="trials"></div></section>
   <section class="grid2">
     <div class="panel scroll"><h2>Promotions</h2><div id="promos"></div></div>
@@ -110,7 +115,8 @@ function chart(points) {
 
 async function refresh() {
   try {
-    const [L, R] = await Promise.all([fetch("/api/live").then(r => r.json()), fetch("/api/rsi").then(r => r.json())]);
+    const [L, R, B] = await Promise.all([fetch("/api/live").then(r => r.json()), fetch("/api/rsi").then(r => r.json()),
+      fetch("/api/lab").then(r => r.json())]);
     if (L.empty) { $("status").textContent = "no database yet: run python run_practice.py"; return; }
     const running = L.batches.filter(b => b.status === "running");
     const tablesLive = running.reduce((a, b) => a + (b.running || 0), 0);
@@ -146,6 +152,20 @@ async function refresh() {
           `<span class="tag no">refused</span> <span class="sub">${esc((t.reasons || []).join(", "))}</span>`) : "" }], R.trials);
     $("promos").innerHTML = table([{ h: "cycle", f: p => p.cycle }, { h: "gen", n: 1, f: p => p.generation },
       { h: "new champion", f: p => esc(p.to_id) }, { h: "change", f: p => esc(p.hypothesis) }, { h: "when", f: p => ago(p.at) }], R.promotions);
+    if (B && !B.empty) {
+      const st = B.status;
+      $("labStatus").textContent = st ? (st.task === "stopped" ? "stopped" : `now: ${st.task} · iteration ${st.iteration} · ${ago(st.since)}`) : "not started (python run_lab.py)";
+      $("labLog").innerHTML = table([{ h: "#", f: r => r.iteration }, { h: "task", f: r => esc(r.task) },
+        { h: "result", f: r => (r.status === "error" ? '<span class="tag no">error</span> ' : "") + esc(r.summary) },
+        { h: "time", n: 1, f: r => Math.round(r.seconds) + "s" }, { h: "when", f: r => ago(r.ts) }], B.log || []);
+      $("findings").innerHTML = table([{ h: "kind", f: r => esc(r.kind) }, { h: "subject", f: r => esc(r.subject) },
+        { h: "value", n: 1, c: r => cls(r.value), f: r => fmt(r.value) },
+        { h: "verdict", f: r => `<span class="tag ${r.verdict === "leak" || r.verdict === "refused" ? "no" : "ok"}">${esc(r.verdict)}</span>` }], B.findings || []);
+      const tested = B.ideas_tested || {};
+      $("ideas").innerHTML = table([{ h: "idea", f: i => esc(i.id) }, { h: "change", f: i => esc(i.param + " = " + i.value) },
+        { h: "status", f: i => tested[i.id] ? `${esc(tested[i.id].result)} (${fmt(tested[i.id].mean_bb100)})` : '<span class="sub">queued</span>' },
+        { h: "source", f: i => `<span class="sub">${esc(i.source || "")}</span>` }], B.ideas || []);
+    }
     if (champ) {
       const ps = JSON.parse(champ.params);
       $("params").innerHTML = '<div class="params">' + Object.keys(ps).sort().map(k => `<div><span>${esc(k)}</span> ${esc(ps[k])}</div>`).join("") + "</div>";

@@ -6,3 +6,4 @@ hands/
 __pycache__/
 *.pyc
 .claude/
+data/token.txt

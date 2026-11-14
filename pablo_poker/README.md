@@ -3,7 +3,11 @@
 An automated No-Limit Hold'em bot for the AlgoSoc / Imperial AI Hack Pokerbots
 tournament, plus the machinery to improve it:
 
-- **many games at once**: 128+ tables in parallel on every CPU core (~2,000 hands/s on 8 cores)
+- **an autonomous lab** (`run_lab.py`) that keeps researching on its own: it pulls your real tournament
+  hands, clones the real opponents, stress-tests against extreme strategies, tests ideas from the
+  literature, tunes parameters, and exports + timing-checks `bot.py` after every promotion
+- **many games at once**: 128+ tables in play simultaneously (8 workers × 16 interleaved tables),
+  plus teammates' laptops as remote workers (`worker.py`)
 - **a real-time database**: every hand, strategy, trial and promotion in SQLite
 - **a live dashboard** over that database
 - **an RSI loop** that proposes, tests and promotes strategy changes behind a
@@ -14,6 +18,13 @@ Standard library only (Python 3.9+). Nothing to install.
 
 ```bash
 cd pablo_poker
+python run_lab.py                      # the autonomous lab: runs until you create data/STOP
+python dashboard/server.py             # http://localhost:8765 (second terminal)
+```
+
+Or step by step:
+
+```bash
 python run_practice.py                 # 128 tables x 1,000 hands -> data/poker.db
 python dashboard/server.py             # http://localhost:8765 (run it in a second terminal)
 python run_rsi.py --cycles 10 --export # improve the strategy, write the champion to bot.py
@@ -67,6 +78,10 @@ pablo_poker/
   rsi/                   stats, gate, registry, diagnose, propose, loop
   dashboard/             live web dashboard (server.py + index.html)
   rl/                    phase 2: dataset export + plan
+  research/              LITERATURE.md (papers -> what we use) and ideas.json (the lab's research queue)
+  rsi/lab.py rsi/field.py   autonomous lab scheduler; real-field opponent clones
+  sim/cluster.py sim/extremes.py   job server + interleaved workers; extreme strategies
+  run_lab.py worker.py   start the lab; lend a machine's cores to it
   tools/                 build_preflop.py (169-hand ranking), compare.py (head-to-head diagnosis)
   run_practice.py  run_rsi.py  export_bot.py  local_sim.py  fetch_hands.py
   engine/ examples/      from the kit
@@ -170,7 +185,52 @@ pre-registrations stop matching.
 with `python local_sim.py bot.py --rounds 5`: zero timeouts, zero errors, and
 `think s/rd` well under 10.
 
-## 6. Phase 2: reinforcement learning
+## 6. The autonomous lab (`run_lab.py`)
+
+```bash
+python run_lab.py                                   # until data/STOP exists
+python run_lab.py --hours 8
+python run_lab.py --listen 0.0.0.0:50555 --key SECRET   # accept remote workers
+python worker.py --connect HOST:50555 --key SECRET      # on each teammate's laptop (same commit)
+```
+
+Each iteration the scheduler picks one task ([rsi/lab.py](rsi/lab.py)):
+
+| task | what it does | when |
+|---|---|---|
+| fetch | downloads new tournament rounds (token in `data/token.txt` or `$POKER_TOKEN`, never committed) and rebuilds the **real-field clones** | every 10 min |
+| stress | champion vs tables of 7 copies of each extreme: always all-in, always fold, min-raise, 2× pot overbets, check-raise, random sizing, push/fold. A losing matchup becomes a finding and queues the knobs that counter it | each new champion |
+| probe | each extreme plays as **hero** against the training field. If one out-earns the champion, the field gives something away (e.g. folds too much) and aggression knobs get priority | each new champion |
+| idea | tests the next idea from [research/ideas.json](research/ideas.json) through the full gate. The file is re-read every iteration, so add ideas while the lab runs | every other iteration |
+| practice | fresh champion hands for the diagnosis | every 8th iteration |
+| rsi | a normal cycle; priorities from diagnosis + stress/probe findings + bandit | otherwise |
+| export | after a promotion: writes `bot.py`, archives it in `data/champions/`, runs the real tournament harness at **half** the time limit, and **rolls back** if it times out or errors | after promotions |
+
+Everything is in the database (`lab_log`, `findings`, `trials`, `promotions`)
+and on the dashboard.
+
+**Training against the real field.** [rsi/field.py](rsi/field.py) profiles every
+opponent in `hands/` (VPIP, PFR, shove rate, postflop aggression) and builds a
+clone of each from our own strategy. Clones make up 70% of training opponents;
+the challenger pool stays synthetic (house bots, starter, archetypes,
+extremes) to catch overfitting. `python -m rsi.field` prints the profiles.
+
+**Faster, fairer evaluation.**
+- **All-in EV** (the chance-node part of AIVAT): when betting ends before the
+  board is complete, the hero's result is its exact expected share over the
+  remaining cards, side pots included. Measured: 3.6× lower per-hand variance,
+  same mean.
+- **Duplicate seeds**: champion and candidate play identical cards and opponents.
+- **128+ tables in play at once**: each worker interleaves 16 tables hand by
+  hand. Workers are persistent, refuse jobs from different code, and a lost
+  job is re-queued.
+
+**Literature.** [research/LITERATURE.md](research/LITERATURE.md) covers what we
+took from Pluribus, Libratus, DeepStack, CFR/MCCFR, Poki, Bayes' Bluff,
+restricted Nash responses, safe exploitation, implicit agent modelling and
+AIVAT, and where each idea lives (in the bot, a lab idea, or the RL phase).
+
+## 7. Phase 2: reinforcement learning
 
 See [rl/PLAN.md](rl/PLAN.md). Already in place: `--decisions` logs every
 hero decision (state → action → hand result), `--explore 0.05` adds random
@@ -178,7 +238,7 @@ abstract actions for off-policy coverage, and `rl/dataset.py` exports
 featurized CSV with the same stdlib `featurize` the bot can run live. A learned
 policy is promoted only through the same gate.
 
-## 7. Suggested 20-hour schedule
+## 8. Suggested 20-hour schedule
 
 | Hours | What |
 |---|---|
@@ -188,10 +248,11 @@ policy is promoted only through the same gate.
 | 7–19 | RL phase ([rl/PLAN.md](rl/PLAN.md)) with RSI still running on the parameters |
 | 19–20 | Final `local_sim.py` timing check (NL, PL, FL, raise cap), upload |
 
-## 8. Tournament checklist
+## 9. Tournament checklist
 
 - `bot.py` imports only the standard library, class `Agent`, `Agent()` with no args ✔
-- 10 ms per decision / 10 s bank: adaptive Monte Carlo, about 1.4 s per round measured ✔
+- 10 ms per decision / 10 s bank: Monte Carlo capped at 1.5 ms and hard-capped at 2.5 ms per decision
+  (worst case 2.8 ms locally; the tournament servers are ~2× slower), ~0.3 s of thinking per round ✔
 - errors fall back to check/fold; illegal sizes get clamped by the engine anyway ✔
 - `pot_limit`, `fixed_limit` and `raise_cap` work through the same code paths
   (the engine clamps sizes); test with `local_sim.py --betting ...` ✔

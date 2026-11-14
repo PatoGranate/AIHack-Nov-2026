@@ -25,7 +25,9 @@ import urllib.request
 
 
 def get(site, path, token):
-    req = urllib.request.Request(site.rstrip("/") + path, headers={"Authorization": "Bearer " + token})
+    req = urllib.request.Request(site.rstrip("/") + path, headers={"Authorization": "Bearer " + token,
+                                                         # the site rejects Python's default User-Agent (403)
+                                                         "User-Agent": "pokerbots-kit/1.0"})
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
             return json.loads(r.read())

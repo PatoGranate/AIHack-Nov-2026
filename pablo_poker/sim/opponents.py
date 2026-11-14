@@ -10,6 +10,8 @@ Kinds
   starter     the kit's starter bot.py (many teams will upload variants of it)
   arch:*      archetypes built from our own strategy with extreme parameters
               (nit, maniac, loose-passive station, loose-aggressive)
+  extreme:*   degenerate strategies (sim/extremes.py): always all-in, always
+              fold, min-raise, overbet, check-raise, random sizing, push/fold
   strategy    any parameter set from the strategies table: past champions
               join the league, so the bot keeps playing its former selves
               (the recursive part of RSI)
@@ -75,6 +77,12 @@ def make(spec, seed, fixed_iters=80):
         if hasattr(agent, "rng"):
             agent.rng = random.Random(seed)
         return agent
+    if kind == "extreme":
+        from sim.extremes import EXTREMES
+        agent = EXTREMES[spec["name"]]()
+        if hasattr(agent, "rng"):
+            agent.rng = random.Random(seed)
+        return agent
     if kind == "arch":
         return strategy_class()(params=ARCHETYPES[spec["name"]], seed=seed, fixed_iters=fixed_iters)
     if kind == "strategy":
@@ -83,11 +91,12 @@ def make(spec, seed, fixed_iters=80):
 
 
 def label(spec):
-    if spec["kind"] in ("house", "arch"):
+    if spec["kind"] in ("house", "arch", "extreme"):
         return "%s:%s" % (spec["kind"], spec["name"])
     if spec["kind"] == "starter":
         return "starter"
-    return "pablo:%s" % spec.get("strategy_id", "?")
+    sid = spec.get("strategy_id", "?")
+    return sid if sid.startswith("clone:") else "pablo:%s" % sid
 
 
 # ---------------------------------------------------------------- lineups
@@ -100,6 +109,11 @@ DEFAULT_MIX = [  # (weight, spec)
     (1, {"kind": "arch", "name": "maniac"}),
     (1, {"kind": "arch", "name": "station"}),
     (2, {"kind": "arch", "name": "lag"}),
+    # degenerate strategies: rare at the table, but the bot must not bleed to them
+    (1, {"kind": "extreme", "name": "jammer"}),
+    (1, {"kind": "extreme", "name": "minraiser"}),
+    (1, {"kind": "extreme", "name": "overbettor"}),
+    (1, {"kind": "extreme", "name": "pushfold"}),
 ]
 
 

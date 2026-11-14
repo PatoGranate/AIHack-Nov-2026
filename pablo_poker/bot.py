@@ -24,8 +24,11 @@ Exploit    every opponent is tracked for the round (1,000 hands, same
 Time       10 ms per decision, 10 s bank per round: the Monte Carlo budget
            adapts to the bank left, and every error falls back to check/fold.
 """
+import gc
 import random
 import time
+
+HARD_MS = 2.5          # never let one decision's own thinking exceed this (the limit is 10 ms incl. transport)
 
 # ----------------------------------------------------------------- parameters
 # Every tunable knob. The RSI loop changes ONE of these at a time and only
@@ -43,10 +46,12 @@ DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'commit_penalty': 0.1,
     'draw_discount': 0.04,
     'exploit': 0.7,
+    'exploit_ramp': 0,
     'explore': 0.0,
     'fourbet_value': 0.02,
     'iso_tighten': 0.8,
     'jam_call': 0.03,
+    'jam_equity': 0,
     'mc_iters': 260,
     'mc_ms': 4.0,
     'open_btn': 0.42,
@@ -55,7 +60,9 @@ DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'open_mp': 0.18,
     'open_sb': 0.36,
     'open_size': 2.5,
+    'portfolio': 0,
     'raise_eq': 0.82,
+    'river_overbet': 0.0,
     'semibluff_eq': 0.38,
     'threebet_bluff': 0.03,
     'threebet_size': 3.2,
@@ -77,7 +84,16 @@ PARAM_SPACE = {
     "draw_discount": (0.0, 0.10, 0.015), "commit_penalty": (0.0, 0.25, 0.03), "bet_value": (0.33, 1.20, 0.08),
     "bet_bluff": (0.30, 1.00, 0.08), "cbet_freq": (0.0, 1.0, 0.08), "bluff_freq": (0.0, 0.80, 0.06),
     "semibluff_eq": (0.25, 0.55, 0.03), "agg_tighten": (0.30, 0.90, 0.05), "exploit": (0.0, 1.0, 0.1),
+    "jam_equity": (0, 1, 1), "exploit_ramp": (0, 400, 50), "portfolio": (0, 1, 1), "river_overbet": (0.0, 1.0, 0.25),
 }
+
+# Portfolio arms (Bard et al. 2013): multipliers (or offsets for value_*) applied to the base parameters.
+PORTFOLIO = [
+    {},
+    {"open_*": 1.3, "call_open": 1.4, "bb_defend": 1.3, "value_*": -0.03, "call_margin": 1.0},    # loose
+    {"open_*": 0.75, "call_open": 0.7, "bb_defend": 0.7, "value_*": 0.03, "call_margin": 1.0},    # tight
+    {"bluff_freq": 1.6, "cbet_freq": 1.3, "bet_value": 1.2, "threebet_bluff": 1.5},               # aggressive
+]
 
 # 169 starting-hand classes, best first (tools/build_preflop.py: Monte Carlo
 # equity vs 1 and vs 3 random hands, blended).
@@ -230,7 +246,7 @@ def mc_equity(hole, board, ranges, rng, max_iters, deadline):
     total = 0.0
     n = 0
     while n < max_iters:
-        if n >= 24 and (n & 7) == 0 and perf() > deadline:
+        if n >= 8 and (n & 3) == 0 and perf() > deadline:
             break
         used = set(dead)
         opps = []
@@ -270,12 +286,75 @@ def mc_equity(hole, board, ranges, rng, max_iters, deadline):
     return total / n if n else 0.5
 
 
+def mc_call_ev(hole, fixed, maybe, pot_after_call, rng, max_iters, deadline):
+    """Expected chips back from calling a preflop shove (all in, so no more decisions).
+
+    fixed: ranges of players already in.  maybe: (probability, range, extra_chips) for each
+    player still to act, who overcalls with that probability holding a top-`range` hand and
+    adds `extra_chips` to the pot. Returns mean (pot share x final pot)."""
+    deck = [c for c in range(52) if c not in hole]
+    nd = len(deck)
+    rand = rng.random
+    perf = time.perf_counter
+    total = 0.0
+    n = 0
+    while n < max_iters:
+        if n >= 8 and (n & 3) == 0 and perf() > deadline:
+            break
+        ranges = list(fixed)
+        pot = pot_after_call
+        for prob, rng_pct, extra in maybe:
+            if rand() < prob:
+                ranges.append(rng_pct)
+                pot += extra
+        used = set(hole)
+        opps = []
+        for pct in ranges:
+            plen = _prefix_len(pct)
+            for _ in range(12):
+                a, b = COMBOS[int(rand() * plen)]
+                if a not in used and b not in used:
+                    break
+            else:
+                while True:
+                    a, b = deck[int(rand() * nd)], deck[int(rand() * nd)]
+                    if a != b and a not in used and b not in used:
+                        break
+            used.add(a)
+            used.add(b)
+            opps.append((a, b))
+        board = []
+        while len(board) < 5:
+            c = deck[int(rand() * nd)]
+            if c not in used:
+                used.add(c)
+                board.append(c)
+        me = evaluate(hole + board)
+        win, ties = True, 0
+        for a, b in opps:
+            o = evaluate([a, b] + board)
+            if o > me:
+                win = False
+                break
+            if o == me:
+                ties += 1
+        if win:
+            total += pot / (1 + ties)
+        n += 1
+    return total / n if n else 0.0
+
+
 # ----------------------------------------------------------- opponent model
 class OppStats:
-    __slots__ = ("hands", "vpip", "pfr", "aggr", "passive", "faced", "folded", "acts")
+    __slots__ = ("hands", "vpip", "pfr", "aggr", "passive", "faced", "folded", "acts", "jams")
 
     def __init__(self):
         self.hands = self.vpip = self.pfr = self.aggr = self.passive = self.faced = self.folded = self.acts = 0
+        self.jams = 0
+
+    def jam_rate(self):
+        """Share of hands this player shoves preflop (prior 4% over 20 hands)."""
+        return (self.jams + 0.04 * 20) / (self.hands + 20)
 
     # Bayesian smoothing toward typical 8-max values with a 15-hand prior
     def vpip_rate(self):
@@ -314,15 +393,28 @@ class Agent:
         self.hands_total = 1000
         self.spent = 0.0                      # seconds of thinking used this round
         self.bank = 10.0
+        self.start_stack = 2000
+        self.cur = p
+        self.cur_hand = None
+        self.arm = 0
+        self.arm_w = [1.0] * len(PORTFOLIO)
+        self.arm_p = [1.0 / len(PORTFOLIO)] * len(PORTFOLIO)
 
     # ------------------------------------------------------------ callbacks
     def on_table_start(self, info):
         self.seat = info.get("seat", 0)
         self.n_players = info.get("num_players", 8)
         self.hands_total = info.get("hands", 1000) or 1000
+        self.start_stack = info.get("starting_stack", 2000) or 2000
+        try:                                   # move start-up objects out of the collector: no GC pauses mid-decision
+            gc.collect()
+            gc.freeze()
+        except Exception:
+            pass
 
     def act(self, state):
         t0 = time.perf_counter()
+        self.t0 = t0
         try:
             if self.p["explore"] and self.rng.random() < self.p["explore"]:
                 return self._explore(state)
@@ -335,8 +427,46 @@ class Agent:
     def on_hand_end(self, summary):
         try:
             self._learn(summary)
+            if self.p["portfolio"] and self.cur_hand == summary.get("hand_number"):
+                self._portfolio_update(summary["stacks"][self.seat] - self.start_stack)
         except Exception:
             pass
+
+    # ----------------------------------------------- per-hand parameter set
+    def _hand_params(self, hand_no):
+        """Parameters for this hand: portfolio arm (Exp3) and the safe-exploitation ramp."""
+        if self.cur_hand == hand_no:
+            return self.cur
+        self.cur_hand = hand_no
+        p = self.p
+        if p["portfolio"]:
+            k, g = len(PORTFOLIO), 0.1
+            tot = sum(self.arm_w)
+            self.arm_p = [(1 - g) * w / tot + g / k for w in self.arm_w]
+            x, acc = self.rng.random(), 0.0
+            self.arm = k - 1
+            for i, pr in enumerate(self.arm_p):
+                acc += pr
+                if x <= acc:
+                    self.arm = i
+                    break
+            p = dict(p)
+            for key, v in PORTFOLIO[self.arm].items():
+                targets = [n for n in p if n.startswith(key[:-1])] if key.endswith("*") else [key]
+                for n in targets:
+                    p[n] = p[n] + v if key.startswith("value_") else p[n] * v
+        if p["exploit_ramp"]:
+            p = dict(p)
+            p["exploit"] = p["exploit"] * min(1.0, hand_no / float(p["exploit_ramp"]))
+        self.cur = p
+        return p
+
+    def _portfolio_update(self, delta):
+        k, g = len(PORTFOLIO), 0.1
+        x = max(0.0, min(1.0, (delta / 20.0 + 50.0) / 100.0))
+        self.arm_w[self.arm] *= 2.718281828 ** (g * x / (self.arm_p[self.arm] * k))
+        top = max(self.arm_w)
+        self.arm_w = [w / top for w in self.arm_w]
 
     def _explore(self, state):
         legal = state["legal_actions"]
@@ -358,7 +488,7 @@ class Agent:
 
     def _learn(self, summary):
         hist = summary.get("history") or []
-        seen, vp, pr = set(), set(), set()
+        seen, vp, pr, jm = set(), set(), set(), set()
         street_bet = {}
         for h in hist:
             seat, act, st = h["seat"], h["action"], h["street"]
@@ -370,6 +500,8 @@ class Agent:
                     vp.add(seat)
                 if act == "raise":
                     pr.add(seat)
+                    if h.get("amount", 0) >= 0.45 * self.start_stack and seat != self.seat:
+                        jm.add(seat)
             if seat != self.seat:
                 self._stats(seat).acts += 1
             if act == "raise":
@@ -395,6 +527,8 @@ class Agent:
                 s.vpip += 1
             if seat in pr:
                 s.pfr += 1
+            if seat in jm:
+                s.jams += 1
 
     def _budget(self, hand_no):
         if self.fixed_iters:
@@ -405,7 +539,7 @@ class Agent:
         ms = min(self.p["mc_ms"], max(0.3, per_hand * 1000 * 0.6))
         if left < 0.5:
             ms = 0.3
-        return int(self.p["mc_iters"]), time.perf_counter() + ms / 1000.0
+        return int(self.p["mc_iters"]), min(time.perf_counter() + ms / 1000.0, getattr(self, "t0", 0) + HARD_MS / 1000.0)
 
     # -------------------------------------------------------------- decide
     def _act(self, state, t0):
@@ -415,6 +549,7 @@ class Agent:
         hole = [card_int(c) for c in state["hole_cards"]]
         board = [card_int(c) for c in state["board"]]
         hist = state.get("history") or []
+        self._hand_params(state["hand_number"])
         if state["street"] == "preflop":
             return self._preflop(state, legal, hole, hist)
         return self._postflop(state, legal, hole, board, hist)
@@ -442,7 +577,7 @@ class Agent:
 
     # -------------------------------------------------------------- preflop
     def _preflop(self, state, legal, hole, hist):
-        p = self.p
+        p = self.cur
         me, bb = state["seat"], state["big_blind"]
         pct = hole_pct(hole[0], hole[1])
         can_raise = "raise" in legal
@@ -518,6 +653,9 @@ class Agent:
                 return {"action": "call"}
             return self._passive(legal)
 
+        if all_in_faced and p["jam_equity"]:
+            return self._call_shove(state, legal, hole, stack_total)
+
         # 4-bet+ or facing a big all-in: only the very top continues
         jam_scale = 1 + p["exploit"] * (3.0 * rs.looseness() - 0.2)
         if pct <= p["jam_call"] * jam_scale:
@@ -526,9 +664,40 @@ class Agent:
             return {"action": "call"}
         return self._passive(legal)
 
+    def _call_shove(self, state, legal, hole, stack_total):
+        """Push/fold game theory: call a shove iff equity vs the shovers' ranges beats the price."""
+        p = self.cur
+        me = state["seat"]
+        fixed, maybe = [], []
+        current = max(state["bets"])
+        for s in range(len(state["stacks"])):
+            if s == me or state["folded"][s]:
+                continue
+            st = self._stats(s)
+            put_in = state["bets"][s]
+            # a big raise is a "shove range" for maniacs and a value range for everyone else
+            all_in = state["stacks"][s] == 0
+            if put_in >= current or all_in:
+                # committed to the shove: a shove range for maniacs, a value range for everyone else
+                fixed.append(max(0.02, min(1.0, max(st.jam_rate() * 1.1, st.pfr_rate() * (0.35 + 0.65 * st.looseness())))))
+            else:
+                # has not answered the shove yet (limpers, the original raiser, blinds, players behind):
+                # its chips are already in the pot; it calls with its shove/strong range, adding the rest
+                c = max(0.02, min(1.0, max(st.jam_rate(), st.pfr_rate() * (0.2 + 0.4 * st.looseness()))))
+                extra = min(current, state["stacks"][s] + put_in) - put_in
+                maybe.append((c, c, extra))
+        if not fixed:
+            return self._passive(legal)
+        iters, deadline = self._budget(state["hand_number"])
+        to_call, pot = state["to_call"], state["pot"]
+        back = mc_call_ev(hole, sorted(fixed)[:3], maybe[:3], pot + to_call, self.rng, iters, deadline)
+        if back - to_call > max(0.0, p["call_margin"]) * (pot + to_call):
+            return {"action": "call"}
+        return self._passive(legal)
+
     # ------------------------------------------------------------- postflop
     def _ranges(self, state, hist):
-        p = self.p
+        p = self.cur
         me = state["seat"]
         ranges = {}
         for s in range(len(state["stacks"])):
@@ -554,7 +723,7 @@ class Agent:
         return ranges
 
     def _postflop(self, state, legal, hole, board, hist):
-        p = self.p
+        p = self.cur
         me, street = state["seat"], state["street"]
         ranges = self._ranges(state, hist)
         if not ranges:
@@ -589,6 +758,8 @@ class Agent:
         acted_this_street = any(h["seat"] == me and h["street"] == street for h in hist)
 
         if to_call == 0:
+            if can_raise and street == "river" and eq_hu > 0.92 and r < p["river_overbet"]:
+                return self._raise(state, current + 1.5 * pot)
             if can_raise and eq_hu >= value_thr:
                 frac = p["bet_value"] * (1.25 if eq_hu > 0.88 else 1.0)
                 return self._raise(state, current + frac * pot)
