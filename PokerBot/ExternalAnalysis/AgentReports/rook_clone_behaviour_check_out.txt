@@ -1,0 +1,16 @@
+### field real (2 tables x 1000 hands)
+Poke                 hands 2000 vpip 0.164 pfr 0.111 3b 0.078 limp 0.000 af 0.460 ftb 0.462
+ResonanceQt          hands 2000 vpip 0.243 pfr 0.208 3b 0.169 limp 0.000 af 0.437 ftb 0.465
+AnkerBatteries       hands 2000 vpip 0.238 pfr 0.190 3b 0.161 limp 0.000 af 0.523 ftb 0.429
+Chinesepeoplecanfly  hands 2000 vpip 0.238 pfr 0.168 3b 0.091 limp 0.000 af 0.438 ftb 0.434
+GamesGone            hands 2000 vpip 0.204 pfr 0.146 3b 0.064 limp 0.000 af 0.617 ftb 0.455
+Anton                hands 2000 vpip 0.451 pfr 0.385 3b 0.337 limp 0.000 af 0.353 ftb 0.456
+YSLTWIZZY            hands 2000 vpip 0.160 pfr 0.131 3b 0.068 limp 0.000 af 0.256 ftb 0.269
+### field sunday_v2 (2 tables x 1000 hands)
+Poke                 hands 2000 vpip 0.330 pfr 0.136 3b 0.039 limp 0.268 af 0.693 ftb 0.578
+ResonanceQt          hands 2000 vpip 0.245 pfr 0.205 3b 0.165 limp 0.000 af 0.432 ftb 0.463
+AnkerBatteries       hands 2000 vpip 0.240 pfr 0.192 3b 0.177 limp 0.000 af 0.488 ftb 0.446
+Chinesepeoplecanfly  hands 2000 vpip 0.306 pfr 0.235 3b 0.100 limp 0.000 af 0.361 ftb 0.459
+GamesGone            hands 2000 vpip 0.205 pfr 0.121 3b 0.042 limp 0.000 af 0.584 ftb 0.481
+Anton                hands 2000 vpip 0.463 pfr 0.393 3b 0.363 limp 0.000 af 0.469 ftb 0.585
+YSLTWIZZY            hands 2000 vpip 0.159 pfr 0.126 3b 0.068 limp 0.000 af 0.201 ftb 0.168
