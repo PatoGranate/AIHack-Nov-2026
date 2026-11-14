@@ -38,6 +38,8 @@ def export(db, strategy_id=None, out=None):
         raise SystemExit("unknown strategy %s" % strategy_id)
     from pokerbot.strategy import DEFAULT_PARAMS
     params = dict(DEFAULT_PARAMS, **s["params"])
+    for k in ("mc_iters", "mc_ms", "explore"):         # compute/data settings are not strategy: always the current defaults
+        params[k] = DEFAULT_PARAMS[k]
     out = out or os.path.join(ROOT, "bot.py")
     src = render(params, s["id"], s["generation"])
     compile(src, out, "exec")

@@ -28,12 +28,12 @@ import gc
 import random
 import time
 
-HARD_MS = 2.5          # never let one decision's own thinking exceed this (the limit is 10 ms incl. transport)
+HARD_MS = 1.6          # never let one decision's own thinking exceed this (the limit is 10 ms incl. transport)
 
 # ----------------------------------------------------------------- parameters
 # Every tunable knob. The RSI loop changes ONE of these at a time and only
 # keeps the change when it beats the champion on held-out games.
-# champion s-37f5377935, generation 1 (exported by export_bot.py)
+# champion s-96ff39ee55, generation 2 (exported by export_bot.py)
 DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'bb_defend': 0.22,
     'bet_bluff': 0.55,
@@ -53,7 +53,7 @@ DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'jam_call': 0.03,
     'jam_equity': 0,
     'mc_iters': 260,
-    'mc_ms': 4.0,
+    'mc_ms': 1.0,
     'open_btn': 0.42,
     'open_co': 0.27,
     'open_ep': 0.13,
@@ -64,7 +64,7 @@ DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'raise_eq': 0.82,
     'river_overbet': 0.0,
     'semibluff_eq': 0.38,
-    'threebet_bluff': 0.03,
+    'threebet_bluff': 0.02,
     'threebet_size': 3.2,
     'threebet_value': 0.035,
     'value_flop': 0.64,

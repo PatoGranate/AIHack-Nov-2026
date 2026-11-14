@@ -180,3 +180,46 @@ if __name__ == "__main__":
         print("%-28s %s hands %5d  VPIP %4.0f%%  PFR %4.0f%%  shove %4.1f%%  postflop agg %4.0f%%  %+7.1f bb/100" % (
             p["name"][:28], "*" if p["self"] else " ", p["hands"], 100 * p["vpip"], 100 * p["pfr"], 100 * p["jam"],
             100 * p["agg_freq"], p["bb100"]))
+
+
+EXTERNAL_TOKENS = os.path.join(ROOT, "data", "external_tokens.txt")
+EXTERNAL_TEAMS = os.path.join(ROOT, "data", "external_teams.json")
+
+
+def fetch_external(timeout=180):
+    """Fetch every token in data/external_tokens.txt into hands/external/<team>/. Returns [(team, line)]."""
+    import hashlib
+    import re as _re
+    import shutil
+    try:
+        tokens = [t.strip() for t in open(EXTERNAL_TOKENS, encoding="utf-8") if t.strip()]
+    except OSError:
+        return []
+    try:
+        teams = json.load(open(EXTERNAL_TEAMS, encoding="utf-8"))
+    except (OSError, ValueError):
+        teams = {}
+    out = []
+    for tok in dict.fromkeys(tokens):
+        key = hashlib.sha256(tok.encode()).hexdigest()[:12]          # never store the token itself in the mapping
+        team = teams.get(key)
+        dest = os.path.join(HANDS_DIR, "external", team) if team else os.path.join(HANDS_DIR, "external", "_new_" + key)
+        try:
+            r = subprocess.run([sys.executable, os.path.join(ROOT, "fetch_hands.py"), "--token", tok, "--out", dest],
+                               capture_output=True, text=True, timeout=timeout, cwd=ROOT)
+        except subprocess.TimeoutExpired:
+            out.append((team or key, "timed out"))
+            continue
+        lines = (r.stdout + r.stderr).strip().splitlines()
+        last = lines[-1] if lines else ""
+        if not team and r.returncode == 0 and ":" in last:
+            team = _re.sub(r"[^A-Za-z0-9_-]", "_", last.split(":", 1)[0]) or key
+            final = os.path.join(HANDS_DIR, "external", team)
+            os.makedirs(final, exist_ok=True)
+            for f in glob.glob(os.path.join(dest, "*.json")):
+                shutil.move(f, os.path.join(final, os.path.basename(f)))
+            shutil.rmtree(dest, ignore_errors=True)
+            teams[key] = team
+            json.dump(teams, open(EXTERNAL_TEAMS, "w", encoding="utf-8"), indent=1)
+        out.append((team or key, last))
+    return out

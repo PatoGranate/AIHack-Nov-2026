@@ -34,7 +34,7 @@ import traceback
 
 from pokerbot.strategy import PARAM_SPACE
 from rsi import loop, registry
-from rsi.field import fetch, read_token
+from rsi.field import EXTERNAL_TOKENS, fetch, fetch_external, read_token
 from sim import arena, opponents
 from sim.extremes import COUNTER_PARAMS, EXTREMES
 from storage import db as store
@@ -66,7 +66,7 @@ QUICK = {"selection_tables": 24, "selection_hands": 200, "holdout_tables": 64, "
 
 
 class Lab:
-    def __init__(self, db, cfg=None, log=print, fetch_minutes=10, stress_tables=16, stress_hands=300,
+    def __init__(self, db, cfg=None, log=print, fetch_minutes=4, stress_tables=16, stress_hands=300,
                  probe_tables=24, probe_hands=300, practice_tables=128, practice_hands=400):
         self.db = db
         db.executescript(LAB_SCHEMA)
@@ -102,6 +102,14 @@ class Lab:
             self.log("  [lab] cannot read ideas.json: %s" % e)
             return []
         out = []
+        # data-driven ideas first: tendencies mined from the real hands (rsi/insights.py), relative to the champion
+        from rsi.propose import move
+        champ = registry.champion(self.db)
+        for i in self.state("auto_ideas", []):
+            if i.get("param") in PARAM_SPACE:
+                cand = move(champ["params"], i["param"], i["direction"], i.get("steps", 1))
+                if cand is not None:
+                    out.append(dict(i, value=cand[i["param"]], id="%s@%s" % (i["id"], champ["id"])))
         for i in raw:
             if isinstance(i, dict) and i.get("param") in PARAM_SPACE and "value" in i and i.get("id"):
                 out.append(i)
@@ -156,7 +164,7 @@ class Lab:
         if self.state("lab_export_needed", False):
             return "export"
         last_fetch = self.state("lab_last_fetch", 0)
-        if read_token() and time.time() - last_fetch > self.fetch_minutes * 60:
+        if (read_token() or os.path.exists(EXTERNAL_TOKENS)) and time.time() - last_fetch > self.fetch_minutes * 60:
             return "fetch"
         if self.near_misses():
             return "retest"
@@ -164,9 +172,13 @@ class Lab:
             return "stress"
         if self.state("lab_probed", None) != champ:
             return "probe"
+        gen = (registry.champion(self.db) or {}).get("generation", 0)
+        if gen > 0 and self.state("lab_benchmarked", None) != champ:
+            return "benchmark"
         if self.it % 8 == 7:
             return "practice"
-        if self.it % 2 == 1 and self.pending_idea():
+        idea = self.pending_idea()
+        if idea and (idea.get("auto") or self.it % 2 == 1):
             return "idea"
         return "rsi"
 
@@ -205,13 +217,25 @@ class Lab:
 
     # ---------------------------------------------------------------- tasks
     def task_fetch(self):
-        ok, line = fetch()
+        ok, line = fetch() if read_token() else (False, "no own token")
+        ext = fetch_external()
         self.set_state("lab_last_fetch", time.time())
         from rsi.field import profiles
+        from rsi import insights
         prs = [p for p in profiles() if not p["self"]]
-        if ok and re.search(r": [1-9]\d* new round", line or ""):
-            self.finding("field", "update", len(prs), "info", {"line": line})
-        return "%s (%d opponent bots profiled)" % (line, len(prs)), {"ok": ok}
+        new = [l for l in [line] + [e[1] for e in ext] if re.search(r": [1-9]\d* new round", l or "")]
+        if new:
+            self.finding("field", "update", len(prs), "info", {"lines": new})
+        # re-mine the field's tendencies and refresh the data-driven ideas
+        tend = insights.tendencies()
+        for k, v in tend.items():
+            if v["rate"] is not None:
+                self.finding("tendency", k, round(100 * v["rate"], 1), "info", {"n": v["n"]})
+        auto = insights.ideas(tend)
+        self.set_state("auto_ideas", auto)
+        ext_txt = "; ".join("%s: %s" % (t, l.split(";")[0].split(":")[-1].strip()) for t, l in ext)
+        return "%s | external: %s | %d bots profiled | %d data-driven ideas" % (
+            line.split(";")[0], ext_txt or "none", len(prs), len(auto)), {"ok": ok, "tendencies": tend}
 
     def _table_jobs(self, kind, hero, specs_for_seed, seeds, hands, note):
         bid = store.new_batch(self.db, kind, len(seeds), hands, note)
@@ -286,6 +310,30 @@ class Lab:
         self.set_state("lab_probed", champ["id"])
         return ("field is exploitable like: " + ", ".join(better) if better else "no extreme beats the champion") + \
             " | champion %+.0f" % base, out
+
+    def task_benchmark(self):
+        """Champion vs the generation-0 baseline on fresh paired tables: the real cumulative gain."""
+        champ = registry.champion(self.db)
+        base_row = self.db.execute("SELECT id FROM strategies WHERE generation=0 ORDER BY created LIMIT 1").fetchone()
+        base = registry.spec(dict(store.load_strategy(self.db, base_row["id"]), params=dict(
+            registry.champion(self.db)["params"], **store.load_strategy(self.db, base_row["id"])["params"])))
+        tables, hands = self.cfg["holdout_tables"], self.cfg["holdout_hands"]
+        seeds = registry.fresh_seeds(self.db, tables)
+        bid, jobs = loop._paired_jobs(self.db, "benchmark", seeds, hands, [base, registry.spec(champ)],
+                                      registry.league(self.db), loop.training_mix(self.cfg["field_share"]), self.cfg,
+                                      record_first=False, note="gen %d vs gen 0" % champ["generation"])
+        res = arena.run_batch(jobs, self.db, workers=self.cfg["workers"])
+        store.finish_batch(self.db, bid)
+        d, h, _ = loop._diffs(res, base_row["id"], champ["id"])
+        vals = [v / 20.0 / h * 100 for v in d.values()]
+        mean = sum(vals) / max(1, len(vals))
+        from rsi.stats import sample_sd
+        se = sample_sd(vals) / max(1, len(vals)) ** 0.5 if len(vals) > 1 else 0.0
+        self.finding("benchmark", "gen%d_vs_gen0" % champ["generation"], round(mean, 1), "ok" if mean > 0 else "leak",
+                     {"se": round(se, 1), "tables": len(vals), "champion": champ["id"]})
+        self.set_state("lab_benchmarked", champ["id"])
+        return "generation %d vs generation 0: %+.1f bb/100 (se %.1f, %d paired tables)" % (
+            champ["generation"], mean, se, len(vals)), {"mean": mean, "se": se}
 
     def task_idea(self):
         idea = self.pending_idea()

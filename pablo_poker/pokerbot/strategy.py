@@ -28,7 +28,7 @@ import gc
 import random
 import time
 
-HARD_MS = 2.5          # never let one decision's own thinking exceed this (the limit is 10 ms incl. transport)
+HARD_MS = 1.6          # never let one decision's own thinking exceed this (the limit is 10 ms incl. transport)
 
 # ----------------------------------------------------------------- parameters
 # Every tunable knob. The RSI loop changes ONE of these at a time and only
@@ -61,7 +61,7 @@ DEFAULT_PARAMS = {
     "exploit": 0.70,           # 0 = pure baseline, 1 = full opponent exploitation
     # compute
     "mc_iters": 260,           # Monte Carlo cap per decision
-    "mc_ms": 1.5,              # Monte Carlo wall-clock cap per decision (tournament servers are ~2x slower than a laptop)
+    "mc_ms": 1.0,              # Monte Carlo wall-clock cap per decision (tournament servers are ~2x slower than a laptop)
     # ideas from the literature (research/LITERATURE.md); 0 = off until the lab's gate approves them
     "jam_equity": 0,           # vs a shove: call iff MC equity vs the shover's observed shove range beats the price
     "exploit_ramp": 0,         # safe exploitation: exploitation grows over the first N hands (0 = off)

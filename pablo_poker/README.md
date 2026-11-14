@@ -206,6 +206,18 @@ Each iteration the scheduler picks one task ([rsi/lab.py](rsi/lab.py)):
 | rsi | a normal cycle; priorities from diagnosis + stress/probe findings + bandit | otherwise |
 | export | after a promotion: writes `bot.py`, archives it in `data/champions/`, runs the real tournament harness at **half** the time limit, and **rolls back** if it times out or errors | after promotions |
 
+**Real data, every 4 minutes.** `fetch` pulls your rounds (`data/token.txt`) and every
+token listed in `data/external_tokens.txt` (one per line, gitignored) into
+`hands/external/<team>/`. Any other file in that format dropped into `hands/external/`
+is used too. After each fetch, [rsi/insights.py](rsi/insights.py) re-measures the
+field's tendencies (fold to steal / 3-bet / c-bet, river bluff rate) and turns
+exploitable ones into **data-driven ideas** that the lab tests ahead of everything
+else (`python -m rsi.insights` prints them).
+
+**Gains add up.** Every promotion is measured against the bot it replaces, so the
+dashboard shows each step and the cumulative total, and the `benchmark` task plays
+the current champion head-to-head against generation 0 to measure the real total.
+
 Everything is in the database (`lab_log`, `findings`, `trials`, `promotions`)
 and on the dashboard.
 

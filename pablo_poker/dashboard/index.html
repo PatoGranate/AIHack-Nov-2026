@@ -142,7 +142,9 @@ async function refresh() {
     if (champ) {
       $("current").innerHTML = `<div class="big">Generation ${champ.generation}</div>
         <div class="sub">${esc(champ.id)}${last ? " · promoted " + ago(last.at) : ""}</div>
-        <div class="change">${last && last.generation > 0 ? "Last change: <b>" + esc(last.change) + "</b>" +
+        <div class="change">${last && last.generation > 0 ? `Cumulative gain over the baseline: <b>${fmt(gens.reduce((a, g) => a + (g.evidence ? g.evidence.mean : 0), 0))} bb/100</b> (sum of every promotion's gain)` +
+          (B && B.findings ? (f => f ? ` · measured head-to-head vs gen 0: <b>${fmt(f.value)}</b>` : "")(B.findings.filter(x => x.kind === "benchmark").sort((a, b) => b.ts - a.ts)[0]) : "") + "<br>" : ""}
+          ${last && last.generation > 0 ? "Last change: <b>" + esc(last.change) + "</b>" +
           (last.evidence ? ` · ${fmt(last.evidence.mean)} bb/100 on ${last.evidence.tables} fresh paired tables (80% interval ${fmt(last.evidence.ci[0])} to ${fmt(last.evidence.ci[1])})` : "")
           : "The untuned game-theory baseline: no change has passed the gate yet."}</div>`;
     }
@@ -159,8 +161,12 @@ async function refresh() {
       kpi(num(Math.round(L.table_hands_per_sec || 0)), "hands / second (last 5 min)") +
       kpi(num(L.hands_played), "hands played, all tables") + kpi(num(L.total_hands), "champion hands logged for diagnosis") +
       kpi(labSt ? num(labSt.iteration) : "–", "lab tasks completed");
+    let cum = 0;
+    gens.forEach(g => { cum += g.evidence ? g.evidence.mean : 0; g.cum = cum; });
     $("gens").innerHTML = table([{ h: "gen", f: g => "<b>" + g.generation + "</b>" }, { h: "what changed", f: g => esc(g.change) },
-      { h: "evidence (fresh tables)", f: g => g.evidence ? `${fmt(g.evidence.mean)} bb/100, 80% interval [${fmt(g.evidence.ci[0])}, ${fmt(g.evidence.ci[1])}], ${g.evidence.tables} paired tables` : "" },
+      { h: "gain vs previous", n: 1, c: g => cls(g.evidence && g.evidence.mean), f: g => g.evidence ? fmt(g.evidence.mean) : "" },
+      { h: "cumulative vs gen 0", n: 1, c: g => cls(g.cum), f: g => g.generation ? "<b>" + fmt(g.cum) + "</b>" : "" },
+      { h: "evidence (fresh tables)", f: g => g.evidence ? `80% interval [${fmt(g.evidence.ci[0])}, ${fmt(g.evidence.ci[1])}], ${g.evidence.tables} paired tables` : "" },
       { h: "strategy", f: g => `<span class="sub">${esc(g.id)}</span>` }, { h: "when", f: g => ago(g.at) }], gens);
     $("curveLabel").textContent = L.curve_batch ? "(batch " + L.curve_batch + ")" : "";
     $("curve").innerHTML = chart(L.curve);

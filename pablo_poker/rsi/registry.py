@@ -35,6 +35,8 @@ def champion(db):
     """The champion, with any parameter added to the bot since it was saved filled in with its default."""
     s = store.load_strategy(db, ensure_champion(db))
     s["params"] = dict(DEFAULT_PARAMS, **s["params"])
+    for k in ("explore", "mc_iters", "mc_ms"):          # compute settings live in DEFAULT_PARAMS, not in strategies
+        s["params"][k] = DEFAULT_PARAMS[k]
     s["params"].pop("explore", None)
     return s
 
