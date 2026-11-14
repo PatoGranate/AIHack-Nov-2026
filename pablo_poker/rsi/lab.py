@@ -70,6 +70,10 @@ class Lab:
                  probe_tables=24, probe_hands=300, practice_tables=128, practice_hands=400):
         self.db = db
         db.executescript(LAB_SCHEMA)
+        # batches left "running" by a previous lab process that was stopped mid-task
+        db.execute("UPDATE tables SET status='abandoned' WHERE status='running' AND batch_id IN "
+                   "(SELECT id FROM batches WHERE status='running')")
+        db.execute("UPDATE batches SET status='abandoned', finished=? WHERE status='running'", (time.time(),))
         db.commit()
         self.cfg = dict(loop.DEFAULTS, **(cfg or {}))
         self.log = log

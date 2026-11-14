@@ -33,7 +33,7 @@ HARD_MS = 2.5          # never let one decision's own thinking exceed this (the 
 # ----------------------------------------------------------------- parameters
 # Every tunable knob. The RSI loop changes ONE of these at a time and only
 # keeps the change when it beats the champion on held-out games.
-# champion s-e109a89c3e, generation 0 (exported by export_bot.py)
+# champion s-37f5377935, generation 1 (exported by export_bot.py)
 DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'bb_defend': 0.22,
     'bet_bluff': 0.55,
@@ -45,7 +45,7 @@ DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'cbet_freq': 0.55,
     'commit_penalty': 0.1,
     'draw_discount': 0.04,
-    'exploit': 0.7,
+    'exploit': 1.0,
     'exploit_ramp': 0,
     'explore': 0.0,
     'fourbet_value': 0.02,

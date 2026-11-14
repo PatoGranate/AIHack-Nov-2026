@@ -32,6 +32,17 @@ main { max-width: 1200px; margin: 0 auto; padding: 8px 16px 40px; display: grid;
 .kpi { padding: 12px 14px; }
 .kpi .v { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .kpi .l { color: var(--muted); font-size: 12px; }
+.hero { display: grid; grid-template-columns: 1.3fr 2fr; gap: 16px; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+.big { font-size: 34px; font-weight: 700; line-height: 1.1; }
+.label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+.change { margin-top: 8px; font-size: 14px; }
+.funnel { display: flex; align-items: stretch; gap: 8px; flex-wrap: wrap; }
+.step { flex: 1 1 120px; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+.step .v { font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.step .l { color: var(--muted); font-size: 12px; }
+.arrow { align-self: center; color: var(--muted); font-size: 18px; }
+.srcs { margin-top: 10px; color: var(--muted); font-size: 12px; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } }
 .panel { padding: 14px; min-width: 0; }
@@ -58,7 +69,12 @@ svg text { fill: var(--muted); font-size: 11px; }
   <span class="sub"><span class="dot" id="dot"></span><span id="status">connecting…</span></span>
 </header>
 <main>
+  <section class="hero">
+    <div class="panel"><div class="label">Bot in bot.py right now</div><div id="current"></div></div>
+    <div class="panel"><div class="label">How the self-improvement got here</div><div id="funnel"></div></div>
+  </section>
   <section class="kpis" id="kpis"></section>
+  <section class="panel scroll"><h2>Bot generations (every promotion, oldest first)</h2><div id="gens"></div></section>
   <section class="panel">
     <h2>Cumulative result, latest batch <span class="sub" id="curveLabel"></span></h2>
     <div id="curve"></div>
@@ -76,11 +92,8 @@ svg text { fill: var(--muted); font-size: 11px; }
     <div class="panel scroll"><h2>Findings (latest per subject)</h2><div id="findings"></div></div>
     <div class="panel scroll"><h2>Research ideas (research/ideas.json)</h2><div id="ideas"></div></div>
   </section>
-  <section class="panel scroll"><h2>RSI trials</h2><div id="trials"></div></section>
-  <section class="grid2">
-    <div class="panel scroll"><h2>Promotions</h2><div id="promos"></div></div>
-    <div class="panel"><h2>Champion parameters</h2><div id="params"></div></div>
-  </section>
+  <section class="panel scroll"><h2>Every experiment (newest first)</h2><div id="trials"></div></section>
+  <section class="panel"><h2>Champion parameters</h2><div id="params"></div></section>
 </main>
 <script>
 const $ = id => document.getElementById(id);
@@ -118,15 +131,37 @@ async function refresh() {
     const [L, R, B] = await Promise.all([fetch("/api/live").then(r => r.json()), fetch("/api/rsi").then(r => r.json()),
       fetch("/api/lab").then(r => r.json())]);
     if (L.empty) { $("status").textContent = "no database yet: run python run_practice.py"; return; }
-    const running = L.batches.filter(b => b.status === "running");
-    const tablesLive = running.reduce((a, b) => a + (b.running || 0), 0);
-    $("status").textContent = running.length ? `${running.length} batch(es) running · ${tablesLive} tables in play` : "idle · updated " + new Date().toLocaleTimeString();
-    $("dot").style.background = running.length ? "var(--good)" : "var(--muted)";
+    const tablesLive = L.tables_in_play || 0;
+    const labSt = B && B.status;
+    const labOn = labSt && labSt.task !== "stopped" && (Date.now() / 1000 - labSt.since) < 1800;
+    $("status").textContent = (labOn ? `lab working on: ${labSt.task}` : "lab idle") + ` · ${tablesLive} tables in play · updated ` + new Date().toLocaleTimeString();
+    $("dot").style.background = tablesLive ? "var(--good)" : "var(--muted)";
     const champ = L.champion;
+    const gens = R.generations || [];
+    const last = gens[gens.length - 1];
+    if (champ) {
+      $("current").innerHTML = `<div class="big">Generation ${champ.generation}</div>
+        <div class="sub">${esc(champ.id)}${last ? " · promoted " + ago(last.at) : ""}</div>
+        <div class="change">${last && last.generation > 0 ? "Last change: <b>" + esc(last.change) + "</b>" +
+          (last.evidence ? ` · ${fmt(last.evidence.mean)} bb/100 on ${last.evidence.tables} fresh paired tables (80% interval ${fmt(last.evidence.ci[0])} to ${fmt(last.evidence.ci[1])})` : "")
+          : "The untuned game-theory baseline: no change has passed the gate yet."}</div>`;
+    }
+    const F = R.funnel || { scored: 0, holdout: 0, promoted: 0 };
+    const S = R.sources || {};
+    const srcName = { rsi: "tuning cycles", idea: "literature ideas", retest: "re-tests of near-misses" };
+    $("funnel").innerHTML = `<div class="funnel">
+        <div class="step"><div class="v">${num(F.scored)}</div><div class="l">candidate changes tried on practice tables</div></div><div class="arrow">→</div>
+        <div class="step"><div class="v">${num(F.holdout)}</div><div class="l">best ones judged on fresh, never-seen tables</div></div><div class="arrow">→</div>
+        <div class="step"><div class="v">${num(F.promoted)}</div><div class="l">passed the gate and became the new bot</div></div></div>
+      <div class="srcs">Judged experiments by source: ${Object.keys(S).map(k => `${srcName[k] || k} ${S[k].tested} (${S[k].promoted} promoted)`).join(" · ") || "none yet"}</div>`;
     const kpi = (v, l) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`;
-    $("kpis").innerHTML = kpi(num(L.total_hands), "hands recorded") + kpi(num(Math.round(L.hands_per_sec)), "hands / second") +
-      kpi(num(tablesLive), "tables in play") + kpi(champ ? "gen " + champ.generation : "–", "champion " + (champ ? esc(champ.id) : "")) +
-      kpi(num(R.cycles), "RSI cycles") + kpi(num(R.promotions.length), "promotions");
+    $("kpis").innerHTML = kpi(num(tablesLive), "tables in play right now") +
+      kpi(num(Math.round(L.table_hands_per_sec || 0)), "hands / second (last 5 min)") +
+      kpi(num(L.hands_played), "hands played, all tables") + kpi(num(L.total_hands), "champion hands logged for diagnosis") +
+      kpi(labSt ? num(labSt.iteration) : "–", "lab tasks completed");
+    $("gens").innerHTML = table([{ h: "gen", f: g => "<b>" + g.generation + "</b>" }, { h: "what changed", f: g => esc(g.change) },
+      { h: "evidence (fresh tables)", f: g => g.evidence ? `${fmt(g.evidence.mean)} bb/100, 80% interval [${fmt(g.evidence.ci[0])}, ${fmt(g.evidence.ci[1])}], ${g.evidence.tables} paired tables` : "" },
+      { h: "strategy", f: g => `<span class="sub">${esc(g.id)}</span>` }, { h: "when", f: g => ago(g.at) }], gens);
     $("curveLabel").textContent = L.curve_batch ? "(batch " + L.curve_batch + ")" : "";
     $("curve").innerHTML = chart(L.curve);
     $("batches").innerHTML = table([
@@ -145,13 +180,12 @@ async function refresh() {
     $("lineup").innerHTML = table([{ h: "bot", f: l => esc(l.label) }, { h: "seats", n: 1, f: l => num(l.seats) },
       { h: "bb/100", n: 1, c: l => cls(l.bb100), f: l => fmt(l.bb100) }], L.lineup);
     $("trials").innerHTML = table([
-      { h: "cycle", f: t => t.cycle }, { h: "stage", f: t => t.stage }, { h: "changed", f: t => esc(t.changed) },
+      { h: "experiment", f: t => t.cycle }, { h: "from", f: t => esc(t.stage === "selection" ? "tuning" : ({ rsi: "tuning", retest: "re-test" }[t.source] || (t.source || "").replace("idea:", "idea: "))) },
+      { h: "stage", f: t => t.stage === "selection" ? "practice screen" : "fresh-table judgement" }, { h: "changed", f: t => esc(t.changed) },
       { h: "tables", n: 1, f: t => t.n }, { h: "Δ bb/100", n: 1, c: t => cls(t.mean_bb100), f: t => fmt(t.mean_bb100) },
       { h: "interval", n: 1, f: t => t.ci_low == null ? "" : `[${fmt(t.ci_low)}, ${fmt(t.ci_high)}]` },
       { h: "verdict", f: t => t.stage === "holdout" ? (t.status === "approved" ? '<span class="tag ok">promoted</span>' :
           `<span class="tag no">refused</span> <span class="sub">${esc((t.reasons || []).join(", "))}</span>`) : "" }], R.trials);
-    $("promos").innerHTML = table([{ h: "cycle", f: p => p.cycle }, { h: "gen", n: 1, f: p => p.generation },
-      { h: "new champion", f: p => esc(p.to_id) }, { h: "change", f: p => esc(p.hypothesis) }, { h: "when", f: p => ago(p.at) }], R.promotions);
     if (B && !B.empty) {
       const st = B.status;
       $("labStatus").textContent = st ? (st.task === "stopped" ? "stopped" : `now: ${st.task} · iteration ${st.iteration} · ${ago(st.since)}`) : "not started (python run_lab.py)";

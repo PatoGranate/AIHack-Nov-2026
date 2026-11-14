@@ -63,7 +63,13 @@ def live(db):
                    "WHERE table_id IN (SELECT id FROM tables ORDER BY rowid DESC LIMIT 400) GROUP BY label ORDER BY chips DESC")
     for l in lineup:
         l["bb100"] = l["chips"] / BB / max(1, l["hands"]) * 100
+    played = db.execute("SELECT COALESCE(SUM(hands), 0) FROM tables WHERE status='done'").fetchone()[0]
+    last5 = db.execute("SELECT COALESCE(SUM(hands), 0) FROM tables WHERE status='done' AND finished > ?",
+                       (now - 300,)).fetchone()[0]
+    in_play = db.execute("SELECT COUNT(*) FROM tables t JOIN batches b ON b.id=t.batch_id "
+                         "WHERE t.status='running' AND b.status='running'").fetchone()[0]
     return {"now": now, "total_hands": max_id, "hands_per_sec": recent / 30.0, "batches": batches,
+            "hands_played": played, "table_hands_per_sec": last5 / 300.0, "tables_in_play": in_play,
             "champion": champ[0] if champ else None, "strategies": strategies, "positions": positions,
             "curve": curve, "curve_batch": last[0] if last else None, "lineup": lineup}
 
@@ -79,7 +85,42 @@ def rsi(db):
     promos = q(db, "SELECT p.id, p.at, p.cycle, p.from_id, p.to_id, s.hypothesis, s.generation FROM promotions p "
                    "LEFT JOIN strategies s ON s.id=p.to_id ORDER BY p.id DESC LIMIT 30")
     cycles = db.execute("SELECT COALESCE(MAX(cycle), 0) FROM trials").fetchone()[0]
-    return {"trials": trials, "promotions": promos, "cycles": cycles}
+    for t in trials:
+        t["source"] = "selection" if t["stage"] == "selection" else "rsi"
+    srcs = {}
+    for (detail, status) in db.execute("SELECT detail, status FROM trials WHERE stage='holdout'"):
+        src = (json.loads(detail or "{}").get("source") or "rsi")
+        src = "idea" if src.startswith("idea") else src
+        srcs.setdefault(src, {"tested": 0, "promoted": 0})
+        srcs[src]["tested"] += 1
+        srcs[src]["promoted"] += status == "approved"
+    # per-trial source for the table
+    src_by_id = {r[0]: (json.loads(r[1] or "{}").get("source") or "rsi")
+                 for r in db.execute("SELECT id, detail FROM trials WHERE stage='holdout' ORDER BY id DESC LIMIT 60")}
+    for t in trials:
+        if t["stage"] == "holdout":
+            t["source"] = src_by_id.get(t["id"], "rsi")
+    funnel = {
+        "scored": db.execute("SELECT COUNT(*) FROM trials WHERE stage='selection'").fetchone()[0],
+        "holdout": db.execute("SELECT COUNT(*) FROM trials WHERE stage='holdout'").fetchone()[0],
+        "promoted": db.execute("SELECT COUNT(*) FROM promotions").fetchone()[0],
+    }
+    # generation history: baseline + every promotion with the parameter that changed and its evidence
+    gens = []
+    first = db.execute("SELECT id, created FROM strategies WHERE generation=0 ORDER BY created LIMIT 1").fetchone()
+    if first:
+        gens.append({"generation": 0, "id": first[0], "at": first[1], "change": "game-theory baseline", "evidence": None})
+    for p in db.execute("SELECT p.at, p.from_id, p.to_id, s.generation, s.params, f.params FROM promotions p "
+                        "JOIN strategies s ON s.id=p.to_id JOIN strategies f ON f.id=p.from_id ORDER BY p.id").fetchall():
+        new, old = json.loads(p[4]), json.loads(p[5])
+        changed = [k for k in new if new.get(k) != old.get(k, new.get(k)) and k not in ("explore",)]
+        change = ", ".join("%s %s -> %s" % (k, old.get(k, "default"), new[k]) for k in changed) or "parameters filled"
+        ev = db.execute("SELECT mean_bb100, ci_low, ci_high, n FROM trials WHERE stage='holdout' AND status='approved' "
+                        "AND candidate_id=? ORDER BY id DESC LIMIT 1", (p[2],)).fetchone()
+        gens.append({"generation": p[3], "id": p[2], "at": p[0], "change": change,
+                     "evidence": {"mean": ev[0], "ci": [ev[1], ev[2]], "tables": ev[3]} if ev else None})
+    return {"trials": trials, "promotions": promos, "cycles": cycles, "funnel": funnel, "sources": srcs,
+            "generations": gens}
 
 
 def lab(db):
