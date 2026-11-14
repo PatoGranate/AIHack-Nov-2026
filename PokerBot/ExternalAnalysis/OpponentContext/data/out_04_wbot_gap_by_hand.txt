@@ -1,0 +1,15 @@
+Opponents' fold rate vs WBot's bets minus vs other bettors' bets, by hand-number quarter (54 WBot tables)
+stratified by size x street x HU/MW x IP/OOP x preflop-aggressor role; 90% table-bootstrap CI
+
+all opponents
+  hands    1- 250: vs WBot 27% (n=4496), vs others 50% (n=6370), stratified diff -11.4 [-13.6, -9.2]
+  hands  251- 500: vs WBot 26% (n=4283), vs others 52% (n=6378), stratified diff -13.0 [-15.4,-10.8]
+  hands  501- 750: vs WBot 27% (n=4141), vs others 50% (n=6449), stratified diff -10.3 [-12.5, -8.3]
+  hands  751-1000: vs WBot 26% (n=4430), vs others 51% (n=6546), stratified diff -14.2 [-16.6,-12.0]
+
+table-4 opponents
+  hands    1- 250: vs WBot 25% (n=946), vs others 48% (n=1302), stratified diff -11.8 [-15.9, -7.3]
+  hands  251- 500: vs WBot 25% (n=897), vs others 51% (n=1332), stratified diff -14.5 [-19.1, -9.3]
+  hands  501- 750: vs WBot 25% (n=890), vs others 48% (n=1396), stratified diff -10.5 [-14.9, -6.4]
+  hands  751-1000: vs WBot 24% (n=915), vs others 51% (n=1320), stratified diff -16.5 [-22.1,-12.1]
+
