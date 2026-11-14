@@ -1,0 +1,188 @@
+--- /c/Users/pelay/AppData/Local/Temp/claude/b92062cbbe55cc88/90b34987-6b4c-4ff7-aa1a-100b796cb107/scratchpad/prov/G.py	2026-11-14 23:36:56.711826900 +0000
++++ tools/cands/g_ctx_v1.py	2026-11-14 23:37:24.292759700 +0000
+@@ -7,8 +7,17 @@
+ to their observed fold-to-bet rate. Actions are chosen by approximate EV
+ (check / bet sizes, fold / call / raise sizes).
+ Everything is wrapped so act() always returns a legal action.
++
++ROOK g_ctx_v1 (sandbox candidate, parent = frozen G_v7_final): FORGE's PR #9 context hunks ported verbatim,
++plus (1) heads-up learning-position fix (F4/F8/F9) and (2) observable fallback counters (R5/R6/R8).
++Original FORGE note: the forward-looking continue model
++(cont, used when we bet/raise) is fed by a context-aware fold estimate instead of the pooled ftb:
++static field logistic (street, HU/MW, IP vs us, bet vs raise, at 0.6 pot) + per-seat logit shift
++shrunk with weight CTX_K. Range narrowing (w) still uses the pooled ftb. See
++ExternalAnalysis/Context_Model_Design.md.
+ """
+ import gc
++import math
+ import random
+ import time
+ 
+@@ -304,9 +313,33 @@
+     return win
+ 
+ 
++# FORGE field model: logistic P(fold | post-flop response to a bet/raise), fitted on 135 counted
++# Saturday tables (tools/forge_ctx/field_coef.json). Size bins = bettor's added chips / pot before.
++CTX_EDGES = (0.3, 0.45, 0.6, 0.8, 1.1)
++CTX_SZ = (0.0, 1.1986, 1.7936, 2.1053, 2.4595, 2.8549)
++CTX_C = -1.6268
++CTX_REF = 0.5 * (1.7936 + 2.1053)     # 0.6 pot = the size N's continue model is anchored to
++CTX_RAISE = -0.9618
++CTX_MW = 1.0558
++CTX_ST = {"flop": 0.0, "turn": -0.0067, "river": 0.5187}
++CTX_IP = -0.8887
++CTX_ALLIN = -0.2963
++CTX_MWIP = 0.2143
++CTX_K = 20.0
++
++
++def _sig(x):
++    return 1.0 / (1.0 + math.exp(-x))
++
++
++def _logit(p):
++    p = min(1 - 1e-6, max(1e-6, p))
++    return math.log(p / (1 - p))
++
++
+ class Stats:
+     __slots__ = ("hands", "vpip", "pfr", "big", "pbet", "pcall", "pcheck", "faced", "ffold",
+-                 "f3", "f3fold", "sd", "sdwin", "o3", "o3fold", "bdef", "bfold")
++                 "f3", "f3fold", "sd", "sdwin", "o3", "o3fold", "bdef", "bfold", "xf", "xn", "xe")
+ 
+     def __init__(self):
+         for k in Stats.__slots__:
+@@ -357,6 +390,10 @@
+             self._learn(summary)
+         except Exception:
+             pass
++        try:
++            self._learn_ctx(summary)
++        except Exception:
++            self.ctx_learn_fallbacks = getattr(self, "ctx_learn_fallbacks", 0) + 1
+         if self.hands_seen % 100 == 0:
+             try:
+                 gc.collect(1)
+@@ -444,6 +481,80 @@
+             except Exception:
+                 pass
+ 
++    def _learn_ctx(self, summary):
++        """Per seat: observed folds (xf), responses (xn) and field-expected folds (xe) facing post-flop bets."""
++        hist = summary.get("history") or []
++        n = self.n
++        start = self.start
++        contrib = [0] * n
++        bets = [0] * n
++        folded = [False] * n
++        sbs = None
++        street = "preflop"
++        cur = 0
++        naggr = 0
++        aggr = None
++        ratio = 0.0
++        for h in hist:
++            a = h.get("action")
++            s = h.get("seat")
++            amt = h.get("amount") or 0
++            st = h.get("street")
++            if st != street:
++                street = st
++                bets = [0] * n
++                cur = 0
++                naggr = 0
++                aggr = None
++            if a in ("small_blind", "big_blind"):
++                if a == "small_blind":
++                    sbs = s
++                contrib[s] += amt
++                bets[s] += amt
++                cur = max(cur, bets[s])
++                continue
++            to_call = cur - bets[s]
++            if street != "preflop" and to_call > 0 and aggr is not None and sbs is not None \
++                    and a in ("fold", "call", "raise"):
++                mw = 1 if sum(1 for j in range(n) if not folded[j] and j != s) >= 2 else 0
++                # ROOK fix: postflop order is from the button; heads-up the SB is the button
++                bt = sbs if n == 2 else (sbs - 1) % n
++                ip = 1 if (s - bt - 1) % n > (aggr - bt - 1) % n else 0
++                b = 0
++                while b < 5 and ratio >= CTX_EDGES[b]:
++                    b += 1
++                x = (CTX_C + CTX_SZ[b] + (CTX_RAISE if naggr > 1 else 0.0) + CTX_MW * mw
++                     + CTX_ST.get(street, 0.0) + CTX_IP * ip + CTX_MWIP * mw * ip
++                     + (CTX_ALLIN if to_call >= start - contrib[s] else 0.0))
++                o = self.S(s)
++                o.xn += 1
++                o.xe += _sig(x)
++                if a == "fold":
++                    o.xf += 1
++            if a == "raise":
++                add = amt - bets[s]
++                ratio = add / float(max(1, sum(contrib)))
++                contrib[s] += add
++                bets[s] = amt
++                cur = max(cur, amt)
++                naggr += 1
++                aggr = s
++            elif a == "call":
++                contrib[s] += amt
++                bets[s] += amt
++            elif a == "fold":
++                folded[s] = True
++
++    def ftb_ctx(self, j, street, mw, ip, raising):
++        """Fold-to-our-bet at 0.6 pot in this context: field logit + shrunk per-seat shift."""
++        o = self.S(j)
++        x = (CTX_C + CTX_REF + (CTX_RAISE if raising else 0.0) + CTX_MW * mw + CTX_ST.get(street, 0.0)
++             + CTX_IP * ip + CTX_MWIP * mw * ip)
++        if o.xn > 0:
++            ej = o.xe / o.xn
++            x += _logit((o.xf + CTX_K * ej) / (o.xn + CTX_K)) - _logit(ej)
++        return _sig(x)
++
+     def vpip(self, s):
+         o = self.S(s)
+         return (o.vpip + P["pri_vpip"] * 12) / (o.hands + 12)
+@@ -488,6 +599,12 @@
+         per = left / (hands_left * 0.9 + 1)
+         return clamp(per, 0.0, P["max_ms"] / 1000.0)
+ 
++    def stats(self):
++        """ROOK: observable counters for harnesses (no effect on play)."""
++        return {"fallbacks": getattr(self, "fallbacks", 0),
++                "ctx_cont_fallbacks": getattr(self, "ctx_cont_fallbacks", 0),
++                "ctx_learn_fallbacks": getattr(self, "ctx_learn_fallbacks", 0)}
++
+     # ------------------------------------------------------------- api
+     def act(self, state):
+         t0 = time.perf_counter()
+@@ -670,6 +787,12 @@
+         hist = state["history"]
+         street = state["street"]
+         models = []
++        nf = len(folded)
++        live_opp = sum(1 for j in range(nf) if j != me and not folded[j])
++        ctx_mw = 1 if live_opp >= 2 else 0
++        ctx_raise = state.get("to_call", 0) > 0
++        btn = state.get("button", 0)
++        order_me = (me - btn - 1) % nf
+         for j in range(len(folded)):
+             if j == me or folded[j]:
+                 continue
+@@ -707,6 +830,14 @@
+                 w = (max(0.02, cont[0]), max(0.05, cont[1]), max(0.1, cont[2]), 1.0)
+             elif agg == 0:
+                 w = (1.0, 1.0, 1.0, 1.0)
++            # FORGE: forward-looking continue model from the context-aware estimate (w above keeps N's)
++            try:
++                ip_j = 1 if (j - btn - 1) % nf > order_me else 0
++                mc = self.ftb_ctx(j, street, ctx_mw, ip_j, ctx_raise) / P["pri_ftb"]
++                cont = (clamp(1 - (1 - P["c_air"]) * mc, 0.0, 1), clamp(1 - (1 - P["c_weak"]) * mc, 0.0, 1),
++                        clamp(1 - (1 - P["c_mid"]) * mc, 0.0, 1), 1.0)
++            except Exception:
++                self.ctx_cont_fallbacks = getattr(self, "ctx_cont_fallbacks", 0) + 1
+             allin = stacks[j] == 0
+             bj = state["bets"][j]
+             models.append((j, int(lo * NC), max(int(lo * NC) + 6, int(hi * NC)), w, cont, allin,

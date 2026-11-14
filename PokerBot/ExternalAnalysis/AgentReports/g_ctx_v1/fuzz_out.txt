@@ -1,0 +1,8 @@
+no_limit 0 errors 0 chips [39864, 20970, 45170] []
+pot_limit 0 errors 0 chips [17158, 6519, 23176] []
+pot_limit 0 errors 0 chips [32821, 13791, 19375] []
+fixed_limit 0 errors 0 chips [1035, 3775, 3670] []
+fixed_limit 0 errors 0 chips [7110, -2260, 7985] []
+no_limit 2 errors 0 chips [3786, 8882, 6552] []
+no_limit 2 errors 0 chips [35084, -1189, 38062] []
+worst ms 2.68

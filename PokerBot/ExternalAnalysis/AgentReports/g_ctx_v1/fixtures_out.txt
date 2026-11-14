@@ -1,0 +1,32 @@
+F1 raise-to accounting / raise over bet / folded seat: bot PASS | extractor PASS
+    [bot] seat 1: (xf 0, xn 1, xe 0.467770)  expected (0, 1, 0.467770)  OK
+    [bot] seat 2: (xf 0, xn 1, xe 0.633718)  expected (0, 1, 0.633718)  OK
+    [bot] seat 3: (xf 1, xn 1, xe 0.562743)  expected (1, 1, 0.562743)  OK
+    [extractor] OK
+F2 all-in responder: bot PASS | extractor PASS
+    [bot] seat 2: (xf 0, xn 1, xe 0.717440)  expected (0, 1, 0.717440)  OK
+    [extractor] OK
+F3 street transitions / preflop excluded: bot PASS | extractor PASS
+    [bot] seat 2: (xf 1, xn 1, xe 0.695508)  expected (1, 1, 0.695508)  OK
+    [bot] seat 3: (xf 0, xn 1, xe 0.326975)  expected (0, 1, 0.326975)  OK
+    [extractor] OK
+F4 heads-up position (SB = button): bot PASS | extractor PASS
+    [bot] seat 0: (xf 1, xn 1, xe 0.326975)  expected (1, 1, 0.326975)  OK
+    [extractor] OK
+F6 8-seat, button 6 wraparound, button folded preflop: bot PASS | extractor PASS
+    [bot] seat 1: (xf 0, xn 1, xe 0.633718)  expected (0, 1, 0.633718)  OK
+    [bot] seat 7: (xf 1, xn 1, xe 0.772521)  expected (1, 1, 0.772521)  OK
+    [extractor] OK
+F7 7-seat, button 3, blinds and intervening seats folded: bot PASS | extractor PASS
+    [bot] seat 2: (xf 0, xn 1, xe 0.467770)  expected (0, 1, 0.467770)  OK
+    [bot] seat 3: (xf 0, xn 1, xe 0.633718)  expected (0, 1, 0.633718)  OK
+    [bot] seat 6: (xf 1, xn 1, xe 0.716405)  expected (1, 1, 0.716405)  OK
+    [extractor] OK
+F8 heads-up, button rotated to seat 1, BB bets: bot PASS | extractor PASS
+    [bot] seat 1: (xf 1, xn 1, xe 0.326975)  expected (1, 1, 0.326975)  OK
+    [extractor] OK
+F9 heads-up, button bets, BB responds: bot PASS | extractor PASS
+    [bot] seat 1: (xf 0, xn 1, xe 0.541604)  expected (0, 1, 0.541604)  OK
+    [extractor] OK
+bot: ALL PASS; extractor: ALL PASS
+exit=0
