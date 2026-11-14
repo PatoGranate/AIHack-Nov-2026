@@ -1,0 +1,4 @@
+unique tables 135 hands 135000 non-zero-sum hands 0 by observing account {'kaiserbot': 53, 'Red': 44, 'WBot': 38}
+WBot with    donors: +21.3 bb/100 over 40 tables (40000 hands)
+WBot without donors: -9.3 bb/100 over 14 tables (14000 hands)
+WBot vs top21 (x7 per-pair scaling): -18.0 bb/100

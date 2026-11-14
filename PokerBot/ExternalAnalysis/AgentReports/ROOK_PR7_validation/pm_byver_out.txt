@@ -1,0 +1,12 @@
+unique tables 135 hands 135000 non-zero-sum hands 0 by observing account {'kaiserbot': 53, 'Red': 44, 'WBot': 38}
+WBot G(v5/v7)|with      donors: +40.3 bb/100 over 18 tables
+WBot G(v5/v7)|without   donors: -15.2 bb/100 over 6 tables
+WBot I(v6)|with         donors: +10.7 bb/100 over 19 tables
+WBot I(v6)|without      donors: -8.5 bb/100 over 5 tables
+WBot N?(v8)|with        donors: -25.1 bb/100 over 3 tables
+WBot N?(v8)|without     donors: -5.9 bb/100 over 2 tables
+WBot r54+|without       donors: +14.7 bb/100 over 1 tables
+WBot vs top21 G(v5/v7): +4.5 bb/100 (68000 pair-hands)
+WBot vs top21 I(v6): -34.3 bb/100 (86000 pair-hands)
+WBot vs top21 N?(v8): -20.2 bb/100 (20000 pair-hands)
+WBot vs top21 r54+: -40.8 bb/100 (4000 pair-hands)

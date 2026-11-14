@@ -1,0 +1,2 @@
+manifest rows 159 missing 0 hash mismatch 0 on-disk files 159 not in manifest 0
+Counter({'used': 135, 'duplicate_of': 24})
