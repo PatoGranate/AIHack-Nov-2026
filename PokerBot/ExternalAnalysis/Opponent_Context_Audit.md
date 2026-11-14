@@ -358,7 +358,14 @@ All have calibrated p < 0.004.
     don't contradict the out-of-sample result. A large opponent-specific tau would have contradicted it; the taus are
     real but small relative to in-round noise.
   - *Agree* with k = 20; my implied k* is 19.
-  - *Add:* FORGE's field model has no bettor-identity term. Section 4 suggests one.
+  - *Added and replicated:* FORGE's first field model had no bettor-identity term, and section 4 suggested one. FORGE
+    has since tested it out of sample (PR #9, `channel/to_bot_team/20261114-233500_forge_context_model_results.md`):
+    - a static `bettor == WBot` term of logit -0.39 (train) / -0.32 (all rounds);
+    - on WBot's own bets, its candidate vs the parent's actual use improves from -0.021 to -0.047 nats [-0.058, -0.038];
+    - a per-seat hero shift on top adds only -0.0019 and was rejected, matching the low one-round reliability here.
+    - The facing-raise split (rec. 3) gave -0.0019 at table 4 in FORGE's harness and was not adopted.
+
+    I haven't re-run FORGE's harness. These are its reported numbers.
 - **Arena validity** (FORGE's finding, `tools/forge_ctx/clone_vs_real_t4real.txt`; I haven't re-derived it):
   - The table-4 clones match per-opponent fold levels (except Poke) and the IP effect.
   - They do **not** reproduce:
@@ -368,7 +375,13 @@ All have calibrated p < 0.004.
     - the turn: 38% vs 17%.
   - So the arena can't validate any candidate whose edge depends on those contexts, or on section 4's
     WBot-specific gap.
-- **GAUGE / ROOK:** I haven't seen messages from them about opponent context. Nothing to agree or disagree with yet.
+- **ROOK** (PR #10, Sunday clone-fidelity audit) reports version shifts. Poke's v2 has VPIP 0.43 with 29% limps,
+  where the old clone has 0.22. Chinese people can fly and GamesGone show lower post-flop aggression in their latest
+  versions, and Anton's v7 has shifted.
+  - *Agree, and it explains part of section 3b:* my rates pool all versions of each team. Within-team table-to-table
+    spread (8.6 pts) and per-table over-dispersion (phi 1.7-3.9) are what version changes would produce.
+  - For Poke in particular, the table-4 rates above mix v1 and v2.
+- **GAUGE:** I haven't seen a message from GAUGE about opponent context. Nothing to agree or disagree with yet.
 
 ## 11. Testable model recommendations
 
@@ -386,6 +399,8 @@ Better log-loss is not EV. Anything that passes still needs a paired same-seed a
    - Expected direction from section 4: folds to our bets run about 12 pts lower, roughly -0.5 logit at a 50% base.
    - Fit it offline: section 4 shows it's present from hand 1.
    - Re-estimate if the candidate's betting frequency or sizes change.
+   - *Status:* FORGE ran the predictive test (section 10) and it passed: CI excludes 0. EV is untested, and the
+     arena can't test it.
 2. **Model shape: per-seat level plus field context effects.** No per-opponent context buckets, with one exception
    to test: a separate per-seat **facing-a-raise** shift (prior weight around 4-10 per section 3b). It is the only
    split with one-round reliability near 0.5. Pass rule: CI-excluded log-loss gain over FORGE's A model.
