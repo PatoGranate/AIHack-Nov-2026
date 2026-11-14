@@ -9,8 +9,12 @@ to their observed fold-to-bet rate. Actions are chosen by approximate EV
 Everything is wrapped so act() always returns a legal action.
 """
 import gc
+import math
 import random
 import time
+
+_log = math.log
+_exp = math.exp
 
 RANKS = "23456789TJQKA"
 SUITS = "cdhs"
@@ -222,6 +226,11 @@ P = {
     'sd_prior': 0.42,     # share of shown turn/river aggressors holding <= weak pair
     'sd_k': 6,
     'real_sb': 0.92,      # equity realisation when flatting a raise from the SB
+    # --- v3: real-field model (MODEL, rebuilt from the latest rounds)
+    'size_read': 0.0,     # 0..1: weight on the real P(hand level | bet size) tables when reading a bettor
+    'fold_cal': 0,        # rescale the continue model so the field's fold rate per bet size matches reality
+    'ident': 0,           # recognise which known bot sits in each seat (bet-size fingerprints) and use its profile
+    'id_k': 30,           # how many hands of evidence a confident identification is worth
 }
 
 # ---------------------------------------------------------------- tables
@@ -345,12 +354,84 @@ def level_of(h1, h2, bd):
     return 0
 
 
+def level_street(h1, h2, bd):
+    """Same 4 levels as simulate() on a board of 3-5 cards (flush draws count as weak before the river)."""
+    brc = [0] * 13
+    sc = [0, 0, 0, 0]
+    for c in bd:
+        brc[c >> 2] += 1
+        sc[c & 3] += 1
+    v = evaluate(list(bd) + [h1, h2])
+    if len(bd) < 5 and v < (1 << 20):
+        for st in range(4):
+            if sc[st] + ((h1 & 3) == st) + ((h2 & 3) == st) == 4 and ((h1 & 3) == st or (h2 & 3) == st):
+                return 1
+    top = max(c >> 2 for c in bd)
+    bpairs = set(r for r in range(13) if brc[r] >= 2)
+    cat = v >> 20
+    if cat >= 4:
+        return 3
+    if cat == 3:
+        return 0 if brc[(v >> 8) & 15] >= 3 else 3
+    if cat == 2:
+        p1, p2 = (v >> 8) & 15, (v >> 4) & 15
+        if p1 in bpairs and p2 in bpairs:
+            return 0
+        if p1 in bpairs or p2 in bpairs:
+            o = p2 if p1 in bpairs else p1
+            return 2 if o >= top else 1
+        return 3
+    if cat == 1:
+        pr = (v >> 12) & 15
+        return 0 if pr in bpairs else (2 if pr >= top else 1)
+    return 0
+
+
+SIZE_EDGES = (0.25, 0.45, 0.7, 0.95, 1.3)    # bet / pot buckets 0..5; 6 = raise over a bet
+
+
+def size_bucket(frac, over_bet):
+    if over_bet:
+        return 6
+    for i, e in enumerate(SIZE_EDGES):
+        if frac < e:
+            return i
+    return 5
+
+
+MODEL = {}    # filled by export_v2.py from data/v3_model.json (tools/build_v3_model.py)
+_MODEL_SRC = [None, 0.0]     # (path, mtime) when MODEL comes from the repo's data file (simulator), not baked in
+
+
+def _refresh_model():
+    """Simulator only: reload data/v3_model.json when it has been rebuilt (long-running workers stay fresh)."""
+    try:
+        import os as _os
+        path = _MODEL_SRC[0] or _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "data", "v3_model.json")
+        mt = _os.path.getmtime(path)
+        if mt != _MODEL_SRC[1]:
+            import json as _json
+            with open(path) as _f:
+                m = _json.load(_f)
+            MODEL.clear()
+            MODEL.update(m)
+            _MODEL_SRC[0], _MODEL_SRC[1] = path, mt
+    except Exception:
+        pass
+
+
+if not MODEL:
+    _refresh_model()
+
+
 # ---------------------------------------------------------------- agent
 class Agent:
     def __init__(self, params=None, seed=None):
         self.P = dict(P)
         if params:
             self.P.update(params)
+        if _MODEL_SRC[0]:
+            _refresh_model()
         self.rng = random.Random(seed)
         self.seat = 0
         self.n = 8
@@ -363,6 +444,8 @@ class Agent:
         self.hard_end = 0.0
         self.start = 2000
         self.ctx = None
+        self.idll = {}
+        self.post = {}
 
     def on_table_start(self, info):
         self.seat = info.get("seat", 0)
@@ -467,6 +550,11 @@ class Agent:
             if a == "raise":
                 cur = h.get("amount") or cur
                 nraise += 1
+        if self.P["ident"] and MODEL.get("bots"):
+            try:
+                self._id_learn(hist, bb)
+            except Exception:
+                pass
         for s in vp:
             self.S(s).vpip += 1
         for s in pr:
@@ -486,22 +574,64 @@ class Agent:
             except Exception:
                 pass
 
+    def _id_learn(self, hist, bb):
+        street, pot, bets, raised = None, 0, {}, False
+        touched = set()
+        for h in hist:
+            a, s, st = h.get("action"), h.get("seat"), h.get("street")
+            amt = h.get("amount") or 0
+            if st != street:
+                street, bets = st, {}
+            if a in ("small_blind", "big_blind"):
+                bets[s] = amt
+                pot += amt
+                continue
+            cur = max(bets.values()) if bets else 0
+            if a == "raise":
+                if st == "preflop" and not raised:
+                    self._id_obs(s, "opens", str(amt))
+                    touched.add(s)
+                elif st != "preflop" and cur == 0:
+                    frac = (amt - bets.get(s, 0)) / float(max(1, pot))
+                    self._id_obs(s, "pbets", "%.2f" % (round(frac / 0.05) * 0.05))
+                    touched.add(s)
+                raised = raised or st == "preflop"
+                pot += amt - bets.get(s, 0)
+                bets[s] = amt
+            elif a == "call":
+                pot += amt
+                bets[s] = bets.get(s, 0) + amt
+        for s in touched:
+            if s != self.seat:
+                self._id_post(s)
+
+    def pri(self, s, key, default, k):
+        """(prior value, prior weight): the identified bot's profile when we know who sits there."""
+        q = self.post.get(s)
+        if not q:
+            return default, k
+        return q[key], k + self.P["id_k"] * q["_conf"]
+
     def vpip(self, s):
         o = self.S(s)
-        return (o.vpip + self.P["pri_vpip"] * 12) / (o.hands + 12)
+        pv, k = self.pri(s, "vpip", self.P["pri_vpip"], 12)
+        return (o.vpip + pv * k) / (o.hands + k)
 
     def pfr(self, s):
         o = self.S(s)
-        return (o.pfr + self.P["pri_pfr"] * 12) / (o.hands + 12)
+        pv, k = self.pri(s, "pfr", self.P["pri_pfr"], 12)
+        return (o.pfr + pv * k) / (o.hands + k)
 
     def bigrate(self, s):
         o = self.S(s)
-        return (o.big + 0.05 * 10) / (o.hands + 10)
+        pv, k = self.pri(s, "big", 0.05, 10)
+        return (o.big + pv * k) / (o.hands + k)
 
     def fold3(self, s):
         """(rate, n): how often seat s folds its OWN open to a re-raise."""
         o = self.S(s)
-        return (o.o3fold + 0.5 * 4) / (o.o3 + 4), o.o3
+        pv, k = self.pri(s, "f3", 0.5, 4)
+        return (o.o3fold + pv * k) / (o.o3 + k), o.o3 + (k - 4)
 
     def blindfold(self, s):
         """(rate, n): how often seat s, in a blind, folds to a single open."""
@@ -511,11 +641,13 @@ class Agent:
     def ftr(self, s):
         """Preflop: how often seat s folds when facing a raise."""
         o = self.S(s)
-        return (o.f3fold + 0.75 * 10) / (o.f3 + 10)
+        pv, k = self.pri(s, "ftr", 0.75, 10)
+        return (o.f3fold + pv * k) / (o.f3 + k)
 
     def ftb(self, s):
         o = self.S(s)
-        return (o.ffold + self.P["pri_ftb"] * 8) / (o.faced + 8)
+        pv, k = self.pri(s, "ftb", self.P["pri_ftb"], 8)
+        return (o.ffold + pv * k) / (o.faced + k)
 
     def sdmult(self, s):
         o = self.S(s)
@@ -524,7 +656,46 @@ class Agent:
 
     def af(self, s):
         o = self.S(s)
-        return (o.pbet + 0.3 * 10) / (o.pbet + o.pcall + o.pcheck + 10)
+        pv, k = self.pri(s, "af", 0.3, 10)
+        return (o.pbet + pv * k) / (o.pbet + o.pcall + o.pcheck + k)
+
+    # ------------------------------------------------------------- identification
+    def _id_obs(self, s, kind, key):
+        """One fingerprint observation (kind 'opens' or 'pbets') for seat s."""
+        bots = MODEL.get("bots")
+        if not bots:
+            return
+        ll = self.idll.get(s)
+        if ll is None:
+            ll = self.idll[s] = {}
+        u = 0.02
+        tot = 0.0
+        for b, prof in bots.items():
+            pb = prof[kind].get(key, 0.0)
+            tot += pb
+            ll[b] = ll.get(b, 0.0) + _log(0.85 * pb + 0.15 * u)
+        ll["_pop"] = ll.get("_pop", 0.0) + _log(0.85 * tot / len(bots) + 0.15 * u)
+
+    def _id_post(self, s):
+        bots = MODEL.get("bots")
+        ll = self.idll.get(s)
+        if not bots or not ll:
+            return
+        W = sum(p["w"] for p in bots.values())
+        lp = {b: v + _log(0.8 * bots[b]["w"] / W) if b != "_pop" else v + _log(0.2) for b, v in ll.items()}
+        mx = max(lp.values())
+        ex = {b: _exp(v - mx) for b, v in lp.items()}
+        Z = sum(ex.values())
+        popm = MODEL["popstats"]
+        q = {}
+        for key in ("vpip", "pfr", "big", "f3", "ftr", "ftb", "af", "bluff"):
+            v = 0.0
+            for b, e in ex.items():
+                v += e * (bots[b][key] if b != "_pop" else popm[key])
+            q[key] = v / Z
+        best = max((e for b, e in ex.items() if b != "_pop"), default=0.0) / Z
+        q["_conf"] = best
+        self.post[s] = q
 
     # ------------------------------------------------------------- time
     def budget(self):
@@ -719,6 +890,7 @@ class Agent:
         hist = state["history"]
         street = state["street"]
         models = []
+        lastagg = self._last_aggr(hist) if (self.P["size_read"] > 0 and MODEL.get("pop")) else {}
         for j in range(len(folded)):
             if j == me or folded[j]:
                 continue
@@ -753,6 +925,8 @@ class Agent:
             if agg >= 1 and self.P["sd_cal"]:
                 sm = self.sdmult(j)
                 w = (w[0] * sm, min(1.0, w[1] * sm), w[2], w[3])
+            if agg >= 1 and j in lastagg:
+                w = self._size_weights(j, lastagg[j], w)
             if agg >= 2 or raise_over:
                 pass
             elif agg == 0 and calls:
@@ -764,6 +938,47 @@ class Agent:
             models.append((j, int(lo * NC), max(int(lo * NC) + 6, int(hi * NC)), w, cont, allin,
                            bj, bj + stacks[j], self.start - stacks[j]))
         return models
+
+    def _last_aggr(self, hist):
+        """seat -> (street, size bucket) of its latest postflop bet/raise this hand."""
+        out = {}
+        street, pot, bets = None, 0, {}
+        for h in hist:
+            a, s, st = h.get("action"), h.get("seat"), h.get("street")
+            amt = h.get("amount") or 0
+            if st != street:
+                street, bets = st, {}
+            if a in ("small_blind", "big_blind"):
+                bets[s] = amt
+                pot += amt
+                continue
+            cur = max(bets.values()) if bets else 0
+            if a == "raise":
+                if st != "preflop":
+                    out[s] = (st, size_bucket((amt - bets.get(s, 0)) / float(max(1, pot)), cur > 0))
+                pot += amt - bets.get(s, 0)
+                bets[s] = amt
+            elif a == "call":
+                pot += amt
+                bets[s] = bets.get(s, 0) + amt
+        return out
+
+    def _size_weights(self, j, sb, w):
+        st, b = sb
+        pop = MODEL["pop"]
+        tab = pop["lvl"].get(st, {}).get(str(b))
+        if not tab:
+            return w
+        base = pop["base"][st]
+        f = [tab[L] / max(1e-3, base[L]) for L in range(4)]
+        q = self.post.get(j)
+        if q:
+            br = clamp(q["bluff"], 0.4, 2.5) ** q["_conf"]
+            f[0] *= br
+            f[1] *= br
+        mx = max(f)
+        a = self.P["size_read"]
+        return tuple(max(1e-3, w[L]) ** (1 - a) * max(1e-3, f[L] / mx) ** a for L in range(4))
 
     def simulate(self, hole, board, models, cands, my_bet, pot, raising, budget):
         """Weighted MC over opponents' ranges.
@@ -797,6 +1012,18 @@ class Agent:
         adds = [R - my_bet for R in cands]
         sizes = [max(0.05, a / float(max(1, pot))) for a in adds]
         exps = [min(2.5, (sz / 0.6) ** self.P["size_exp"]) for sz in sizes]
+        fks = [1.0] * nc
+        if self.P["fold_cal"] and MODEL.get("pop") and not raising:
+            stn = {3: "flop", 4: "turn", 5: "river"}[len(bd)]
+            base = MODEL["pop"]["base"][stn]
+            cb = (self.P["c_air"], self.P["c_weak"], self.P["c_mid"])
+            for ci in range(nc):
+                tgt = MODEL["pop"]["fold"][stn].get(str(size_bucket(sizes[ci], False)))
+                if tgt is None:
+                    continue
+                e = exps[ci]
+                fp = sum(base[L] * (1 - cb[L] ** e) for L in range(3)) + base[3] * (0.0 if e < 2.0 else 0.08)
+                fks[ci] = clamp(tgt / max(0.02, fp), 0.4, 2.5)
         conts = []
         contrib = []
         for m in models:
@@ -809,6 +1036,9 @@ class Agent:
                     row.append((1.0, 1.0, 1.0, 1.0))
                 else:
                     cc = (cont[0] ** e, cont[1] ** e, cont[2] ** e, 1.0 if e < 2.0 else 0.92)
+                    if fks[ci] != 1.0:
+                        fk = fks[ci]
+                        cc = tuple(clamp(1 - (1 - x) * fk, 0.0, 1.0) for x in cc)
                     if fvr != 1.0:
                         cc = tuple(clamp(1 - (1 - x) * fvr, 0.0, 1.0) for x in cc)
                     row.append(cc)

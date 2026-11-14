@@ -53,16 +53,32 @@ def self_names(hands_dir=HANDS_DIR):
     return names
 
 
+HALF_LIFE_ROUNDS = 10      # recency: a round 10 rounds old counts half (bots change versions all the time)
+
+
+def _slot_ts(d):
+    import time as _t
+    try:
+        return _t.mktime(_t.strptime((d.get("round") or {})["slot"][:19], "%Y-%m-%dT%H:%M:%S"))
+    except (KeyError, TypeError, ValueError):
+        return 0.0
+
+
 def profiles(hands_dir=HANDS_DIR):
+    """Per-bot style, recency-weighted ("hands" is the weighted hand count)."""
     prof = {}
     SELF_NAMES.clear()
     SELF_NAMES.update(self_names(hands_dir))
     seen_hands = set()
+    loaded = []
     for f, own in _files(hands_dir):
         try:
-            d = json.load(open(f, encoding="utf-8"))
+            loaded.append(json.load(open(f, encoding="utf-8")))
         except (OSError, ValueError):
             continue
+    latest = max([_slot_ts(d) for d in loaded] or [0.0])
+    for d in loaded:
+        wgt = 0.5 ** (max(0.0, latest - _slot_ts(d)) / (300.0 * HALF_LIFE_ROUNDS))
         players = d.get("players") or []
         rnd = d.get("round") or {}
         ref = d.get("ref") or rnd.get("ref") or f
@@ -94,20 +110,20 @@ def profiles(hands_dir=HANDS_DIR):
             for s, name in enumerate(players):
                 p = prof.setdefault(name, {"name": name, "hands": 0, "vpip": 0, "pfr": 0, "jam": 0, "pf_aggr": 0,
                                            "pf_acts": 0, "chips": 0})
-                p["hands"] += 1
-                p["vpip"] += s in vp
-                p["pfr"] += s in pr
-                p["jam"] += s in jam
+                p["hands"] += wgt
+                p["vpip"] += wgt * (s in vp)
+                p["pfr"] += wgt * (s in pr)
+                p["jam"] += wgt * (s in jam)
                 if s in pf:
-                    p["pf_aggr"] += pf[s][0]
-                    p["pf_acts"] += pf[s][1]
+                    p["pf_aggr"] += wgt * pf[s][0]
+                    p["pf_acts"] += wgt * pf[s][1]
                 res = h.get("results") or []
                 if s < len(res):
-                    p["chips"] += res[s]
+                    p["chips"] += wgt * res[s]
     out = []
     for p in prof.values():
-        n = max(1, p["hands"])
-        out.append({"name": p["name"], "hands": p["hands"], "vpip": p["vpip"] / n, "pfr": p["pfr"] / n,
+        n = max(1e-9, p["hands"])
+        out.append({"name": p["name"], "hands": round(p["hands"], 1), "vpip": p["vpip"] / n, "pfr": p["pfr"] / n,
                     "jam": p["jam"] / n, "agg_freq": p["pf_aggr"] / max(1, p["pf_acts"]),
                     "bb100": p["chips"] / 20.0 / n * 100, "self": p["name"] in SELF_NAMES})
     return sorted(out, key=lambda x: -x["hands"])

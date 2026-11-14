@@ -38,6 +38,9 @@ SPACE = {
     "bet_margin": (-0.12, 0.04, 0.02), "raise_margin": (-0.08, 0.04, 0.02), "call_tax": (0.0, 0.06, 0.02),
     "fold_vs_raise": (0.8, 1.3, 0.1), "size_exp": (0.7, 1.4, 0.1), "multi_exp": (0.5, 1.0, 0.1),
     "w_b_weak": (0.35, 0.75, 0.1), "w_b_mid": (0.65, 1.0, 0.05), "sd_cal": (0, 1, 1), "q_trap": (0, 1, 1),
+    # v3 field-model knobs
+    "size_read": (0.0, 1.0, 0.2), "fold_cal": (0, 1, 1), "ident": (0, 1, 1), "id_k": (10, 60, 10),
+    "pri_ftb": (0.40, 0.65, 0.05),
 }
 BASE = {"max_ms": 6.0, "hard_ms": 12.0, "max_sims": 6000}
 SEL_TABLES, HOLD_TABLES, HANDS = 128, 288, 300
