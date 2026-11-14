@@ -1,0 +1,71 @@
+tables used (dedup, counted): 135
+
+== Poke  old clone ef508b9fa423… target from 8000 hands
+   stat          old     all-Saturday        latest v2
+   vpip         0.22      0.337±0.004      0.426±0.005  <-- old vs all >3SE
+   pfr          0.13      0.155±0.003      0.175±0.003
+   threebet     0.05      0.039±0.002      0.030±0.002
+   limp          n/a      0.197±0.004      0.293±0.006
+   af           0.39      0.535±0.006      0.578±0.007  <-- old vs all >3SE
+   ftb          0.51      0.549±0.009      0.546±0.010  <-- old vs all >3SE
+   hands: all 18000 (18 tables); latest-version 12000 (12 tables, rounds 22-54)
+
+== Resonance Qt  old clone ac23638b6444… target from 17000 hands
+   stat          old     all-Saturday       latest v12
+   vpip         0.22      0.218±0.003      0.190±0.007
+   pfr          0.17      0.165±0.002      0.141±0.006
+   threebet     0.11      0.110±0.003      0.095±0.007
+   limp          n/a      0.002±0.000      0.000±0.000
+   af           0.36      0.391±0.007      0.384±0.020  <-- old vs all >3SE
+   ftb          0.41      0.386±0.009      0.339±0.026
+   hands: all 23000 (23 tables); latest-version 3000 (3 tables, rounds 48-54)
+
+== Anker Batteries  old clone 2afe4690ad38… target from 14000 hands
+   stat          old     all-Saturday        latest v4
+   vpip         0.22      0.225±0.003      0.224±0.003
+   pfr          0.16      0.168±0.002      0.166±0.003
+   threebet     0.10      0.118±0.003      0.122±0.003
+   limp          n/a      0.000±0.000      0.000±0.000
+   af           0.43      0.431±0.007      0.434±0.008
+   ftb          0.45      0.457±0.009      0.434±0.010
+   hands: all 27000 (27 tables); latest-version 20000 (20 tables, rounds 25-54)
+
+== Chinese people can fly  old clone dd6dfa7e1405… target from 16000 hands
+   stat          old     all-Saturday       latest v17
+   vpip         0.36      0.355±0.003      0.329±0.006
+   pfr          0.20      0.216±0.003      0.219±0.005
+   threebet     0.06      0.066±0.002      0.076±0.004
+   limp          n/a      0.009±0.001      0.001±0.000
+   af           0.45      0.442±0.005      0.271±0.009
+   ftb          0.45      0.458±0.007      0.408±0.012
+   hands: all 24000 (24 tables); latest-version 7000 (7 tables, rounds 42-54)
+
+== GamesGone  old clone 13239ee0fef1… target from 16000 hands
+   stat          old     all-Saturday       latest v12
+   vpip         0.27      0.258±0.003      0.243±0.010
+   pfr          0.17      0.162±0.002      0.157±0.008
+   threebet     0.03      0.029±0.002      0.041±0.006
+   limp          n/a      0.008±0.001      0.000±0.000
+   af           0.51      0.505±0.006      0.307±0.017
+   ftb          0.42      0.427±0.008      0.438±0.024
+   hands: all 23000 (23 tables); latest-version 2000 (2 tables, rounds 47-54)
+
+== Anton  old clone 7cc6f1522b8f… target from 16000 hands
+   stat          old     all-Saturday        latest v7
+   vpip         0.33      0.319±0.003      0.270±0.007
+   pfr          0.26      0.258±0.003      0.251±0.007
+   threebet     0.25      0.250±0.004      0.293±0.010
+   limp          n/a      0.061±0.002      0.047±0.005
+   af           0.29      0.320±0.006      0.400±0.020  <-- old vs all >3SE
+   ftb          0.44      0.472±0.009      0.546±0.027  <-- old vs all >3SE
+   hands: all 22000 (22 tables); latest-version 4000 (4 tables, rounds 42-54)
+
+== YSL_TWIZZY  old clone 95ad7cb10ebd… target from 15000 hands
+   stat          old     all-Saturday        latest v6
+   vpip         0.21      0.211±0.003      0.192±0.004
+   pfr          0.16      0.162±0.003      0.147±0.004
+   threebet     0.04      0.044±0.002      0.044±0.003
+   limp          n/a      0.009±0.001      0.009±0.001
+   af           0.19      0.203±0.005      0.201±0.009
+   ftb          0.27      0.264±0.009      0.234±0.015
+   hands: all 20000 (20 tables); latest-version 8000 (8 tables, rounds 38-54)

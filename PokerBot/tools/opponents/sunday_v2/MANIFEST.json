@@ -1,0 +1,26 @@
+{
+ "field": "sunday_v2",
+ "generator": "tools/rook_clone_fidelity.py",
+ "generator_sha256": "7579fefd429a88172c71dc8eff0404e0b79701b1620258e04f6c61b35c277185",
+ "mapping": "verbatim copy of tools/make_clones.py PARAMS mapping",
+ "data_root_note": "PR #7 head f7fbac4 Hand_data (159 files, 135 dedup tables) + leaderboard_history_r13_r48.csv",
+ "old_field": "tools/opponents/real (unchanged)",
+ "files": {
+  "Poke": "f84ecef6a499bd9b78aef0ff757e648ae81e10adf2ed99820ab9d051848073b3",
+  "Resonance Qt": "6622fb3a6b0973ba35578eb25973e68c0a035e4a1ae15fb7e0b68f9c17dca560",
+  "Anker Batteries": "35d35b77b9643b89d37b6d2fe5fc5aa13490ea8b166786fdea8b47285170e030",
+  "Chinese people can fly": "42479fa43200a6a553de08c0cfc5fea16ff31c5b1874f54d35316ad229c7037c",
+  "GamesGone": "3a9beb40e7f60df6633d38af24355c7fc76618289a349fbff7b7ff5ef22bc906",
+  "Anton": "44da98d81e83e38b3462e69f3a092da5d49c53881134aff85c59fb5d817e462b",
+  "YSL_TWIZZY": "f287f330c9660c6e9629947e0e7c84125829c2103628f6bf61124ef704d25564"
+ },
+ "calibration": {
+  "Poke": "latest v2 (rounds 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54)",
+  "Resonance Qt": "all Saturday tables",
+  "Anker Batteries": "latest v4 (rounds 25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54)",
+  "Chinese people can fly": "latest v17 (rounds 42,43,44,45,46,47,48,49,50,51,52,53,54)",
+  "GamesGone": "all Saturday tables",
+  "Anton": "latest v7 (rounds 42,43,44,45,46,47,48,49,50,51,52,53,54)",
+  "YSL_TWIZZY": "latest v6 (rounds 38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54)"
+ }
+}
