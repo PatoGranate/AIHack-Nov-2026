@@ -69,4 +69,4 @@ Errors and bank-outs were 0 in all 53 rounds.
 
 ## Method
 
-All numbers were reproduced with a short stdlib script (scratchpad `prov/fp.py`, kept out of the repo). It reads every `saturday_r*.json`, takes `round.version`, and for the team seat counts first-in opportunities and raises by position: EP = earlier than HJ, plus HJ, CO, BTN and SB. Open size is the raise amount ÷ 20.
+All numbers were reproduced with a short stdlib script (`ExternalAnalysis/provenance/fp.py`; run `python -I fp.py Hand_data/SaturdayRealRounds`). It reads every `saturday_r*.json`, takes `round.version`, and for the team seat counts first-in opportunities and raises by position: EP = earlier than HJ, plus HJ, CO, BTN and SB. Open size is the raise amount ÷ 20.
