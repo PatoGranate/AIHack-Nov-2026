@@ -245,6 +245,18 @@ entirely on the real-round predictive evidence in 4b. It is untested for EV.
   gap is 0.011 nats overall and 0.039 on WBot's bets.
 - Not a release gate: no live protocol/IPC test and no server-bank test. The decision-time cost is a few
   float operations per live opponent, and the hand-end cost is one `exp` per observed response.
+- **v2's hero term describes Saturday's WBot betting policy, not a fixed fact** (SCOUT, PR #12):
+  - SCOUT's out_04 finds the gap flat across the round (-11.4, -13.0, -10.3, -14.2 pts by hand quarter).
+    That supports a static term from hand 1 rather than one learned in-round.
+  - But the gap is measured against how WBot (G/I/N) bet on Saturday. v2 itself lowers the fold estimate on
+    our bets and so changes how often and how we bet. If v2 or any later version runs live, re-estimate the
+    term from its own rounds.
+  - The per-seat shift only partly absorbs such a change: it is measured against field expectations pooled
+    over all bettors, with k = 20.
+- Opponent versions are pooled. ROOK's PR #10 reports that Poke's second version differs a lot from its
+  first (VPIP 0.43, 29% limps). The real-round Poke rates here, including the clone comparison in section 7
+  (clone 41% vs real 55%), pool both versions. The seat shift handles whichever version is seated, but
+  Saturday-level comparisons for Poke are mixed.
 - Parent identity (section 1) is still to be confirmed by the bot team.
 
 ## 8. Reproduce
