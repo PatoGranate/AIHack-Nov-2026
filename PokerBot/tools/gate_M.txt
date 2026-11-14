@@ -1,0 +1,4 @@
+J(gen08) vs I late   DIFF                                      -0.8 bb/100 (se 4.0)  z=-0.21
+I vs G late   DIFF                                     +16.5 bb/100 (se 5.2)  z=3.18
+J(gen08) vs I real   DIFF                                      +0.8 bb/100 (se 3.4)  z=0.24
+I vs G real   DIFF                                     +23.3 bb/100 (se 4.6)  z=5.02

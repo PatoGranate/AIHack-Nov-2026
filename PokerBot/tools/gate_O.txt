@@ -1,0 +1,5 @@
+cN vs cI late 480t x300h seed 5501   DIFF                                      +1.5 bb/100 (se 3.1)  z=0.49
+cN vs cI real 480t x300h seed 5501   DIFF                                      +3.1 bb/100 (se 3.5)  z=0.91
+cN vs cI heldout 480t x300h seed 5501   DIFF                                      +7.6 bb/100 (se 3.4)  z=2.27
+cN vs cI archive 64t x1000h seed 5502   DIFF                                      +9.1 bb/100 (se 8.6)  z=1.06
+done

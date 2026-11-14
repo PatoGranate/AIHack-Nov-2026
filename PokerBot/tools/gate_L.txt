@@ -1,0 +1,4 @@
+gen08 vs srv_I late (seed2)   DIFF                                      +3.5 bb/100 (se 3.5)  z=1.01
+gen08 vs srv_I real (seed2)   DIFF                                      +2.9 bb/100 (se 3.0)  z=0.96
+gen08 vs srv_I heldout (seed2)   DIFF                                      +3.5 bb/100 (se 3.0)  z=1.15
+done

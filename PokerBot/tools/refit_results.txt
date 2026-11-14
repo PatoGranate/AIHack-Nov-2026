@@ -1,0 +1,4 @@
+v7 vs F_gen01 real(refit)   DIFF                                     +42.3 bb/100 (se 5.4)  z=7.83
+v7 vs F_gen01 heldout(refit)   DIFF                                     +27.8 bb/100 (se 5.7)  z=4.83
+v7 vs b3 real(refit)   DIFF                                     +46.5 bb/100 (se 5.0)  z=9.39
+v7 vs b3 heldout(refit)   DIFF                                     +24.2 bb/100 (se 6.2)  z=3.90

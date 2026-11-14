@@ -1,0 +1,9 @@
+Hfast vs G late   DIFF                                      +8.2 bb/100 (se 3.6)  z=2.28
+Hfast vs G real   DIFF                                      +4.6 bb/100 (se 3.5)  z=1.32
+Hfast vs G heldout   DIFF                                      +4.4 bb/100 (se 3.6)  z=1.20
+Hfast vs G archive   DIFF                                      +1.5 bb/100 (se 5.9)  z=0.25
+Hfast vs H late   DIFF                                      -2.5 bb/100 (se 3.8)  z=-0.65
+fuzz clean (of 8): 8
+decisions 1314 total s 0.41 agent.spent 0.66 p50 0.04 p99 2.08 max 3.27
+bot                               chips    bb/100 timeouts  errors  bank out think s/rd
+Hfast.py                        +524201   +1310.5        0       0         0        1.8

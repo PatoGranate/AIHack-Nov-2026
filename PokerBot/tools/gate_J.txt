@@ -1,0 +1,5 @@
+gen05 vs srv_I late   DIFF                                      +9.5 bb/100 (se 4.3)  z=2.21
+gen05 vs srv_I real   DIFF                                      -4.2 bb/100 (se 3.6)  z=-1.17
+gen05 vs srv_I heldout   DIFF                                      -0.2 bb/100 (se 4.1)  z=-0.05
+gen05 vs srv_I archive   DIFF                                      -8.6 bb/100 (se 7.3)  z=-1.18
+done

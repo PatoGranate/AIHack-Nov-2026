@@ -1,0 +1,50 @@
+15:32:30 it0 o_ep:0.22->0.235 [real] d=+1.2 se=3.7 z=0.32
+15:32:48 it1 steal_k:1.5->0.5 [heldout] d=-1.9 se=4.6 z=-0.41
+15:33:04 it2 raise_margin:-0.04->-0.01 [realself] d=-1.1 se=4.3 z=-0.26
+15:33:19 it3 w_r_weak:0.25->0.088 [real] d=-0.4 se=4.7 z=-0.09
+15:34:29 it4 overlimp:0.3->0.26 [archive] d=-3.6 se=6.3 z=-0.57
+15:34:44 it5 w_r_weak:0.25->0.153 eq_3b:0.52->0.5 [real] d=-1.7 se=3.9 z=-0.44
+15:34:59 it6 o_ep:0.22->0.248 [heldout] d=-2.3 se=4.2 z=-0.55
+15:35:14 it7 o_mp:0.28->0.225 [realself] d=-5.0 se=4.3 z=-1.16
+15:36:52 it8 size_exp:1.0->0.575 [real] d=+10.1 se=4.0 z=2.52 | confirm [archive] d=+20.2 se=6.2 -> comb z=4.11  ACCEPT -> tools/cands/gen03.py
+15:38:24 it9 o_ep:0.22->0.25 [archive] d=+8.3 se=6.9 z=1.20 | confirm [real] d=+2.7 se=4.6 -> comb z=1.33
+15:38:38 it10 overlimp:0.3->0.175 [real] d=+0.2 se=3.8 z=0.05
+15:38:55 it11 c_mid:1->1 [heldout] d=+0.2 se=4.3 z=0.05
+15:39:14 it12 eq_4b:0.56->0.578 [realself] d=+2.9 se=4.2 z=0.69
+15:39:29 it13 bluff_af:1.2->0.96 [real] d=-2.4 se=4.2 z=-0.57
+15:40:39 it14 chk_oop:0.7->0.752 real_ip:1.05->1.1 [archive] d=-3.3 se=7.0 z=-0.47
+15:40:53 it15 r3_mult:0.35->0.212 w_r_air:0.5->0.572 [real] d=-2.0 se=4.7 z=-0.43
+15:41:09 it16 call_tax:0.0->0.038 c_mid:1->1 [heldout] d=-2.0 se=4.1 z=-0.49
+15:41:39 it17 bet_sizes:[0.33, 0.6, 1.0]->[0.4, 0.75] shove_spr:5->6.05 [realself] d=+10.0 se=4.1 z=2.44 | confirm [real] d=+3.7 se=3.9 -> comb z=2.42  ACCEPT -> tools/cands/gen04.py
+15:41:53 it18 c_weak:0.55->0.655 w_b_weak:0.55->0.35 [real] d=-3.3 se=3.6 z=-0.92
+15:43:07 it19 loose_add:1.0->1.16 o_ep:0.22->0.25 [archive] d=-4.9 se=6.4 z=-0.77
+15:43:23 it20 open_size:3.5->3.34 [real] d=-1.5 se=3.9 z=-0.38
+15:43:39 it21 pf_call_margin:0.0->0.24 [heldout] d=-8.7 se=4.2 z=-2.07
+15:43:55 it22 chk_ip:0.8->0.828 [realself] d=+1.7 se=4.0 z=0.42
+15:45:27 it23 w_r_weak:0.25->0.153 o_sb:0.487->0.554 [real] d=+5.2 se=4.4 z=1.18 | confirm [archive] d=+5.4 se=6.5 -> comb z=1.35
+15:46:55 it24 pri_vpip:0.28->0.252 [archive] d=+9.8 se=6.3 z=1.56 | confirm [real] d=-2.0 se=3.9 -> comb z=1.05
+15:47:12 it25 w_r_mid:0.6->0.48 [real] d=+2.6 se=3.8 z=0.68
+15:47:31 it26 raise_margin:-0.04->-0.01 [heldout] d=-3.7 se=4.0 z=-0.93
+15:47:51 it27 o_hj:0.36->0.34 pri_vpip:0.28->0.308 [realself] d=-2.2 se=4.0 z=-0.55
+15:48:06 it28 real_oop:0.92->0.952 raise_margin:-0.04->-0.05 [real] d=+3.5 se=3.7 z=0.95
+15:49:32 it29 raise_margin:-0.04->-0.024 [archive] d=-1.9 se=6.2 z=-0.31
+15:50:04 it30 chk_ip:0.8->0.8 [real] d=-0.7 se=4.8 z=-0.15
+15:50:43 it31 overlimp:0.3->0.34 [heldout] d=-7.1 se=4.4 z=-1.61
+15:51:26 it32 o_sb:0.487->0.451 [realself] d=-9.2 se=4.3 z=-2.14
+15:51:53 it33 raise_sizes:[1.0, 2.0]->[0.8] [real] d=+3.9 se=4.4 z=0.89
+15:53:20 it34 pri_vpip:0.28->0.308 [archive] d=+9.1 se=6.6 z=1.38 | confirm [real] d=-1.5 se=4.1 -> comb z=0.98
+15:53:36 it35 steal_k:1.5->2.1 [real] d=+1.7 se=4.6 z=0.37
+15:54:08 it36 call_tax:0.0->-0.012 [heldout] d=+7.3 se=3.8 z=1.92 | confirm [realself] d=-3.9 se=4.2 -> comb z=0.60
+15:54:40 it37 o_ep:0.22->0.172 c_mid:1->1 [realself] d=+5.9 se=3.8 z=1.55 | confirm [real] d=-4.2 se=3.9 -> comb z=0.31
+15:54:55 it38 o_mp:0.28->0.3 [real] d=-1.2 se=4.5 z=-0.27
+15:56:05 it39 pri_vpip:0.28->0.193 c_air:0.15->0.112 [archive] d=-10.2 se=6.0 z=-1.70
+15:56:21 it40 chk_oop:0.7->0.7 [real] d=+0.5 se=3.9 z=0.13
+15:56:37 it41 w_r_weak:0.25->0.198 c_weak:0.55->0.375 [heldout] d=+0.7 se=3.8 z=0.18
+15:56:53 it42 pri_vpip:0.28->0.308 open_size:3.5->3.0 [realself] d=+1.9 se=4.3 z=0.44
+15:59:21 it43 raise_sizes:[1.0, 2.0]->[0.8] bb_raise:0.08->0.122 [real] d=+7.6 se=4.2 z=1.81 | confirm [archive] d=-11.6 se=6.0 -> comb z=-0.55
+16:02:10 it44 o_ep:0.22->0.25 [archive] d=+10.1 se=6.9 z=1.46 | confirm [real] d=-0.7 se=4.3 -> comb z=1.16
+16:02:28 it45 fold_vs_raise:1.0->1.072 [real] d=-2.0 se=4.4 z=-0.45
+16:02:46 it46 bluff_af:1.2->1.95 bb_raise:0.08->0.066 [heldout] d=-2.2 se=4.8 z=-0.46
+16:03:05 it47 w_b_weak:0.55->0.43 [realself] d=-3.1 se=4.2 z=-0.74
+16:03:21 it48 w_r_weak:0.25->0.088 fold_vs_raise:1.0->1.2 [real] d=+2.7 se=3.8 z=0.71
+16:04:43 it49 call_lo:0.6->0.68 [archive] d=+9.5 se=6.5 z=1.46 | confirm [real] d=+2.2 se=4.0 -> comb z=1.53

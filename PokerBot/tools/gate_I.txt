@@ -1,0 +1,11 @@
+I sha256 d45a39b72c0e990efe06c8a233c7f2061f468a5c1f3279924c5ae07fc060f46c; clones f715c28db2d59544
+srv_I vs srv_G late   DIFF                                     +11.6 bb/100 (se 4.9)  z=2.37
+srv_I vs srv_G real   DIFF                                     +22.5 bb/100 (se 5.0)  z=4.52
+srv_I vs srv_G heldout   DIFF                                     +11.9 bb/100 (se 5.3)  z=2.24
+srv_I vs srv_G archive   DIFF                                     +35.7 bb/100 (se 8.3)  z=4.28
+srv_H25 vs srv_H late (more time only)   DIFF                                      +6.6 bb/100 (se 4.0)  z=1.64
+srv_H25 vs srv_H real (more time only)   DIFF                                      +0.7 bb/100 (se 3.5)  z=0.20
+srv_I vs srv_H25 late (strategy only)   DIFF                                      -7.6 bb/100 (se 4.8)  z=-1.57
+srv_I vs srv_H25 real (strategy only)   DIFF                                      +9.3 bb/100 (se 4.2)  z=2.19
+bot                               chips    bb/100 timeouts  errors  bank out think s/rd
+I.py                            +481594   +1204.0        0       0         0        3.0

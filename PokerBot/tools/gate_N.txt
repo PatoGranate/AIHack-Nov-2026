@@ -1,0 +1,6 @@
+N(gen14,srv) vs srv_I late   DIFF                                      +8.4 bb/100 (se 3.1)  z=2.69
+N(gen14,srv) vs srv_I real   DIFF                                      +8.5 bb/100 (se 3.2)  z=2.69
+N(gen14,srv) vs srv_I heldout   DIFF                                      +8.8 bb/100 (se 2.9)  z=3.02
+N vs srv_I archive   DIFF                                      +7.4 bb/100 (se 8.0)  z=0.92
+N vs srv_G late   DIFF                                     +30.5 bb/100 (se 5.1)  z=6.03
+done

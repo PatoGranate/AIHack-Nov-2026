@@ -1,0 +1,6 @@
+v7 vs F_gen01 heldout   DIFF                                     +22.4 bb/100 (se 4.8)  z=4.67
+v7 vs F_gen01 real   DIFF                                     +31.4 bb/100 (se 4.7)  z=6.65
+v7 vs F_gen01 strong   DIFF                                     +26.9 bb/100 (se 5.5)  z=4.93
+v7 vs b3 heldout   DIFF                                     +26.7 bb/100 (se 5.3)  z=5.06
+v7 vs b3 real   DIFF                                     +25.6 bb/100 (se 5.3)  z=4.86
+v7 vs b3 strong   DIFF                                     +36.1 bb/100 (se 5.6)  z=6.46

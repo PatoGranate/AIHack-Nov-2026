@@ -1,0 +1,9 @@
+y_real_up vs H late   DIFF                                      -0.3 bb/100 (se 4.0)  z=-0.07
+y_real_up vs H real   DIFF                                      +3.0 bb/100 (se 3.8)  z=0.80
+y_real_up vs H heldout   DIFF                                      +9.5 bb/100 (se 3.7)  z=2.56
+y_open28 vs H late   DIFF                                      +2.8 bb/100 (se 3.1)  z=0.88
+y_open28 vs H real   DIFF                                      +3.7 bb/100 (se 2.9)  z=1.27
+y_open28 vs H heldout   DIFF                                      +0.7 bb/100 (se 3.0)  z=0.24
+y_real_up_open28 vs H late   DIFF                                      +2.0 bb/100 (se 3.8)  z=0.53
+y_real_up_open28 vs H real   DIFF                                      +8.6 bb/100 (se 4.1)  z=2.10
+y_real_up_open28 vs H heldout   DIFF                                      +9.4 bb/100 (se 4.0)  z=2.36

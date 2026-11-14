@@ -1,0 +1,12 @@
+H sha256: 08ae3fef8a34c27454c4562505f06ba3d6fd5e513e7546aa04692d2971b6b639
+accepted changes:
+15:36:52 it8 size_exp:1.0->0.575 [real] d=+10.1 se=4.0 z=2.52 | confirm [archive] d=+20.2 se=6.2 -> comb z=4.11  ACCEPT -> tools/cands/gen03.py
+15:41:39 it17 bet_sizes:[0.33, 0.6, 1.0]->[0.4, 0.75] shove_spr:5->6.05 [realself] d=+10.0 se=4.1 z=2.44 | confirm [real] d=+3.7 se=3.9 -> comb z=2.42  ACCEPT -> tools/cands/gen04.py
+H vs G late:   DIFF                                      +9.0 bb/100 (se 4.1)  z=2.20
+H vs G heldout:   DIFF                                      +7.0 bb/100 (se 3.8)  z=1.85
+H vs G real:   DIFF                                      +7.3 bb/100 (se 3.9)  z=1.87
+H vs G archive:   DIFF                                      +1.9 bb/100 (se 5.8)  z=0.32
+emuH vs emuG(S1) late:   DIFF                                      +6.5 bb/100 (se 4.6)  z=1.42
+fuzz clean configs (of 8): 8
+bot                               chips    bb/100 timeouts  errors  bank out think s/rd
+H.py                            +310164    +775.4        2       0         0        1.7

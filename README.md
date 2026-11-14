@@ -1,91 +1,31 @@
-# 🚀 Project Name
+﻿# AIHack Nov 2026 PokerBots
 
-> A short description of what your project does.
+This repository contains the PokerBot tournament workspace and independent strategy review materials. It is public so teammates can inspect the agents, run comparisons, and contribute candidates.
 
-## 📌 Overview
+## Project map
 
-Briefly describe the problem you're solving, your target users, and your solution.
+- `PokerBot/submissions/` — bot packages and candidate versions.
+- `PokerBot/tools/` — arena runner, hand analysis, calibration, gate scripts, and candidate experiments.
+- `PokerBot/Hand_data/` — downloaded real-round and external-table hand records used for analysis.
+- `PokerBot/ExternalAnalysis/` — reviewer reports, algorithm research, simulation results, external-bot profiles, visualisation tools, and the reviewer/team discussion record. Start with its `README.md` and `Break_Summary_20261114.md`.
+- `PokerBot/kit/` and `PokerBot/imperial-ai-hack-pokerbots-kit/` — starter kit copies and examples.
 
-## ✨ Features
+## Compare candidates locally
 
-- Feature 1
-- Feature 2
-- Feature 3
+Install a compatible Python runtime, then from the repository root run:
 
-## 🛠️ Tech Stack
+```bash
+python PokerBot/tools/arena.py --help
+```
 
-- *Frontend:*
-- *Backend:*
-- *AI / ML:*
-- *Database:*
-- *Other:*
+The arena accepts candidate and baseline bot paths, plus table count, hands per table, seed, and a historical field. For example:
 
-## 🚀 Getting Started
+```bash
+python PokerBot/tools/arena.py CANDIDATE.py BASELINE.py --tables 480 --hands 300 --field late --seed 5501
+```
 
-### Prerequisites
+A local arena result is comparative evidence; it does not certify production IPC, server deadlines, or runtime-bank behavior. Use the tournament release gate before recommending a live switch.
 
-- Git
-- Required runtime / dependencies
-- API keys or environment variables
+## Credentials
 
-### Installation
-
-Clone the repository:
-
-bash
-git clone <repository-url>
-cd <repository-name>
-
-
-Install dependencies:
-
-bash
-# Add installation commands here
-
-
-### Environment Variables
-
-Create a .env file in the root directory:
-
-env
-# Add required environment variables here
-
-
-### Run Locally
-
-bash
-# Add commands to start the project
-
-
-## 📁 Project Structure
-
-text
-project/
-├── README.md
-├── .gitignore
-├── frontend/
-├── backend/
-└── ...
-
-
-## 👥 Team
-
-| Name | Role |
-|------|------|
-| Team Member 1 | |
-| Team Member 2 | |
-| Team Member 3 | |
-| Team Member 4 | |
-
-## 🎥 Demo
-
-- *Live Demo:* [Link]
-- *Video:* [Link]
-
-## 🏆 Hackathon
-
-Built for *[Hackathon Name]* — [Date]
-
-## 📄 License
-
-This project is licensed under the MIT License.# AIHack-Nov-2026
+Never commit API or hand-fetch tokens. Use a local environment variable or an untracked local file for credentials. `.gitignore` excludes common token and Python cache files.

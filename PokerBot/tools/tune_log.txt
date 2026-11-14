@@ -1,0 +1,547 @@
+13:43:07 it0 o_ep:0.22->0.205 bet_margin:-0.04->-0.05 [real] d=-6.4 se=6.7 z=-0.96
+13:43:17 it1 bb_raise:0.08->0.122 [realself] d=-0.8 se=8.0 z=-0.10
+13:43:25 it2 chk_oop:0.7->0.7 w_b_weak:0.55->0.35 [real] d=-8.8 se=7.7 z=-1.14
+13:43:51 it3 bet_margin:-0.04->-0.05 [mix] d=-10.0 se=15.4 z=-0.65
+13:43:58 it4 c_weak:0.55->0.655 raise_margin:-0.02->0.03 [real] d=-0.7 se=7.1 z=-0.10
+13:44:07 it5 multi_exp:0.6->0.75 [realself] d=-4.3 se=8.2 z=-0.52
+13:44:15 it6 eq_4b:0.56->0.595 bet_sizes:[0.6, 1.0, 1.5]->[0.3, 0.6, 1.0, 2.0] [real] d=+2.7 se=6.5 z=0.42
+13:44:41 it7 c_mid:0.88->0.84 [mix] d=-21.1 se=11.3 z=-1.87
+13:44:48 it8 w_b_weak:0.55->0.614 [real] d=-3.5 se=7.1 z=-0.49
+13:44:57 it9 size_exp:1.0->1.425 [realself] d=-2.7 se=7.4 z=-0.36
+13:45:05 it10 multi_exp:0.6->0.85 [real] d=-4.3 se=7.8 z=-0.55
+13:45:31 it11 bluff_base:0.15->0.03 steal_k:1.5->2.1 [mix] d=-5.3 se=13.8 z=-0.38
+13:45:39 it12 pri_pfr:0.17->0.151 [real] d=-5.8 se=6.9 z=-0.84
+13:45:49 it13 multi_exp:0.6->0.75 [realself] d=+7.5 se=7.9 z=0.95
+13:45:57 it14 pri_pfr:0.17->0.11 call_tax:0.0->0.038 [real] d=-0.1 se=6.3 z=-0.02
+13:46:25 it15 eq_3b:0.52->0.553 [mix] d=-5.6 se=13.0 z=-0.43
+13:46:41 it16 bluff_af:1.2->0.96 [real] d=+19.8 se=7.5 z=2.64 | confirm [realself] d=-7.2 se=6.1 -> comb z=1.30
+13:46:49 it17 iso_mult:0.7->0.82 o_ep:0.22->0.25 [realself] d=+5.5 se=7.7 z=0.71
+13:47:23 it18 multi_exp:0.6->0.75 iso_mult:0.7->0.9 [real] d=+8.7 se=6.9 z=1.26 | confirm [mix] d=+31.7 se=15.8 -> comb z=2.34  ACCEPT -> tools/cands/gen01.py
+13:47:50 it19 bluff_af:1.2->1.95 [mix] d=+9.2 se=12.8 z=0.72
+13:47:57 it20 w_b_mid:0.85->0.898 [real] d=+3.5 se=6.2 z=0.56
+13:48:06 it21 overlimp:0.3->0.375 [realself] d=-13.3 se=7.7 z=-1.73
+13:48:14 it22 fold_vs_raise:1.0->0.775 [real] d=+4.1 se=6.6 z=0.62
+13:48:39 it23 open_size:3.5->3.0 [mix] d=-24.0 se=15.6 z=-1.54
+13:49:02 it0 c_air:0.15->0.27 [real] d=-3.2 se=5.3 z=-0.60
+13:49:19 it1 o_mp:0.28->0.3 [realself] d=-5.9 se=5.6 z=-1.05
+13:49:33 it2 w_b_weak:0.55->0.67 [real] d=-5.4 se=5.2 z=-1.04
+13:50:17 it3 call_tax:0.0->-0.023 [mix] d=-5.5 se=11.7 z=-0.47
+13:50:31 it4 o_ep:0.22->0.235 [real] d=+3.7 se=5.4 z=0.69
+13:50:46 it5 o_mp:0.28->0.247 [realself] d=-4.2 se=5.4 z=-0.78
+13:51:41 it6 pf_call_margin:0.0->0.24 [real] d=+6.3 se=5.8 z=1.09 | confirm [mix] d=+8.4 se=9.9 -> comb z=1.28
+13:52:36 it7 r3_mult:0.35->0.212 [mix] d=+10.6 se=8.9 z=1.19 | confirm [real] d=-14.9 se=5.6 -> comb z=-0.41
+13:52:47 it8 pri_vpip:0.28->0.368 [real] d=-2.8 se=5.4 z=-0.52
+13:53:01 it9 o_hj:0.36->0.35 r3_mult:0.35->0.394 [realself] d=+4.6 se=5.4 z=0.85
+13:53:13 it10 real_oop:0.92->0.82 [real] d=-2.1 se=5.5 z=-0.38
+13:54:02 it11 overlimp:0.3->0.34 bluff_base:0.15->0.078 [mix] d=+5.2 se=9.6 z=0.54
+13:54:31 it12 iso_mult:0.9->0.836 r3_mult:0.35->0.432 [real] d=+1.9 se=6.2 z=0.31
+13:54:56 it13 loose_add:1.0->1.3 steal_k:1.5->2.1 [realself] d=-10.3 se=5.2 z=-1.98
+13:55:10 it14 multi_exp:0.75->0.5 w_b_weak:0.55->0.67 [real] d=-1.5 se=5.8 z=-0.26
+13:55:53 it15 o_mp:0.28->0.225 r3_mult:0.35->0.432 [mix] d=+0.2 se=11.6 z=0.02
+13:56:05 it16 bet_margin:-0.04->-0.002 [real] d=-8.6 se=5.5 z=-1.56
+13:56:30 it17 c_mid:0.88->0.92 w_r_air:0.5->0.635 [realself] d=+7.6 se=5.6 z=1.36 | confirm [real] d=-2.9 se=5.3 -> comb z=0.61
+13:56:42 it18 w_b_weak:0.55->0.486 [real] d=-4.1 se=5.5 z=-0.75
+13:57:26 it19 loose_add:1.0->1.5 [mix] d=-4.4 se=9.9 z=-0.44
+13:57:37 it20 o_ep:0.22->0.248 [real] d=-1.2 se=5.3 z=-0.23
+13:57:52 it21 fold_vs_raise:1.0->1.072 [realself] d=-10.0 se=5.4 z=-1.85
+13:58:03 it22 size_exp:1.0->0.864 [real] d=+3.0 se=5.2 z=0.58
+13:58:46 it23 o_mp:0.28->0.3 iso_mult:0.9->0.964 [mix] d=-1.7 se=7.8 z=-0.22
+13:58:57 it24 w_r_weak:0.25->0.153 [real] d=+3.6 se=5.0 z=0.72
+13:59:13 it25 c_weak:0.55->0.375 [realself] d=-11.5 se=5.9 z=-1.95
+--- v4 tuning start
+14:05:01 it0 real_oop:0.92->0.86 [real] d=-2.9 se=5.1 z=-0.57
+14:05:25 it1 r3_mult:0.35->0.487 [realself] d=+10.5 se=6.2 z=1.69 | confirm [real] d=-4.0 se=6.1 -> comb z=0.75
+14:05:37 it2 pf_call_margin:0.0->-0.24 [real] d=-5.8 se=6.7 z=-0.87
+14:06:15 it3 r3_mult:0.35->0.212 [mix] d=-22.6 se=12.1 z=-1.87
+14:06:40 it4 bet_sizes:[0.6, 1.0, 1.5]->[0.33, 0.6, 1.0] [real] d=+7.3 se=5.1 z=1.43 | confirm [realself] d=+6.5 se=5.8 -> comb z=1.79
+14:06:53 it5 bb_raise:0.08->0.054 [realself] d=-2.7 se=5.3 z=-0.51
+14:07:05 it6 w_r_air:0.5->0.428 open_size:3.5->4.0 [real] d=-1.1 se=5.4 z=-0.20
+14:07:44 it7 sb_limp:0.0->0 call_lo:0.6->0.35 [mix] d=+4.8 se=12.2 z=0.39
+14:08:09 it8 o_co:0.48->0.45 c_mid:0.88->1 [real] d=+14.2 se=6.2 z=2.29 | confirm [realself] d=+11.7 se=5.9 -> comb z=3.03  ACCEPT -> tools/cands/gen01.py
+14:08:24 it9 o_mp:0.28->0.3 [realself] d=+0.6 se=6.1 z=0.10
+14:09:21 it10 chk_oop:0.7->0.7 [real] d=+6.8 se=5.3 z=1.28 | confirm [mix] d=+13.1 se=9.1 -> comb z=1.89
+14:10:14 it11 bet_sizes:[0.6, 1.0, 1.5]->[0.33, 0.6, 1.0] o_sb:0.6->0.487 [mix] d=+18.0 se=9.6 z=1.88 | confirm [real] d=+13.2 se=5.6 -> comb z=2.81  ACCEPT -> tools/cands/gen02.py
+14:10:40 it12 loose_add:1.0->0.5 [real] d=+5.4 se=5.3 z=1.02 | confirm [realself] d=+1.1 se=5.2 -> comb z=0.88
+14:10:55 it13 w_r_air:0.5->0.365 [realself] d=-2.2 se=5.3 z=-0.42
+14:11:06 it14 o_sb:0.487->0.554 shove_spr:5->3.95 [real] d=+5.3 se=5.3 z=1.00
+14:11:46 it15 o_hj:0.36->0.34 [mix] d=-3.3 se=10.6 z=-0.31
+14:12:12 it16 bb_raise:0.08->0.037 [real] d=+8.0 se=5.3 z=1.51 | confirm [realself] d=-6.4 se=5.4 -> comb z=0.21
+14:12:28 it17 o_ep:0.22->0.172 c_weak:0.55->0.725 [realself] d=+0.2 se=5.8 z=0.03
+14:12:39 it18 bet_margin:-0.08->-0.05 c_air:0.15->0.03 [real] d=-2.5 se=5.0 z=-0.50
+14:13:37 it19 overlimp:0.3->0.175 [mix] d=+14.1 se=10.0 z=1.41 | confirm [real] d=-2.6 se=5.2 -> comb z=1.02
+14:13:49 it20 c_air:0.15->0.188 [real] d=-0.5 se=5.0 z=-0.10
+14:14:05 it21 pri_ftb:0.6->0.475 raise_margin:-0.04->-0.05 [realself] d=+0.3 se=5.6 z=0.05
+14:14:17 it22 chk_ip:0.8->0.8 w_r_air:0.5->0.365 [real] d=+3.1 se=5.4 z=0.57
+14:15:10 it23 o_co:0.45->0.45 [mix] d=-1.2 se=12.0 z=-0.10
+14:15:25 it24 steal_k:1.5->2.5 bet_sizes:[0.33, 0.6, 1.0]->[0.5, 1.0] [real] d=-9.0 se=5.4 z=-1.67
+14:15:47 it25 pri_pfr:0.17->0.23 [realself] d=+1.3 se=5.6 z=0.23
+14:16:02 it26 o_ep:0.22->0.248 shove_spr:5->5.56 [real] d=-1.7 se=5.1 z=-0.33
+14:16:55 it27 steal_k:1.5->0.9 eq_3b:0.52->0.538 [mix] d=-1.4 se=9.9 z=-0.14
+14:17:12 it28 chk_ip:0.8->0.887 [real] d=-6.9 se=5.4 z=-1.28
+14:17:32 it29 c_weak:0.55->0.375 size_exp:1.0->1.425 [realself] d=-13.7 se=5.7 z=-2.40
+14:17:46 it30 raise_margin:-0.04->-0.05 [real] d=-4.8 se=5.8 z=-0.83
+14:18:31 it31 eq_3b:0.52->0.538 pri_ftb:0.6->0.7 [mix] d=+7.7 se=9.7 z=0.79
+14:18:44 it32 sb_limp:0.0->0.032 [real] d=-0.7 se=5.1 z=-0.14
+14:19:03 it33 size_exp:1.0->1.425 [realself] d=+4.7 se=5.2 z=0.90
+14:19:17 it34 real_ip:1.05->1.1 [real] d=+2.5 se=5.6 z=0.45
+14:20:03 it35 real_ip:1.05->0.95 [mix] d=+9.8 se=11.2 z=0.88
+14:20:15 it36 loose_add:1.0->1.16 [real] d=-11.2 se=5.1 z=-2.20
+14:20:31 it37 eq_3b:0.52->0.5 o_mp:0.28->0.3 [realself] d=+4.9 se=5.5 z=0.89
+14:20:43 it38 sb_limp:0.0->0.032 bb_raise:0.08->0.066 [real] d=-5.8 se=5.0 z=-1.16
+14:21:25 it39 real_oop:0.92->0.952 [mix] d=+1.4 se=11.6 z=0.12
+14:21:37 it40 iso_mult:0.9->1.02 size_exp:1.0->1.425 [real] d=-1.1 se=5.6 z=-0.20
+14:21:55 it41 multi_exp:0.75->0.83 pf_call_margin:0.0->0.24 [realself] d=+4.5 se=6.7 z=0.67
+14:22:08 it42 pri_ftb:0.6->0.56 [real] d=-4.0 se=5.2 z=-0.77
+14:22:54 it43 loose_add:1.0->1.3 [mix] d=-1.6 se=8.6 z=-0.19
+14:23:06 it44 bb_raise:0.08->0.054 pri_vpip:0.28->0.333 [real] d=+2.3 se=4.6 z=0.50
+14:23:36 it45 pri_pfr:0.17->0.189 loose_add:1.0->1.5 [realself] d=+12.6 se=5.5 z=2.29 | confirm [real] d=-8.9 se=5.4 -> comb z=0.48
+14:23:36 it46 o_co:0.45->0.45 [real] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it47 shove_spr:5->3.95 w_r_mid:0.6->0.8 [mix] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it48 bluff_af:1.2->0.96 [real] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it49 eq_4b:0.56->0.578 [realself] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it50 real_oop:0.92->1.0 iso_mult:0.9->0.836 [real] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it51 call_lo:0.6->0.52 c_weak:0.55->0.606 [mix] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it52 eq_3b:0.52->0.5 [real] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it53 chk_oop:0.7->0.728 shove_spr:5->3.95 [realself] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it54 loose_add:1.0->1.16 [real] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it55 o_mp:0.28->0.247 [mix] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it56 chk_oop:0.7->0.752 [real] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it57 o_hj:0.36->0.35 [realself] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it58 raise_margin:-0.04->0.01 o_sb:0.487->0.419 [real] d=+0.0 se=1000000000.0 z=0.00
+14:23:36 it59 bet_margin:-0.08->-0.05 [mix] d=+0.0 se=1000000000.0 z=0.00
+--- seed tuning start 15:27 from gmore, clones ad8e1afb
+15:27:40 it0 multi_exp:0.75->0.9 [real] d=-6.2 se=4.1 z=-1.51
+15:27:58 it1 real_oop:0.92->0.86 [heldout] d=-7.1 se=4.4 z=-1.61
+15:28:18 it2 o_ep:0.22->0.205 [realself] d=-1.9 se=4.8 z=-0.40
+15:28:36 it3 w_b_mid:0.85->1 fold_vs_raise:1.0->1.2 [real] d=-3.5 se=4.5 z=-0.78
+15:29:28 it4 o_ep:0.22->0.235 sb_limp:0.0->0 [mix] d=+6.2 se=10.3 z=0.60
+15:30:02 it5 sb_limp:0.0->0.06 [real] d=+6.0 se=4.2 z=1.43 | confirm [heldout] d=-7.0 se=4.8 -> comb z=-0.16
+15:30:22 it6 w_b_weak:0.55->0.614 [heldout] d=-3.6 se=4.8 z=-0.75
+15:30:43 it7 real_ip:1.05->1.082 bb_raise:0.08->0.122 [realself] d=-2.5 se=4.9 z=-0.51
+15:30:59 it8 r3_mult:0.35->0.306 [real] d=-3.4 se=4.8 z=-0.71
+--- strength-weighted tuning start 15:32 from gmore, clones e6ec09ec
+15:32:30 it0 o_ep:0.22->0.235 [real] d=+1.2 se=3.7 z=0.32
+15:32:48 it1 steal_k:1.5->0.5 [heldout] d=-1.9 se=4.6 z=-0.41
+15:33:04 it2 raise_margin:-0.04->-0.01 [realself] d=-1.1 se=4.3 z=-0.26
+15:33:19 it3 w_r_weak:0.25->0.088 [real] d=-0.4 se=4.7 z=-0.09
+15:34:29 it4 overlimp:0.3->0.26 [archive] d=-3.6 se=6.3 z=-0.57
+15:34:44 it5 w_r_weak:0.25->0.153 eq_3b:0.52->0.5 [real] d=-1.7 se=3.9 z=-0.44
+15:34:59 it6 o_ep:0.22->0.248 [heldout] d=-2.3 se=4.2 z=-0.55
+15:35:14 it7 o_mp:0.28->0.225 [realself] d=-5.0 se=4.3 z=-1.16
+15:36:52 it8 size_exp:1.0->0.575 [real] d=+10.1 se=4.0 z=2.52 | confirm [archive] d=+20.2 se=6.2 -> comb z=4.11  ACCEPT -> tools/cands/gen03.py
+15:38:24 it9 o_ep:0.22->0.25 [archive] d=+8.3 se=6.9 z=1.20 | confirm [real] d=+2.7 se=4.6 -> comb z=1.33
+15:38:38 it10 overlimp:0.3->0.175 [real] d=+0.2 se=3.8 z=0.05
+15:38:55 it11 c_mid:1->1 [heldout] d=+0.2 se=4.3 z=0.05
+15:39:14 it12 eq_4b:0.56->0.578 [realself] d=+2.9 se=4.2 z=0.69
+15:39:29 it13 bluff_af:1.2->0.96 [real] d=-2.4 se=4.2 z=-0.57
+15:40:39 it14 chk_oop:0.7->0.752 real_ip:1.05->1.1 [archive] d=-3.3 se=7.0 z=-0.47
+15:40:53 it15 r3_mult:0.35->0.212 w_r_air:0.5->0.572 [real] d=-2.0 se=4.7 z=-0.43
+15:41:09 it16 call_tax:0.0->0.038 c_mid:1->1 [heldout] d=-2.0 se=4.1 z=-0.49
+15:41:39 it17 bet_sizes:[0.33, 0.6, 1.0]->[0.4, 0.75] shove_spr:5->6.05 [realself] d=+10.0 se=4.1 z=2.44 | confirm [real] d=+3.7 se=3.9 -> comb z=2.42  ACCEPT -> tools/cands/gen04.py
+15:41:53 it18 c_weak:0.55->0.655 w_b_weak:0.55->0.35 [real] d=-3.3 se=3.6 z=-0.92
+15:43:07 it19 loose_add:1.0->1.16 o_ep:0.22->0.25 [archive] d=-4.9 se=6.4 z=-0.77
+15:43:23 it20 open_size:3.5->3.34 [real] d=-1.5 se=3.9 z=-0.38
+15:43:39 it21 pf_call_margin:0.0->0.24 [heldout] d=-8.7 se=4.2 z=-2.07
+15:43:55 it22 chk_ip:0.8->0.828 [realself] d=+1.7 se=4.0 z=0.42
+15:45:27 it23 w_r_weak:0.25->0.153 o_sb:0.487->0.554 [real] d=+5.2 se=4.4 z=1.18 | confirm [archive] d=+5.4 se=6.5 -> comb z=1.35
+15:46:55 it24 pri_vpip:0.28->0.252 [archive] d=+9.8 se=6.3 z=1.56 | confirm [real] d=-2.0 se=3.9 -> comb z=1.05
+15:47:12 it25 w_r_mid:0.6->0.48 [real] d=+2.6 se=3.8 z=0.68
+15:47:31 it26 raise_margin:-0.04->-0.01 [heldout] d=-3.7 se=4.0 z=-0.93
+15:47:51 it27 o_hj:0.36->0.34 pri_vpip:0.28->0.308 [realself] d=-2.2 se=4.0 z=-0.55
+15:48:06 it28 real_oop:0.92->0.952 raise_margin:-0.04->-0.05 [real] d=+3.5 se=3.7 z=0.95
+15:49:32 it29 raise_margin:-0.04->-0.024 [archive] d=-1.9 se=6.2 z=-0.31
+15:50:04 it30 chk_ip:0.8->0.8 [real] d=-0.7 se=4.8 z=-0.15
+15:50:43 it31 overlimp:0.3->0.34 [heldout] d=-7.1 se=4.4 z=-1.61
+15:51:26 it32 o_sb:0.487->0.451 [realself] d=-9.2 se=4.3 z=-2.14
+15:51:53 it33 raise_sizes:[1.0, 2.0]->[0.8] [real] d=+3.9 se=4.4 z=0.89
+15:53:20 it34 pri_vpip:0.28->0.308 [archive] d=+9.1 se=6.6 z=1.38 | confirm [real] d=-1.5 se=4.1 -> comb z=0.98
+15:53:36 it35 steal_k:1.5->2.1 [real] d=+1.7 se=4.6 z=0.37
+15:54:08 it36 call_tax:0.0->-0.012 [heldout] d=+7.3 se=3.8 z=1.92 | confirm [realself] d=-3.9 se=4.2 -> comb z=0.60
+15:54:40 it37 o_ep:0.22->0.172 c_mid:1->1 [realself] d=+5.9 se=3.8 z=1.55 | confirm [real] d=-4.2 se=3.9 -> comb z=0.31
+15:54:55 it38 o_mp:0.28->0.3 [real] d=-1.2 se=4.5 z=-0.27
+15:56:05 it39 pri_vpip:0.28->0.193 c_air:0.15->0.112 [archive] d=-10.2 se=6.0 z=-1.70
+15:56:21 it40 chk_oop:0.7->0.7 [real] d=+0.5 se=3.9 z=0.13
+15:56:37 it41 w_r_weak:0.25->0.198 c_weak:0.55->0.375 [heldout] d=+0.7 se=3.8 z=0.18
+15:56:53 it42 pri_vpip:0.28->0.308 open_size:3.5->3.0 [realself] d=+1.9 se=4.3 z=0.44
+15:59:21 it43 raise_sizes:[1.0, 2.0]->[0.8] bb_raise:0.08->0.122 [real] d=+7.6 se=4.2 z=1.81 | confirm [archive] d=-11.6 se=6.0 -> comb z=-0.55
+16:02:10 it44 o_ep:0.22->0.25 [archive] d=+10.1 se=6.9 z=1.46 | confirm [real] d=-0.7 se=4.3 -> comb z=1.16
+16:02:28 it45 fold_vs_raise:1.0->1.072 [real] d=-2.0 se=4.4 z=-0.45
+16:02:46 it46 bluff_af:1.2->1.95 bb_raise:0.08->0.066 [heldout] d=-2.2 se=4.8 z=-0.46
+16:03:05 it47 w_b_weak:0.55->0.43 [realself] d=-3.1 se=4.2 z=-0.74
+16:03:21 it48 w_r_weak:0.25->0.088 fold_vs_raise:1.0->1.2 [real] d=+2.7 se=3.8 z=0.71
+16:04:43 it49 call_lo:0.6->0.68 [archive] d=+9.5 se=6.5 z=1.46 | confirm [real] d=+2.2 se=4.0 -> comb z=1.53
+=== 16:53 tuning from I (srv-equivalent budget), clones 9ac2aa5c
+16:53:26 it0 o_co:0.45->0.414 [real] d=+0.7 se=6.1 z=0.11
+16:53:36 it1 o_sb:0.487->0.451 [late] d=-15.9 se=7.0 z=-2.27
+16:53:47 it2 size_exp:0.575->1.0 [realself] d=-0.8 se=7.1 z=-0.11
+16:53:56 it3 o_sb:0.487->0.419 [real] d=+5.2 se=6.5 z=0.80
+16:54:04 it4 o_sb:0.487->0.374 eq_4b:0.56->0.526 [real] d=+0.6 se=7.4 z=0.08
+16:54:14 it5 size_exp:0.575->1.0 [late] d=-6.2 se=7.0 z=-0.89
+16:54:24 it6 call_tax:0.0->-0.012 raise_sizes:[1.0, 2.0]->[0.8] [realself] d=-2.6 se=7.0 z=-0.37
+16:54:36 it7 pf_call_margin:0.0->-0.75 real_oop:1.02->0.858 [real] d=-26.2 se=9.0 z=-2.91
+16:54:46 it8 w_r_mid:0.6->0.536 o_mp:0.28->0.306 [real] d=-0.9 se=5.9 z=-0.15
+16:54:56 it9 steal_k:1.5->2.1 [late] d=-2.7 se=7.7 z=-0.35
+16:55:05 it10 eq_3b:0.52->0.553 [realself] d=+2.9 se=5.9 z=0.49
+16:55:14 it11 o_co:0.45->0.338 [real] d=-7.8 se=6.8 z=-1.15
+16:55:23 it12 o_sb:0.487->0.451 [real] d=+5.7 se=6.7 z=0.85
+16:55:33 it13 fold_vs_raise:1.0->0.865 [late] d=-7.9 se=7.3 z=-1.08
+16:55:44 it14 c_mid:1->1 o_hj:0.36->0.42 [realself] d=+2.3 se=6.8 z=0.34
+16:55:52 it15 bluff_af:1.2->1.95 bluff_base:0.15->0.078 [real] d=+2.3 se=7.0 z=0.33
+16:56:02 it16 c_weak:0.55->0.445 r3_mult:0.35->0.432 [real] d=-0.9 se=8.4 z=-0.11
+16:56:12 it17 w_r_mid:0.6->0.536 [late] d=-1.0 se=7.5 z=-0.13
+16:56:23 it18 raise_sizes:[1.0, 2.0]->[0.6, 1.0, 1.5] [realself] d=-1.6 se=7.7 z=-0.21
+16:56:34 it19 steal_k:1.5->2.1 [real] d=+5.2 se=7.8 z=0.67
+16:56:43 it20 c_weak:0.55->0.655 [real] d=-5.4 se=7.4 z=-0.73
+16:56:53 it21 w_r_mid:0.6->0.664 [late] d=-3.4 se=7.2 z=-0.47
+16:57:04 it22 real_ip:1.15->1.202 [realself] d=-20.0 se=6.7 z=-2.99
+16:57:14 it23 o_ep:0.22->0.199 [real] d=-10.3 se=6.6 z=-1.56
+16:57:24 it24 chk_oop:0.7->0.787 pf_call_margin:0.0->0.24 [real] d=-4.3 se=7.3 z=-0.59
+16:57:34 it25 r3_mult:0.35->0.394 [late] d=-7.9 se=7.2 z=-1.10
+16:57:44 it26 bet_sizes:[0.4, 0.75]->[0.33, 0.6, 1.0] [realself] d=+1.2 se=6.9 z=0.17
+16:57:54 it27 chk_ip:0.8->0.8 [real] d=+4.3 se=6.2 z=0.69
+16:58:05 it28 c_air:0.15->0.112 shove_spr:6.05->5.49 [real] d=+2.1 se=7.8 z=0.27
+16:58:16 it29 real_oop:1.02->1.072 [late] d=+1.3 se=7.7 z=0.17
+16:58:26 it30 bluff_af:1.2->1.44 c_mid:1->0.875 [realself] d=-19.7 se=7.9 z=-2.49
+16:58:37 it31 o_co:0.45->0.562 [real] d=-12.0 se=7.0 z=-1.71
+16:58:47 it32 o_sb:0.487->0.554 [real] d=+1.2 se=6.5 z=0.18
+16:58:57 it33 c_air:0.15->0.03 [late] d=-11.8 se=6.8 z=-1.74
+16:59:11 it34 bb_raise:0.08->0.094 chk_ip:0.8->0.887 [realself] d=-0.2 se=6.6 z=-0.03
+16:59:30 it35 raise_margin:-0.04->-0.05 c_mid:1->1 [real] d=+7.0 se=5.7 z=1.23 | confirm [real] d=+4.1 se=6.9 -> comb z=1.24
+16:59:40 it36 chk_oop:0.7->0.787 [real] d=+1.3 se=6.3 z=0.21
+16:59:49 it37 open_size:2.8->3.3 [late] d=-2.3 se=6.7 z=-0.34
+17:00:01 it38 shove_spr:6.05->5.49 [realself] d=+4.8 se=6.4 z=0.75
+17:00:10 it39 size_exp:0.575->0.83 [real] d=-1.5 se=6.0 z=-0.25
+17:00:19 it40 w_b_mid:0.85->0.7 steal_k:1.5->0.5 [real] d=-4.0 se=6.3 z=-0.63
+17:00:29 it41 w_r_air:0.5->0.428 real_oop:1.02->1.183 [late] d=+5.8 se=7.8 z=0.74
+17:00:39 it42 size_exp:0.575->0.83 [realself] d=-11.9 se=7.0 z=-1.70
+17:00:57 it43 pri_pfr:0.17->0.23 [real] d=+10.9 se=5.7 z=1.91 | confirm [real] d=+5.3 se=6.6 -> comb z=1.86
+17:01:06 it44 real_oop:1.02->1.183 [real] d=-2.1 se=7.9 z=-0.27
+17:01:25 it45 multi_exp:0.75->0.5 overlimp:0.3->0.375 [late] d=+10.6 se=7.7 z=1.38 | confirm [realself] d=+7.8 se=8.4 -> comb z=1.61
+17:01:46 it46 pf_call_margin:0.0->-0.24 [realself] d=+9.4 se=8.5 z=1.11 | confirm [real] d=-1.6 se=8.3 -> comb z=0.66
+17:01:56 it47 raise_sizes:[1.0, 2.0]->[0.7, 1.1] fold_vs_raise:1.0->1.2 [real] d=-9.6 se=6.8 z=-1.41
+17:02:06 it48 w_b_mid:0.85->0.802 call_tax:0.0->-0.038 [real] d=-11.1 se=7.3 z=-1.52
+17:02:16 it49 pri_ftb:0.6->0.475 c_weak:0.55->0.606 [late] d=-2.1 se=7.5 z=-0.28
+17:02:26 it50 eq_4b:0.56->0.542 pri_vpip:0.28->0.308 [realself] d=+3.6 se=6.4 z=0.56
+17:02:36 it51 fold_vs_raise:1.0->1.135 bet_margin:-0.08->-0.05 [real] d=-11.3 se=5.8 z=-1.95
+17:02:45 it52 pf_call_margin:0.0->0.24 o_btn:0.7->0.7 [real] d=-15.0 se=7.7 z=-1.95
+17:02:54 it53 bb_raise:0.08->0.122 [late] d=-7.3 se=7.6 z=-0.96
+17:03:13 it54 real_ip:1.15->0.987 [realself] d=+19.3 se=7.0 z=2.76 | confirm [real] d=+6.4 se=6.9 -> comb z=2.61  ACCEPT -> tools/cands/gen05.py
+17:03:29 it55 w_b_mid:0.85->0.94 [real] d=+6.8 se=5.8 z=1.17 | confirm [real] d=-1.1 se=4.8 -> comb z=0.76
+17:03:37 it56 real_ip:0.987->0.825 call_lo:0.6->0.35 [real] d=-5.3 se=6.5 z=-0.82
+17:03:45 it57 steal_k:1.5->2.1 [late] d=+5.2 se=6.4 z=0.81
+17:03:55 it58 w_b_weak:0.55->0.486 bb_raise:0.08->0.094 [realself] d=-5.5 se=5.9 z=-0.93
+17:04:03 it59 real_ip:0.987->1.085 [real] d=-11.2 se=6.7 z=-1.67
+17:04:11 it60 bb_raise:0.08->0.054 open_size:2.8->3.3 [real] d=+2.2 se=6.0 z=0.37
+17:04:21 it61 steal_k:1.5->2.5 pri_vpip:0.28->0.193 [late] d=+2.3 se=6.3 z=0.37
+17:04:30 it62 w_r_weak:0.25->0.088 [realself] d=+1.6 se=6.2 z=0.26
+17:04:40 it63 o_hj:0.36->0.26 [real] d=-7.7 se=5.8 z=-1.33
+17:04:49 it64 iso_mult:0.9->1.02 chk_oop:0.7->0.752 [real] d=-14.6 se=6.1 z=-2.39
+17:04:59 it65 call_lo:0.6->0.52 o_btn:0.7->0.7 [late] d=+4.1 se=6.2 z=0.66
+17:05:08 it66 size_exp:0.575->0.32 overlimp:0.3->0.225 [realself] d=-5.4 se=5.2 z=-1.04
+17:05:17 it67 c_air:0.15->0.27 [real] d=-7.7 se=5.0 z=-1.54
+17:05:25 it68 pri_ftb:0.6->0.56 o_mp:0.28->0.232 [real] d=+5.1 se=5.6 z=0.91
+17:05:33 it69 w_r_air:0.5->0.572 [late] d=-7.5 se=5.4 z=-1.39
+17:08 gen05 (real_ip .987) gate vs I: late +9.5, real -4.2, heldout -0.2, archive -8.6 -> rejected; params_best reset to I(srv)
+17:08:55 it0 o_hj:0.36->0.328 [real] d=-5.6 se=6.4 z=-0.87
+17:09:13 it1 eq_3b:0.52->0.5 [late] d=+10.5 se=7.5 z=1.40 | confirm [heldout] d=+3.4 se=7.3 -> comb z=1.33
+17:09:22 it2 eq_3b:0.52->0.575 call_tax:0.0->-0.023 [heldout] d=-5.2 se=6.1 z=-0.85
+17:09:32 it3 o_mp:0.28->0.232 w_b_weak:0.55->0.75 [realself] d=+3.8 se=5.8 z=0.66
+17:09:51 it4 o_btn:0.7->0.7 [real] d=+11.5 se=6.5 z=1.77 | confirm [late] d=-0.4 se=6.4 -> comb z=1.22
+17:10:01 it5 real_oop:1.02->0.922 [late] d=-13.1 se=7.2 z=-1.82
+17:10:10 it6 pri_vpip:0.28->0.193 [heldout] d=+7.4 se=8.2 z=0.90
+17:10:19 it7 w_r_weak:0.25->0.347 [realself] d=+2.7 se=6.0 z=0.45
+17:10:28 it8 c_mid:1->0.875 [real] d=-16.9 se=6.4 z=-2.64
+17:10:47 it9 bet_sizes:[0.4, 0.75]->[0.25, 0.5, 0.8, 1.2] w_r_air:0.5->0.572 [late] d=+11.6 se=8.2 z=1.41 | confirm [heldout] d=+17.0 se=6.2 -> comb z=2.78  ACCEPT -> tools/cands/gen06.py
+17:10:56 it10 raise_sizes:[1.0, 2.0]->[0.8] bet_margin:-0.08->-0.05 [heldout] d=+2.5 se=7.2 z=0.35
+17:11:07 it11 pri_pfr:0.17->0.134 o_co:0.45->0.486 [realself] d=+2.9 se=6.3 z=0.46
+17:11:15 it12 c_weak:0.55->0.494 [real] d=+2.4 se=7.3 z=0.33
+17:11:25 it13 raise_margin:-0.04->-0.01 [late] d=+4.6 se=7.8 z=0.59
+17:11:34 it14 w_b_weak:0.55->0.75 [heldout] d=+1.9 se=6.0 z=0.32
+17:11:43 it15 c_air:0.15->0.112 [realself] d=-10.1 se=7.4 z=-1.36
+17:11:52 it16 overlimp:0.3->0.26 shove_spr:6.05->7.1 [real] d=-4.2 se=5.4 z=-0.78
+17:12:01 it17 chk_oop:0.7->0.7 [late] d=-1.3 se=7.3 z=-0.18
+17:12:11 it18 c_air:0.15->0.222 o_sb:0.487->0.554 [heldout] d=-0.7 se=7.3 z=-0.10
+17:12:20 it19 bb_raise:0.08->0.094 [realself] d=+3.0 se=7.3 z=0.41
+17:12:29 it20 bluff_base:0.15->0.112 [real] d=+2.3 se=6.4 z=0.36
+17:12:47 it21 pri_pfr:0.17->0.189 overlimp:0.3->0.34 [late] d=+11.7 se=7.7 z=1.52 | confirm [heldout] d=+3.0 se=6.8 -> comb z=1.43
+17:12:56 it22 w_r_mid:0.6->0.72 [heldout] d=+3.4 se=5.8 z=0.59
+17:13:06 it23 eq_4b:0.56->0.526 [realself] d=-11.7 se=6.1 z=-1.92
+17:13:14 it24 shove_spr:6.05->6.61 [real] d=-1.0 se=6.4 z=-0.16
+17:13:23 it25 loose_add:1.0->1.16 pri_vpip:0.28->0.368 [late] d=+2.2 se=6.4 z=0.34
+17:13:42 it26 call_lo:0.6->0.68 [heldout] d=+14.4 se=6.4 z=2.25 | confirm [realself] d=+3.4 se=6.9 -> comb z=1.89
+17:13:53 it27 bb_raise:0.08->0.122 loose_add:1.0->1.5 [realself] d=+0.3 se=6.6 z=0.05
+17:14:03 it28 fold_vs_raise:1.0->0.928 w_r_mid:0.6->0.48 [real] d=-3.7 se=5.9 z=-0.63
+17:14:12 it29 bet_sizes:[0.25, 0.5, 0.8, 1.2]->[0.4, 0.75] c_weak:0.55->0.494 [late] d=-4.2 se=7.3 z=-0.58
+17:14:21 it30 multi_exp:0.75->0.9 bet_margin:-0.08->-0.042 [heldout] d=-8.1 se=6.2 z=-1.31
+17:14:30 it31 steal_k:1.5->0.9 [realself] d=-2.3 se=6.5 z=-0.35
+17:14:39 it32 pri_ftb:0.6->0.525 [real] d=+1.0 se=6.6 z=0.15
+17:14:57 it33 w_r_weak:0.25->0.088 [late] d=+8.1 se=7.4 z=1.09 | confirm [heldout] d=+2.9 se=7.5 -> comb z=1.04
+17:15:06 it34 pri_vpip:0.28->0.368 [heldout] d=-10.5 se=7.4 z=-1.42
+17:15:16 it35 w_r_mid:0.6->0.8 steal_k:1.5->0.9 [realself] d=-4.9 se=6.9 z=-0.71
+17:15:36 it36 w_r_mid:0.6->0.8 o_hj:0.36->0.46 [real] d=+9.2 se=6.4 z=1.44 | confirm [late] d=+3.7 se=6.8 -> comb z=1.38
+17:15:45 it37 raise_sizes:[1.0, 2.0]->[0.8] [late] d=-15.8 se=7.0 z=-2.26
+17:15:54 it38 multi_exp:0.75->0.6 [heldout] d=+6.3 se=6.5 z=0.97
+17:16:02 it39 iso_mult:0.9->1.1 [realself] d=-6.6 se=7.7 z=-0.86
+17:16:11 it40 fold_vs_raise:1.0->1.072 [real] d=-8.6 se=6.1 z=-1.41
+17:16:20 it41 bb_raise:0.08->0.122 [late] d=-4.3 se=6.7 z=-0.64
+17:16:29 it42 c_mid:1->0.96 [heldout] d=-3.5 se=7.3 z=-0.48
+17:16:39 it43 open_size:2.8->2.3 [realself] d=+3.4 se=7.8 z=0.44
+17:16:47 it44 pri_pfr:0.17->0.11 [real] d=-0.6 se=6.3 z=-0.10
+17:16:56 it45 o_hj:0.36->0.392 c_weak:0.55->0.375 [late] d=-1.7 se=7.4 z=-0.23
+17:17:05 it46 w_r_air:0.572->0.707 o_btn:0.7->0.625 [heldout] d=-13.9 se=6.6 z=-2.11
+17:17:22 it47 c_mid:1->0.96 [realself] d=+8.1 se=7.1 z=1.14 | confirm [real] d=-6.0 se=6.8 -> comb z=0.21
+17:17:30 it48 c_air:0.15->0.078 [real] d=-2.1 se=6.5 z=-0.32
+17:17:39 it49 o_hj:0.36->0.3 [late] d=-1.7 se=7.0 z=-0.24
+17:17:48 it50 chk_oop:0.7->0.7 overlimp:0.3->0.34 [heldout] d=-5.3 se=8.0 z=-0.66
+17:17:57 it51 c_weak:0.55->0.494 [realself] d=-6.3 se=5.7 z=-1.11
+17:18:06 it52 o_ep:0.22->0.285 [real] d=+5.7 se=5.7 z=1.00
+17:18:15 it53 w_b_mid:0.85->0.94 [late] d=-8.3 se=6.2 z=-1.34
+17:18:23 it54 o_co:0.45->0.562 [heldout] d=-1.0 se=6.2 z=-0.16
+17:18:33 it55 pri_vpip:0.28->0.228 bluff_base:0.15->0.222 [realself] d=-0.7 se=6.7 z=-0.10
+17:18:42 it56 w_r_weak:0.25->0.088 [real] d=+3.3 se=6.1 z=0.54
+17:18:51 it57 o_btn:0.7->0.575 [late] d=+2.3 se=7.7 z=0.30
+17:18:59 it58 bluff_base:0.15->0.188 [heldout] d=-12.0 se=6.3 z=-1.90
+17:19:08 it59 c_air:0.15->0.27 pri_vpip:0.28->0.308 [realself] d=+4.1 se=7.2 z=0.57
+17:19:16 it60 w_b_weak:0.55->0.67 chk_ip:0.8->0.828 [real] d=-3.0 se=6.5 z=-0.46
+17:19:25 it61 call_tax:0.0->0.023 [late] d=-0.9 se=7.9 z=-0.11
+17:19:44 it62 c_weak:0.55->0.725 [heldout] d=+17.4 se=6.4 z=2.72 | confirm [realself] d=+5.4 se=7.3 -> comb z=2.35  ACCEPT -> tools/cands/gen07.py
+17:20:01 it63 chk_ip:0.8->0.828 [realself] d=+8.8 se=6.7 z=1.31 | confirm [real] d=-11.8 se=6.7 -> comb z=-0.32
+17:20:10 it64 steal_k:1.5->2.1 [real] d=+2.7 se=6.3 z=0.43
+17:20:19 it65 bet_margin:-0.08->-0.05 o_hj:0.36->0.26 [late] d=+4.0 se=8.8 z=0.45
+17:20:28 it66 eq_4b:0.56->0.618 w_b_weak:0.55->0.35 [heldout] d=+3.4 se=5.9 z=0.58
+17:20:38 it67 c_weak:0.725->0.9 [realself] d=-1.7 se=6.7 z=-0.25
+17:20:47 it68 raise_margin:-0.04->-0.01 [real] d=-0.7 se=5.6 z=-0.12
+17:20:56 it69 o_co:0.45->0.517 [late] d=-8.7 se=7.3 z=-1.19
+17:21:05 it70 overlimp:0.3->0.175 [heldout] d=-1.6 se=5.5 z=-0.29
+17:21:15 it71 r3_mult:0.35->0.306 [realself] d=-0.6 se=6.7 z=-0.09
+17:21:23 it72 steal_k:1.5->0.9 [real] d=+2.6 se=6.6 z=0.39
+17:21:32 it73 o_sb:0.487->0.523 [late] d=-2.5 se=7.8 z=-0.32
+17:21:41 it74 sb_limp:0.0->0.1 o_ep:0.22->0.155 [heldout] d=-10.1 se=5.7 z=-1.77
+17:21:49 it75 call_tax:0.0->0.023 [realself] d=-5.8 se=6.2 z=-0.94
+17:21:58 it76 o_hj:0.36->0.392 [real] d=-0.2 se=5.2 z=-0.04
+17:22:07 it77 w_b_weak:0.55->0.43 [late] d=-2.8 se=8.0 z=-0.35
+17:22:16 it78 steal_k:1.5->0.5 [heldout] d=-14.1 se=6.9 z=-2.04
+17:22:24 it79 o_co:0.45->0.414 [realself] d=-6.1 se=6.0 z=-1.02
+17:22:32 it80 c_mid:1->0.875 [real] d=-3.9 se=6.1 z=-0.64
+17:22:41 it81 call_tax:0.0->-0.038 [late] d=-4.2 se=6.7 z=-0.63
+17:22:50 it82 chk_oop:0.7->0.7 [heldout] d=+3.8 se=7.7 z=0.49
+17:23:10 it83 real_oop:1.02->1.183 [realself] d=+11.4 se=7.9 z=1.44 | confirm [real] d=+8.2 se=7.1 -> comb z=1.85
+17:23:18 it84 o_ep:0.22->0.259 w_r_mid:0.6->0.664 [real] d=-8.0 se=7.4 z=-1.08
+17:23:36 it85 eq_4b:0.56->0.618 [late] d=+8.3 se=7.5 z=1.11 | confirm [heldout] d=+3.2 se=5.8 -> comb z=1.21
+17:23:45 it86 w_b_weak:0.55->0.75 [heldout] d=+3.5 se=6.7 z=0.52
+17:23:54 it87 raise_margin:-0.04->-0.024 eq_3b:0.52->0.5 [realself] d=-13.0 se=6.5 z=-2.00
+17:24:02 it88 o_btn:0.7->0.7 [real] d=+0.8 se=7.2 z=0.11
+17:24:20 it89 w_r_air:0.572->0.5 o_btn:0.7->0.7 [late] d=+10.9 se=6.4 z=1.70 | confirm [heldout] d=+13.7 se=7.2 -> comb z=2.55  ACCEPT -> tools/cands/gen08.py
+17:24:29 it90 w_r_weak:0.25->0.302 [heldout] d=+4.3 se=6.8 z=0.63
+17:24:40 it91 open_size:2.8->3.1 w_b_weak:0.55->0.614 [realself] d=+1.4 se=6.7 z=0.21
+17:24:48 it92 multi_exp:0.75->1.0 [real] d=-4.7 se=5.9 z=-0.80
+17:24:57 it93 sb_limp:0.0->0 w_b_weak:0.55->0.43 [late] d=+0.5 se=7.4 z=0.07
+17:25:07 it94 sb_limp:0.0->0.06 o_btn:0.7->0.7 [heldout] d=+3.3 se=6.7 z=0.49
+17:25:17 it95 pri_ftb:0.6->0.475 [realself] d=-10.7 se=5.9 z=-1.81
+17:25:26 it96 w_r_weak:0.25->0.412 pf_call_margin:0.0->0.24 [real] d=-5.2 se=6.0 z=-0.87
+17:25:35 it97 bet_sizes:[0.25, 0.5, 0.8, 1.2]->[0.4, 0.75] [late] d=+5.4 se=7.5 z=0.72
+17:25:44 it98 bet_sizes:[0.25, 0.5, 0.8, 1.2]->[0.33, 0.6, 1.0] [heldout] d=-4.5 se=7.1 z=-0.63
+17:25:53 it99 chk_oop:0.7->0.728 [realself] d=+5.5 se=6.0 z=0.92
+17:31 gen08 vs srv_I: gate_K late+5.5 real+6.1 held+4.1 arch+2.9; gate_L(480t) +3.5/+2.9/+3.5 -> small edge, J=params_J.json (real budget) in tools/cands/J.py, not uploaded
+18:10 overnight run 3 from I (srv), 200 iters, clones refit through latest
+18:10:46 it0 c_mid:1->0.925 [real] d=+2.2 se=6.0 z=0.37
+18:10:55 it1 steal_k:1.5->2.1 [late] d=-2.7 se=7.1 z=-0.38
+18:11:04 it2 o_ep:0.22->0.199 [heldout] d=+0.6 se=6.1 z=0.10
+18:11:26 it3 o_sb:0.487->0.374 open_size:2.8->2.64 [realself] d=+11.3 se=7.3 z=1.55 | confirm [real] d=-3.5 se=5.8 -> comb z=0.84
+18:11:35 it4 size_exp:0.575->0.3 overlimp:0.3->0.225 [real] d=+2.6 se=6.4 z=0.41
+18:11:54 it5 w_r_weak:0.25->0.198 [late] d=+10.3 se=5.9 z=1.75 | confirm [heldout] d=+8.2 se=6.8 -> comb z=2.05  ACCEPT -> tools/cands/gen09.py
+18:12:03 it6 o_mp:0.28->0.306 [heldout] d=-3.0 se=6.6 z=-0.45
+18:12:21 it7 call_lo:0.6->0.45 w_b_mid:0.85->0.898 [realself] d=+9.6 se=7.3 z=1.32 | confirm [real] d=-3.3 se=6.4 -> comb z=0.65
+18:12:31 it8 o_btn:0.7->0.625 [real] d=-6.3 se=6.1 z=-1.03
+18:12:42 it9 pri_ftb:0.6->0.7 [late] d=-3.3 se=7.8 z=-0.42
+18:12:53 it10 chk_oop:0.7->0.7 o_sb:0.487->0.419 [heldout] d=+4.4 se=6.4 z=0.69
+18:13:04 it11 c_weak:0.55->0.606 [realself] d=-0.4 se=6.8 z=-0.06
+18:13:18 it12 w_b_weak:0.55->0.75 [real] d=+0.5 se=6.6 z=0.08
+18:13:28 it13 o_ep:0.22->0.285 [late] d=-4.6 se=7.3 z=-0.63
+18:13:38 it14 open_size:2.8->2.5 size_exp:0.575->0.711 [heldout] d=-9.4 se=7.3 z=-1.29
+18:13:48 it15 multi_exp:0.75->0.83 [realself] d=-5.7 se=7.9 z=-0.72
+18:13:57 it16 bluff_af:1.2->1.44 multi_exp:0.75->0.6 [real] d=-6.1 se=8.3 z=-0.73
+18:14:07 it17 bet_sizes:[0.4, 0.75]->[0.25, 0.5, 0.8, 1.2] [late] d=-7.1 se=7.7 z=-0.92
+18:14:29 it18 c_weak:0.55->0.606 [heldout] d=+8.6 se=6.7 z=1.28 | confirm [realself] d=+5.3 se=6.2 -> comb z=1.52
+18:14:40 it19 bet_margin:-0.08->-0.05 [realself] d=-5.8 se=7.9 z=-0.73
+18:14:50 it20 r3_mult:0.35->0.487 w_b_weak:0.55->0.35 [real] d=-2.1 se=7.3 z=-0.29
+18:14:59 it21 iso_mult:0.9->0.7 chk_oop:0.7->0.752 [late] d=-3.1 se=6.8 z=-0.46
+18:15:09 it22 shove_spr:6.05->4.3 eq_4b:0.56->0.52 [heldout] d=+3.3 se=6.6 z=0.50
+18:15:19 it23 raise_sizes:[1.0, 2.0]->[0.6, 1.0, 1.5] [realself] d=-1.1 se=7.7 z=-0.14
+18:15:28 it24 w_b_weak:0.55->0.67 [real] d=-5.7 se=7.0 z=-0.81
+18:15:38 it25 raise_sizes:[1.0, 2.0]->[0.5, 1.0] o_hj:0.36->0.46 [late] d=+0.3 se=7.8 z=0.04
+18:15:59 it26 w_r_mid:0.6->0.48 [heldout] d=+7.5 se=6.6 z=1.14 | confirm [realself] d=-5.7 se=7.9 -> comb z=0.17
+18:16:10 it27 pri_ftb:0.6->0.56 [realself] d=+3.1 se=6.2 z=0.50
+18:16:20 it28 o_co:0.45->0.383 real_oop:1.02->1.183 [real] d=+2.8 se=8.0 z=0.35
+18:16:39 it29 o_btn:0.7->0.7 [late] d=+23.2 se=6.0 z=3.87 | confirm [heldout] d=-1.0 se=6.5 -> comb z=2.51
+18:16:48 it30 overlimp:0.3->0.175 o_co:0.45->0.517 [heldout] d=-2.3 se=5.9 z=-0.39
+18:16:59 it31 pf_call_margin:0.0->-0.45 w_r_weak:0.198->0.36 [realself] d=-12.2 se=8.0 z=-1.52
+18:17:19 it32 pri_pfr:0.17->0.134 chk_ip:0.8->0.887 [real] d=+10.4 se=6.9 z=1.51 | confirm [late] d=-6.7 se=6.8 -> comb z=0.38
+18:17:28 it33 o_hj:0.36->0.328 chk_ip:0.8->0.887 [late] d=-7.3 se=6.7 z=-1.09
+18:17:38 it34 chk_oop:0.7->0.7 bluff_af:1.2->1.95 [heldout] d=-2.5 se=7.1 z=-0.35
+18:17:56 it35 c_mid:1->1 steal_k:1.5->2.5 [realself] d=+7.1 se=6.4 z=1.11 | confirm [real] d=-10.4 se=6.6 -> comb z=-0.36
+18:18:06 it36 chk_oop:0.7->0.787 o_ep:0.22->0.181 [real] d=-11.2 se=7.2 z=-1.56
+18:18:16 it37 sb_limp:0.0->0.032 [late] d=-10.0 se=6.4 z=-1.56
+18:18:26 it38 real_oop:1.02->0.858 pri_pfr:0.17->0.189 [heldout] d=-19.7 se=7.5 z=-2.63
+18:18:38 it39 multi_exp:0.75->1.0 [realself] d=-10.5 se=7.3 z=-1.44
+18:18:48 it40 fold_vs_raise:1.0->1.135 real_ip:1.15->1.202 [real] d=-13.6 se=7.3 z=-1.86
+18:18:59 it41 eq_3b:0.52->0.553 sb_limp:0.0->0 [late] d=-0.1 se=5.9 z=-0.02
+18:19:10 it42 sb_limp:0.0->0 bluff_af:1.2->1.65 [heldout] d=-13.0 se=6.3 z=-2.06
+18:19:20 it43 sb_limp:0.0->0 w_r_air:0.5->0.635 [realself] d=-9.7 se=6.0 z=-1.62
+18:19:32 it44 o_mp:0.28->0.306 [real] d=+0.8 se=6.6 z=0.12
+18:19:43 it45 raise_sizes:[1.0, 2.0]->[0.5, 1.0] [late] d=-8.5 se=7.1 z=-1.20
+18:19:54 it46 overlimp:0.3->0.425 [heldout] d=-7.2 se=6.6 z=-1.09
+18:20:07 it47 chk_oop:0.7->0.728 [realself] d=-7.3 se=7.1 z=-1.03
+18:20:15 it48 pf_call_margin:0.0->0.75 [real] d=+3.4 se=7.7 z=0.44
+18:20:26 it49 c_weak:0.55->0.606 loose_add:1.0->0.7 [late] d=-10.4 se=7.4 z=-1.41
+18:20:37 it50 o_ep:0.22->0.155 [heldout] d=-5.0 se=7.1 z=-0.70
+18:20:48 it51 iso_mult:0.9->0.964 w_r_weak:0.198->0.101 [realself] d=-1.1 se=7.6 z=-0.14
+18:20:57 it52 real_ip:1.15->1.247 [real] d=-10.7 se=8.3 z=-1.29
+18:21:08 it53 o_ep:0.22->0.259 w_r_mid:0.6->0.536 [late] d=-10.6 se=7.0 z=-1.51
+18:21:27 it54 w_r_air:0.5->0.365 [heldout] d=+13.6 se=6.4 z=2.12 | confirm [realself] d=+11.9 se=5.9 -> comb z=2.93  ACCEPT -> tools/cands/gen10.py
+18:21:39 it55 bet_margin:-0.08->-0.05 [realself] d=-7.5 se=7.5 z=-1.00
+18:21:48 it56 o_co:0.45->0.486 [real] d=+4.4 se=6.0 z=0.73
+18:21:58 it57 w_r_weak:0.198->0.295 [late] d=+1.0 se=6.5 z=0.15
+18:22:08 it58 bluff_af:1.2->0.75 [heldout] d=+2.4 se=6.4 z=0.37
+18:22:18 it59 w_r_air:0.365->0.5 [realself] d=-10.1 se=5.9 z=-1.71
+18:22:39 it60 w_r_mid:0.6->0.536 pri_vpip:0.28->0.228 [real] d=+10.6 se=6.0 z=1.77 | confirm [late] d=-13.9 se=8.4 -> comb z=-0.32
+18:22:49 it61 w_b_mid:0.85->0.802 [late] d=+4.0 se=6.1 z=0.66
+18:22:59 it62 multi_exp:0.75->0.67 [heldout] d=-1.0 se=5.8 z=-0.17
+18:23:11 it63 pri_vpip:0.28->0.252 [realself] d=+5.9 se=7.6 z=0.78
+18:23:20 it64 w_r_mid:0.6->0.72 [real] d=+4.2 se=6.3 z=0.67
+18:23:31 it65 eq_3b:0.52->0.553 bb_raise:0.08->0.066 [late] d=-6.0 se=7.7 z=-0.78
+18:23:51 it66 pri_vpip:0.28->0.368 [heldout] d=+7.6 se=7.5 z=1.01 | confirm [realself] d=-7.3 se=7.7 -> comb z=0.03
+18:24:10 it67 pri_pfr:0.17->0.134 [realself] d=+12.1 se=7.3 z=1.66 | confirm [real] d=+8.8 se=5.9 -> comb z=2.23  ACCEPT -> tools/cands/gen11.py
+18:24:19 it68 bet_sizes:[0.4, 0.75]->[0.3, 0.6, 1.0, 2.0] [real] d=-8.2 se=6.3 z=-1.30
+18:24:27 it69 chk_oop:0.7->0.7 [late] d=+4.0 se=6.4 z=0.62
+18:24:37 it70 call_lo:0.6->0.68 [heldout] d=-0.8 se=5.8 z=-0.14
+18:24:56 it71 multi_exp:0.75->0.83 [realself] d=+11.1 se=5.8 z=1.91 | confirm [real] d=-6.7 se=6.1 -> comb z=0.52
+18:25:05 it72 c_mid:1->1 call_lo:0.6->0.75 [real] d=-0.9 se=5.4 z=-0.17
+18:25:16 it73 open_size:2.8->3.3 eq_4b:0.56->0.542 [late] d=+2.2 se=7.3 z=0.30
+18:25:40 it74 o_hj:0.36->0.46 [heldout] d=+11.8 se=6.7 z=1.76 | confirm [realself] d=+4.7 se=6.1 -> comb z=1.82
+18:25:51 it75 bluff_base:0.15->0.078 c_mid:1->0.875 [realself] d=-3.7 se=5.8 z=-0.64
+18:26:02 it76 o_ep:0.22->0.241 [real] d=-2.7 se=6.4 z=-0.42
+18:26:12 it77 c_air:0.15->0.27 sb_limp:0.0->0.06 [late] d=+0.8 se=7.6 z=0.11
+18:26:24 it78 c_mid:1->1 real_oop:1.02->0.922 [heldout] d=-15.4 se=7.1 z=-2.17
+18:26:35 it79 w_r_air:0.365->0.59 w_r_weak:0.198->0.25 [realself] d=-11.8 se=7.6 z=-1.55
+18:26:49 it80 pri_vpip:0.28->0.368 [real] d=+4.2 se=6.7 z=0.63
+18:27:13 it81 shove_spr:6.05->5.49 [late] d=-11.9 se=7.2 z=-1.65
+18:27:30 it82 iso_mult:0.9->0.964 bet_margin:-0.08->-0.05 [heldout] d=-2.1 se=6.5 z=-0.32
+18:27:58 it83 iso_mult:0.9->0.78 [realself] d=+3.3 se=6.4 z=0.52
+18:28:15 it84 bb_raise:0.08->0.037 [real] d=-1.0 se=6.7 z=-0.15
+18:28:55 it85 sb_limp:0.0->0.06 [late] d=+9.9 se=7.1 z=1.39 | confirm [heldout] d=-2.7 se=6.5 -> comb z=0.75
+18:29:30 it86 bet_margin:-0.08->-0.05 chk_ip:0.8->0.8 [heldout] d=+15.2 se=5.7 z=2.67 | confirm [realself] d=+10.1 se=7.4 -> comb z=2.71  ACCEPT -> tools/cands/gen12.py
+18:29:42 it87 w_r_weak:0.198->0.05 [realself] d=-3.1 se=6.9 z=-0.45
+18:29:54 it88 o_sb:0.487->0.523 [real] d=-5.4 se=6.5 z=-0.83
+18:30:06 it89 w_r_weak:0.198->0.25 [late] d=+1.7 se=7.0 z=0.24
+18:30:17 it90 real_ip:1.15->1.312 o_hj:0.36->0.328 [heldout] d=-29.2 se=8.4 z=-3.48
+18:30:27 it91 overlimp:0.3->0.425 [realself] d=+0.5 se=6.1 z=0.08
+18:30:38 it92 call_tax:0.0->0.023 [real] d=-13.8 se=6.8 z=-2.03
+18:30:50 it93 w_b_mid:0.85->1 [late] d=+6.2 se=7.4 z=0.84
+18:31:01 it94 eq_4b:0.56->0.542 o_co:0.45->0.562 [heldout] d=-14.5 se=6.4 z=-2.27
+18:31:12 it95 o_btn:0.7->0.66 [realself] d=+5.2 se=6.8 z=0.76
+18:31:21 it96 o_hj:0.36->0.328 [real] d=-4.1 se=6.7 z=-0.61
+18:31:40 it97 o_ep:0.22->0.241 real_oop:1.02->1.117 [late] d=+19.0 se=7.9 z=2.41 | confirm [heldout] d=+1.9 se=6.7 -> comb z=2.02  ACCEPT -> tools/cands/gen13.py
+18:31:50 it98 c_weak:0.55->0.445 [heldout] d=-0.9 se=6.3 z=-0.14
+18:32:09 it99 real_ip:1.15->1.098 [realself] d=+10.1 se=6.0 z=1.68 | confirm [real] d=-0.7 se=6.6 -> comb z=1.05
+18:32:18 it100 raise_sizes:[1.0, 2.0]->[0.7, 1.1] [real] d=+2.4 se=6.6 z=0.36
+18:32:28 it101 loose_add:1.0->0.84 [late] d=-3.1 se=7.0 z=-0.44
+18:32:39 it102 open_size:2.8->2.5 [heldout] d=+5.7 se=6.0 z=0.95
+18:32:49 it103 overlimp:0.3->0.225 call_tax:0.0->0.038 [realself] d=-0.4 se=7.6 z=-0.05
+18:32:58 it104 o_hj:0.36->0.328 pri_pfr:0.134->0.074 [real] d=-0.5 se=7.1 z=-0.07
+18:33:08 it105 c_air:0.15->0.27 [late] d=-11.6 se=6.4 z=-1.81
+18:33:17 it106 open_size:2.8->2.96 [heldout] d=+0.6 se=7.0 z=0.09
+18:33:27 it107 steal_k:1.5->2.5 real_ip:1.15->1.052 [realself] d=-4.6 se=7.4 z=-0.62
+18:33:36 it108 bet_sizes:[0.4, 0.75]->[0.3, 0.6, 1.0, 2.0] [real] d=-2.5 se=7.2 z=-0.35
+18:33:45 it109 w_r_mid:0.6->0.48 shove_spr:6.05->7.8 [late] d=-1.6 se=7.4 z=-0.22
+18:33:55 it110 o_ep:0.241->0.306 [heldout] d=+1.2 se=6.8 z=0.18
+18:34:05 it111 raise_margin:-0.04->-0.05 [realself] d=-6.8 se=6.0 z=-1.13
+18:34:14 it112 size_exp:0.575->0.439 [real] d=-1.2 se=6.9 z=-0.17
+18:34:24 it113 fold_vs_raise:1.0->1.135 [late] d=-11.5 se=7.9 z=-1.46
+18:34:33 it114 overlimp:0.3->0.375 [heldout] d=-2.1 se=6.2 z=-0.34
+18:34:53 it115 raise_margin:-0.04->0.01 [realself] d=+12.4 se=6.4 z=1.94 | confirm [real] d=+0.9 se=7.3 -> comb z=1.37
+18:35:11 it116 real_ip:1.15->0.987 [real] d=+9.3 se=7.8 z=1.19 | confirm [late] d=-5.6 se=7.9 -> comb z=0.33
+18:35:21 it117 multi_exp:0.75->0.6 [late] d=-11.0 se=8.1 z=-1.36
+18:35:32 it118 r3_mult:0.35->0.432 [heldout] d=-1.0 se=7.5 z=-0.13
+18:35:43 it119 bluff_base:0.15->0.03 [realself] d=+3.6 se=5.9 z=0.61
+18:35:52 it120 multi_exp:0.75->0.6 [real] d=-17.5 se=7.4 z=-2.36
+18:36:02 it121 w_r_air:0.365->0.293 [late] d=-0.1 se=7.6 z=-0.01
+18:36:12 it122 loose_add:1.0->0.5 [heldout] d=-4.0 se=6.8 z=-0.59
+18:36:22 it123 raise_margin:-0.04->-0.024 bluff_af:1.2->1.95 [realself] d=-7.6 se=6.9 z=-1.10
+18:36:33 it124 open_size:2.8->2.96 pf_call_margin:0.0->-0.75 [real] d=-22.9 se=8.5 z=-2.69
+18:36:42 it125 bluff_base:0.15->0.27 [late] d=-16.9 se=7.0 z=-2.41
+18:37:02 it126 chk_ip:0.8->0.887 w_r_air:0.365->0.5 [heldout] d=+9.7 se=6.8 z=1.43 | confirm [realself] d=-10.2 se=5.5 -> comb z=-0.06
+18:37:10 it127 c_weak:0.55->0.494 pf_call_margin:0.0->0.45 [realself] d=-10.0 se=8.4 z=-1.19
+18:37:19 it128 size_exp:0.575->0.3 bluff_base:0.15->0.27 [real] d=-6.9 se=6.6 z=-1.05
+18:37:29 it129 bluff_af:1.2->1.44 [late] d=-9.7 se=6.9 z=-1.41
+18:37:38 it130 bet_sizes:[0.4, 0.75]->[0.5, 1.0] w_r_weak:0.198->0.36 [heldout] d=-5.3 se=6.2 z=-0.85
+18:37:48 it131 overlimp:0.3->0.425 [realself] d=+0.1 se=6.8 z=0.01
+18:37:57 it132 w_r_weak:0.198->0.146 [real] d=+3.5 se=6.8 z=0.51
+18:38:07 it133 size_exp:0.575->1.0 bet_margin:-0.05->-0.05 [late] d=-5.6 se=7.1 z=-0.79
+18:38:16 it134 c_weak:0.55->0.445 [heldout] d=-7.7 se=8.2 z=-0.94
+18:38:24 it135 pf_call_margin:0.0->0.75 r3_mult:0.35->0.306 [realself] d=-8.4 se=7.3 z=-1.15
+18:38:35 it136 eq_3b:0.52->0.538 o_co:0.45->0.486 [real] d=-3.6 se=7.7 z=-0.47
+18:38:44 it137 call_lo:0.6->0.75 pri_ftb:0.6->0.475 [late] d=-11.9 se=7.4 z=-1.61
+18:38:54 it138 w_b_weak:0.55->0.614 [heldout] d=-4.9 se=6.6 z=-0.74
+18:39:04 it139 overlimp:0.3->0.26 [realself] d=-2.3 se=6.8 z=-0.34
+18:39:14 it140 chk_ip:0.8->0.8 [real] d=-10.4 se=6.3 z=-1.65
+18:39:33 it141 o_mp:0.28->0.2 [late] d=+9.6 se=6.5 z=1.48 | confirm [heldout] d=+3.6 se=6.5 -> comb z=1.44
+18:39:43 it142 shove_spr:6.05->7.1 multi_exp:0.75->0.6 [heldout] d=+6.2 se=7.2 z=0.86
+18:39:53 it143 w_r_weak:0.198->0.295 [realself] d=+4.3 se=7.2 z=0.60
+18:40:03 it144 o_btn:0.7->0.7 raise_sizes:[1.0, 2.0]->[0.7, 1.1] [real] d=-3.0 se=6.4 z=-0.47
+18:40:12 it145 bet_sizes:[0.4, 0.75]->[0.3, 0.6, 1.0, 2.0] [late] d=-5.7 se=6.7 z=-0.85
+18:40:22 it146 r3_mult:0.35->0.212 [heldout] d=+0.8 se=8.2 z=0.10
+18:40:41 it147 multi_exp:0.75->0.9 [realself] d=+6.3 se=6.0 z=1.05 | confirm [real] d=+0.4 se=6.2 -> comb z=0.78
+18:40:51 it148 o_sb:0.487->0.374 [real] d=+0.7 se=6.2 z=0.11
+18:41:01 it149 loose_add:1.0->0.84 [late] d=-7.1 se=6.3 z=-1.13
+18:41:10 it150 bet_sizes:[0.4, 0.75]->[0.5, 1.0] [heldout] d=+1.6 se=5.8 z=0.28
+18:41:29 it151 raise_margin:-0.04->0.01 [realself] d=+10.8 se=6.5 z=1.66 | confirm [real] d=+4.1 se=5.9 -> comb z=1.70
+18:41:47 it152 r3_mult:0.35->0.212 chk_ip:0.8->0.828 [real] d=+7.8 se=6.1 z=1.28 | confirm [late] d=+8.8 se=7.5 -> comb z=1.72
+18:41:57 it153 real_oop:1.117->1.065 [late] d=-2.4 se=6.8 z=-0.35
+18:42:07 it154 call_tax:0.0->0.012 [heldout] d=-9.5 se=6.6 z=-1.44
+18:42:17 it155 bet_sizes:[0.4, 0.75]->[0.3, 0.6, 1.0, 2.0] bb_raise:0.08->0.054 [realself] d=-4.7 se=6.1 z=-0.77
+18:42:27 it156 real_oop:1.117->1.25 [real] d=+5.0 se=6.9 z=0.72
+18:42:46 it157 real_oop:1.117->1.169 bluff_base:0.15->0.03 [late] d=+9.9 se=7.0 z=1.41 | confirm [heldout] d=+1.3 se=7.2 -> comb z=1.12
+18:42:56 it158 w_r_weak:0.198->0.36 [heldout] d=-3.4 se=7.7 z=-0.44
+18:43:05 it159 bb_raise:0.08->0.037 [realself] d=-6.1 se=6.6 z=-0.92
+18:43:14 it160 o_hj:0.36->0.392 pri_ftb:0.6->0.64 [real] d=+2.8 se=6.6 z=0.42
+18:43:33 it161 call_tax:0.0->0.012 w_b_weak:0.55->0.35 [late] d=+10.2 se=6.9 z=1.48 | confirm [heldout] d=-2.3 se=5.5 -> comb z=0.90
+18:43:42 it162 w_r_mid:0.6->0.48 o_btn:0.7->0.7 [heldout] d=-21.3 se=7.1 z=-3.00
+18:43:52 it163 overlimp:0.3->0.225 [realself] d=-4.0 se=5.9 z=-0.68
+18:44:01 it164 bluff_base:0.15->0.03 [real] d=-1.4 se=5.7 z=-0.25
+18:44:10 it165 w_r_mid:0.6->0.536 [late] d=+0.1 se=6.7 z=0.01
+18:44:20 it166 o_btn:0.7->0.625 w_b_weak:0.55->0.35 [heldout] d=+4.6 se=6.2 z=0.74
+18:44:30 it167 w_r_weak:0.198->0.295 [realself] d=+3.0 se=6.7 z=0.45
+18:44:39 it168 c_mid:1->0.925 [real] d=-3.0 se=6.9 z=-0.43
+18:44:49 it169 o_ep:0.241->0.306 real_ip:1.15->1.247 [late] d=-9.4 se=8.2 z=-1.15
+18:45:08 it170 pri_vpip:0.28->0.368 [heldout] d=+12.0 se=6.6 z=1.82 | confirm [realself] d=-1.9 se=6.0 -> comb z=1.13
+18:45:18 it171 real_oop:1.117->1.02 call_lo:0.6->0.85 [realself] d=-7.1 se=6.6 z=-1.08
+18:45:27 it172 raise_sizes:[1.0, 2.0]->[0.5, 1.0] raise_margin:-0.04->-0.05 [real] d=-12.1 se=6.4 z=-1.89
+18:45:37 it173 bluff_base:0.15->0.188 [late] d=-5.7 se=7.7 z=-0.74
+18:45:46 it174 iso_mult:0.9->0.964 o_hj:0.36->0.26 [heldout] d=-12.6 se=6.8 z=-1.85
+18:45:56 it175 c_air:0.15->0.27 bet_margin:-0.05->-0.028 [realself] d=-2.9 se=5.9 z=-0.49
+18:46:05 it176 bet_margin:-0.05->-0.028 w_r_air:0.365->0.293 [real] d=+1.7 se=6.2 z=0.27
+18:46:14 it177 o_mp:0.28->0.232 [late] d=+1.3 se=6.7 z=0.19
+18:46:38 it178 pri_ftb:0.6->0.64 o_sb:0.487->0.451 [heldout] d=+7.3 se=7.1 z=1.03 | confirm [realself] d=+4.2 se=6.1 -> comb z=1.23
+18:46:49 it179 o_mp:0.28->0.306 pf_call_margin:0.0->0.24 [realself] d=-7.5 se=6.9 z=-1.09
+18:46:59 it180 chk_ip:0.8->0.828 [real] d=+6.4 se=7.2 z=0.89
+18:47:10 it181 chk_ip:0.8->0.8 [late] d=-0.7 se=6.5 z=-0.11
+18:47:21 it182 overlimp:0.3->0.375 call_tax:0.0->0.023 [heldout] d=-5.7 se=5.7 z=-1.00
+18:47:32 it183 o_mp:0.28->0.232 [realself] d=-0.9 se=7.4 z=-0.12
+18:47:41 it184 real_oop:1.117->1.065 [real] d=-3.9 se=6.3 z=-0.62
+18:47:51 it185 o_mp:0.28->0.36 [late] d=-8.3 se=7.4 z=-1.12
+18:48:01 it186 c_mid:1->1 [heldout] d=-0.5 se=6.6 z=-0.08
+18:48:20 it187 loose_add:1.0->0.84 o_ep:0.241->0.176 [realself] d=+12.7 se=5.7 z=2.23 | confirm [real] d=+5.3 se=5.3 -> comb z=2.31  ACCEPT -> tools/cands/gen14.py
+18:48:32 it188 eq_3b:0.52->0.5 real_ip:1.15->1.202 [real] d=-9.1 se=6.3 z=-1.44
+18:48:42 it189 fold_vs_raise:1.0->1.072 [late] d=-5.4 se=7.1 z=-0.76
+18:48:53 it190 call_lo:0.6->0.52 multi_exp:0.75->0.83 [heldout] d=-20.0 se=7.7 z=-2.60
+18:49:05 it191 eq_3b:0.52->0.5 chk_ip:0.8->0.8 [realself] d=-1.3 se=7.3 z=-0.18
+18:49:15 it192 real_ip:1.15->1.202 [real] d=-6.2 se=6.8 z=-0.91
+18:49:26 it193 multi_exp:0.75->0.67 [late] d=-8.2 se=6.8 z=-1.21
+18:49:37 it194 o_ep:0.176->0.215 [heldout] d=-9.3 se=7.2 z=-1.29
+18:49:58 it195 real_oop:1.117->1.214 [realself] d=+13.9 se=6.5 z=2.14 | confirm [real] d=-3.9 se=6.2 -> comb z=1.11
+18:50:08 it196 w_b_mid:0.85->0.94 steal_k:1.5->1.82 [real] d=-4.3 se=6.5 z=-0.66
+18:50:18 it197 multi_exp:0.75->0.9 [late] d=-0.4 se=7.6 z=-0.05
+18:50:41 it198 raise_sizes:[1.0, 2.0]->[0.8] [heldout] d=+9.4 se=7.2 z=1.31 | confirm [realself] d=+5.4 se=6.3 -> comb z=1.55
+18:51:03 it199 c_mid:1->1 bet_sizes:[0.4, 0.75]->[0.25, 0.5, 0.8, 1.2] [realself] d=+8.0 se=6.3 z=1.27 | confirm [real] d=-8.7 se=6.4 -> comb z=-0.08
+18:57 N packaged: submissions/N_v10_tuned (params_N.json, sha 5c2b4b2c...)

@@ -1,0 +1,6 @@
+h_ftb35 vs v7 real   DIFF                                      -0.7 bb/100 (se 4.4)  z=-0.15
+h_ftb35 vs v7 heldout   DIFF                                      -5.4 bb/100 (se 4.8)  z=-1.14
+h_ftb35 vs v7 archive   DIFF                                      -2.4 bb/100 (se 6.0)  z=-0.40
+h_ftb45 vs v7 real   DIFF                                      +1.2 bb/100 (se 4.3)  z=0.27
+h_ftb45 vs v7 heldout   DIFF                                      -2.4 bb/100 (se 4.6)  z=-0.52
+h_ftb45 vs v7 archive   DIFF                                      -5.5 bb/100 (se 5.5)  z=-1.00

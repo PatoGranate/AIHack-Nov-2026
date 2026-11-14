@@ -1,0 +1,12 @@
+x_tight_ep vs H late   DIFF                                      -3.9 bb/100 (se 4.0)  z=-0.97
+x_tight_ep vs H real   DIFF                                      -4.5 bb/100 (se 4.1)  z=-1.08
+x_tighter vs H late   DIFF                                      +1.1 bb/100 (se 4.1)  z=0.28
+x_tighter vs H real   DIFF                                      -1.6 bb/100 (se 3.6)  z=-0.44
+x_open30 vs H late   DIFF                                      -3.2 bb/100 (se 3.8)  z=-0.84
+x_open30 vs H real   DIFF                                      +8.2 bb/100 (se 3.8)  z=2.18
+x_open25 vs H late   DIFF                                      +3.1 bb/100 (se 4.4)  z=0.70
+x_open25 vs H real   DIFF                                      +2.4 bb/100 (se 3.5)  z=0.68
+x_tight_30 vs H late   DIFF                                      +5.6 bb/100 (se 4.0)  z=1.41
+x_tight_30 vs H real   DIFF                                      -4.3 bb/100 (se 3.9)  z=-1.10
+x_call3b vs H late   DIFF                                     -10.5 bb/100 (se 4.8)  z=-2.17
+x_call3b vs H real   DIFF                                     -16.8 bb/100 (se 4.6)  z=-3.66

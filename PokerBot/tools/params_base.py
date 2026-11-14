@@ -1,0 +1,15 @@
+PARAMS = dict(
+    pri_vpip=0.30, pri_pfr=0.15, pri_ftb=0.45, r3_mult=0.35, call_lo=0.6,
+    bb_raise=0.08, open_size=2.5, loose_add=1.0,
+    o_btn=0.42, o_sb=0.35, o_co=0.27, o_hj=0.20, o_mp=0.16, o_ep=0.12,
+    steal_k=1.5, iso_mult=0.7, overlimp=0.30, sb_limp=0.0,
+    multi_exp=0.6, real_ip=0.95, real_oop=0.82, eq_3b=0.60, eq_4b=0.62,
+    **{"3b_ip": 3.0, "3b_oop": 3.6}, pf_call_margin=0.0,
+    bluff_base=0.15, bluff_af=1.2, w_r_air=0.5, w_r_weak=0.25, w_r_mid=0.6,
+    w_b_weak=0.55, w_b_mid=0.85,
+    c_air=0.15, c_weak=0.55, c_mid=0.88, size_exp=1.0,
+    max_sims=1500, max_ms=2.5,
+    bet_sizes=[0.33, 0.6, 1.0], raise_sizes=[0.7, 1.1], shove_spr=3.0,
+    chk_ip=0.95, chk_oop=0.85, bet_margin=0.01, call_tax=0.0,
+    fold_vs_raise=1.0, raise_margin=0.02,
+)
