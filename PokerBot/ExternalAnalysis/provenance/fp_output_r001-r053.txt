@@ -1,0 +1,24 @@
+== round metadata
+v5 r001-r023 rounds=23 hands=23000 mean_bb100=+26.8 think=1.87-3.22s timeouts=33 errors=0 bankouts=0
+v6 r024-r047 rounds=24 hands=24000 mean_bb100=+6.7 think=4.61-7.13s timeouts=19 errors=0 bankouts=0
+v7 r048-r048 rounds=1 hands=1000 mean_bb100=+17.2 think=2.95-2.95s timeouts=2 errors=0 bankouts=0
+v8 r049-r053 rounds=5 hands=5000 mean_bb100=-17.4 think=5.49-7.12s timeouts=4 errors=0 bankouts=0
+== first-in open rate (unopened only)
+v5 EP 0.262(6148) HJ 0.385(1886) CO 0.508(1457) BTN 0.779(1008) SB 0.543(499)
+v6 EP 0.268(7226) HJ 0.391(1912) CO 0.486(1271) BTN 0.738(818) SB 0.577(414)
+v7 EP 0.288(344) HJ 0.400(75) CO 0.593(54) BTN 0.815(27) SB 0.550(20)
+v8 EP 0.221(1604) HJ 0.379(443) CO 0.505(315) BTN 0.796(225) SB 0.531(128)
+== first-in open rate (incl. limped pots)
+v5 EP 0.262(6252) HJ 0.376(2133) CO 0.502(1614) BTN 0.764(1128) SB 0.532(639)
+v6 EP 0.268(7226) HJ 0.389(1973) CO 0.481(1495) BTN 0.722(1030) SB 0.548(568)
+v7 EP 0.288(344) HJ 0.388(80) CO 0.582(55) BTN 0.800(30) SB 0.591(22)
+v8 EP 0.221(1604) HJ 0.379(443) CO 0.505(315) BTN 0.796(225) SB 0.531(128)
+== first-in raise sizes (bb), top 4
+v5 n=4459 [(3.5, 3802), (4.5, 281), (4.0, 266), (6.0, 36)]
+v6 n=4484 [(2.8, 3886), (3.3, 239), (3.8, 147), (4.8, 127)]
+v7 n=199 [(3.5, 183), (4.0, 11), (5.0, 2), (4.5, 2)]
+v8 n=928 [(2.8, 860), (3.3, 67), (4.1, 1)]
+== EP unopened open rate, z vs v8
+v5 0.262 vs v8 0.221  z=3.38
+v6 0.268 vs v8 0.221  z=3.89
+v7 0.288 vs v8 0.221  z=2.67
