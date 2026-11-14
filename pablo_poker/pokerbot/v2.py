@@ -234,6 +234,17 @@ P = {
     'vs3_pct': 1.0,       # after raising, continue against a re-raise only with the top this-share of hands (1 = off)
     'vs4_pct': 1.0,       # same against a second re-raise (4-bet or more)
     'id_k': 30,           # how many hands of evidence a confident identification is worth
+    # --- v4: the field's real answers to a bet (fold AND raise), blended by our own observed aggression
+    'ans_cal': 0,         # 1: rescale folds per bet size to the real field's answers, and let opponents raise
+    'raise_lam': [0.15, 0.3, 1.0, 2.5],   # relative raise propensity by opponent level (air, weak/draw, top pair, strong)
+    'raise_x': 3.5,       # size of a raise over our bet, as a multiple of our bet
+    'agg_prior': 0.7,     # prior on our own bet-when-checked-to rate (opponents adapt to what they observe)
+    'tb_pct': 0.0,        # facing one open with no callers: 3-bet every hand in the top this-share (winners 3-bet ~12%)
+    'tb_open_max': 4.5,   # ... only against opens up to this many big blinds
+    'bb_def': 1.0,        # big blind facing one raise: fold hands outside the top this-share (real rounds: 25%+ lose)
+    'chk_r_ip': 0.0,      # river check value in position (checking = showdown now); 0 = use chk_ip
+    'chk_r_oop': 0.0,     # river check value out of position; 0 = use chk_oop
+    'rm_street': [0.0, 0.0, 0.0],   # extra raise margin (x pot) facing a bet on flop / turn / river (winners raise 12/10/5%)
 }
 
 # ---------------------------------------------------------------- tables
@@ -436,6 +447,7 @@ class Agent:
         if _MODEL_SRC[0]:
             _refresh_model()
         self.rng = random.Random(seed)
+        self.myagg = [0, 0]
         self.seat = 0
         self.n = 8
         self.total_hands = 1000
@@ -876,6 +888,13 @@ class Agent:
             tgt = cur * (self.P["3b_ip"] if ip else self.P["3b_oop"]) + (pot - cur - bets[me]) * 0.5
             if tgt < stack * 0.35:
                 return self.r(tgt)
+        if (nr == 1 and not extra and "raise" in state["legal_actions"] and pct <= self.P["tb_pct"]
+                and cur <= self.P["tb_open_max"] * bb):
+            tgt = cur * (self.P["3b_ip"] if ip else self.P["3b_oop"]) + (pot - cur - bets[me]) * 0.5
+            if tgt < stack * 0.35:
+                return self.r(tgt)
+        if nr == 1 and pos == 2 and not extra and pct > self.P["bb_def"] and not allin_call:
+            return {"action": "fold"}
         if "raise" in state["legal_actions"] and nr < 4:
             thr = self.P["eq_3b"] if nr == 1 else self.P["eq_4b"]
             if e >= thr and not (extra and e < thr + 0.05):
@@ -1031,12 +1050,39 @@ class Agent:
                 e = exps[ci]
                 fp = sum(base[L] * (1 - cb[L] ** e) for L in range(3)) + base[3] * (0.0 if e < 2.0 else 0.08)
                 fks[ci] = clamp(tgt / max(0.02, fp), 0.4, 2.5)
+        rks = None                      # per candidate: (raise target, kappa per opponent computed below)
+        if self.P["ans_cal"] and MODEL.get("pop", {}).get("ans_us"):
+            pop = MODEL["pop"]
+            stn = {3: "flop", 4: "turn", 5: "river"}[len(bd)]
+            base = pop["base"][stn]
+            lo_a, hi_a = pop.get("agg_ref", [0.48, 0.92])
+            g = self.myagg
+            bf = (g[1] + self.P["agg_prior"] * 20.0) / (g[0] + 20.0)
+            a = clamp((bf - lo_a) / (hi_a - lo_a), 0.0, 1.0)
+            cb = (self.P["c_air"], self.P["c_weak"], self.P["c_mid"])
+            rks = []
+            for ci in range(nc):
+                bk = str(6 if raising else size_bucket(sizes[ci], False))
+                us = pop["ans_us"][stn].get(bk)
+                ot = pop["ans_oth"][stn].get(bk)
+                if not us or not ot:
+                    rks.append(0.0)
+                    continue
+                ft = ot[0] + a * (us[0] - ot[0])
+                rt = ot[1] + a * (us[1] - ot[1])
+                e = exps[ci]
+                fp = sum(base[L] * (1 - cb[L] ** e) for L in range(3)) + base[3] * (0.0 if e < 2.0 else 0.08)
+                fks[ci] = clamp(ft / max(0.02, fp), 0.3, 3.0)
+                rks.append(rt)
+        lam = self.P["raise_lam"]
         conts = []
+        rconts = []
         contrib = []
         for m in models:
             cont, allin, bet_j, cap_j = m[4], m[5], m[6], m[7]
             row = []
             crow = []
+            rrow = []
             for ci in range(nc):
                 e = exps[ci]
                 if allin:
@@ -1049,8 +1095,16 @@ class Agent:
                     if fvr != 1.0:
                         cc = tuple(clamp(1 - (1 - x) * fvr, 0.0, 1.0) for x in cc)
                     row.append(cc)
+                if rks is not None and not allin and rks[ci] > 0:
+                    cc = row[-1]
+                    den = sum(base[L] * cc[L] * lam[L] for L in range(4))
+                    kap = rks[ci] / max(1e-4, den)
+                    rrow.append(tuple(cc[L] * min(1.0, kap * lam[L]) for L in range(4)))
+                else:
+                    rrow.append((0.0, 0.0, 0.0, 0.0))
                 crow.append(max(0, min(cands[ci], cap_j) - bet_j))
             conts.append(row)
+            rconts.append(rrow)
             contrib.append(crow)
         caps = [m[7] for m in models]
         hc, dead_c, tcall = self.ctx
@@ -1068,6 +1122,9 @@ class Agent:
         RTl = RT
         FLl = FL
         mp = CP[my[0]] * CP[my[1]]
+        my_strong = level_street(my[0], my[1], bd) >= 3
+        my_left = getattr(self, "my_stack", 10 ** 9)
+        add2 = [min(my_left, int(self.P["raise_x"] * a2)) for a2 in adds]
         while True:
             for _ in range(2):
                 used = set(dead)
@@ -1192,18 +1249,30 @@ class Agent:
                         cap0 = caps[0]
                         for ci in range(nc):
                             c = conts[0][ci][lv[0]]
+                            r = rconts[0][ci][lv[0]]
                             add = adds[ci]
                             if cap0 >= cands[ci]:
                                 called = sh * (pot + add + contrib[0][ci]) - add
                             else:
                                 called = layered_win([(hc + add, mv), (tot[0] + contrib[0][ci], ov[0])], 0, dead_c) - add
-                            EV[ci] += w * ((1 - c) * pot + c * called)
+                            if r > 0:
+                                if my_strong:
+                                    a2 = max(add, min(add2[ci], cap0 - my_bet))
+                                    raised = sh * (pot + 2 * a2) - a2
+                                else:
+                                    raised = -add
+                                EV[ci] += w * ((1 - c) * pot + (c - r) * called + r * raised)
+                            else:
+                                EV[ci] += w * ((1 - c) * pot + c * called)
                     else:
                         us = [rng.random() for _ in range(k)]
                         for ci in range(nc):
                             callers = [idx for idx in range(k) if us[idx] < conts[idx][ci][lv[idx]]]
                             if not callers:
                                 EV[ci] += w * pot
+                                continue
+                            if not my_strong and any(us[idx] < rconts[idx][ci][lv[idx]] for idx in callers):
+                                EV[ci] -= w * adds[ci]
                                 continue
                             bv = 0
                             bt = 0
@@ -1274,19 +1343,25 @@ class Agent:
         live = set(m[0] for m in models) | {me}
         dead_c = [self.start - state["stacks"][j] for j in range(n) if j not in live]
         self.ctx = (self.start - state["stacks"][me], dead_c, tc)
+        self.my_stack = state["stacks"][me]
         e, evs = self.simulate(state["hole_cards"], state["board"], models, cands, my_bet, pot, tc > 0, b)
         self.last_e = e
         if (tc == 0 and self.P.get("q_trap") and not ip and street != "river" and e >= self.P["q_trap_eq"]
                 and any(self.af(m[0]) >= self.P["q_trap_af"] and not m[5] for m in models)):
             return {"action": "check"}
         if tc == 0:
-            best = e * pot * (self.P["chk_ip"] if ip else self.P["chk_oop"])
+            ck = self.P["chk_ip"] if ip else self.P["chk_oop"]
+            if street == "river":
+                ck = (self.P["chk_r_ip"] if ip else self.P["chk_r_oop"]) or ck
+            best = e * pot * ck
             act = {"action": "check"}
             bonus = -self.P["bet_margin"] * pot
             for R, ev in zip(cands, evs):
                 if ev + bonus > best:
                     best = ev + bonus
                     act = self.r(R)
+            self.myagg[0] += 1
+            self.myagg[1] += act["action"] == "raise"
             return act
         ev_call = self.call_ev
         if street != "river":
@@ -1296,7 +1371,7 @@ class Agent:
         if ev_call > best:
             best = ev_call
             act = {"action": "call"}
-        bonus = -self.P["raise_margin"] * pot
+        bonus = -(self.P["raise_margin"] + self.P["rm_street"][{"flop": 0, "turn": 1}.get(street, 2)]) * pot
         for R, ev in zip(cands, evs):
             if ev + bonus > best:
                 best = ev + bonus

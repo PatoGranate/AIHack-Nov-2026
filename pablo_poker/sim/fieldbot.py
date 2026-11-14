@@ -26,12 +26,156 @@ _MODEL = {}
 N_PART = 80
 BLUFF = {"flop": 0.30, "turn": 0.28, "river": 0.24}       # share of a betting range taken from the bottom
 DRAW = {3: (0.60, 0.50, 0.74), 4: (0.47, 0.38, 0.56)}     # percentile floor: flush draw, straight draw, both
+MODE = os.environ.get("FB_MODE", "abs")    # "abs": act on absolute hand strength (equity vs random hands); "rank": rank in own range
+HS_FILE = os.path.join(ROOT, "data", "hs_pool.json")
+_POOL = {}        # key -> recent HS values seen at that spot, all clones (warm start from HS_FILE)
+_OWN = {}         # (bot, key) -> recent HS values of that clone at that spot
+POOL_N, OWN_N, OWN_MIN = 3000, 500, 80
+RAISE_BLUFF = {"flop": 0.12, "turn": 0.08, "river": 0.05}
+PF3B_K = float(os.environ.get("FB_PF3B", "1.25"))
+
+
+def _load_pool():
+    if _POOL or not os.path.exists(HS_FILE):
+        return
+    try:
+        with open(HS_FILE, encoding="utf-8") as f:
+            for k, v in json.load(f).items():
+                _POOL[k] = list(v)
+    except (OSError, ValueError):
+        pass
+
+
+def save_pool(path=HS_FILE):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump({k: [round(x, 3) for x in v[-POOL_N:]] for k, v in _POOL.items()}, f)
+
+
+def hand_strength(hole, bd, nopp, rng, m=72):
+    """Equity of hole vs nopp uniformly random hands, random runout (draws count by their real equity)."""
+    dead = set(hole) | set(bd)
+    deck = [c for c in range(52) if c not in dead]
+    need = 5 - len(bd)
+    k = 2 * nopp + need
+    tot = 0.0
+    for _ in range(m):
+        s = rng.sample(deck, k)
+        full = bd + s[2 * nopp:]
+        mv = evaluate(full + hole)
+        best = 0
+        ties = 0
+        for i in range(nopp):
+            v = evaluate(full + s[2 * i:2 * i + 2])
+            if v > best:
+                best, ties = v, 0
+            elif v == best:
+                ties += 1
+        tot += 1.0 if mv > best else (1.0 / (ties + 2) if mv == best else 0.0)
+    return tot / m
+
+
+import bisect as _bisect
+import math as _math
+_SOFT = {}
+SOFT_W = float(os.environ.get("FB_SOFT", "0.10"))      # width of the bet / check boundary in hand-strength quantile
+TRAP = {"flop": 0.10, "turn": 0.25, "river": 0.35}    # share of strong hands checked to a known aggressive bettor behind
+
+
+def _soft_t(target, w):
+    """Centre t so that a hand at uniform quantile q bets with prob sigmoid((q - t) / w) at average rate target."""
+    key = (round(target, 3), w)
+    if key not in _SOFT:
+        lo, hi = -1.0, 2.0
+        for _ in range(30):
+            t = (lo + hi) / 2
+            m = sum(1.0 / (1.0 + _math.exp(-((i + 0.5) / 60.0 - t) / w)) for i in range(60)) / 60.0
+            if m > target:
+                lo = t
+            else:
+                hi = t
+        _SOFT[key] = (lo + hi) / 2
+    return _SOFT[key]
+
+
+def _cdf(xs, v):
+    if not xs:
+        return None
+    s = sorted(xs)
+    return (_bisect.bisect_left(s, v) + _bisect.bisect_right(s, v)) * 0.5 / len(s)
+
+
+_V3 = {}
+SKILL_FILE = os.path.join(ROOT, "data", "field_skill.json")
+_SKILL = {}
+
+
+def v3pop():
+    if not _V3:
+        try:
+            with open(os.path.join(ROOT, "data", "v3_model.json"), encoding="utf-8") as f:
+                _V3.update(json.load(f)["pop"])
+        except (OSError, ValueError, KeyError):
+            _V3["lvl"] = {}
+    return _V3
+
+
+def skill_of(name):
+    """Per-bot hand-reading skill in [-1, 1], fitted so the clone's showdown win rate matches the real bot's
+    (tools/calib_skill.py). > 0: reads the bettor's range from the bet size; < 0: decides with noise."""
+    if not _SKILL:
+        _SKILL["_"] = 0.0
+        if os.environ.get("FB_SKILL", "on") != "off" and os.path.exists(SKILL_FILE):
+            with open(SKILL_FILE, encoding="utf-8") as f:
+                _SKILL.update(json.load(f))
+    return _SKILL.get(name, 0.0)
+
+
+def hand_strength_vs(hole, bd, acc, nopp, rng, m=72):
+    """Equity vs one bettor whose hand is drawn with acceptance acc[level] (its range as the bet size shows it)
+    plus nopp-1 random hands."""
+    dead = set(hole) | set(bd)
+    deck = [c for c in range(52) if c not in dead]
+    need = 5 - len(bd)
+    tot = 0.0
+    for _ in range(m):
+        for _t in range(8):
+            a, b = rng.sample(deck, 2)
+            if rng.random() < acc[level_street(a, b, bd)]:
+                break
+        rest = [c for c in deck if c != a and c != b]
+        s = rng.sample(rest, 2 * (nopp - 1) + need)
+        full = bd + s[2 * (nopp - 1):]
+        mv = evaluate(full + hole)
+        best = evaluate(full + [a, b])
+        ties = 0
+        for i in range(nopp - 1):
+            v = evaluate(full + s[2 * i:2 * i + 2])
+            if v > best:
+                best, ties = v, 0
+            elif v == best:
+                ties += 1
+        tot += 1.0 if mv > best else (1.0 / (ties + 2) if mv == best else 0.0)
+    return tot / m
+
+
+def _quantile(xs, q):
+    if not xs:
+        return None
+    s = sorted(xs)
+    i = min(len(s) - 1, max(0, int(q * len(s))))
+    return s[i]
+
+
 
 
 def model():
     if not _MODEL:
         with open(MODEL_FILE, encoding="utf-8") as f:
             _MODEL.update(json.load(f))
+        af = os.environ.get("FB_ADAPT", os.path.join(ROOT, "data", "field_adapt.json"))
+        if af != "off" and os.path.exists(af):
+            with open(af, encoding="utf-8") as f:
+                _MODEL["adapt"] = json.load(f)
     return _MODEL
 
 
@@ -99,12 +243,15 @@ def _draw_floor(a, b, bd, bsc, bmask, val):
 class FieldBot:
     def __init__(self, name, seed=None, profile=None):
         m = model()
+        _load_pool()
         self.name = name
         self.p = profile or m["bots"].get(name) or m["pop"]
         self.rng = random.Random(seed)
         self.hand = -1
         self.seat = 0
         self.level_counts = {}
+        self.agg = {}         # seat -> [checked-to opportunities, bets] postflop (adaptation to aggressive bettors)
+        self.hcur = 0
 
     def on_table_start(self, info):
         self.seat = info.get("seat", 0)
@@ -171,7 +318,11 @@ class FieldBot:
             rsz = 1e9
         if len(raises) == 1:
             f, c, r = pre["vs_open"]["bb" if g == "BB" else ("sb" if g == "SB" else "other")]
-            return self._slice(s, r, c, rsz)
+            # measured on rounds 38-53: clones 3-bet ~20% less often than the real field (0.048 vs 0.060)
+            # (the slice logic loses part of the raise share); restore it out of the calls
+            r2 = r * PF3B_K
+            c = max(0.0, c - (r2 - r))
+            return self._slice(s, r2, c, rsz)
         if len(raises) == 2:
             f, c, r = pre["vs_3b"]["opener" if mine else "cold"]
             return self._slice(s, r, c, rsz)
@@ -332,14 +483,165 @@ class FieldBot:
             return {"action": "call"}
         return {"action": "fold"}
 
+    # ------------------------------------------------------------------ postflop, absolute strength
+    def _q(self, key, q):
+        """HS value at quantile q of what this clone (else all clones) held at this spot."""
+        own = _OWN.get((self.name, key))
+        if own and len(own) >= OWN_MIN:
+            return _quantile(own, q)
+        return _quantile(_POOL.get(key), q)
+
+    def _note(self, key, hs):
+        for d, k, cap in ((_POOL, key, POOL_N), (_OWN, (self.name, key), OWN_N)):
+            v = d.setdefault(k, [])
+            v.append(hs)
+            if len(v) > cap + 200:
+                del v[:200]
+
+    def postflop_abs(self, s):
+        me = s["seat"]
+        street = s["street"]
+        P = self.p["post"][street]
+        bd = [to_int(c) for c in s["board"]]
+        hole = [to_int(c) for c in s["hole_cards"]]
+        pot, tc = s["pot"], s["to_call"]
+        alive = sum(1 for f in s["folded"] if not f)
+        nopp = max(1, min(3, alive - 1))
+        hs = hand_strength(hole, bd, nopp, self.rng)
+        sk = skill_of(self.name)
+        if sk < 0:
+            hs = min(1.0, max(0.0, hs + self.rng.gauss(0.0, 0.32 * -sk)))
+        level = level_street(hole[0], hole[1], bd)
+        hist = s["history"]
+        hm = "hu" if alive == 2 else "mw"
+        if tc <= 0:
+            pfr = [h for h in hist if h["street"] == "preflop" and h["action"] == "raise"]
+            cb = street == "flop" and bool(pfr) and pfr[-1]["seat"] == me
+            F = P["bet"][("cb_" if cb else "") + hm]
+            beta = BLUFF[street] * min(1.6, max(0.5, P["weak"] / max(0.05, model()["pop"]["post"][street]["weak"])))
+            key = "%s|bet|%s%s" % (street, "cb_" if cb else "", hm)
+            own = _OWN.get((self.name, key))
+            q = _cdf(own if own and len(own) >= OWN_MIN else _POOL.get(key), hs)
+            self._note(key, hs)
+            if q is None:
+                q = hs
+            pv = 1.0 / (1.0 + _math.exp(-(q - _soft_t(F * (1 - beta), SOFT_W)) / SOFT_W))
+            bet = q < F * beta or self.rng.random() < pv
+            if bet and q > 0.8 and q >= F * beta:
+                order = lambda x: (x - s["button"] - 1) % len(s["stacks"])
+                behind = [j for j in range(len(s["stacks"])) if not s["folded"][j] and order(j) > order(me)]
+                ad = model().get("adapt")
+                if ad and behind:
+                    lo, hi = ad["ref"]
+                    a = 0.0
+                    for j in behind:
+                        g = self.agg.get(j, [0, 0])
+                        a = max(a, ((g[1] + 3.0 * lo) / (g[0] + 3.0) - lo) / (hi - lo))
+                    if self.rng.random() < min(1.0, max(0.0, a)) * TRAP[street]:
+                        bet = False
+            if "raise" in s["legal_actions"] and bet:
+                frac = self._size_for_level(P, level)
+                return self._raise_to(s, max(s["bets"]) + max(1, int(frac * pot)))
+            return {"action": "check"}
+        sb = [0] * len(s["stacks"])
+        last_add, n_raise = tc, 0
+        for h in hist:
+            if h["street"] != street:
+                continue
+            if h["action"] == "raise":
+                last_add = h["amount"] - sb[h["seat"]]
+                sb[h["seat"]] = h["amount"]
+                n_raise += 1
+            elif h["action"] == "call":
+                sb[h["seat"]] += h["amount"]
+        frac = last_add / float(max(1, pot - last_add))
+        b = 7 if frac >= 2.0 else size_bucket(frac, n_raise >= 2)
+        pf, pc, pr = P["vs"][str(b)]
+        bettor = None
+        for h in hist:
+            if h["street"] == street and h["action"] == "raise":
+                bettor = h["seat"]
+        pf, pc, pr = self._adapt(street, b, bettor, pf, pc, pr)
+        if sk > 0:
+            tab = v3pop().get("lvl", {}).get(street, {}).get(str(min(b, 6)))
+            if tab:
+                base = v3pop()["base"][street]
+                f = [tab[L] / max(1e-3, base[L]) for L in range(4)]
+                mx = max(f)
+                acc = [(x / mx) ** max(1.0, sk) for x in f]      # skill above 1 reads the range more sharply
+                hr = hand_strength_vs(hole, bd, acc, nopp, self.rng)
+                k = min(1.0, sk)
+                hs = (1 - k) * hs + k * hr
+        can_raise = "raise" in s["legal_actions"]
+        if not can_raise:
+            pc, pr = pc + pr, 0.0
+        key = "%s|vs|%d|%s" % (street, b, hm)
+        tcont = self._q(key, pf)
+        rb = RAISE_BLUFF[street]
+        traise = self._q(key, 1.0 - pr * (1 - rb))
+        self._note(key, hs)
+        if tcont is None:
+            tcont, traise = pf, 1.0 - pr * (1 - rb)
+        bluff_r = can_raise and hs < tcont and self.rng.random() < pr * rb / max(0.05, pf)
+        if can_raise and (hs >= traise or bluff_r):
+            amt = max(s["bets"]) * P["rsz"]
+            if self.rng.random() < P["rjam"] * (1.6 if level == 3 else 0.6):
+                amt = 1e9
+            return self._raise_to(s, amt)
+        if hs >= tcont:
+            return {"action": "call"}
+        return {"action": "fold"}
+
+    def _track(self, s):
+        hist = s["history"]
+        cur, street = None, None
+        bets = {}
+        for i, h in enumerate(hist):
+            st = h["street"]
+            if st != street:
+                street, bets = st, {}
+            a, j = h["action"], h["seat"]
+            c = max(bets.values()) if bets else 0
+            if i >= self.hcur and st != "preflop" and a in ("check", "raise") and c == 0:
+                g = self.agg.setdefault(j, [0, 0])
+                g[0] += 1
+                g[1] += a == "raise"
+            if a in ("raise", "small_blind", "big_blind"):
+                bets[j] = h.get("amount") or 0
+            elif a == "call":
+                bets[j] = bets.get(j, 0) + (h.get("amount") or 0)
+        self.hcur = len(hist)
+
+    def _adapt(self, street, b, bettor, pf, pc, pr):
+        """Shift the fold / raise rates toward how the real field answers a bettor of this observed aggression."""
+        ad = model().get("adapt")
+        if not ad or bettor is None:
+            return pf, pc, pr
+        g = self.agg.get(bettor, [0, 0])
+        lo, hi = ad["ref"]
+        bf = (g[1] + 3.0 * lo) / (g[0] + 3.0)
+        a = min(1.0, max(0.0, (bf - lo) / (hi - lo)))
+        if a <= 0:
+            return pf, pc, pr
+        d = ad[street].get(str(b))
+        if not d:
+            return pf, pc, pr
+        pf = min(0.97, max(0.02, pf + a * d[0]))
+        pr = min(0.6, max(0.0, pr + a * d[1]))
+        return pf, max(0.0, 1.0 - pf - pr), pr
+
     def act(self, s):
         if s["hand_number"] != self.hand:
+            self.hcur = 0
             self.hand = s["hand_number"]
             self.lo, self.hi = 0.0, 1.0
             self.parts = None
             self.pct = CLS_PCT[hand_key(s["hole_cards"])]
+        self._track(s)
         if s["street"] == "preflop":
             return self.preflop(s)
+        if MODE == "abs":
+            return self.postflop_abs(s)
         return self.postflop(s)
 
 

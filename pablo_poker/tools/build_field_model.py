@@ -39,6 +39,9 @@ STREETS = ("flop", "turn", "river")
 JAM = 2.0            # a bet or raise of at least this many pots is its own bucket (7)
 
 
+OURS = ("kaiserbot", "WBot", "Red")
+
+
 def bucket(frac, over_bet):
     return 7 if frac >= JAM else size_bucket(frac, over_bet)
 
@@ -148,7 +151,10 @@ def collect(before=None, after=None, documents=None):
                                 frac = add / float(max(1, pot))
                                 c["post.%s.sz|%.2f" % (street, min(6.0, round(frac / 0.05) * 0.05))] += w
                         elif facing is not None and s != facing[0]:
-                            c["post.%s.vs.%d|%s" % (street, facing[1], a)] += w
+                            # responses to our three bots' bets are kept apart: the field adapts to their style
+                            # (sim/fieldbot.py applies that adaptation by the bettor's observed aggression)
+                            vk = "vsus" if pl[facing[0]] in OURS else "vs"
+                            c["post.%s.%s.%d|%s" % (street, vk, facing[1], a)] += w
                             if a == "raise":
                                 c["post.%s.rsz_sum" % street] += w * min(8.0, amt / float(max(1, cur)))
                                 c["post.%s.rsz_n" % street] += w
@@ -240,6 +246,13 @@ def profile(c, pop=None):
         for b in range(8):
             P["vs"][str(b)] = rate("post.%s.vs.%d" % (st, b), ("fold", "call", "raise"), ("post", st, "vs", str(b)),
                                    [0.45, 0.45, 0.10])
+        if not pop:       # population only: how the field answers our three bots' bets (adaptation target)
+            P["vsus"] = {}
+            for b in range(8):
+                pref = "post.%s.vsus.%d" % (st, b)
+                nn = sum(c.get(pref + "|" + a, 0.0) for a in ("fold", "call", "raise"))
+                if nn >= 30:
+                    P["vsus"][str(b)] = [round(c.get(pref + "|" + a, 0.0) / nn, 4) for a in ("fold", "call", "raise")] + [round(nn, 1)]
         P["sz"] = _dist(c, "post.%s.sz" % st) or (pop["post"][st]["sz"] if pop else {"0.60": 1.0})
         pq = pop["post"][st] if pop else {"rsz": 3.0, "rjam": 0.2, "weak": 0.4}
         n = c.get("post.%s.rsz_n" % st, 0.0)

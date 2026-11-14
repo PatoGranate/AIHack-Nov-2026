@@ -30,6 +30,8 @@ from rsi.field import HANDS_DIR, _files  # noqa: E402
 
 OUT = os.path.join(ROOT, "data", "v3_model.json")
 HALF_LIFE = 10          # rounds
+OURS = ("kaiserbot", "WBot", "Red")
+AGG_REF = [0.48, 0.92]  # postflop bet-when-checked-to: field average, our three bots (real rounds 38-53)
 STREETS = ("flop", "turn", "river")
 
 
@@ -122,6 +124,8 @@ def build(before=None):
                             B[name]["pbet"] += w
                         if facing is not None and s != facing[0]:
                             resp[(street, facing[1])][a] += w
+                            # answers to our three bots' bets vs everyone else's (the field adapts to aggression)
+                            resp[(street, facing[1], "us" if pl[facing[0]] in OURS else "oth")][a] += w
                             B[name]["faced"] += w
                             B[name]["ffold"] += w * (a == "fold")
                         if a == "raise":
@@ -167,14 +171,31 @@ def build(before=None):
             if tot >= 20:
                 pop_lvl[st][str(b)] = [round((x + 0.5) / (tot + 2.0), 4) for x in c]
     pop_fold, pop_raise = {}, {}
+    ans = {"us": {}, "oth": {}}          # [fold, raise] per street / bucket, answers to our bots vs to the rest
     for st in STREETS:
         pop_fold[st], pop_raise[st] = {}, {}
+        for g in ans:
+            ans[g][st] = {}
         for b in range(7):
             r = resp[(st, b)]
             tot = sum(r.values())
             if tot >= 30:
                 pop_fold[st][str(b)] = round(r["fold"] / tot, 4)
                 pop_raise[st][str(b)] = round(r["raise"] / tot, 4)
+            for g in ans:
+                r = resp[(st, b, g)]
+                tot = sum(r.values())
+                if tot >= 40:
+                    ans[g][st][str(b)] = [round(r["fold"] / tot, 4), round(r["raise"] / tot, 4)]
+        for b in range(7):          # thin cells: borrow the other group's rate shifted by the street's mean gap
+            for g, o in (("us", "oth"), ("oth", "us")):
+                if str(b) not in ans[g][st] and str(b) in ans[o][st]:
+                    gaps = [(ans[g][st][k][0] - ans[o][st][k][0], ans[g][st][k][1] - ans[o][st][k][1])
+                            for k in ans[g][st] if k in ans[o][st]]
+                    gf = sum(x for x, _ in gaps) / len(gaps) if gaps else 0.0
+                    gr = sum(y for _, y in gaps) / len(gaps) if gaps else 0.0
+                    v = ans[o][st][str(b)]
+                    ans[g][st][str(b)] = [round(min(0.95, max(0.02, v[0] + gf)), 4), round(min(0.5, max(0.0, v[1] + gr)), 4)]
     sd_all = sum(v[0] for v in blvl.values()) / max(1e-9, sum(v[1] for v in blvl.values()))
     bots = {}
     for name, c in B.items():
@@ -199,7 +220,8 @@ def build(before=None):
                 for k in ("vpip", "pfr", "big", "f3", "ftr", "ftb", "af", "bluff")}
     return {"built": time.strftime("%Y-%m-%d %H:%M:%S"), "popstats": popstats, "latest_round": time.strftime("%H:%M", time.localtime(latest)),
             "half_life_rounds": HALF_LIFE, "sd_weak_share": round(sd_all, 4),
-            "pop": {"lvl": pop_lvl, "base": base_levels(), "fold": pop_fold, "raise": pop_raise}, "bots": bots}
+            "pop": {"lvl": pop_lvl, "base": base_levels(), "fold": pop_fold, "raise": pop_raise,
+                    "ans_us": ans["us"], "ans_oth": ans["oth"], "agg_ref": AGG_REF}, "bots": bots}
 
 
 if __name__ == "__main__":
