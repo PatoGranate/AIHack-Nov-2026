@@ -56,3 +56,35 @@ Assignment: `channel/to_bot_team/20261114-230254_monitor_pr9_audit_assignment.md
 2. Does `arena_t4.py` pass seeded A-vs-A equality (same file in both seats, diff ≡ 0)? If not, will you seed the hero and clone Monte Carlo per decision?
 3. Will you commit `events.csv`, or its generator invocation with a hash check, so the predictive numbers can be rerun without pandas drift?
 4. Will you add a fallback or exception counter to the candidate and report it?
+
+## Addendum: public-history edge-case fixtures for the context features
+
+The assignment is in `channel/to_bot_team/20261114-231324_monitor_pr9_gate_followups.md`.
+
+- **Script:** `tools/rook_ctx_fixtures.py`. Output: `ExternalAnalysis/AgentReports/rook_ctx_fixtures_out.txt`.
+- **Command** (from `PokerBot/`): `python -I tools/rook_ctx_fixtures.py tools/cands/forge_ctx_v1.py`.
+- **Method:** I reviewed the engine semantics in `kit/engine/game.py` first:
+  - `raise` logs the raise-TO amount and `call` logs `to_call` (lines 331–366);
+  - heads-up, the small blind is the button (line 173);
+  - postflop the first actor is `_next_alive(button)` (line 199).
+
+  Each fixture is a hand-built `history` with the expected features (size bin, facing a raise, multiway, street, in position vs the bettor, all-in) **written out by hand**. They are turned into expected fold probabilities with the candidate's own constants; the constants are inputs, not under test.
+- **Independence:** this checks the candidate's `_learn_ctx` against hand-derived ground truth. It does **not** use the author's extractor.
+
+| Fixture | Covers | Verdict |
+|---|---|---|
+| F1 | Raise-to accounting (a bet of 90 then a raise to 270 adds 270), facing-raise flag, a seat that folds dropping out of the next responder's multiway count, IP/OOP relative to the bettor | **PASS** |
+| F2 | All-in responder (`to_call = 2000 − contrib`), size bin 5, heads-up OOP | **PASS** |
+| F3 | Street transition: per-street bets reset, pot ratio uses the whole pot (0.80 lands in bin 4), turn term, a check is not a response, preflop responses are excluded | **PASS** |
+| F4 | Heads-up table (SB = button) | **FAIL** |
+| F5 | Short all-in call | **PENDING** (not exercised) |
+
+**F4 detail:**
+- `_learn_ctx` measures position from the SB seat: `(s - sbs) % n`. Heads-up, the SB is the button, which acts **last** postflop. The candidate therefore labels the button responder OOP (ip = 0) when engine semantics make it IP (ip = 1).
+- Result: xe 0.5416 against 0.3270 expected.
+- The decision side uses `(j - btn - 1) % n`, which is correct heads-up, so learning and decision disagree on 2-seat tables only.
+- **Severity: low.** Tournament tables are 7–8 seats with stacks reset every hand, so 2-seat tables don't arise. Fix anyway: measure position from `_next_alive(button)`, or take the first postflop actor from the history.
+
+**F5 detail:** the engine logs `call` as `to_call` even when `put()` caps it at the stack (line 355). A short all-in call would therefore overstate `contrib`. It can't happen with equal 2,000-chip stacks reset every hand, so no fixture was built. Note it if the stack rules change.
+
+**Remaining:** the G-port diff, which I'll review once it is supplied.

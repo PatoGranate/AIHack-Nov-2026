@@ -1,0 +1,12 @@
+F1 raise-to accounting / raise over bet / folded seat: PASS
+    seat 1: bot (xf 0, xn 1, xe 0.467770)  expected (0, 1, 0.467770)  OK
+    seat 2: bot (xf 0, xn 1, xe 0.633718)  expected (0, 1, 0.633718)  OK
+    seat 3: bot (xf 1, xn 1, xe 0.562743)  expected (1, 1, 0.562743)  OK
+F2 all-in responder: PASS
+    seat 2: bot (xf 0, xn 1, xe 0.717440)  expected (0, 1, 0.717440)  OK
+F3 street transitions / preflop excluded: PASS
+    seat 2: bot (xf 1, xn 1, xe 0.695508)  expected (1, 1, 0.695508)  OK
+    seat 3: bot (xf 0, xn 1, xe 0.326975)  expected (0, 1, 0.326975)  OK
+F4 heads-up position (SB = button): FAIL
+    seat 0: bot (xf 1, xn 1, xe 0.541604)  expected (1, 1, 0.326975)  MISMATCH
+SOME FAIL
