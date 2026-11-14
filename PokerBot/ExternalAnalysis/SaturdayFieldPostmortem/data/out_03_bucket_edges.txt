@@ -1,6 +1,6 @@
 obs vs LB increment same team-round: n=665, max |diff| 0.000
 team round-SD when at our tables 47.1 vs when not 79.1 (n teams 40)
-per-seat result SD at tables WITH clanker/ediz 62.7 (mean +31.7, n=148) vs WITHOUT 43.7 (mean -0.0, n=842)
+per-seat result SD at tables WITH clanker/ediz 62.7 (mean +31.7, n=148) vs WITHOUT 43.7 (mean +0.0, n=842)
 
 extreme single-round results on the leaderboard (|bb/100| > 250):
    r30 Gherkers              +379.2

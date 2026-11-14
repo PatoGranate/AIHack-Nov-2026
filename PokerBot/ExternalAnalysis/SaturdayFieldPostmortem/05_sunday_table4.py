@@ -12,7 +12,7 @@ from common import DATA, hand_files
 TABLE = ["Resonance Qt", "Anker Batteries", "Chinese people can fly", "WBot", "GamesGone", "Poke", "Anton", "YSL_TWIZZY"]
 # other bots we own; each is swapped into WBot's seat as a "what if this style sat here" check
 STAND_INS = ["Red", "kaiserbot", "AAST"]
-ROUNDS, SD_ROUND, SIMS = 36, 45.0, 20000
+ROUNDS, SD_ROUND, SIMS = 36, 45.0, 8000
 # each team's true Sunday edge is uncertain: Saturday estimate error (~±9) plus overnight uploads
 SKILL_SD = 10.0
 
@@ -37,15 +37,17 @@ for f in hand_files():
                 elif G and res[j] > 0 and res[i] < 0: v = -res[j] * (-res[i]) / G
                 F[(P[i], P[j])] += v; SQ[(P[i], P[j])] += v * v; N[(P[i], P[j])] += 1
 
-def rate(a, b):
-    """bb/100 a wins from b while seated together: model, shrunk toward direct observation."""
+def rate(a, b, tau=6.0):
+    """bb/100 a wins from b while seated together: model, shrunk toward direct observation.
+    tau = assumed SD of a pair's deviation from the additive model (bb/100). tau -> 0 uses the
+    additive model only; tau -> inf uses the observed head-to-head only. 6 is a judgement call,
+    so the sensitivity grid below varies it."""
     model = s[a] - s[b]
     n = N[(a, b)]
     if not n:
         return model, None, 0
     m = F[(a, b)] / n; var = max(SQ[(a, b)] / n - m * m, 1e-9)
     obs = m / 20 * 100; se = math.sqrt(var / n) / 20 * 100
-    tau = 6.0  # prior SD of a pair's deviation from the transitive model (bb/100)
     w = tau ** 2 / (tau ** 2 + se ** 2)
     return model + w * (obs - model), (obs, se), n
 
@@ -69,31 +71,52 @@ for q in TABLE:
     est, ob, n = rate("WBot", q)
     print("   vs %-22s model+obs %+6.1f   observed %s" % (q[:22], est, "%+6.1f ±%4.1f (%d hands)" % (ob[0], ob[1], n) if ob else "none"))
 
-def expect(table):
-    return {p: sum(rate(p, q)[0] for q in table if q != p) for p in table}
+def expect(table, tau=6.0):
+    # rate() is antisymmetric, so these expectations sum to zero over the table
+    return {p: sum(rate(p, q, tau)[0] for q in table if q != p) for p in table}
 
-random.seed(7)
-def p_top2(table):
-    mu = expect(table); wins = collections.Counter()
-    se = SD_ROUND / math.sqrt(ROUNDS)
-    for _ in range(SIMS):
-        tot = {p: random.gauss(mu[p], math.hypot(se, SKILL_SD)) for p in table}
-        for p in sorted(tot, key=tot.get, reverse=True)[:2]:
-            wins[p] += 1
-    return mu, wins
+rng = np.random.default_rng(7)
+def zero_sum_normal(sd, size):
+    """Normal draws per seat that sum to zero across the table, each with marginal SD `sd`."""
+    z = rng.normal(0.0, sd, size)
+    n = size[1]
+    return (z - z.mean(axis=1, keepdims=True)) * math.sqrt(n / (n - 1))
 
+def p_top2(mu, us, skill_sd=SKILL_SD, sd_round=SD_ROUND):
+    """mu: expected bb/100 per seat (zero-sum). Sunday edge uncertainty and round noise both zero-sum."""
+    names = list(mu); n = len(names); m = np.array([mu[p] for p in names])
+    tot = m + zero_sum_normal(skill_sd, (SIMS, n)) + zero_sum_normal(sd_round / math.sqrt(ROUNDS), (SIMS, n))
+    top2 = np.argsort(-tot, axis=1)[:, :2]
+    return {p: float(np.mean(np.any(top2 == k, axis=1))) for k, p in enumerate(names)}
+
+print("\nILLUSTRATIVE SCENARIOS, not a validated qualification forecast. Assumptions: every seat keeps its")
+print("Saturday bot; %d rounds; per-round SD %.0f; Sunday-edge uncertainty SD %.0f; tau 6; zero-sum draws." % (ROUNDS, SD_ROUND, SKILL_SD))
 for who in ["WBot"] + STAND_INS:
     table = [who if p == "WBot" else p for p in TABLE]
-    mu, wins = p_top2(table)
-    print("\nwith %-10s in our seat: expected bb/100 and P(top 2 over %d rounds, skill uncertainty SD %.0f)" % (who, ROUNDS, SKILL_SD))
+    mu = expect(table); pr = p_top2(mu, who)
+    print("\nwith %-10s in our seat: expected bb/100 and P(top 2)" % who)
     for p in sorted(table, key=mu.get, reverse=True):
-        print("   %-22s %+6.1f  %5.1f%%%s" % (p[:22], mu[p], 100 * wins[p] / SIMS, "   <- us" if p == who else ""))
+        print("   %-22s %+6.1f  %5.1f%%%s" % (p[:22], mu[p], 100 * pr[p], "   <- us" if p == who else ""))
 
-print("\nWhat edge would we need? P(top 2) if our seat's expected bb/100 were X (others as in the WBot table):")
+def with_edge(mu, us, X):
+    """Our seat's expected result set to X; the difference comes evenly out of the other seats (stays zero-sum)."""
+    out = dict(mu); d = X - mu[us]; out[us] = X
+    for p in out:
+        if p != us: out[p] -= d / (len(mu) - 1)
+    return out
+
+print("\nScenario: P(top 2) if our seat's expected bb/100 were X (others rebalanced to stay zero-sum):")
 mu0 = expect(TABLE)
 for X in [0, 10, 20, 30, 40]:
-    mu = dict(mu0); mu["WBot"] = X; wins = 0; se = SD_ROUND / math.sqrt(ROUNDS)
-    for _ in range(SIMS):
-        tot = {p: random.gauss(mu[p], math.hypot(se, SKILL_SD)) for p in TABLE}
-        wins += "WBot" in sorted(tot, key=tot.get, reverse=True)[:2]
-    print("   X = %+3d  ->  %5.1f%%" % (X, 100 * wins / SIMS))
+    print("   X = %+3d  ->  %5.1f%%" % (X, 100 * p_top2(with_edge(mu0, "WBot", X), "WBot")["WBot"]))
+
+print("\nSensitivity: WBot's P(top 2), and the X that gives 50%, across assumptions")
+print("   %-14s %-9s %-9s %10s %10s" % ("tau", "skill_sd", "sd_round", "P(WBot)", "X for 50%"))
+for tau in (1e-3, 6.0, 1e6):
+    mu_t = expect(TABLE, tau)
+    for ssd in (5.0, 10.0, 15.0):
+        for sdr in (45.0, 65.0):
+            p = p_top2(mu_t, "WBot", ssd, sdr)["WBot"]
+            xs = [x for x in range(-10, 61, 2) if p_top2(with_edge(mu_t, "WBot", x), "WBot", ssd, sdr)["WBot"] >= 0.5]
+            lab = {1e-3: "model only", 6.0: "6", 1e6: "observed only"}[tau]
+            print("   %-14s %-9.0f %-9.0f %9.1f%% %10s" % (lab, ssd, sdr, 100 * p, ("%+d" % xs[0]) if xs else ">60"))

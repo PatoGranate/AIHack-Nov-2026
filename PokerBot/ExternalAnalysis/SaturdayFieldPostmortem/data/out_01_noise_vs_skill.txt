@@ -1,7 +1,7 @@
 unique counted tables: 135 rounds: 1 - 54
 slots with 1/2/3 of our tables: Counter({3: 28, 2: 25, 1: 1})
 table sizes: Counter({8: 76, 7: 53, 6: 6})
-names at our tables not on leaderboard: ['Red', 'AAST', 'kaiserbot', 'aydine', 'Poké Bot', 'ediz_slow', 'SmartBGerBot', 'Peanut Cookies', 'Vlad']
+names at our tables not on leaderboard: ['ediz_slow', 'Peanut Cookies', 'AAST', 'kaiserbot', 'Vlad', 'aydine', 'Red', 'Poké Bot', 'SmartBGerBot']
 leaderboard teams never seen: []
 hands: 135000 non-zero-sum hands: 0
 round chip mismatches (own seat): 0

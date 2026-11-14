@@ -18,49 +18,73 @@ Head-to-head vs WBot (net bb per 100 hands together; + = WBot wins):
    vs Anton                  model+obs   +1.9   observed   +1.3 ± 7.6 (11000 hands)
    vs YSL_TWIZZY             model+obs   +4.0   observed   +7.4 ± 7.7 (7000 hands)
 
-with WBot       in our seat: expected bb/100 and P(top 2 over 36 rounds, skill uncertainty SD 10)
-   Anker Batteries         +29.6   88.2%
-   Resonance Qt            +22.9   74.8%
-   WBot                    +10.8   28.9%   <- us
-   Poke                     -7.2    2.9%
-   Chinese people can fly   -7.7    2.7%
-   GamesGone                -9.4    1.8%
-   Anton                   -15.7    0.6%
-   YSL_TWIZZY              -23.3    0.1%
+ILLUSTRATIVE SCENARIOS, not a validated qualification forecast. Assumptions: every seat keeps its
+Saturday bot; 36 rounds; per-round SD 45; Sunday-edge uncertainty SD 10; tau 6; zero-sum draws.
 
-with Red        in our seat: expected bb/100 and P(top 2 over 36 rounds, skill uncertainty SD 10)
-   Resonance Qt            +29.7   90.8%
-   Anker Batteries         +28.4   88.7%
-   GamesGone                +2.1    9.1%
-   Poke                     +1.5    8.3%
-   Chinese people can fly   -9.2    1.6%
-   Anton                   -11.5    1.0%
-   Red                     -17.0    0.4%   <- us
+with WBot       in our seat: expected bb/100 and P(top 2)
+   Anker Batteries         +29.6   86.7%
+   Resonance Qt            +22.9   72.7%
+   WBot                    +10.8   30.1%   <- us
+   Poke                     -7.2    3.2%
+   Chinese people can fly   -7.7    3.5%
+   GamesGone                -9.4    2.6%
+   Anton                   -15.7    1.0%
+   YSL_TWIZZY              -23.3    0.2%
+
+with Red        in our seat: expected bb/100 and P(top 2)
+   Resonance Qt            +29.7   88.3%
+   Anker Batteries         +28.4   86.8%
+   GamesGone                +2.1   10.9%
+   Poke                     +1.5    9.6%
+   Chinese people can fly   -9.2    2.0%
+   Anton                   -11.5    1.6%
+   Red                     -17.0    0.7%   <- us
    YSL_TWIZZY              -24.0    0.1%
 
-with kaiserbot  in our seat: expected bb/100 and P(top 2 over 36 rounds, skill uncertainty SD 10)
-   Resonance Qt            +26.8   82.2%
-   Anker Batteries         +23.0   72.7%
-   kaiserbot               +12.4   34.1%   <- us
-   Poke                     -0.9    6.8%
-   GamesGone                -7.2    2.7%
-   Chinese people can fly  -12.9    1.1%
-   YSL_TWIZZY              -20.3    0.2%
-   Anton                   -21.0    0.2%
+with kaiserbot  in our seat: expected bb/100 and P(top 2)
+   Resonance Qt            +26.8   80.5%
+   Anker Batteries         +23.0   71.0%
+   kaiserbot               +12.4   34.5%   <- us
+   Poke                     -0.9    8.5%
+   GamesGone                -7.2    3.6%
+   Chinese people can fly  -12.9    1.3%
+   YSL_TWIZZY              -20.3    0.4%
+   Anton                   -21.0    0.3%
 
-with AAST       in our seat: expected bb/100 and P(top 2 over 36 rounds, skill uncertainty SD 10)
-   Resonance Qt            +23.9   68.1%
-   AAST                    +23.9   68.8%   <- us
-   Anker Batteries         +20.5   57.0%
-   Poke                     -4.3    3.3%
-   GamesGone                -9.1    1.4%
-   Chinese people can fly  -11.5    1.1%
-   YSL_TWIZZY              -21.2    0.1%
-   Anton                   -22.2    0.1%
+with AAST       in our seat: expected bb/100 and P(top 2)
+   Resonance Qt            +23.9   68.0%
+   AAST                    +23.9   67.0%   <- us
+   Anker Batteries         +20.5   56.3%
+   Poke                     -4.3    4.7%
+   GamesGone                -9.1    1.9%
+   Chinese people can fly  -11.5    1.5%
+   YSL_TWIZZY              -21.2    0.2%
+   Anton                   -22.2    0.2%
 
-What edge would we need? P(top 2) if our seat's expected bb/100 were X (others as in the WBot table):
-   X =  +0  ->   10.8%
-   X = +10  ->   26.7%
-   X = +20  ->   50.9%
-   X = +30  ->   74.5%
-   X = +40  ->   90.6%
+Scenario: P(top 2) if our seat's expected bb/100 were X (others rebalanced to stay zero-sum):
+   X =  +0  ->   10.3%
+   X = +10  ->   28.7%
+   X = +20  ->   54.0%
+   X = +30  ->   78.2%
+   X = +40  ->   92.8%
+
+Sensitivity: WBot's P(top 2), and the X that gives 50%, across assumptions
+   tau            skill_sd  sd_round     P(WBot)  X for 50%
+   model only     5         45             24.9%        +12
+   model only     5         65             26.9%        +14
+   model only     10        45             27.2%        +14
+   model only     10        65             28.2%        +16
+   model only     15        45             28.1%        +16
+   model only     15        65             28.8%        +18
+   6              5         45             21.7%        +20
+   6              5         65             28.0%        +20
+   6              10        45             30.8%        +20
+   6              10        65             31.5%        +20
+   6              15        45             33.8%        +20
+   6              15        65             33.8%        +20
+   observed only  5         45             65.5%        +38
+   observed only  5         65             62.4%        +38
+   observed only  10        45             63.0%        +38
+   observed only  10        65             60.8%        +38
+   observed only  15        45             60.3%        +38
+   observed only  15        65             59.3%        +36
