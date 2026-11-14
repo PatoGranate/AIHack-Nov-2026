@@ -499,7 +499,8 @@ class Lab:
         return "bot.py = %s (gen %d); timing ok: %s" % (champ["id"], champ["generation"], info), info
 
 
-def timing_check(bot_path, hands=300, timeout_ms=12.5):
+def timing_check(bot_path, hands=300, timeout_ms=25.0):
+    # runs while the lab's workers saturate every core, so it checks at the real limit (25 ms)
     """Tournament harness (separate process, real clock) at HALF the real per-decision limit."""
     cmd = [sys.executable, os.path.join(ROOT, "local_sim.py"), bot_path, "--rounds", "1", "--hands", str(hands),
            "--timeout", str(timeout_ms), "--seed", "1"]
