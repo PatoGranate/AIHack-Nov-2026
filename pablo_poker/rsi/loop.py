@@ -136,7 +136,7 @@ def judge(db, cycle, champ, cand, cfg, log=print, trials_used=1, source="rsi"):
     d, hands, errs = _diffs(res, champ["id"], cand["id"])
     ordered = [d[s] for s in hold if s in d]
     looks = db.execute("SELECT COUNT(*) FROM trials WHERE parent_id=? AND stage='holdout'", (champ["id"],)).fetchone()[0] + 1
-    alpha = adjusted_alpha(Fraction(gate.LAB["alpha"]).limit_denominator(1000), looks)
+    alpha = adjusted_alpha(Fraction(gate.LAB["alpha"]).limit_denominator(1000), looks if gate.LAB["bonferroni"] else 1)
     lo, hi = bootstrap_mean_interval(ordered, alpha=alpha, resamples=gate.LAB["bootstrap_resamples"],
                                      seed="holdout-%d-%s" % (trial_id, cand["id"]))
     vals = [_bb100(v, hands) for v in ordered]

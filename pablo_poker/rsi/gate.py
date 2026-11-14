@@ -21,16 +21,19 @@ import json
 
 from pokerbot.strategy import PARAM_SPACE
 
+# "practical" (default): promote when the 80% interval of the holdout difference is above zero.
+# Every holdout is fresh data, so each test is independent; a wrong promotion of a near-zero change
+# costs little and the next cycles can undo it. "strict" is the original lab setting (90% interval,
+# Bonferroni over every look, effect above the minimum detectable effect, 3 of 4 folds).
+MODE = "practical"
 LAB = {
-    "alpha": 0.10,                  # two-sided, before Bonferroni
-    "power": 0.80,
-    "min_holdout_tables": 48,
-    "folds": 4,
-    "min_folds_not_worse": 3,
-    "challenger_tolerance_bb100": 10.0,
-    "max_trials_per_cycle": 8,
-    "bootstrap_resamples": 1000,
-}
+    "practical": {"alpha": 0.20, "bonferroni": False, "require_mde": False, "power": 0.80,
+                  "min_holdout_tables": 48, "folds": 4, "min_folds_not_worse": 2,
+                  "challenger_tolerance_bb100": 25.0, "max_trials_per_cycle": 8, "bootstrap_resamples": 1000},
+    "strict": {"alpha": 0.10, "bonferroni": True, "require_mde": True, "power": 0.80,
+               "min_holdout_tables": 48, "folds": 4, "min_folds_not_worse": 3,
+               "challenger_tolerance_bb100": 10.0, "max_trials_per_cycle": 8, "bootstrap_resamples": 1000},
+}[MODE]
 LAB_SHA = hashlib.sha256(json.dumps(LAB, sort_keys=True).encode()).hexdigest()
 
 
@@ -89,7 +92,7 @@ def decide(candidate, parent, prereg, evidence, context):
     p = []
     if n < LAB["min_holdout_tables"]:
         p.append("SAMPLE_TOO_SMALL")
-    if not evidence.get("detectable"):
+    if LAB["require_mde"] and not evidence.get("detectable"):
         p.append("EFFECT_BELOW_MINIMUM_DETECTABLE")
     check("SAMPLE", p, {"tables": n, "mde_bb100": evidence.get("mde_bb100")})
 

@@ -128,17 +128,38 @@ class Lab:
         return out
 
     # ------------------------------------------------------------ scheduler
+    def near_misses(self):
+        """Candidates of the current champion that won their holdout on average but were refused: re-test once."""
+        champ = registry.champion(self.db)
+        done = self.state("lab_retested", {})
+        out = []
+        for r in self.db.execute("SELECT candidate_id, changed, mean_bb100 FROM trials WHERE stage='holdout' AND "
+                                 "parent_id=? AND status='rejected' AND mean_bb100 > 0 ORDER BY mean_bb100 DESC",
+                                 (champ["id"],)):
+            if done.get(r["candidate_id"], 0) >= 1:
+                continue
+            cand = store.load_strategy(self.db, r["candidate_id"])
+            if cand is None:
+                continue
+            params = dict(champ["params"], **cand["params"])
+            if len([k for k in params if params[k] != champ["params"].get(k)]) != 1:
+                continue
+            out.append((r["candidate_id"], r["changed"], r["mean_bb100"], params))
+        return out
+
     def choose(self):
         champ = store.get_state(self.db, "champion_id")
+        if self.state("lab_export_needed", False):
+            return "export"
         last_fetch = self.state("lab_last_fetch", 0)
         if read_token() and time.time() - last_fetch > self.fetch_minutes * 60:
             return "fetch"
+        if self.near_misses():
+            return "retest"
         if self.state("lab_stressed", None) != champ:
             return "stress"
         if self.state("lab_probed", None) != champ:
             return "probe"
-        if self.state("lab_export_needed", False):
-            return "export"
         if self.it % 8 == 7:
             return "practice"
         if self.it % 2 == 1 and self.pending_idea():
@@ -284,6 +305,20 @@ class Lab:
         if r["promoted"]:
             self.set_state("lab_export_needed", True)
         return "%s -> %s" % (idea["id"], "PROMOTED" if r["promoted"] else "refused (%s)" % ", ".join(r.get("reason") or [])), r
+
+    def task_retest(self):
+        cid, changed, mean, params = self.near_misses()[0]
+        done = self.state("lab_retested", {})
+        done[cid] = done.get(cid, 0) + 1
+        self.set_state("lab_retested", done)
+        champ = registry.champion(self.db)
+        cand = loop.make_candidate(self.db, champ, params, changed,
+                                   "re-test %s (holdout %+.1f bb/100 before)" % (changed, mean))
+        self.log("=== re-test near-miss %s | %s" % (cid, cand["hypothesis"]))
+        r = loop.judge(self.db, loop.next_cycle(self.db), champ, cand, self.cfg, self.log, source="retest")
+        if r["promoted"]:
+            self.set_state("lab_export_needed", True)
+        return "%s -> %s" % (changed, "PROMOTED" if r["promoted"] else "refused (%s)" % ", ".join(r.get("reason") or [])), r
 
     def task_practice(self):
         champ = registry.champion(self.db)

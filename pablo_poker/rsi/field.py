@@ -3,7 +3,14 @@
     python fetch_hands.py --token ...       (or let the lab do it: data/token.txt or $POKER_TOKEN)
     python -m rsi.field                     print every opponent's profile
 
-From hands/*.json it measures, per opponent bot: VPIP, PFR, preflop shove
+Where the data lives
+  hands/*.json             our own rounds (fetch_hands.py with our token); these define who "we" are
+  hands/external/**.json   anything else in the same format: teammates' or other teams'
+                           downloads, any subfolders. Hands seen twice (two teams at one table)
+                           are counted once (key: round ref + table + hand number).
+  data/self_names.txt      optional, one bot name per line: extra names to treat as ours
+
+From those files it measures, per opponent bot: VPIP, PFR, preflop shove
 rate, postflop aggression frequency and result. Each opponent then gets a
 *clone*: our own strategy with parameters scaled until its tendencies match,
 plus a push/fold component for frequent shovers. The lab uses the clones as
@@ -21,17 +28,50 @@ TOKEN_FILE = os.path.join(ROOT, "data", "token.txt")
 SELF_NAMES = set()   # filled from each file's own seat
 
 
-def profiles(hands_dir=HANDS_DIR):
-    prof = {}
-    for f in sorted(glob.glob(os.path.join(hands_dir, "*.json"))):
+def _files(hands_dir):
+    own = sorted(glob.glob(os.path.join(hands_dir, "*.json")))
+    ext = sorted(glob.glob(os.path.join(hands_dir, "external", "**", "*.json"), recursive=True))
+    return [(f, True) for f in own] + [(f, False) for f in ext]
+
+
+def self_names(hands_dir=HANDS_DIR):
+    names = set()
+    for f, own in _files(hands_dir):
+        if not own:
+            continue
         try:
             d = json.load(open(f, encoding="utf-8"))
         except (OSError, ValueError):
             continue
         players, me = d.get("players") or [], d.get("seat")
-        if me is not None and me < len(players):
-            SELF_NAMES.add(players[me])
+        if isinstance(me, int) and me < len(players):
+            names.add(players[me])
+    try:
+        names |= {x.strip() for x in open(os.path.join(ROOT, "data", "self_names.txt"), encoding="utf-8") if x.strip()}
+    except OSError:
+        pass
+    return names
+
+
+def profiles(hands_dir=HANDS_DIR):
+    prof = {}
+    SELF_NAMES.clear()
+    SELF_NAMES.update(self_names(hands_dir))
+    seen_hands = set()
+    for f, own in _files(hands_dir):
+        try:
+            d = json.load(open(f, encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        players = d.get("players") or []
+        rnd = d.get("round") or {}
+        ref = d.get("ref") or rnd.get("ref") or f
+        table = rnd.get("table", d.get("table"))
         for h in d.get("hands", []):
+            key = (ref, table, h.get("n"))
+            if h.get("n") is not None and key in seen_hands:
+                continue
+            seen_hands.add(key)
             vp, pr, jam = set(), set(), set()
             pf = {}
             street = "preflop"

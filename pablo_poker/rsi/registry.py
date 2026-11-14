@@ -32,7 +32,11 @@ def ensure_champion(db, params=None):
 
 
 def champion(db):
-    return store.load_strategy(db, ensure_champion(db))
+    """The champion, with any parameter added to the bot since it was saved filled in with its default."""
+    s = store.load_strategy(db, ensure_champion(db))
+    s["params"] = dict(DEFAULT_PARAMS, **s["params"])
+    s["params"].pop("explore", None)
+    return s
 
 
 def spec(strategy):
