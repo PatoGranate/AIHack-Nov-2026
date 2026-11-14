@@ -229,6 +229,15 @@ class Lab:
         ok, line = fetch() if read_token() else (False, "no own token")
         ext = fetch_external()
         self.set_state("lab_last_fetch", time.time())
+        # public standings: every team's bot version -> confirmed uploads (rsi/standings.py)
+        uploads = []
+        try:
+            from rsi import standings
+            uploads = standings.snapshot(self.db)
+            for u in uploads:
+                self.finding("upload", u["name"], u["to"], "info", u)
+        except Exception as e:
+            self.log("  [lab] standings snapshot failed: %s" % e)
         from rsi.field import profiles
         from rsi import insights
         prs = [p for p in profiles() if not p["self"]]
@@ -256,8 +265,10 @@ class Lab:
             self.finding("real", "upload v%s" % v, round(sum(xs) / len(xs), 1), "ok" if sum(xs) > 0 else "leak",
                          {"rounds": len(xs), "per_round": [round(x, 1) for x in xs]})
         ext_txt = "; ".join("%s: %s" % (t, l.split(";")[0].split(":")[-1].strip()) for t, l in ext)
-        return "%s | external: %s | %d bots profiled | %d data-driven ideas" % (
-            line.split(";")[0], ext_txt or "none", len(prs), len(auto)), {"ok": ok, "tendencies": tend}
+        up_txt = ", ".join("%s v%s->v%s" % (u["name"], u["from"], u["to"]) for u in uploads)
+        return "%s | external: %s | %d bots profiled | %d data-driven ideas | uploads: %s" % (
+            line.split(";")[0], ext_txt or "none", len(prs), len(auto), up_txt or "none"), {"ok": ok, "tendencies": tend,
+                                                                                         "uploads": uploads}
 
     def _table_jobs(self, kind, hero, specs_for_seed, seeds, hands, note):
         bid = store.new_batch(self.db, kind, len(seeds), hands, note)

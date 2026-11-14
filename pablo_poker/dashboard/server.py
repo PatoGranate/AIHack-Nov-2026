@@ -136,6 +136,9 @@ def lab(db):
         out["findings"] = q(db, "SELECT f.ts, f.kind, f.subject, f.value, f.verdict, f.champion FROM findings f "
                                 "JOIN (SELECT kind, subject, MAX(id) AS mid FROM findings GROUP BY kind, subject) g "
                                 "ON f.id = g.mid ORDER BY f.kind, f.subject")
+    if has("uploads"):
+        out["uploads"] = q(db, "SELECT ts, name, from_version, to_version, after_round FROM uploads ORDER BY id DESC LIMIT 25")
+        out["upload_counts"] = q(db, "SELECT name, COUNT(*) AS n, MAX(to_version) AS v FROM uploads GROUP BY name ORDER BY n DESC")
     try:
         out["ideas"] = json.load(open(os.path.join(ROOT, "research", "ideas.json"), encoding="utf-8"))
     except (OSError, ValueError):

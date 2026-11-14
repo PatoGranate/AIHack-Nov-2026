@@ -92,6 +92,7 @@ svg text { fill: var(--muted); font-size: 11px; }
     <div class="panel scroll"><h2>Findings (latest per subject)</h2><div id="findings"></div></div>
     <div class="panel scroll"><h2>Research ideas (research/ideas.json)</h2><div id="ideas"></div></div>
   </section>
+  <section class="panel scroll"><h2>Other teams' uploads (confirmed from the public standings)</h2><div id="uploads"></div></section>
   <section class="panel scroll"><h2>Every experiment (newest first)</h2><div id="trials"></div></section>
   <section class="panel"><h2>Champion parameters</h2><div id="params"></div></section>
 </main>
@@ -201,6 +202,10 @@ async function refresh() {
       $("findings").innerHTML = table([{ h: "kind", f: r => esc(r.kind) }, { h: "subject", f: r => esc(r.subject) },
         { h: "value", n: 1, c: r => cls(r.value), f: r => fmt(r.value) },
         { h: "verdict", f: r => `<span class="tag ${r.verdict === "leak" || r.verdict === "refused" ? "no" : "ok"}">${esc(r.verdict)}</span>` }], B.findings || []);
+      $("uploads").innerHTML = (B.uploads && B.uploads.length) ? table([{ h: "when", f: u => ago(u.ts) }, { h: "team", f: u => esc(u.name) },
+        { h: "upload", f: u => `v${u.from_version} → <b>v${u.to_version}</b>` }, { h: "plays from round", n: 1, f: u => u.after_round + 1 },
+        { h: "uploads seen today", n: 1, f: u => ((B.upload_counts || []).find(c => c.name === u.name) || {}).n || 1 }], B.uploads)
+        : '<div class="empty">No uploads detected yet: the lab snapshots all team versions every 4 minutes.</div>';
       const tested = B.ideas_tested || {};
       $("ideas").innerHTML = table([{ h: "idea", f: i => esc(i.id) }, { h: "change", f: i => esc(i.param + " = " + i.value) },
         { h: "status", f: i => tested[i.id] ? `${esc(tested[i.id].result)} (${fmt(tested[i.id].mean_bb100)})` : '<span class="sub">queued</span>' },

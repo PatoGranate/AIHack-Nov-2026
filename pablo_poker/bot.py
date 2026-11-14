@@ -33,22 +33,22 @@ HARD_MS = 1.6          # never let one decision's own thinking exceed this (the 
 # ----------------------------------------------------------------- parameters
 # Every tunable knob. The RSI loop changes ONE of these at a time and only
 # keeps the change when it beats the champion on held-out games.
-# champion s-17af71de5c, generation 3 (exported by export_bot.py)
+# champion s-7217ac499d, generation 4 (exported by export_bot.py)
 DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'bb_defend': 0.22,
     'bet_bluff': 0.55,
-    'bet_value': 0.66,
+    'bet_value': 0.8,
     'bluff_freq': 0.3,
-    'call_3bet': 0.05,
-    'call_margin': 0.02,
+    'call_3bet': 0.08,
+    'call_margin': 0.06,
     'call_open': 0.11,
     'cbet_freq': 0.55,
     'commit_penalty': 0.1,
-    'draw_discount': 0.04,
+    'draw_discount': 0.08,
     'exploit': 1.0,
     'exploit_ramp': 0,
     'explore': 0.0,
-    'fourbet_value': 0.02,
+    'fourbet_value': 0.03,
     'iso_tighten': 0.8,
     'jam_call': 0.03,
     'jam_equity': 0,
@@ -61,15 +61,15 @@ DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'open_sb': 0.36,
     'open_size': 2.5,
     'portfolio': 0,
-    'raise_eq': 0.82,
+    'raise_eq': 0.76,
     'river_overbet': 0.0,
     'semibluff_eq': 0.38,
     'threebet_bluff': 0.02,
     'threebet_size': 3.2,
     'threebet_value': 0.035,
-    'value_flop': 0.64,
+    'value_flop': 0.58,
     'value_river': 0.74,
-    'value_turn': 0.68}
+    'value_turn': 0.62}
 
 # Search space for the RSI loop: (low, high, step). Kept next to the defaults
 # so the uploaded bot and the lab can never disagree on what a knob means.
