@@ -1,5 +1,28 @@
 [
  {
+  "id": "pkg-counter-tag",
+  "params": {
+   "tag_counter": 1,
+   "sd_read": 1.0
+  },
+  "source": "real chip flow: we lose -2.3 bb/100 to tight-aggressive bots (2/3 of the field) and beat every other type",
+  "why": "steal by each player's measured fold-to-raise, 3-bet bluff openers who over-fold to 3-bets, stab when a tight player checks, and read bets from showdowns"
+ },
+ {
+  "id": "tag-counter",
+  "param": "tag_counter",
+  "value": 1,
+  "source": "real chip flow vs TAG bots",
+  "why": "targeted steals / 3-bet bluffs / stabs vs over-folders"
+ },
+ {
+  "id": "showdown-reading",
+  "param": "sd_read",
+  "value": 1.0,
+  "source": "Poki-style range re-weighting from showdowns (Billings et al.)",
+  "why": "value-only bettors get a tighter range, bluffers a wider one"
+ },
+ {
   "id": "pkg-aggression",
   "params": {
    "value_flop": 0.58,

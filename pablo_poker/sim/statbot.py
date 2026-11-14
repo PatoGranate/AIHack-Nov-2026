@@ -14,9 +14,57 @@ the worst fold), so the frequencies come with realistic hand selection.
 import random
 from statistics import NormalDist
 
-from pokerbot.strategy import card_int, hole_pct, mc_equity
+from pokerbot.strategy import card_int, evaluate, hole_pct
+
+_CAT = {0: 0.12, 1: 0.45, 2: 0.70, 3: 0.80, 4: 0.86, 5: 0.90, 6: 0.95, 7: 0.98, 8: 1.0}
+
+
+def quick_strength(hole, board):
+    """Cheap 0..1 strength (no Monte Carlo): made hand, whether the hole cards matter, pair rank, draws."""
+    full = evaluate(hole + board)
+    cat = full >> 20
+    if len(board) >= 5 and evaluate(board) == full:
+        return 0.08                                     # playing the board
+    st = _CAT[cat]
+    ranks = sorted((c >> 2 for c in board), reverse=True)
+    if cat == 1:
+        pair = (full >> 12) & 15
+        st = 0.62 if pair >= ranks[0] else 0.47 if pair >= ranks[len(ranks) // 2] else 0.36
+    elif cat == 0 and min(c >> 2 for c in hole) > ranks[0]:
+        st = 0.25                                       # two overcards
+    if len(board) < 5 and cat < 4:
+        suits = [0, 0, 0, 0]
+        for c in hole + board:
+            suits[c & 3] += 1
+        if max(suits) == 4 and any(suits[c & 3] == 4 for c in hole):
+            st += 0.18                                  # flush draw
+        m = 0
+        for c in hole + board:
+            m |= 1 << (c >> 2)
+        m = (m << 1) | (1 if m & (1 << 12) else 0)
+        if any((m >> i) & 0b1111 == 0b1111 for i in range(0, 11)):
+            st += 0.10                                  # open-ended straight draw
+    return min(1.0, st)
+
+
+_Q = []
 
 _Z = NormalDist()
+
+
+def _strength_quantiles(n=4000, seed=7):
+    """Distribution of quick_strength for random hands on random flops: maps a frequency to a threshold."""
+    rng = random.Random(seed)
+    vals = []
+    for _ in range(n):
+        cards = rng.sample(range(52), 5)
+        vals.append(quick_strength(cards[:2], cards[2:]))
+    return sorted(vals)
+
+
+def _q(x):
+    x = min(0.999, max(0.0, x))
+    return _Q[int(x * (len(_Q) - 1))]
 
 
 class StatBot:
@@ -34,8 +82,11 @@ class StatBot:
         self.r_bluff = p.get("river_bluff", 0.05)
         self.rng = random.Random(seed)
         # flop equity vs one random hand is roughly N(0.5, 0.2): fold the bottom f_cbet of it
-        # (+0.07: calibrated so simulated fold-to-c-bet matches the measured real rate, see tools/validate in README)
-        self.fold_eq = min(0.92, max(0.1, 0.57 + 0.2 * _Z.inv_cdf(min(0.98, max(0.02, self.f_cbet)))))
+        # fold the weakest f_cbet share of hands (quantile of the strength scale on random flops)
+        if not _Q:
+            _Q.extend(_strength_quantiles())
+        self.fold_eq = _q(self.f_cbet)
+        self.bet_eq = _q(1.0 - self.agg * 1.1)
         self.seat = 0
 
     def on_table_start(self, info):
@@ -90,9 +141,7 @@ class StatBot:
             return {"action": "call"} if pct <= 0.03 else passive
         # ---------------------------------------------------------- postflop
         board = [card_int(c) for c in s["board"]]
-        live = sum(1 for i, f in enumerate(s["folded"]) if not f and i != s["seat"])
-        eq = mc_equity(hole, board, [1.0] * max(1, min(2, live)), self.rng, 40, float("inf"))
-        eq_hu = eq ** (1.0 / max(1, min(2, live)))
+        eq_hu = quick_strength(hole, board)
         pot, to_call = s["pot"], s["to_call"]
         r = self.rng.random()
         if to_call > 0:
@@ -110,7 +159,7 @@ class StatBot:
             if r < self.cbet:
                 return self._raise(s, max(s["bets"]) + 0.6 * pot)
             return passive
-        if eq_hu >= 1.0 - self.agg * 1.1:
+        if eq_hu >= self.bet_eq:
             return self._raise(s, max(s["bets"]) + 0.7 * pot)
         if s["street"] == "river" and eq_hu < 0.3 and r < self.r_bluff * 3:
             return self._raise(s, max(s["bets"]) + 0.7 * pot)

@@ -33,7 +33,7 @@ HARD_MS = 1.6          # never let one decision's own thinking exceed this (the 
 # ----------------------------------------------------------------- parameters
 # Every tunable knob. The RSI loop changes ONE of these at a time and only
 # keeps the change when it beats the champion on held-out games.
-# champion s-7217ac499d, generation 4 (exported by export_bot.py)
+# champion s-9419ed7949, generation 5 (exported by export_bot.py)
 DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'bb_defend': 0.22,
     'bet_bluff': 0.55,
@@ -68,7 +68,7 @@ DEFAULT_PARAMS = {   'agg_tighten': 0.55,
     'threebet_size': 3.2,
     'threebet_value': 0.035,
     'value_flop': 0.58,
-    'value_river': 0.74,
+    'value_river': 0.72,
     'value_turn': 0.62}
 
 # Search space for the RSI loop: (low, high, step). Kept next to the defaults

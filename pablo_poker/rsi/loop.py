@@ -32,11 +32,12 @@ BB = 20
 
 DEFAULTS = {
     "candidates": 6,
-    "selection_tables": 64, "selection_hands": 300,
-    "holdout_tables": 128, "holdout_hands": 400,
-    "challenger_tables": 64, "challenger_hands": 300,
+    "selection_tables": 96, "selection_hands": 300,
+    "holdout_tables": 192, "holdout_hands": 400,
+    "challenger_tables": 96, "challenger_hands": 300,
     "workers": None,
-    "hero_iters": 120, "opp_iters": 50,
+    # 64 Monte Carlo trials ~ what the live bot gets in its 1 ms budget; ~5x faster than 120/50
+    "hero_iters": 64, "opp_iters": 24,
     "table_config": {"betting": "no_limit", "raise_cap": 0},
     "field_share": 0.7,          # share of opponents drawn from real-field clones when hands/ has data
 }

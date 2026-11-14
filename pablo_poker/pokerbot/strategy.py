@@ -67,6 +67,8 @@ DEFAULT_PARAMS = {
     "exploit_ramp": 0,         # safe exploitation: exploitation grows over the first N hands (0 = off)
     "portfolio": 0,            # implicit modelling: Exp3 picks base/loose/tight/aggro per hand at this table
     "river_overbet": 0.0,      # Pluribus-style polarised 1.5x pot river bets with near-nut hands
+    "tag_counter": 0,          # vs tight-aggressive bots: steal by their fold-to-raise, 3-bet bluff over-folders, stab when they check
+    "sd_read": 0.0,            # read bets from showdowns: tighten the range of value-only bettors, widen bluffers
     # data collection for the RL phase (keep 0 for the tournament)
     "explore": 0.0,            # probability of a random abstract action (fold/call/half-pot/pot)
 }
@@ -85,6 +87,7 @@ PARAM_SPACE = {
     "bet_bluff": (0.30, 1.00, 0.08), "cbet_freq": (0.0, 1.0, 0.08), "bluff_freq": (0.0, 0.80, 0.06),
     "semibluff_eq": (0.25, 0.55, 0.03), "agg_tighten": (0.30, 0.90, 0.05), "exploit": (0.0, 1.0, 0.1),
     "jam_equity": (0, 1, 1), "exploit_ramp": (0, 400, 50), "portfolio": (0, 1, 1), "river_overbet": (0.0, 1.0, 0.25),
+    "tag_counter": (0, 1, 1), "sd_read": (0.0, 1.0, 0.5),
 }
 
 # Portfolio arms (Bard et al. 2013): multipliers (or offsets for value_*) applied to the base parameters.
@@ -346,11 +349,24 @@ def mc_call_ev(hole, fixed, maybe, pot_after_call, rng, max_iters, deadline):
 
 # ----------------------------------------------------------- opponent model
 class OppStats:
-    __slots__ = ("hands", "vpip", "pfr", "aggr", "passive", "faced", "folded", "acts", "jams")
+    __slots__ = ("hands", "vpip", "pfr", "aggr", "passive", "faced", "folded", "acts", "jams",
+                 "pf_faced", "pf_folded", "f3_faced", "f3_folded", "sd_bets", "sd_strong")
 
     def __init__(self):
         self.hands = self.vpip = self.pfr = self.aggr = self.passive = self.faced = self.folded = self.acts = 0
         self.jams = 0
+        self.pf_faced = self.pf_folded = self.f3_faced = self.f3_folded = self.sd_bets = self.sd_strong = 0
+
+    # priors from the real field: folds 70% to a raise, ~50% to a 3-bet, postflop bets are two pair+ 57% of the time
+    def fold_to_raise(self):
+        return (self.pf_folded + 0.70 * 10) / (self.pf_faced + 10)
+
+    def fold_to_3bet(self):
+        return (self.f3_folded + 0.50 * 8) / (self.f3_faced + 8)
+
+    def bet_strength(self):
+        """Share of this player's postflop bets/raises that showed two pair or better at showdown."""
+        return (self.sd_strong + 0.57 * 6) / (self.sd_bets + 6)
 
     def jam_rate(self):
         """Share of hands this player shoves preflop (prior 4% over 20 hands)."""
@@ -518,6 +534,36 @@ class Agent:
                             s.folded += 1
             if act == "raise" and st != "preflop":
                 street_bet[st] = seat
+        pf = [h for h in hist if h["street"] == "preflop" and h["action"] not in ("small_blind", "big_blind")]
+        r_idx = [i for i, h in enumerate(pf) if h["action"] == "raise"]
+        if r_idx:
+            first, second = r_idx[0], (r_idx[1] if len(r_idx) > 1 else len(pf))
+            answered = set()
+            for h in pf[first + 1:second + 1]:
+                sx = h["seat"]
+                if sx != self.seat and sx != pf[first]["seat"] and sx not in answered and h["action"] in ("fold", "call", "raise"):
+                    answered.add(sx)
+                    st_ = self._stats(sx)
+                    st_.pf_faced += 1
+                    st_.pf_folded += h["action"] == "fold"
+            opener = pf[first]["seat"]
+            if len(r_idx) > 1 and opener != self.seat:
+                resp = next((h["action"] for h in pf[r_idx[1] + 1:] if h["seat"] == opener), None)
+                if resp in ("fold", "call", "raise"):
+                    st_ = self._stats(opener)
+                    st_.f3_faced += 1
+                    st_.f3_folded += resp == "fold"
+        shown = summary.get("shown") or {}
+        board = summary.get("board") or []
+        if shown and len(board) >= 3:
+            bettors = {h["seat"] for h in hist if h["street"] != "preflop" and h["action"] == "raise"}
+            for k, cards in shown.items():
+                sx = int(k)
+                if sx in bettors and sx != self.seat:
+                    cat = evaluate([card_int(c) for c in cards + board]) >> 20
+                    st_ = self._stats(sx)
+                    st_.sd_bets += 1
+                    st_.sd_strong += cat >= 2
         for seat in seen:
             if seat == self.seat:
                 continue
@@ -606,10 +652,19 @@ class Agent:
                 width = p["open_btn"]
             width *= p["iso_tighten"] ** limpers
             # steal more when the players left to act fold a lot (exploit)
-            folders = [self._stats(s).fold_to_bet() for s in order[order.index(me) + 1:]] if me in order else []
-            if folders:
-                avg_fold = sum(folders) / len(folders)
-                width *= 1 + p["exploit"] * max(-0.3, min(0.4, (avg_fold - 0.45) * 1.5))
+            left = order[order.index(me) + 1:] if me in order else []
+            if p["tag_counter"] and left and not limpers:
+                # steal math: an open of open_size bb that everyone folds to wins 1.5 bb
+                all_fold = 1.0
+                for s_ in left:
+                    all_fold *= self._stats(s_).fold_to_raise()
+                be = p["open_size"] / (p["open_size"] + 1.5)
+                width *= 1 + max(-0.3, min(0.6, 0.8 * (all_fold - be) / be))
+            else:
+                folders = [self._stats(s).fold_to_bet() for s in left]
+                if folders:
+                    avg_fold = sum(folders) / len(folders)
+                    width *= 1 + p["exploit"] * max(-0.3, min(0.4, (avg_fold - 0.45) * 1.5))
             if pct <= width and can_raise:
                 return self._raise(state, (p["open_size"] + limpers) * bb)
             if "check" in legal:
@@ -638,6 +693,10 @@ class Agent:
             if pct <= tv + width:
                 return {"action": "call"}
             suited = (hole[0] & 3) == (hole[1] & 3)
+            if p["tag_counter"] and can_raise and rs.fold_to_3bet() > 0.55 and pct <= tv + width + 2 * p["threebet_bluff"] * scale \
+                    and r < 0.8:
+                size = p["threebet_size"] + (0.0 if in_pos else 0.6)
+                return self._raise(state, current * size)
             if can_raise and suited and pct <= tv + width + p["threebet_bluff"] * scale and r < 0.65:
                 size = p["threebet_size"] + (0.0 if in_pos else 0.6)
                 return self._raise(state, current * size)
@@ -716,6 +775,8 @@ class Agent:
                 rng = 1.0                           # checked the big blind
             loosen = p["exploit"] * st.looseness()
             factor = p["agg_tighten"] + (1 - p["agg_tighten"]) * loosen
+            if p["sd_read"]:
+                factor = max(0.2, min(1.0, factor * (1 - p["sd_read"] * (st.bet_strength() - 0.5) * 1.2)))
             for h in hist:
                 if h["seat"] == s and h["street"] != "preflop" and h["action"] == "raise":
                     rng *= factor
@@ -763,6 +824,13 @@ class Agent:
             if can_raise and eq_hu >= value_thr:
                 frac = p["bet_value"] * (1.25 if eq_hu > 0.88 else 1.0)
                 return self._raise(state, current + frac * pot)
+            if p["tag_counter"] and can_raise and n_opp == 1 and not acted_this_street:
+                opp = next(iter(ranges))
+                checked = any(h["seat"] == opp and h["street"] == street and h["action"] == "check" for h in hist)
+                be = p["bet_bluff"] / (1 + p["bet_bluff"])
+                f_ = self._stats(opp).fold_to_bet()
+                if checked and f_ > be and r < min(0.85, 0.4 + (f_ - be) * 2):
+                    return self._raise(state, current + p["bet_bluff"] * pot)
             if can_raise and n_opp <= 2 and not acted_this_street:
                 s_b = p["bet_bluff"]
                 breakeven = s_b / (1 + s_b)

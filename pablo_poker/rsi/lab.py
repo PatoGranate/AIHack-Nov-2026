@@ -67,9 +67,15 @@ QUICK = {"selection_tables": 24, "selection_hands": 200, "holdout_tables": 64, "
 
 class Lab:
     def __init__(self, db, cfg=None, log=print, fetch_minutes=4, stress_tables=16, stress_hands=300,
-                 probe_tables=24, probe_hands=300, practice_tables=128, practice_hands=400):
+                 probe_tables=24, probe_hands=300, practice_tables=128, practice_hands=400, cleanup=True):
         self.db = db
+        self.fetch_thread = None
         db.executescript(LAB_SCHEMA)
+        if not cleanup:
+            self.cfg = dict(loop.DEFAULTS, **(cfg or {}))
+            self.log = log
+            self.it = 0
+            return
         # batches left "running" by a previous lab process that was stopped mid-task
         db.execute("UPDATE tables SET status='abandoned' WHERE status='running' AND batch_id IN "
                    "(SELECT id FROM batches WHERE status='running')")
@@ -173,7 +179,8 @@ class Lab:
         if self.state("lab_export_needed", False):
             return "export"
         last_fetch = self.state("lab_last_fetch", 0)
-        if (read_token() or os.path.exists(EXTERNAL_TOKENS)) and time.time() - last_fetch > self.fetch_minutes * 60:
+        thread_alive = self.fetch_thread is not None and self.fetch_thread.is_alive()
+        if not thread_alive and (read_token() or os.path.exists(EXTERNAL_TOKENS)) and                 time.time() - last_fetch > self.fetch_minutes * 60:
             return "fetch"
         if self.near_misses():
             return "retest"
@@ -191,8 +198,42 @@ class Lab:
             return "idea"
         return "rsi"
 
+    def start_round_fetcher(self, offset=95, retry=150, period=300):
+        """Background thread: fetch exactly `offset` s after every round (rounds every `period` s on the clock),
+        retrying at `retry` s if our new round is not published yet. Uses its own DB connection."""
+        import threading
+        db_path = self.db.execute("PRAGMA database_list").fetchone()[2]
+
+        def loop_():
+            mine = Lab(store.connect(db_path), self.cfg, self.log, cleanup=False)
+            while True:
+                now = time.time()
+                slot = now - (now % period)
+                fire = slot + offset if now < slot + offset else slot + period + offset
+                time.sleep(max(1.0, fire - time.time()))
+                for attempt in (0, 1):
+                    t0 = time.time()
+                    try:
+                        summary, _ = mine.task_fetch()
+                        status = "ok"
+                    except Exception:
+                        summary, status = traceback.format_exc(limit=4), "error"
+                    mine.db.execute("INSERT INTO lab_log(ts, iteration, task, status, seconds, summary, detail) VALUES (?,?,?,?,?,?,?)",
+                                    (time.time(), -1, "fetch", status, time.time() - t0, summary, "{}"))
+                    mine.db.commit()
+                    self.log("[fetch %s] %s" % (time.strftime("%H:%M:%S"), summary))
+                    if attempt == 0 and status == "ok" and re.search(r"kaiserbot: 0 new round", summary or "") and read_token():
+                        time.sleep(max(1.0, fire - offset + retry - time.time()))
+                        continue
+                    break
+
+        self.fetch_thread = threading.Thread(target=loop_, daemon=True)
+        self.fetch_thread.start()
+
     def run(self, hours=None, max_iterations=None):
         start = time.time()
+        if read_token() or os.path.exists(EXTERNAL_TOKENS):
+            self.start_round_fetcher()
         n = 0
         while True:
             if os.path.exists(STOP_FILE):
