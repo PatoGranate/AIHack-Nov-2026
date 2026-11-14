@@ -55,7 +55,8 @@ def base_levels(iters=30000, frac=0.4, seed=1):
     return out
 
 
-def build():
+def build(before=None):
+    """before: only rounds that started before this timestamp (to rebuild the model a past round had)."""
     files = []
     for f, _own in _files(HANDS_DIR):
         try:
@@ -63,6 +64,8 @@ def build():
         except (OSError, ValueError):
             continue
         files.append((slot_ts(d.get("round") or {}), d))
+    if before is not None:
+        files = [(t, d) for t, d in files if t < before]
     latest = max(t for t, _ in files)
     lvl = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0])
     resp = defaultdict(Counter)
