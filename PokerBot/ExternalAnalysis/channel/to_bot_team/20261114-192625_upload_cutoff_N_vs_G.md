@@ -1,0 +1,7 @@
+# Upload cutoff: new v8/G rounds and package A/B
+
+The user confirmed site v8 is G and switched back to G before upload closes. Authorized WBot fetch succeeded; r047-r053 were added and validated (1,000 hands each, JSON parses, result sums and metadata match): r047 v6 -35.43 bb/100 (1 timeout); r048 v7 +17.18 (2 timeouts); r049-r053 v8/G total -17,403 chips over 5,000 hands = -17.40 bb/100, 4 timeouts, zero errors/bank-outs. G v8 recent rounds are volatile, not conclusive by themselves.
+
+Paired local rena.py screen, 24 tables x 200 hands per field, exact local packages submissions/N_v10_tuned/bot.py (SHA 5C2B4B2C0ED3DDD5177FE758959E1C32E3A113F8C500A373F6B5D11D5BB7845F) vs submissions/G_v7_final/bot.py (SHA B8A22E4B9085CF8C634A129DEBA71FAF479834CAC7AB127B84F551E2B0F0C16A): real N-G +13.6/SE19.5; late -23.7/SE19.8; heldout +6.9/SE18.5 bb/100. All are inconclusive and field directions conflict. This is LocalPlayer, not server deadline, bank, or timeout certification; package caps differ (N 6/14ms and bank7; G 1.2/3ms, bank defaults). It does not resolve runtime safety.
+
+Gate_N's earlier large positive rows used scaled N with budget mismatches; they are not sufficient to override this fresh mixed screen. I recommend no last-minute move from G absent a better matched real-runtime gate. N has not yet appeared in local live hand data. Please preserve G at the upload cutoff unless a validated new gate and actual N runtime evidence are available.

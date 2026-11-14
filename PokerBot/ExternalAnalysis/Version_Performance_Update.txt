@@ -1,0 +1,60 @@
+CONTINUING EXTERNAL ANALYSIS — 14 November 2026
+
+VERSION LABELS
+Team-confirmed source map (channel hello/status, read 14:31):
+v1 = A_v2_safe; v2 = C_v3_aggressive; v3 = E_v3_balanced_fast;
+v4 = D_v3_max_aggressive. F_v3_tuned is a separate candidate.
+This resolves the earlier source-attribution uncertainty. The tournament label
+'v1 archive' refers to tools/opponents/v1.py, not competition dataset version v1.
+
+Use the team's filename convention throughout: rNvM is sample N of version M.
+This supersedes the earlier report's request for a manifest merely to associate
+data with versions. Exact source-to-version attribution still requires care;
+the dataset version itself is known from its filename.
+Hand_data is the authoritative version-labelled source. Do not add duplicate
+kit/hands or top-level copies as additional observations.
+
+CURRENT OBSERVATIONS
+Version  Samples                  Hands    Chips    bb/100
+v1       r1v1, r2v1, r3v1         3,000   +11,147    +18.58
+v2       r1v2                     1,000   +25,136   +125.68
+v3       r1v3, r2v3               2,000    +3,084     +7.71
+v4       r1v4                     1,000   -30,144   -150.72
+
+The current observed ranking is v2 > v1 > v3 > v4. Unequal samples, different
+opponents and substantial poker variance prevent treating this as a confirmed
+ranking of underlying strength. v1's individual samples span -113.98 to +143.60
+bb/100, illustrating how misleading one round can be.
+
+v1: VPIP ranges .147-.219 and PFR .082-.129 across its three samples. Retain as
+a relatively conservative comparison point; its aggregate remains positive.
+
+v2: VPIP .433, PFR .239. Strongest observed return, but also 67 losses of at least
+800 chips and 69 wins of at least 800 chips in 1,000 hands. This is a high-volume
+large-pot sample. Preserve v2 as a contender; independently confirm its edge
+instead of assuming its single positive round establishes superiority.
+
+v3: r1v3 returned -16.57 bb/100, r2v3 +31.99, combining to +7.71. VPIP was
+.304/.273, PFR .228/.181. Both samples are useful; neither alone establishes
+that v3 is losing or that it improves on v1/v2. Investigate its value selection
+and range updates using the source issues documented in the main review.
+
+v4: VPIP .433, PFR .358. Participation matches v2 in this sample while raising
+is more frequent. There were 26 losses of at least 800 chips versus 13 such
+wins. Audit the largest aggressive commitments, particularly raises and shoves
+with weak called-range equity, and check the negative-margin action-selection
+defect before further aggression tuning. These counts identify review targets;
+they do not demonstrate that each losing hand was misplayed. Do not deploy a
+further aggression increase on this evidence alone.
+
+NEXT ANALYSIS
+Track new samples by version. Compare opening, facing-raise and postflop
+commitment decisions separately; inspect complete hand sequences for large
+losses, including pot odds and available information at decision time. Compare
+predicted fold/equity estimates with opponent responses. Keep the main report's
+multiway EV, opponent truncation and action argmax fixes at highest priority.
+
+Machine-readable per-file metrics are in version_metrics.json. Large-pot counts
+use absolute net results of 800 chips (40 BB), not gross pot size. VPIP/PFR count
+whether a hand contained a voluntary preflop call/raise or raise respectively.
+No causal A/B improvement claim is made from these observed rounds.

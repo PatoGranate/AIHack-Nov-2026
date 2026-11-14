@@ -1,0 +1,211 @@
+ONLINE ALGORITHM RESEARCH AND TRAINING RECOMMENDATIONS
+External analyst — 14 November 2026
+
+RECOMMENDATION TO THE TEAM
+
+Build an offline external-sampling MCCFR blueprint, initially for a deliberately
+small poker abstraction, and export a compact mixed policy into bot.py. Keep
+the existing bot as a benchmark and fallback. Add population-based training and
+conditional opponent exploitation after validating the core learner. Consider
+Deep CFR if the tabular abstraction becomes the limiting factor. Defer live
+subgame solving until measured runtime proves it fits.
+
+This is my recommendation for THIS project, inferred from published methods and
+the inspected code. It is not a claim that one algorithm is universally best,
+or that an implementation of it automatically beats v1-v4. Offline training may
+use richer tooling; the uploaded bot must still satisfy the supplied kit's
+single-file/standard-library, 512 MB, 10 ms/decision and 10 s/round requirements.
+Do not assume a research system's live search fits those constraints.
+
+1. PLURIBUS: MOST RELEVANT MULTIPLAYER RESEARCH REFERENCE
+
+Brown and Sandholm's Pluribus demonstrated strong performance against elite
+humans in six-player no-limit hold'em. It combines an offline self-play blueprint
+with depth-limited search. Its multiplayer results are empirical; the familiar
+two-player zero-sum convergence guarantees do not simply transfer to multiplayer.
+Sources: https://noambrown.com/papers/19-Science-Superhuman.pdf
+https://noambrown.com/papers/19-Science-Superhuman_Supp.pdf
+
+Project adaptation (my proposal): reproduce the architecture in stages, starting
+with the blueprint only. Train for the actual seven/eight-seat reset-stack game,
+100 BB stacks, fixed blinds and chip payoff. Do not import six-max opening
+frequencies as if positions and opponent counts were interchangeable. At runtime
+sample actions from exported frequencies rather than choose the same threshold
+action every time. Benchmark blueprint-only play before adding search.
+
+2. EXTERNAL-SAMPLING MONTE CARLO CFR: FIRST TRAINING IMPLEMENTATION
+
+MCCFR samples portions of the extensive-form game instead of traversing the full
+tree. External sampling samples chance and opponents' actions while considering
+the updating player's available actions. Counterfactual regret updates compare
+alternative actions at information sets. Accumulated average strategy is a key
+output; the final iteration's strategy is not a substitute for it.
+Source: Lanctot et al., Monte Carlo Sampling for Regret Minimization in Extensive
+Games: https://www.mlanctot.info/files/papers/nips09mccfr.pdf
+
+Project implementation proposal:
+- Start with Kuhn/Leduc poker to validate regret updates, sampling probabilities,
+  reach weighting and average-policy accumulation against a reference solver.
+- Then create a small no-limit abstraction. Information-set features must use
+  hero cards, public board/actions, position, remaining stacks, pot, player count
+  and betting history. Exclude opponents' actual hidden cards from policy inputs.
+- Training traversal may access simulator state to compute counterfactual returns;
+  that does not permit the acting policy to condition on hidden information.
+- Use a small legal action menu: fold/check/call, selected pot fractions and
+  all-in. Include minimum legal raises where needed; deduplicate after clamping.
+- Preserve earlier private/public observations when defining information sets;
+  casually merging histories can introduce imperfect recall and change guarantees.
+- Save strategy averages, visited-set counts, training seeds, model format and
+  chip utility definitions with checkpoints.
+- Export action probabilities to an embedded compressed table or compact model.
+  Measure memory, load time and latency before increasing abstraction size.
+
+Correct the existing engine-facing EV/accounting issues first. A trainer that
+misprices callers, side pots or folded hands can learn the wrong game faster.
+The current Monte Carlo equity estimator is not MCCFR: simulating showdown
+equity does not itself train a strategically balanced policy.
+
+3. DCFR / CFR+: COMPARE UPDATE RULES UNDER EQUAL COMPUTE
+
+Discounted CFR reweights historical regret and strategy contributions; the
+published work studies faster solving through these changes. CFR+ is another
+important regret-update baseline. Algorithm details and averaging choices matter.
+Source: Brown and Sandholm, Solving Imperfect-Information Games via Discounted
+Regret Minimization: https://arxiv.org/abs/1809.04040
+
+Project adaptation: use plain/reference CFR to establish correctness on tiny
+games, then compare an established DCFR or CFR+ implementation. Do not splice
+full-tree CFR+ updates into a sampled trainer and assume all theoretical or
+empirical properties survive. Compare convergence and held-out playing strength
+per wall-clock training hour, not iteration count alone.
+
+4. DEEP CFR AND SINGLE DEEP CFR: SCALE AFTER A TABULAR BASELINE
+
+Deep CFR replaces large tabular representations with neural approximation of
+counterfactual regret behaviour. It uses sampled training and learned networks
+to generalise across states, reducing dependence on handcrafted card abstraction.
+Source: Brown et al., Deep Counterfactual Regret Minimization:
+https://proceedings.mlr.press/v97/brown19b.html
+
+Single Deep CFR avoids training a separate average-strategy network and reports
+reduced approximation error and improved results in the paper's poker settings.
+Its representation of historical strategies has deployment implications.
+Source: Steinberger, Single Deep Counterfactual Regret Minimization:
+https://arxiv.org/abs/1901.07621
+
+Project adaptation: train neural models offline, then distil to a small deployable
+policy or table. A distilled policy is a new approximation and needs its own
+strength test. Pure-Python inference must be timed; do not upload a PyTorch-based
+agent into a standard-library-only runner. Use reservoir sampling and the
+algorithm's correct iteration/sample weighting, not a generic recent-transition
+buffer. Check that a proposed SD-CFR checkpoint ensemble fits memory before
+choosing it over a single model. Neither cited result proves seven/eight-player
+equilibrium convergence or superiority in this field.
+
+5. POPULATION TRAINING / PSRO: IMPROVE AGAINST THE FIELD
+
+Policy-space response oracle methods maintain policy populations and train
+responses to mixtures. Generalised PSRO work considers many-player settings.
+Source: A Generalized Training Approach for Multiagent Learning:
+https://arxiv.org/abs/1909.12823
+
+Project adaptation: keep v1, v2, v3, v4, new blueprint checkpoints and diverse
+opponent archetypes in a frozen league. Evaluate seat-balanced matchups and train
+against a mixture, retaining older policies to detect cycles. Statistical clones
+are uncertain approximations, so vary their parameters. Preserve a completely
+held-out field. A practical league inspired by PSRO is not automatically a full
+PSRO implementation; label it accurately unless response-oracle and mixture
+updates are actually implemented.
+
+For this team's score, field exploitation matters as well as robustness. Use a
+blueprint as the default, then cautiously adjust against repeated conditional
+fold/call/raise evidence. Tune the adjustment on held-out opponents. This is my
+proposed hybrid; it has no claimed multiplayer safety guarantee.
+
+6. REBEL / STUDENT OF GAMES: LONGER-TERM SEARCH REFERENCE
+
+ReBeL combines belief-based self-play learning with search, with theoretical
+results for two-player zero-sum games and strong heads-up no-limit poker results.
+Source: https://arxiv.org/abs/2007.13544
+
+Student of Games combines guided search, learning and game-theoretic reasoning,
+with reported heads-up no-limit poker performance among its evaluated games.
+Source: https://arxiv.org/abs/2112.03178
+
+Project adaptation: learn from their treatment of hidden information and beliefs,
+but do not prioritise a full implementation for the present runtime. Start with
+offline river/endgame teacher policies or narrowly cached subgames. A hand that
+has become heads-up after multiway betting retains ranges shaped by its earlier
+history; it is not equivalent to a fresh heads-up game. Do not treat a generic
+perfect-information tree search over sampled opponent cards as a safe substitute:
+it can choose plans that rely on information the player does not possess.
+
+7. NFSP: OPTIONAL ALTERNATIVE BASELINE
+
+Neural Fictitious Self-Play combines reinforcement learning for response policies
+with supervised learning of average behaviour. The paper demonstrates results in
+Leduc and limit hold'em. Source: Heinrich and Silver:
+https://arxiv.org/abs/1603.01121
+
+For this project it is an optional comparison if the team already has RL tooling.
+Do not start several deep-learning methods simultaneously. A verified MCCFR
+baseline provides a clearer first experiment than replacing the current bot with
+an unvalidated general-purpose self-play learner.
+
+8. AIVAT: BETTER EVALUATION, NOT A PLAYING POLICY
+
+AIVAT uses value estimates and known strategy probabilities to reduce evaluation
+variance while retaining unbiasedness under its assumptions. It can use explicit
+strategies for a subset of players; knowing every opponent's policy is not required.
+Source: Burch et al.: https://ojs.aaai.org/index.php/AAAI/article/view/11481
+
+Project adaptation: first retain paired seeded evaluation. Later add AIVAT to
+offline runs where the required probabilities and chance model are available.
+Freeze the value estimator before the held-out evaluation and verify expectation
+on small games. Existing downloaded actions do not reveal their probabilities;
+do not invent these or claim ordinary bb/100 is AIVAT-adjusted.
+
+OFFICIAL IMPLEMENTATION REFERENCES
+
+OpenSpiel provides reference algorithms useful for checking training logic:
+https://github.com/google-deepmind/open_spiel/blob/master/docs/algorithms.md
+https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/external_sampling_mccfr.py
+https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/cfr.py
+
+Use these offline as references, respecting licenses and pinning a commit. The
+kit's engine remains the rules authority; an OpenSpiel poker environment is not
+automatically identical. No library was installed or implementation reproduced
+as part of this review. Unofficial 'Pluribus reproductions' are not treated here
+as validated equivalents to the published system.
+
+CONCRETE TRAINING MILESTONES AND ACCEPTANCE CRITERIA
+
+A. Correctness: reproduce reference behaviour and decreasing measured
+   exploitability on a tiny two-player game across multiple seeds. Test legal
+   actions, chip conservation, pot splitting and absence of hidden-card leakage.
+B. Small blueprint: train for target seat counts and 100 BB reset stacks with
+   a documented action/card abstraction. Record training budget and checkpoint
+   learning curves; do not extrapolate full-game convergence from tiny games.
+C. Deployment: export a single-file policy; compare offline and exported action
+   distributions on held-out information sets. Run full subprocess rounds under
+   real limits, including a 5,000-hand final configuration.
+D. Strength: compare against v1, v2, v3 and v4 separately, diverse fields and
+   self-play. Report paired bb/100 differences with round/table uncertainty and
+   runtime failures. Reserve untouched confirmation seeds. For a small tractable
+   game measure exploitability; for full multiplayer use empirical robustness,
+   not an unsupported 'GTO solved' label.
+E. Exploitation: add conditional opponent adjustments as a separate ablation;
+   retain them only if confirmed field-weighted gains justify the regressions.
+
+NEAR-TERM DECISION
+
+Correct the current bot's argmax and multiway EV defects now. In parallel with
+ordinary offline experimentation by the team, implement a tiny verified MCCFR
+trainer, then a compact blueprint. Do not delay those fixes to reproduce an
+entire research system. Keep v2 as the strongest observed version in the current
+version report, without claiming its one-round lead is established superiority.
+
+Research status: primary papers and official code were searched online, including
+a search for newer work. This is a relevance-ranked engineering shortlist, not
+an exhaustive 2026 leaderboard. No new algorithm has yet been implemented or
+shown to improve this PokerBot's measured results.

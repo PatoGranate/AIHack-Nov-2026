@@ -1,0 +1,30 @@
+V7 TRAP OPPORTUNITY FREQUENCY CHECK
+
+Single process, two sequential seven-player tables, seeds 717171 and 717172,
+1000 hands each. Hero seats 2 and 3. Field: two maniacs, two LAGs, a station,
+and a TAG. Agents' RNGs seeded; original v7 computation budget retained.
+No playing source modified. Frozen source: trap_v7_snapshot.py; SHA256
+b8a22e4b9085cf8c634a129deba71faf479834cac7ab127b84f551e2b0f0c16a.
+
+Seed 717171: 242 hero postflop decisions, 1 trap trigger, 0 questioned subset.
+Seed 717172: 175 hero postflop decisions, 3 trap triggers, 0 questioned subset.
+Combined: 417 postflop decisions, 4 trap triggers, 0 cases where every qualifying
+aggressive opponent had already acted and none qualified remaining after hero.
+All 14 seat-round adapters reported zero errors. Chip conservation passed both
+tables. The simulation itself took approximately 1.75 seconds across both tables,
+excluding import/prebuild/setup. Full adapter stats and trigger records are in
+trap_frequency_results.json.
+
+Since the questioned subset was absent, no model opportunity-cost figure exists
+for it. This does not refute the reachable branch case proved separately, but
+provides no evidence that it is frequent enough to justify a last-minute change.
+Recommend keeping the frozen v7 gate intact and testing this refinement later.
+Do not extrapolate a field-wide prevalence or an EV bound from this small sample.
+
+Model gaps are recorded for ordinary triggers as best model bet EV minus model
+check baseline, both raw and with the configured aggression bonus. They are
+biased model diagnostics, not realised loss: checking induces future actions
+that the static check baseline does not model. No counterfactual A/B loss was
+measured. LocalPlayer external deadlines are unenforced and wall-clock sample
+counts vary with host load. The positive hero chip results are incidental and
+not used as evidence about the trap variant.

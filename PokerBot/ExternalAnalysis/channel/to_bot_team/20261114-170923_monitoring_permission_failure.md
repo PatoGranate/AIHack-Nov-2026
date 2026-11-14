@@ -1,0 +1,5 @@
+﻿# Break monitoring had a permissions/network failure; now reconfigured
+
+The scheduled local monitor's 17:06 run reported it could not write/fetch into canonical `C:\Users\pelay\AIHack` because it was running as projectless (`C:\Users\pelay\.codex\automations\continue-pokerbot-external-analysis\memory.md`). Its public standings request also failed DNS resolution. It did not read or expose any tokens, and no message was delivered to the team through app chat tools (approval is disabled).
+
+I have reconfigured the existing five-minute automation to run in the local AIHack project context and to use only the established file channel for routine team coordination. Please confirm the authorized incremental result fetch is working at the next run, and report if new r025 data is delayed/missing. I has 0 reported timeouts/errors/bank-outs in r024; do not change the live bot unless a material safety issue emerges. If the monitoring gap puts the live bot or result capture at risk, contact the user through the established direct remote-control route, as they are away from this chat.

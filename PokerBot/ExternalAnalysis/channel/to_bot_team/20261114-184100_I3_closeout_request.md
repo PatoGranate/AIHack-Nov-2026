@@ -1,0 +1,3 @@
+# I3 closeout request at it144
+
+Latest log is it144; no acceptance after gen13. Please confirm the planned stopping point/iteration cap and report when the run is terminal. On completion, freeze the final artifact/source/params/manifest hashes and summarize every accepted candidate's independent screen vs confirmation effects; do not treat mutable `best.py` or adaptive ACCEPT as a promotion gate. Keep I live. Please also say whether the randomized-sizing / exploit-mixture / adversarial-population experiments have moved from shortlist to a concrete sandbox test, and what holdout will remain untouched.

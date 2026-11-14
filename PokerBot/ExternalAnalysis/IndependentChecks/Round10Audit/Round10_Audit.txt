@@ -1,0 +1,112 @@
+ROUND 10 WBot RAW-HAND AUDIT
+
+Verified ref saturday/r010; WBot seat 5; 1000 hands; net -14,278 chips = -71.390 bb/100 (rounds to -71.4).
+Roster: kaiserbot, Anker Batteries, Jump Street, The Market Makers, Mohil'sPokerBot, WBot, Attention Is All In
+Round metadata/table letter/uploaded version/timeouts are absent from this hand JSON.
+Thus the score and ref are independently matched; displayed table letter and version need result metadata.
+
+Gross wins 41,241; gross losses 55,519; 195 winning / 340 losing / 465 zero-result hands.
+Full-stack losses: 16. Top5 losses 10,000 (18.0% of gross losses); top10 20,000 (36.0%).
+Losses as a proportion of NET loss are not a useful concentration statistic because wins offset losses.
+
+SEGMENTS (descriptive net chips, not causal attribution)
+allin:False: 960 hands, net -4,991; gross loss 23,519, gross win 18,528
+allin:True: 40 hands, net -9,287; gross loss 32,000, gross win 22,713
+finalRisk:WBot full stack: 24 hands, net -15,640; gross loss 32,000, gross win 16,360
+finalRisk:neither: 965 hands, net +1,564; gross loss 23,317, gross win 24,881
+finalRisk:opponent-only full stack: 11 hands, net -202; gross loss 202, gross win 0
+position:BB: 143 hands, net -5,813; gross loss 10,772, gross win 4,959
+position:BTN: 142 hands, net -9,397; gross loss 14,554, gross win 5,157
+position:CO: 143 hands, net -1,235; gross loss 5,277, gross win 4,042
+position:HJ: 143 hands, net +420; gross loss 7,102, gross win 7,522
+position:MP: 143 hands, net -617; gross loss 10,599, gross win 9,982
+position:SB: 143 hands, net +421; gross loss 3,519, gross win 3,940
+position:UTG: 143 hands, net +1,943; gross loss 3,696, gross win 5,639
+preflop:call initial open: 93 hands, net -5,518; gross loss 20,627, gross win 15,109
+preflop:fold preflop: 697 hands, net -6,140; gross loss 6,140, gross win 0
+preflop:hero reraise: 23 hands, net +3,719; gross loss 544, gross win 4,263
+preflop:limp/check other: 21 hands, net +210; gross loss 0, gross win 210
+preflop:open without later call-reraise: 152 hands, net -5,857; gross loss 24,229, gross win 18,372
+preflop:open/call reraise: 14 hands, net -692; gross loss 3,979, gross win 3,287
+showdown:False: 948 hands, net -2,709; gross loss 19,347, gross win 16,638
+showdown:True: 52 hands, net -11,569; gross loss 36,172, gross win 24,603
+terminal:all-in flop: 12 hands, net -1,715; gross loss 10,000, gross win 8,285
+terminal:all-in preflop: 4 hands, net +2,728; gross loss 0, gross win 2,728
+terminal:all-in river: 7 hands, net +1,053; gross loss 4,000, gross win 5,053
+terminal:all-in turn: 17 hands, net -11,353; gross loss 18,000, gross win 6,647
+terminal:fold flop: 49 hands, net -7,055; gross loss 7,055, gross win 0
+terminal:fold preflop: 697 hands, net -6,140; gross loss 6,140, gross win 0
+terminal:fold river: 18 hands, net -3,666; gross loss 3,666, gross win 0
+terminal:fold turn: 13 hands, net -2,486; gross loss 2,486, gross win 0
+terminal:showdown no all-in: 28 hands, net +4,071; gross loss 4,172, gross win 8,243
+terminal:win without showdown: 155 hands, net +10,285; gross loss 0, gross win 10,285
+The allin/terminal all-in labels mark WBot pre-refund shove/call attempts,
+including uncalled excess later returned. They do NOT mark opponent-only all-ins.
+Use finalRisk categories for mutually exclusive actual full-stack exposure:
+WBot final contribution 2,000; else any opponent final 2,000; else neither.
+
+LARGEST LOSSES
+Hand 40 BB 5d 5h / board 5c Qc 3c Ac 2s: -2000; call initial open; all-in turn; winners Anker Batteries
+  Hero line: preflop call 30 (add 30, pot 80, call 30); flop raise 110 (add 110, pot 110, call 0); turn raise 198 (add 198, pot 330, call 0); turn raise 1840 (add 1642, pot 1161, call 435)
+  Hindsight all-in runout equity vs revealed contestants 22.7%; exact runouts (44); NOT range EV.
+Hand 80 MP Kc Qc / board Th 8d 6d Qh 7d: -2000; open without later call-reraise; all-in turn; winners Anker Batteries
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 170 (add 170, pot 170, call 0); flop call 306 (add 306, pot 816, call 306); turn raise 1454 (add 1454, pot 1122, call 0)
+  Hindsight all-in runout equity vs revealed contestants 54.5%; exact runouts (44); NOT range EV.
+Hand 124 BB Kd Ac / board Th 6c Tc 9c 5d: -2000; call initial open; all-in flop; winners Mohil'sPokerBot
+  Hero line: preflop call 30 (add 30, pot 170, call 30); flop raise 1950 (add 1950, pot 400, call 200)
+  Hindsight all-in runout equity vs revealed contestants 5.5%; exact runouts (990); NOT range EV.
+Hand 196 BTN Ah 9h / board Th Jd 2h 2c As: -2000; call initial open; all-in flop; winners Anker Batteries
+  Hero line: preflop call 50 (add 50, pot 80, call 50); flop raise 815 (add 815, pot 259, call 99); flop call 1135 (add 1135, pot 2925, call 1135)
+  Hindsight all-in runout equity vs revealed contestants 27.4%; exact runouts (990); NOT range EV.
+Hand 224 BTN Kd Jd / board 8d 2c Jh Ts 8c: -2000; call initial open; all-in river; winners The Market Makers
+  Hero line: preflop call 50 (add 50, pot 80, call 50); flop call 130 (add 130, pot 260, call 130); turn call 390 (add 390, pot 780, call 390); river raise 1430 (add 1430, pot 2340, call 1170)
+  Hindsight all-in runout equity vs revealed contestants 0.0%; exact runouts (1); NOT range EV.
+Hand 276 MP Qd Qh / board 9h 6s 6d 2h 9c: -2000; open without later call-reraise; all-in turn; winners kaiserbot
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 220 (add 220, pot 220, call 0); turn raise 1710 (add 1710, pot 660, call 0)
+  Hindsight all-in runout equity vs revealed contestants 88.6%; exact runouts (44); NOT range EV.
+Hand 317 HJ As 2c / board 6h Jh Ah 6d Th: -2000; open without later call-reraise; all-in turn; winners Jump Street
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 126 (add 126, pot 210, call 0); turn raise 1804 (add 1804, pot 462, call 0)
+  Hindsight all-in runout equity vs revealed contestants 75.0%; exact runouts (44); NOT range EV.
+Hand 420 BTN 8c Kc / board 2s 9d 5s 6c 6d: -2000; open without later call-reraise; all-in turn; winners kaiserbot
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 447 (add 447, pot 249, call 99); turn raise 1483 (add 1483, pot 1733, call 689)
+  Hindsight all-in runout equity vs revealed contestants 9.1%; exact runouts (44); NOT range EV.
+Hand 469 BTN Js Ks / board 3d 4c 7s Td 9c: -2000; open without later call-reraise; all-in turn; winners kaiserbot
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 447 (add 447, pot 249, call 99); turn raise 1483 (add 1483, pot 1044, call 0)
+  Hindsight all-in runout equity vs revealed contestants 13.6%; exact runouts (44); NOT range EV.
+Hand 667 HJ Jd Tc / board 6c Jh Qh 7d 6d: -2000; open without later call-reraise; all-in river; winners Anker Batteries
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop call 142 (add 142, pot 372, call 142); turn call 565 (add 565, pot 1079, call 565); river call 1223 (add 1223, pot 2867, call 1223)
+  Hindsight all-in runout equity vs revealed contestants 0.0%; exact runouts (1); NOT range EV.
+Hand 759 MP Kc Qd / board Jd Kh 6s 9s 8h: -2000; call initial open; all-in flop; winners Mohil'sPokerBot
+  Hero line: preflop call 50 (add 50, pot 80, call 50); flop raise 720 (add 720, pot 360, call 180); flop call 1230 (add 1230, pot 2850, call 1230)
+  Hindsight all-in runout equity vs revealed contestants 19.6%; exact runouts (990); NOT range EV.
+Hand 784 BTN 6c 8d / board 3s 8h 9s 5d 5s: -2000; open without later call-reraise; all-in turn; winners Attention Is All In
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 741 (add 741, pot 387, call 177); turn call 1189 (add 1189, pot 2881, call 1189)
+  Hindsight all-in runout equity vs revealed contestants 20.5%; exact runouts (44); NOT range EV.
+Hand 827 CO Kc 9s / board 8d Kh 7h 2h Qc: -2000; open without later call-reraise; all-in flop; winners Attention Is All In
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 220 (add 220, pot 220, call 0); flop raise 1930 (add 1710, pot 1221, call 561)
+  Hindsight all-in runout equity vs revealed contestants 18.8%; exact runouts (990); NOT range EV.
+Hand 865 UTG Kh Jh / board 5h 7c 8h Ac Qc: -2000; open/call reraise; all-in turn; winners Mohil'sPokerBot
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); preflop call 182 (add 182, pot 332, call 182); flop raise 1285 (add 1285, pot 771, call 257); turn call 463 (add 463, pot 3547, call 463)
+  Hindsight all-in runout equity vs revealed contestants 86.4%; exact runouts (44); NOT range EV.
+Hand 908 BB Ad 9s / board As 7s 3s Kd Jc: -2000; call initial open; all-in flop; winners Attention Is All In
+  Hero line: preflop call 30 (add 30, pot 80, call 30); flop raise 110 (add 110, pot 110, call 0); flop raise 1280 (add 1170, pot 610, call 280); flop call 670 (add 670, pot 3340, call 670)
+  Hindsight all-in runout equity vs revealed contestants 29.8%; exact runouts (990); NOT range EV.
+Hand 955 MP Jd Qh / board 8h Kd Qs Js Ac: -2000; open without later call-reraise; all-in turn; winners Anker Batteries
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 56 (add 56, pot 170, call 0); flop call 169 (add 169, pot 451, call 169); turn raise 1705 (add 1705, pot 620, call 0)
+  Hindsight all-in runout equity vs revealed contestants 4.5%; exact runouts (44); NOT range EV.
+Hand 238 BTN 4h Kh / board 2s Td 6h 7c 4s: -1754; open without later call-reraise; showdown no all-in; winners kaiserbot
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 918 (add 918, pot 564, call 177); turn raise 333 (add 333, pot 2223, call 0); river raise 433 (add 433, pot 2889, call 0)
+Hand 372 CO Td Qd / board 6d Jh 4s: -850; call initial open; fold flop; winners Mohil'sPokerBot
+  Hero line: preflop call 50 (add 50, pot 80, call 50); flop raise 800 (add 800, pot 400, call 200); flop fold 0 (add 0, pot 2950, call 1150)
+Hand 318 MP Qd Td / board 3s Jh Ad Ah: -640; open without later call-reraise; fold turn; winners Attention Is All In
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 102 (add 102, pot 170, call 0); flop call 317 (add 317, pot 691, call 317); turn raise 151 (add 151, pot 1008, call 0); turn fold 0 (add 0, pot 2670, call 1360)
+Hand 854 BTN Js Th / board 5c Qc 9h 4c Ah: -607; open without later call-reraise; fold river; winners kaiserbot
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 396 (add 396, pot 232, call 82); turn raise 141 (add 141, pot 942, call 0); river fold 0 (add 0, pot 1897, call 673)
+
+INTERPRETATION LIMITS
+Both bad runouts and potentially costly decision patterns can coexist. A losing all-in
+does not establish a leak; the revealed hand equity is hindsight, not what hero knew.
+Review repeated raise/call lines and large pot commitments against observed opponent
+ranges, with earlier actions and available information. Do not promote a new candidate
+on this round alone. Runtime counts and tested deployed hash are still needed.
+No playing source or strategy changed. Pot/refund totals and zero-sum results validated.

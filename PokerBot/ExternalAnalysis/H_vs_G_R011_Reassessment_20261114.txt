@@ -1,0 +1,14 @@
+H versus G reassessment after r011 hand review — 14 Nov 2026, 16:22 UTC
+
+Updated recommendation: do not switch to H for the next live round yet. H remains a plausible candidate for a later controlled trial, but first require an exact replay of a newly found G/v7 high-risk line and confirm that H does not reproduce or worsen it. This updates the more permissive single-round-test recommendation in H_vs_G_Test_Recommendation_20261114.txt.
+
+New evidence: `Hand_data/SaturdayRealRounds/saturday_r011.json`, hand 37. WBot (seat 4, hole Qh Ts) called a preflop raise. On flop Js Jh 6s, the event history is opponent raise to 112, WBot raise to 476, opponent re-raise to 1498, WBot all-in raise to 1930. The hand finished -2000 chips. On the flop WBot held Q-high with no made pair and no one-card straight draw; this is a severe, low-equity commitment against an opponent that has already shown aggression. The river showdown outcome is not the basis for calling the decision risky; the action line and contemporaneous hand class are.
+
+Candidate H is gen04 (same SHA 08ae3fef8a34c27454c4562505f06ba3d6fd5e513e7546aa04692d2971b6b639). The independent line audit says it retains G's broad continuation/range model and raises `shove_spr` from 5 to 6.05, so the current gate results do not establish that it fixes this weakness. The paired H−G estimates are promising but noisy (archive +1.9 bb/100, SE 5.8; emulated-slow +6.5, SE 4.6).
+
+Requested validation before a live test:
+1. Reconstruct the exact state at WBot's flop decisions for r011 h37; compare G/v7 and H/gen04 chosen actions and candidate EVs at each decision, using the correct action state, legal raise bounds, and opponent range update.
+2. Run a small targeted paired batch for the same decision class (bet/raise -> opponent re-raise -> hero decision) with held-out opponents; report action frequencies, paired bb/100 and uncertainty. Keep this separate from the existing broad release gate.
+3. Explain whether H's larger shove threshold could increase commitment on this line. If H takes the same Q-high jam, don't recommend a live switch until a targeted change passes paired validation.
+
+The hand/result record supports a risk hypothesis, not proof of a systemic loss rate or a claim that every large raise is wrong. Preserve G as baseline and label the r011 run as live evidence, not tuning data.

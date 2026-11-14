@@ -1,0 +1,45 @@
+BOT COMPARISON EXPERIMENT — 14 November 2026
+
+Roster: v1 archive plus submissions A-F, each frozen with a SHA-256 hash in
+Tournament/manifest.json. Current kit/bot.py matches C byte-for-byte, so it is
+not counted twice. Competition datasets labelled v1-v4 are distinct from these
+source archive names; no unverified mapping to v4 is assumed.
+
+Main experiment: 56 rounds of 1,000 seven-player hands, with all seven bots at
+one table, stacks reset to 2,000, blinds 10/20. For each of eight independent
+deck seeds, rotate all seven bots through all seven seats. Each bot plays
+56,000 hands, with 392,000 player-hand observations in total. This is a league
+comparison in this particular field, not isolated heads-up matchups.
+
+Fast mode uses LocalPlayer: actions are recorded but external per-decision
+timeouts are not enforced. Bots retain their own original compute budgeting.
+Two worker processes are used. Bot RNGs are seeded, but time-limited simulation
+counts still depend on machine scheduling. The final confidence intervals use
+eight independent deck-seed blocks, each averaging its seven seat rotations;
+they do not pretend the rotations or individual hands are independent.
+
+Runtime screen: seven additional 1,000-hand rounds under SubprocessPlayer's
+10 ms decisions and 10,000 ms time bank, one rotation of the seven seats.
+No confidence interval is claimed from that single deck-seed block. Windows
+subprocess scheduling differs from the hosted tournament environment. This
+screen measures local timing reliability rather than certifying deployment.
+The first timing-screen round overlapped the tail of the main league; later
+rounds ran after those worker processes finished. Background machine load is
+not controlled. Treat timeout counts as diagnostic, not a pure bot-speed ranking.
+
+Understanding decisions: reuse several actual postflop states from round zero
+and ask every bot to decide on each identical state. These probes use fresh
+opponent priors, not the learned statistics from the originating hand. Capture
+the bot's computed equity where exposed by its equity/simulate routine, its
+chosen action and simulation count where available. Those are numerical model
+estimates, not natural-language thoughts or ground-truth equity. Range-based
+and random-opponent equities use different assumptions. Probe samples can vary
+with runtime; decisions do not by themselves prove one bot is correct.
+
+Playing style: voluntary preflop participation (VPIP) and preflop raising (PFR)
+are counted once per hand. Postflop aggression is raises / all postflop
+decisions, including checks and folds in its denominator. These are observed
+styles in this league, not opening-chart cutoffs or standard aggression factor.
+
+Files remain under ExternalAnalysis. Playing sources and uploaded bots are
+unchanged. Raw round records and frozen snapshots allow independent inspection.

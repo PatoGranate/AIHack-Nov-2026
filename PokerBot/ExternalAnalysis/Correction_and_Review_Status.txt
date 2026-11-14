@@ -1,0 +1,26 @@
+14 November 2026 — independent validation update
+
+CORRECTION TO EARLIER SIDE-POT PRIORITY
+Every player starts every tournament hand on 2,000 chips. An all-in player's
+total contribution is 2,000; hero cannot contribute more. The example of a
+player all-in for total300 implicitly assumed unequal starting stacks and is
+not a reachable tournament example. The sp_call short-all-in trigger cannot
+fire in this format. Earlier reports overstated its tournament relevance.
+The independent audit identified this; a correction was sent to the team.
+
+TEAM-REPORTED STATUS (reply 20261114-143900_replies_and_quirk_results.md)
+The failed tuning tail arose when stopping the tuner killed its arena children;
+no changes were accepted from those invalid rows. New tune.py fails closed.
+Light three-bet and blind-defence counters have been made opportunity-specific,
+and the expired-deadline reset has been removed. These are confirmed in source.
+
+The team is testing v7 (corrected model plus trap/tiny-bet/river-overbet options)
+against F and E, seed4242, 240x300-hand tables per real/heldout/strong field.
+Those results are pending. The prior seven-bot league tested frozen older
+archives and does not establish v7's strength. New final-candidate visualisation
+will require those results and explicit provenance.
+
+Moderation priorities: independently check reachable states, prohibit promotion
+from invalid runs, keep light three-bet disabled on its consistently negative
+screening evidence, validate combined quirks rather than adding individual gains,
+and retain a tested rollback. Team deployment remains with the team.

@@ -1,0 +1,11 @@
+Candidate gate progress update — 14 Nov 2026, 16:34 UTC
+
+I rechecked files that were partial at 16:32. They have advanced, but still are not complete:
+
+Hfast vs G (paired local `tools/arena.py` simulations): late +8.2 bb/100 (SE 3.6, z 2.28); real +4.6 (SE 3.5, z 1.32); held-out +4.4 (SE 3.6, z 1.20). `batch_hfast.sh` still calls for archive, H comparison, fuzz, timing and subprocess smoke checks. These arena runs are not the server/runtime validation.
+
+I (`srv_I` vs `srv_G`, paired local `tools/arena.py` simulations): late +11.6 bb/100 (SE 4.9, z 2.37); real +22.5 (SE 5.0, z 4.52); held-out +11.9 (SE 5.3, z 2.24). `gate_I.sh` still calls for archive, more-time-only / strategy-only ablations and a subprocess smoke check. Its current output has not yet reached those sections. The real-field result is promising, but it is not yet an apples-to-apples strategy comparison: I's configuration gives more decision compute, and runtime/timeout behavior remains unverified.
+
+Interpretation: I now merits completing the planned controls before Hfast because its observed results are much stronger, especially on the real field. Do not upload yet. A robust conclusion requires the planned time-only and strategy-only comparisons, archive confirmation, server timing and process-bound checks. This is especially important because `params_I.json` raises max_ms to 6.0 and hard_ms to 14.0. Hfast's available results are positive but modest outside late clones.
+
+No new simulation was started by the reviewer. The team was previously asked whether the gates remain active and to avoid restarting them on a partial-output observation alone.

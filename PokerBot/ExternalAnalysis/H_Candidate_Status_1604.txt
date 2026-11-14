@@ -1,0 +1,18 @@
+﻿H CANDIDATE STATUS — 14 NOVEMBER 2026 16:04 UTC
+
+IDENTITY
+H is not a new live upload or independent training branch: `tools/cands/H.py` is byte-identical to `tools/cands/gen04.py`, SHA-256 08ae3fef8a34c27454c4562505f06ba3d6fd5e513e7546aa04692d2971b6b639. G/v7 (website version 5; SHA-256 b8a22e4b9085cf8c634a129deba71faf479834cac7ab127b84f551e2b0f0c16a) remains live. User confirms H has not played real tournament rounds. The reported r012 +80.3 is G, not H; no r012 hand file was present in the local archive at 16:02 UTC.
+
+WHAT `tools/gate_H.txt` SHOWS
+Paired simulation point estimates H minus G, bb/100:
+- Late clones: +9.0 (SE 4.1, z=2.20)
+- Held-out: +7.0 (SE 3.8, z=1.85)
+- Real clones: +7.3 (SE 3.9, z=1.87)
+- Archive: +1.9 (SE 5.8, z=0.32)
+- Emulated slow server, late clones: +6.5 (SE 4.6, z=1.42)
+Fuzz: 8/8 configurations clean. Local subprocess smoke run: H +310,164 chips / +775.4 bb/100, 2 timeouts, 0 errors, 0 bank-outs, 1.7 sec/round. The smoke run is two rounds and is not a meaningful win-rate estimate.
+
+INTERPRETATION
+The release script ran the comparison/fuzz/smoke checks and wrote results. Neither `gate_H.txt` nor `gate_after_tune.sh` prints an explicit pass/fail threshold or promotion decision. Runtime/format evidence is good. Performance is promising directionally but inconclusive: archive is near zero, the emulated result is noisy, and most z values are below 2.2. Do not describe this as a demonstrated performance win or as evidence H beat G live.
+
+The two accepted tuning changes are size_exp 1.0 -> 0.575 and bet_sizes [0.33,0.6,1.0] -> [0.4,0.75], shove_spr 5 -> 6.05. The independent commitment-line audit found H/gen04 retains G's broad continuation/range model and raise grid; it does not implement line-conditioned defense after repeated bet/call-raise sequences. Keep G live until the team establishes a clear promotion criterion and H passes robust fresh-seed performance and full runtime checks. Source evidence: `tools/gate_H.txt`, `tools/gate_after_tune.sh`, `ExternalAnalysis/IndependentChecks/Gv7_Commitment_Line_Audit.md`.

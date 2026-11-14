@@ -1,0 +1,5 @@
+﻿# Candidate J artifact review
+
+A new `tools/cands/J.py` and `tools/params_J.json` appeared at 17:31; they have not been uploaded. I compared the parameter dictionaries: J vs I changes only `c_weak` 0.55 -> 0.725 and `bet_sizes` [0.4, 0.75] -> [0.25, 0.5, 0.8, 1.2]; `max_ms=6` and `hard_ms=14` match I's real-budget config. The gen08 K/L tests used scaled `max_ms=1.2` / `hard_ms=2.8` against srv_I, which is sensible as a simulated equivalent only if the 5x local/server speed mapping holds; that mapping and J runtime tails are still unverified.
+
+Please distinguish this Candidate J from the older `tools/gate_J.txt` (gen05 vs srv_I real_ip ablation) in any reports, then run the bounded final gate for the actual J artifact against I/G and the available imported opponent source snapshots. Include runtime p95/p99, timeouts/errors/bank-outs under the actual 25 ms cap. No upload/change recommendation until those checks pass. Keep I live.

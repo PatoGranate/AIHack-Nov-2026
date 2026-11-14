@@ -1,0 +1,329 @@
+[
+  {
+    "name": "Gherkers",
+    "hand": 893,
+    "street": "flop",
+    "actual_action": "call",
+    "actual_added": 127,
+    "clone_action": {
+      "action": "fold"
+    },
+    "state": {
+      "hole_cards": [
+        "6c",
+        "6d"
+      ],
+      "board": [
+        "Jc",
+        "2s",
+        "9h"
+      ],
+      "big_blind": 20,
+      "street": "flop",
+      "seat": 3,
+      "button": 1,
+      "stacks": [
+        1808,
+        2000,
+        1935,
+        1935,
+        2000,
+        1980,
+        2000
+      ],
+      "bets": [
+        127,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "folded": [
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "pot": 342,
+      "to_call": 127,
+      "history": [
+        {
+          "seat": 2,
+          "street": "preflop",
+          "action": "small_blind",
+          "amount": 10
+        },
+        {
+          "seat": 3,
+          "street": "preflop",
+          "action": "big_blind",
+          "amount": 20
+        },
+        {
+          "seat": 4,
+          "street": "preflop",
+          "action": "fold",
+          "amount": 0
+        },
+        {
+          "seat": 5,
+          "street": "preflop",
+          "action": "call",
+          "amount": 20
+        },
+        {
+          "seat": 6,
+          "street": "preflop",
+          "action": "fold",
+          "amount": 0
+        },
+        {
+          "seat": 0,
+          "street": "preflop",
+          "action": "raise",
+          "amount": 65
+        },
+        {
+          "seat": 1,
+          "street": "preflop",
+          "action": "fold",
+          "amount": 0
+        },
+        {
+          "seat": 2,
+          "street": "preflop",
+          "action": "call",
+          "amount": 55
+        },
+        {
+          "seat": 3,
+          "street": "preflop",
+          "action": "call",
+          "amount": 45
+        },
+        {
+          "seat": 5,
+          "street": "preflop",
+          "action": "fold",
+          "amount": 0
+        },
+        {
+          "seat": 2,
+          "street": "flop",
+          "action": "check",
+          "amount": 0
+        },
+        {
+          "seat": 3,
+          "street": "flop",
+          "action": "check",
+          "amount": 0
+        },
+        {
+          "seat": 0,
+          "street": "flop",
+          "action": "raise",
+          "amount": 127
+        },
+        {
+          "seat": 2,
+          "street": "flop",
+          "action": "fold",
+          "amount": 0
+        }
+      ],
+      "legal_actions": [
+        "fold",
+        "call",
+        "raise"
+      ],
+      "min_raise_to": 254,
+      "max_raise_to": 1935
+    },
+    "source_clone": "r_Gherkers.py"
+  },
+  {
+    "name": "Lehman Brothers",
+    "hand": 893,
+    "street": "river",
+    "actual_action": "call",
+    "actual_added": 1554,
+    "clone_action": {
+      "action": "fold"
+    },
+    "state": {
+      "hole_cards": [
+        "Ac",
+        "3h"
+      ],
+      "board": [
+        "Jc",
+        "2s",
+        "9h",
+        "9d",
+        "7c"
+      ],
+      "big_blind": 20,
+      "street": "river",
+      "seat": 0,
+      "button": 1,
+      "stacks": [
+        1554,
+        2000,
+        1935,
+        0,
+        2000,
+        1980,
+        2000
+      ],
+      "bets": [
+        0,
+        0,
+        0,
+        1554,
+        0,
+        0,
+        0
+      ],
+      "folded": [
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "pot": 2531,
+      "to_call": 1554,
+      "history": [
+        {
+          "seat": 2,
+          "street": "preflop",
+          "action": "small_blind",
+          "amount": 10
+        },
+        {
+          "seat": 3,
+          "street": "preflop",
+          "action": "big_blind",
+          "amount": 20
+        },
+        {
+          "seat": 4,
+          "street": "preflop",
+          "action": "fold",
+          "amount": 0
+        },
+        {
+          "seat": 5,
+          "street": "preflop",
+          "action": "call",
+          "amount": 20
+        },
+        {
+          "seat": 6,
+          "street": "preflop",
+          "action": "fold",
+          "amount": 0
+        },
+        {
+          "seat": 0,
+          "street": "preflop",
+          "action": "raise",
+          "amount": 65
+        },
+        {
+          "seat": 1,
+          "street": "preflop",
+          "action": "fold",
+          "amount": 0
+        },
+        {
+          "seat": 2,
+          "street": "preflop",
+          "action": "call",
+          "amount": 55
+        },
+        {
+          "seat": 3,
+          "street": "preflop",
+          "action": "call",
+          "amount": 45
+        },
+        {
+          "seat": 5,
+          "street": "preflop",
+          "action": "fold",
+          "amount": 0
+        },
+        {
+          "seat": 2,
+          "street": "flop",
+          "action": "check",
+          "amount": 0
+        },
+        {
+          "seat": 3,
+          "street": "flop",
+          "action": "check",
+          "amount": 0
+        },
+        {
+          "seat": 0,
+          "street": "flop",
+          "action": "raise",
+          "amount": 127
+        },
+        {
+          "seat": 2,
+          "street": "flop",
+          "action": "fold",
+          "amount": 0
+        },
+        {
+          "seat": 3,
+          "street": "flop",
+          "action": "call",
+          "amount": 127
+        },
+        {
+          "seat": 3,
+          "street": "turn",
+          "action": "check",
+          "amount": 0
+        },
+        {
+          "seat": 0,
+          "street": "turn",
+          "action": "raise",
+          "amount": 254
+        },
+        {
+          "seat": 3,
+          "street": "turn",
+          "action": "call",
+          "amount": 254
+        },
+        {
+          "seat": 3,
+          "street": "river",
+          "action": "raise",
+          "amount": 1554
+        }
+      ],
+      "legal_actions": [
+        "fold",
+        "call"
+      ],
+      "min_raise_to": null,
+      "max_raise_to": null
+    },
+    "source_clone": "r_LehmanBrothers.py"
+  }
+]

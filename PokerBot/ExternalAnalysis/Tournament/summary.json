@@ -1,0 +1,2048 @@
+{
+  "fast": {
+    "rounds": 56,
+    "tableHands": 56000,
+    "rows": [
+      {
+        "id": 0,
+        "name": "v1 archive",
+        "bb100": -6.743035714285713,
+        "se": 8.875182313191285,
+        "blocks": 8,
+        "hands": 56000,
+        "roundRates": [
+          88.46000000000001,
+          31.169999999999998,
+          84.975,
+          -15.869999999999997,
+          51.18000000000001,
+          -42.82,
+          -22.185,
+          51.64500000000001,
+          -42.730000000000004,
+          44.775,
+          -36.585,
+          24.185,
+          -29.849999999999998,
+          -5.845000000000001,
+          19.48,
+          -81.28,
+          145.09,
+          -33.785000000000004,
+          38.71,
+          16.68,
+          24.05,
+          -67.72999999999999,
+          -10.385,
+          -49.405,
+          -37.96000000000001,
+          -11.57,
+          19.665000000000003,
+          -54.18999999999999,
+          -71.16,
+          -46.21,
+          -51.515,
+          -83.705,
+          -68.705,
+          -5.005,
+          -38.615,
+          -101.76,
+          53.07999999999999,
+          -4.17,
+          47.43,
+          -41.875,
+          -22.835,
+          67.315,
+          27.24,
+          -27.88,
+          -26.045,
+          54.94,
+          48.86000000000001,
+          -95.025,
+          -74.52499999999999,
+          9.700000000000001,
+          40.544999999999995,
+          3.39,
+          3.0850000000000004,
+          -23.315,
+          -98.225,
+          49.5
+        ],
+        "chips": -75522,
+        "vpip": 7047,
+        "pfr": 3332,
+        "actions": {
+          "preflop:fold": 49200,
+          "preflop:raise": 3292,
+          "preflop:call": 3804,
+          "flop:fold": 1364,
+          "flop:check": 1486,
+          "turn:check": 903,
+          "river:fold": 106,
+          "flop:raise": 1575,
+          "turn:raise": 809,
+          "flop:call": 1608,
+          "turn:call": 818,
+          "river:raise": 393,
+          "turn:fold": 290,
+          "river:call": 271,
+          "river:check": 624,
+          "preflop:all_in": 55
+        },
+        "errors": 0,
+        "timeouts": 0,
+        "bankOut": 0,
+        "maxMs": 40.615,
+        "thinkSeconds": 36.954395
+      },
+      {
+        "id": 1,
+        "name": "A_v2_safe",
+        "bb100": -19.28151785714286,
+        "se": 4.697415397287904,
+        "blocks": 8,
+        "hands": 56000,
+        "roundRates": [
+          -78.67,
+          76.46000000000001,
+          40.845,
+          45.76,
+          -143.56,
+          -18.080000000000002,
+          2.185,
+          -32.92,
+          87.81,
+          -52.955,
+          -63.06,
+          -60.6,
+          -10.909999999999998,
+          -14.27,
+          -10.459999999999999,
+          7.365000000000001,
+          -32.97,
+          -0.5349999999999999,
+          -33.155,
+          -17.135,
+          70.89,
+          -140.7,
+          -55.69500000000001,
+          -2.455,
+          -15.930000000000003,
+          2.7600000000000002,
+          -16.71,
+          7.68,
+          -2.9000000000000004,
+          -36.375,
+          -48.325,
+          -49.285000000000004,
+          -104.4,
+          -58.29500000000001,
+          1.145,
+          -7.215000000000001,
+          -60.92000000000001,
+          -44.18,
+          -10.735,
+          57.41499999999999,
+          -76.435,
+          -9.875,
+          -1.8900000000000001,
+          40.83500000000001,
+          -1.0699999999999998,
+          -59.185,
+          -5.43,
+          4.4350000000000005,
+          -22.34,
+          139.045,
+          -98.03,
+          15.2,
+          -54.504999999999995,
+          -61.525,
+          -53.94500000000001,
+          -11.965
+        ],
+        "chips": -215953,
+        "vpip": 7961,
+        "pfr": 4199,
+        "actions": {
+          "preflop:raise": 4173,
+          "flop:call": 1979,
+          "turn:call": 935,
+          "river:check": 524,
+          "preflop:fold": 48274,
+          "flop:raise": 1930,
+          "preflop:call": 3884,
+          "flop:fold": 1161,
+          "turn:raise": 955,
+          "turn:fold": 301,
+          "river:call": 300,
+          "turn:check": 807,
+          "river:raise": 349,
+          "flop:check": 1456,
+          "river:fold": 139,
+          "preflop:all_in": 62
+        },
+        "errors": 0,
+        "timeouts": 0,
+        "bankOut": 0,
+        "maxMs": 71.828,
+        "thinkSeconds": 42.047264
+      },
+      {
+        "id": 2,
+        "name": "B_v3_balanced",
+        "bb100": -1.4866071428571443,
+        "se": 7.195797657751687,
+        "blocks": 8,
+        "hands": 56000,
+        "roundRates": [
+          -78.28,
+          -17.87,
+          110.07499999999999,
+          -47.9,
+          -52.685,
+          14.01,
+          -153.12,
+          35.114999999999995,
+          29.485,
+          166.75,
+          139.045,
+          -172.595,
+          -76.26,
+          -54.864999999999995,
+          30.97,
+          -41.43,
+          -80.4,
+          -63.81,
+          78.875,
+          29.28,
+          2.8649999999999998,
+          -36.53,
+          -81.205,
+          -5.755,
+          35.61,
+          -6.16,
+          -12.01,
+          -25.474999999999998,
+          36.12,
+          -11.365,
+          113.98499999999999,
+          30.075000000000003,
+          -121.055,
+          110.67499999999998,
+          -27.51,
+          254.65,
+          13.755,
+          19.040000000000003,
+          46.29,
+          -11.395000000000001,
+          27.79,
+          -177.52,
+          68.875,
+          47.94,
+          -1.66,
+          -51.92,
+          45.965,
+          -66.47999999999999,
+          31.055,
+          -38.265,
+          53.44,
+          -182.31,
+          48.025,
+          -77.94,
+          -11.24,
+          82.0
+        ],
+        "chips": -16650,
+        "vpip": 14516,
+        "pfr": 12354,
+        "actions": {
+          "preflop:fold": 42961,
+          "preflop:raise": 12476,
+          "flop:raise": 8090,
+          "preflop:call": 2908,
+          "flop:fold": 1892,
+          "flop:call": 1992,
+          "flop:check": 813,
+          "turn:check": 530,
+          "river:check": 421,
+          "turn:raise": 766,
+          "turn:call": 224,
+          "turn:fold": 260,
+          "river:fold": 94,
+          "river:raise": 138,
+          "river:call": 64
+        },
+        "errors": 0,
+        "timeouts": 0,
+        "bankOut": 0,
+        "maxMs": 89.0,
+        "thinkSeconds": 47.820335
+      },
+      {
+        "id": 3,
+        "name": "C_v3_aggressive",
+        "bb100": -24.415803571428572,
+        "se": 7.253045024354867,
+        "blocks": 8,
+        "hands": 56000,
+        "roundRates": [
+          -102.525,
+          -162.66500000000002,
+          -4.09,
+          29.835,
+          -81.01499999999999,
+          -36.419999999999995,
+          -8.11,
+          -67.415,
+          -3.8899999999999997,
+          -73.35499999999999,
+          3.8549999999999995,
+          57.025000000000006,
+          3.55,
+          -12.840000000000002,
+          -7.809999999999999,
+          -12.784999999999998,
+          -89.87,
+          2.585,
+          18.355,
+          50.81,
+          -59.004999999999995,
+          83.75,
+          -130.59,
+          -120.64000000000001,
+          170.13,
+          -86.775,
+          -25.765,
+          -18.680000000000003,
+          -0.17500000000000002,
+          -1.075,
+          -110.19000000000001,
+          -40.39,
+          -105.835,
+          125.675,
+          92.72500000000001,
+          -180.625,
+          74.285,
+          92.17,
+          -109.355,
+          43.089999999999996,
+          -5.295000000000001,
+          63.029999999999994,
+          -32.835,
+          -57.165,
+          46.705000000000005,
+          90.58500000000001,
+          -205.20999999999998,
+          74.285,
+          -139.62,
+          -13.485,
+          -41.585,
+          81.865,
+          -172.06,
+          43.824999999999996,
+          -154.25,
+          -142.025
+        ],
+        "chips": -273457,
+        "vpip": 18790,
+        "pfr": 14726,
+        "actions": {
+          "preflop:fold": 39062,
+          "preflop:raise": 14853,
+          "preflop:call": 5118,
+          "flop:raise": 8938,
+          "flop:call": 2434,
+          "flop:check": 1287,
+          "turn:check": 735,
+          "river:check": 513,
+          "river:fold": 155,
+          "flop:fold": 3375,
+          "turn:fold": 391,
+          "turn:raise": 848,
+          "turn:call": 273,
+          "river:raise": 190,
+          "river:call": 72
+        },
+        "errors": 0,
+        "timeouts": 0,
+        "bankOut": 0,
+        "maxMs": 57.082,
+        "thinkSeconds": 59.173601999999995
+      },
+      {
+        "id": 4,
+        "name": "D_v3_max_aggressive",
+        "bb100": 7.007142857142858,
+        "se": 10.9838134651018,
+        "blocks": 8,
+        "hands": 56000,
+        "roundRates": [
+          4.385,
+          -83.83500000000001,
+          -70.33500000000001,
+          -122.38,
+          28.325,
+          47.78,
+          -72.235,
+          -126.46,
+          -8.25,
+          28.475,
+          -24.580000000000002,
+          13.344999999999999,
+          81.66,
+          39.94,
+          22.03,
+          -74.0,
+          27.655,
+          45.715,
+          -111.745,
+          -88.135,
+          90.42999999999999,
+          111.91,
+          119.965,
+          -84.89999999999999,
+          -87.725,
+          38.38,
+          218.98499999999999,
+          -45.080000000000005,
+          -37.19,
+          64.53,
+          -28.364999999999995,
+          -4.175,
+          58.72500000000001,
+          -109.17000000000002,
+          30.104999999999997,
+          26.85,
+          -176.28499999999997,
+          37.635000000000005,
+          50.38,
+          -152.01500000000001,
+          49.53,
+          68.075,
+          -9.57,
+          158.54000000000002,
+          -34.01499999999999,
+          -66.36,
+          145.405,
+          63.095,
+          111.85999999999999,
+          34.96,
+          97.12,
+          -76.565,
+          72.78999999999999,
+          27.135000000000005,
+          79.335,
+          -9.28
+        ],
+        "chips": 78480,
+        "vpip": 23309,
+        "pfr": 16241,
+        "actions": {
+          "preflop:fold": 35016,
+          "preflop:raise": 16343,
+          "flop:raise": 9922,
+          "flop:call": 2139,
+          "preflop:call": 8038,
+          "flop:check": 2015,
+          "turn:check": 881,
+          "river:raise": 151,
+          "flop:fold": 5287,
+          "turn:fold": 506,
+          "turn:raise": 810,
+          "river:check": 613,
+          "turn:call": 346,
+          "river:fold": 169,
+          "river:call": 78
+        },
+        "errors": 0,
+        "timeouts": 0,
+        "bankOut": 0,
+        "maxMs": 68.166,
+        "thinkSeconds": 69.994679
+      },
+      {
+        "id": 5,
+        "name": "E_v3_balanced_fast",
+        "bb100": 13.606517857142858,
+        "se": 10.704392853234062,
+        "blocks": 8,
+        "hands": 56000,
+        "roundRates": [
+          153.855,
+          81.245,
+          -145.325,
+          96.85000000000001,
+          146.865,
+          35.480000000000004,
+          110.35,
+          108.84500000000001,
+          -20.28,
+          -51.364999999999995,
+          16.240000000000002,
+          29.78,
+          22.015,
+          4.6450000000000005,
+          -25.564999999999998,
+          84.585,
+          -47.005,
+          -63.075,
+          -10.47,
+          12.409999999999998,
+          -87.05000000000001,
+          -5.68,
+          166.82999999999998,
+          80.885,
+          -97.06,
+          10.845,
+          -197.80499999999998,
+          117.64000000000001,
+          52.96000000000001,
+          -36.72,
+          145.48,
+          116.815,
+          137.185,
+          -121.8,
+          -67.65,
+          -51.61,
+          -42.47,
+          -115.53499999999998,
+          7.26,
+          153.94,
+          -21.869999999999997,
+          -7.984999999999999,
+          -1.71,
+          -145.935,
+          -4.495,
+          26.955000000000002,
+          0.505,
+          -37.625,
+          31.819999999999997,
+          -160.145,
+          78.125,
+          47.33,
+          42.83,
+          101.59,
+          104.99499999999999,
+          1.04
+        ],
+        "chips": 152393,
+        "vpip": 13561,
+        "pfr": 7785,
+        "actions": {
+          "preflop:fold": 43321,
+          "preflop:call": 6096,
+          "flop:raise": 6482,
+          "preflop:raise": 7828,
+          "flop:fold": 2216,
+          "flop:call": 1949,
+          "turn:raise": 773,
+          "river:raise": 199,
+          "flop:check": 985,
+          "turn:check": 639,
+          "river:check": 485,
+          "turn:call": 219,
+          "river:fold": 128,
+          "river:call": 34,
+          "turn:fold": 323
+        },
+        "errors": 0,
+        "timeouts": 0,
+        "bankOut": 0,
+        "maxMs": 34.824,
+        "thinkSeconds": 23.099759
+      },
+      {
+        "id": 6,
+        "name": "F_v3_tuned",
+        "bb100": 31.313303571428573,
+        "se": 6.099971057406217,
+        "blocks": 8,
+        "hands": 56000,
+        "roundRates": [
+          12.775,
+          75.495,
+          -16.145,
+          13.705,
+          50.89,
+          0.05,
+          143.115,
+          31.189999999999994,
+          -42.144999999999996,
+          -62.324999999999996,
+          -34.915,
+          108.86,
+          9.795000000000002,
+          43.235,
+          -28.645,
+          117.54500000000002,
+          77.5,
+          112.90499999999999,
+          19.43,
+          -3.91,
+          -42.18,
+          54.98,
+          -8.92,
+          182.27,
+          32.935,
+          52.52,
+          13.639999999999999,
+          18.105,
+          22.345,
+          67.215,
+          -21.07,
+          30.665,
+          204.08499999999998,
+          57.92,
+          9.8,
+          59.71000000000001,
+          138.555,
+          15.040000000000001,
+          -31.269999999999996,
+          -49.160000000000004,
+          49.114999999999995,
+          -3.04,
+          -50.11,
+          -16.335,
+          20.580000000000002,
+          4.984999999999999,
+          -30.095,
+          57.31499999999999,
+          61.75000000000001,
+          28.189999999999998,
+          -129.615,
+          111.09,
+          59.83500000000001,
+          -9.770000000000001,
+          133.32999999999998,
+          30.73
+        ],
+        "chips": 350709,
+        "vpip": 12599,
+        "pfr": 8099,
+        "actions": {
+          "preflop:call": 4910,
+          "flop:raise": 6098,
+          "turn:raise": 791,
+          "river:check": 405,
+          "preflop:fold": 44287,
+          "flop:fold": 1997,
+          "preflop:raise": 8154,
+          "flop:check": 869,
+          "flop:call": 1637,
+          "turn:check": 599,
+          "turn:fold": 350,
+          "river:fold": 126,
+          "river:raise": 227,
+          "turn:call": 170,
+          "river:call": 53
+        },
+        "errors": 0,
+        "timeouts": 0,
+        "bankOut": 0,
+        "maxMs": 42.874,
+        "thinkSeconds": 21.62108
+      }
+    ]
+  },
+  "strict": {
+    "rounds": 7,
+    "tableHands": 7000,
+    "rows": [
+      {
+        "id": 0,
+        "name": "v1 archive",
+        "bb100": 22.400714285714287,
+        "se": null,
+        "blocks": 1,
+        "hands": 7000,
+        "roundRates": [
+          96.05,
+          22.31,
+          53.7,
+          -23.425,
+          45.89,
+          -51.254999999999995,
+          13.535
+        ],
+        "chips": 31361,
+        "vpip": 0,
+        "pfr": 0,
+        "actions": {},
+        "errors": 0,
+        "timeouts": 83,
+        "bankOut": 0,
+        "maxMs": 77.211,
+        "thinkSeconds": 16.403815
+      },
+      {
+        "id": 1,
+        "name": "A_v2_safe",
+        "bb100": -2.4450000000000016,
+        "se": null,
+        "blocks": 1,
+        "hands": 7000,
+        "roundRates": [
+          -29.615,
+          63.285000000000004,
+          43.5,
+          45.03,
+          -134.60000000000002,
+          -33.0,
+          28.285000000000004
+        ],
+        "chips": -3423,
+        "vpip": 0,
+        "pfr": 0,
+        "actions": {},
+        "errors": 0,
+        "timeouts": 98,
+        "bankOut": 0,
+        "maxMs": 61.102,
+        "thinkSeconds": 17.689847
+      },
+      {
+        "id": 2,
+        "name": "B_v3_balanced",
+        "bb100": -65.91571428571429,
+        "se": null,
+        "blocks": 1,
+        "hands": 7000,
+        "roundRates": [
+          -93.30000000000001,
+          -7.875,
+          40.88,
+          -133.94000000000003,
+          -95.82000000000001,
+          -9.99,
+          -161.365
+        ],
+        "chips": -92282,
+        "vpip": 0,
+        "pfr": 0,
+        "actions": {},
+        "errors": 0,
+        "timeouts": 106,
+        "bankOut": 0,
+        "maxMs": 81.387,
+        "thinkSeconds": 18.959508
+      },
+      {
+        "id": 3,
+        "name": "C_v3_aggressive",
+        "bb100": -75.46714285714286,
+        "se": null,
+        "blocks": 1,
+        "hands": 7000,
+        "roundRates": [
+          -20.919999999999998,
+          -246.80999999999997,
+          -42.255,
+          -8.505,
+          -50.91,
+          -48.07,
+          -110.80000000000001
+        ],
+        "chips": -105654,
+        "vpip": 0,
+        "pfr": 0,
+        "actions": {},
+        "errors": 0,
+        "timeouts": 95,
+        "bankOut": 0,
+        "maxMs": 74.758,
+        "thinkSeconds": 21.034254999999998
+      },
+      {
+        "id": 4,
+        "name": "D_v3_max_aggressive",
+        "bb100": 1.0899999999999996,
+        "se": null,
+        "blocks": 1,
+        "hands": 7000,
+        "roundRates": [
+          -26.515,
+          -15.509999999999998,
+          -6.890000000000001,
+          -49.760000000000005,
+          -13.755,
+          117.34,
+          2.7199999999999998
+        ],
+        "chips": 1526,
+        "vpip": 0,
+        "pfr": 0,
+        "actions": {},
+        "errors": 0,
+        "timeouts": 97,
+        "bankOut": 0,
+        "maxMs": 74.4,
+        "thinkSeconds": 24.444018
+      },
+      {
+        "id": 5,
+        "name": "E_v3_balanced_fast",
+        "bb100": 74.72214285714286,
+        "se": null,
+        "blocks": 1,
+        "hands": 7000,
+        "roundRates": [
+          125.56500000000001,
+          151.125,
+          -110.00000000000001,
+          180.0,
+          147.625,
+          -12.520000000000001,
+          41.260000000000005
+        ],
+        "chips": 104611,
+        "vpip": 0,
+        "pfr": 0,
+        "actions": {},
+        "errors": 0,
+        "timeouts": 14,
+        "bankOut": 0,
+        "maxMs": 75.305,
+        "thinkSeconds": 14.028277
+      },
+      {
+        "id": 6,
+        "name": "F_v3_tuned",
+        "bb100": 45.615,
+        "se": null,
+        "blocks": 1,
+        "hands": 7000,
+        "roundRates": [
+          -51.26499999999999,
+          33.475,
+          21.065,
+          -9.4,
+          101.57000000000001,
+          37.495,
+          186.365
+        ],
+        "chips": 63861,
+        "vpip": 0,
+        "pfr": 0,
+        "actions": {},
+        "errors": 0,
+        "timeouts": 22,
+        "bankOut": 0,
+        "maxMs": 83.907,
+        "thinkSeconds": 13.615553
+      }
+    ]
+  },
+  "probes": [
+    {
+      "state": {
+        "type": "act",
+        "hand_number": 6,
+        "street": "flop",
+        "seat": 0,
+        "button": 2,
+        "hole_cards": [
+          "Ks",
+          "Js"
+        ],
+        "board": [
+          "7h",
+          "8s",
+          "5d"
+        ],
+        "small_blind": 10,
+        "big_blind": 20,
+        "blind_level": 0,
+        "pot": 425,
+        "stacks": [
+          1930,
+          2000,
+          2000,
+          1990,
+          1980,
+          1675,
+          2000
+        ],
+        "bets": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          255,
+          0
+        ],
+        "folded": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          false,
+          true
+        ],
+        "to_call": 255,
+        "min_raise_to": 510,
+        "max_raise_to": 1930,
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise"
+        ],
+        "betting": "no_limit",
+        "raise_cap": null,
+        "raises_this_street": 1,
+        "history": [
+          {
+            "seat": 3,
+            "street": "preflop",
+            "action": "small_blind",
+            "amount": 10
+          },
+          {
+            "seat": 4,
+            "street": "preflop",
+            "action": "big_blind",
+            "amount": 20
+          },
+          {
+            "seat": 5,
+            "street": "preflop",
+            "action": "raise",
+            "amount": 70
+          },
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 0,
+            "street": "preflop",
+            "action": "call",
+            "amount": 70
+          },
+          {
+            "seat": 1,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 2,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 3,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 4,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 5,
+            "street": "flop",
+            "action": "raise",
+            "amount": 255
+          }
+        ]
+      },
+      "bots": [
+        {
+          "id": 0,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.38671875,
+          "samples": null
+        },
+        {
+          "id": 1,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.40808823529411764,
+          "samples": null
+        },
+        {
+          "id": 2,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.20015822784810147,
+          "samples": 156
+        },
+        {
+          "id": 3,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.21607669616519196,
+          "samples": 168
+        },
+        {
+          "id": 4,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.19844961240310102,
+          "samples": 160
+        },
+        {
+          "id": 5,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.2741407528641572,
+          "samples": 72
+        },
+        {
+          "id": 6,
+          "action": {
+            "action": "raise",
+            "amount": 935
+          },
+          "equity": 0.4516728624535315,
+          "samples": 32
+        }
+      ]
+    },
+    {
+      "state": {
+        "type": "act",
+        "hand_number": 9,
+        "street": "flop",
+        "seat": 0,
+        "button": 5,
+        "hole_cards": [
+          "Qs",
+          "Jc"
+        ],
+        "board": [
+          "5h",
+          "2s",
+          "6s"
+        ],
+        "small_blind": 10,
+        "big_blind": 20,
+        "blind_level": 0,
+        "pot": 1760,
+        "stacks": [
+          1930,
+          2000,
+          1600,
+          2000,
+          2000,
+          720,
+          1990
+        ],
+        "bets": [
+          0,
+          0,
+          330,
+          0,
+          0,
+          1210,
+          0
+        ],
+        "folded": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          false,
+          true
+        ],
+        "to_call": 1210,
+        "min_raise_to": 1930,
+        "max_raise_to": 1930,
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise"
+        ],
+        "betting": "no_limit",
+        "raise_cap": null,
+        "raises_this_street": 2,
+        "history": [
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "small_blind",
+            "amount": 10
+          },
+          {
+            "seat": 0,
+            "street": "preflop",
+            "action": "big_blind",
+            "amount": 20
+          },
+          {
+            "seat": 1,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 2,
+            "street": "preflop",
+            "action": "raise",
+            "amount": 70
+          },
+          {
+            "seat": 3,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 4,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 5,
+            "street": "preflop",
+            "action": "call",
+            "amount": 70
+          },
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 0,
+            "street": "preflop",
+            "action": "call",
+            "amount": 50
+          },
+          {
+            "seat": 0,
+            "street": "flop",
+            "action": "check",
+            "amount": 0
+          },
+          {
+            "seat": 2,
+            "street": "flop",
+            "action": "raise",
+            "amount": 330
+          },
+          {
+            "seat": 5,
+            "street": "flop",
+            "action": "raise",
+            "amount": 1210
+          }
+        ]
+      },
+      "bots": [
+        {
+          "id": 0,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.2619047619047619,
+          "samples": null
+        },
+        {
+          "id": 1,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.25347222222222227,
+          "samples": null
+        },
+        {
+          "id": 2,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.06640225179119752,
+          "samples": 76
+        },
+        {
+          "id": 3,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.14606265876375932,
+          "samples": 132
+        },
+        {
+          "id": 4,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.06338028169014076,
+          "samples": 112
+        },
+        {
+          "id": 5,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.14611872146118718,
+          "samples": 72
+        },
+        {
+          "id": 6,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.18263473053892212,
+          "samples": 64
+        }
+      ]
+    },
+    {
+      "state": {
+        "type": "act",
+        "hand_number": 18,
+        "street": "river",
+        "seat": 0,
+        "button": 0,
+        "hole_cards": [
+          "8c",
+          "8s"
+        ],
+        "board": [
+          "Ad",
+          "4s",
+          "7s",
+          "3d",
+          "6d"
+        ],
+        "small_blind": 10,
+        "big_blind": 20,
+        "blind_level": 0,
+        "pot": 2190,
+        "stacks": [
+          1920,
+          1990,
+          1980,
+          1920,
+          0,
+          2000,
+          2000
+        ],
+        "bets": [
+          0,
+          0,
+          0,
+          0,
+          1920,
+          0,
+          0
+        ],
+        "folded": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true,
+          true
+        ],
+        "to_call": 1920,
+        "min_raise_to": null,
+        "max_raise_to": null,
+        "legal_actions": [
+          "fold",
+          "call"
+        ],
+        "betting": "no_limit",
+        "raise_cap": null,
+        "raises_this_street": 1,
+        "history": [
+          {
+            "seat": 1,
+            "street": "preflop",
+            "action": "small_blind",
+            "amount": 10
+          },
+          {
+            "seat": 2,
+            "street": "preflop",
+            "action": "big_blind",
+            "amount": 20
+          },
+          {
+            "seat": 3,
+            "street": "preflop",
+            "action": "raise",
+            "amount": 80
+          },
+          {
+            "seat": 4,
+            "street": "preflop",
+            "action": "call",
+            "amount": 80
+          },
+          {
+            "seat": 5,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 0,
+            "street": "preflop",
+            "action": "call",
+            "amount": 80
+          },
+          {
+            "seat": 1,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 2,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 3,
+            "street": "flop",
+            "action": "check",
+            "amount": 0
+          },
+          {
+            "seat": 4,
+            "street": "flop",
+            "action": "check",
+            "amount": 0
+          },
+          {
+            "seat": 0,
+            "street": "flop",
+            "action": "check",
+            "amount": 0
+          },
+          {
+            "seat": 3,
+            "street": "turn",
+            "action": "check",
+            "amount": 0
+          },
+          {
+            "seat": 4,
+            "street": "turn",
+            "action": "check",
+            "amount": 0
+          },
+          {
+            "seat": 0,
+            "street": "turn",
+            "action": "check",
+            "amount": 0
+          },
+          {
+            "seat": 3,
+            "street": "river",
+            "action": "check",
+            "amount": 0
+          },
+          {
+            "seat": 4,
+            "street": "river",
+            "action": "raise",
+            "amount": 1920
+          }
+        ]
+      },
+      "bots": [
+        {
+          "id": 0,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.25,
+          "samples": null
+        },
+        {
+          "id": 1,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.2916666666666667,
+          "samples": null
+        },
+        {
+          "id": 2,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.0683371298405467,
+          "samples": 52
+        },
+        {
+          "id": 3,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.061980830670926516,
+          "samples": 164
+        },
+        {
+          "id": 4,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.06176084099868594,
+          "samples": 160
+        },
+        {
+          "id": 5,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.05341880341880345,
+          "samples": 84
+        },
+        {
+          "id": 6,
+          "action": {
+            "action": "fold"
+          },
+          "equity": 0.059241706161137477,
+          "samples": 76
+        }
+      ]
+    },
+    {
+      "state": {
+        "type": "act",
+        "hand_number": 1,
+        "street": "flop",
+        "seat": 1,
+        "button": 4,
+        "hole_cards": [
+          "Js",
+          "Jh"
+        ],
+        "board": [
+          "8s",
+          "4c",
+          "3h"
+        ],
+        "small_blind": 10,
+        "big_blind": 20,
+        "blind_level": 0,
+        "pot": 325,
+        "stacks": [
+          2000,
+          1940,
+          2000,
+          2000,
+          2000,
+          1990,
+          1745
+        ],
+        "bets": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          195
+        ],
+        "folded": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "to_call": 195,
+        "min_raise_to": 390,
+        "max_raise_to": 1940,
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise"
+        ],
+        "betting": "no_limit",
+        "raise_cap": null,
+        "raises_this_street": 1,
+        "history": [
+          {
+            "seat": 5,
+            "street": "preflop",
+            "action": "small_blind",
+            "amount": 10
+          },
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "big_blind",
+            "amount": 20
+          },
+          {
+            "seat": 0,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 1,
+            "street": "preflop",
+            "action": "raise",
+            "amount": 60
+          },
+          {
+            "seat": 2,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 3,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 4,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 5,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "call",
+            "amount": 40
+          },
+          {
+            "seat": 6,
+            "street": "flop",
+            "action": "raise",
+            "amount": 195
+          }
+        ]
+      },
+      "bots": [
+        {
+          "id": 0,
+          "action": {
+            "action": "call"
+          },
+          "equity": 0.775,
+          "samples": null
+        },
+        {
+          "id": 1,
+          "action": {
+            "action": "call"
+          },
+          "equity": 0.75,
+          "samples": null
+        },
+        {
+          "id": 2,
+          "action": {
+            "action": "raise",
+            "amount": 715
+          },
+          "equity": 0.589041095890411,
+          "samples": 24
+        },
+        {
+          "id": 3,
+          "action": {
+            "action": "raise",
+            "amount": 715
+          },
+          "equity": 0.589041095890411,
+          "samples": 24
+        },
+        {
+          "id": 4,
+          "action": {
+            "action": "raise",
+            "amount": 1940
+          },
+          "equity": 0.7419724770642209,
+          "samples": 156
+        },
+        {
+          "id": 5,
+          "action": {
+            "action": "raise",
+            "amount": 1235
+          },
+          "equity": 0.7883597883597887,
+          "samples": 76
+        },
+        {
+          "id": 6,
+          "action": {
+            "action": "raise",
+            "amount": 1235
+          },
+          "equity": 0.8096330275229363,
+          "samples": 88
+        }
+      ]
+    },
+    {
+      "state": {
+        "type": "act",
+        "hand_number": 1,
+        "street": "turn",
+        "seat": 1,
+        "button": 4,
+        "hole_cards": [
+          "Js",
+          "Jh"
+        ],
+        "board": [
+          "8s",
+          "4c",
+          "3h",
+          "5s"
+        ],
+        "small_blind": 10,
+        "big_blind": 20,
+        "blind_level": 0,
+        "pot": 832,
+        "stacks": [
+          2000,
+          1745,
+          2000,
+          2000,
+          2000,
+          1990,
+          1433
+        ],
+        "bets": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          312
+        ],
+        "folded": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "to_call": 312,
+        "min_raise_to": 624,
+        "max_raise_to": 1745,
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise"
+        ],
+        "betting": "no_limit",
+        "raise_cap": null,
+        "raises_this_street": 1,
+        "history": [
+          {
+            "seat": 5,
+            "street": "preflop",
+            "action": "small_blind",
+            "amount": 10
+          },
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "big_blind",
+            "amount": 20
+          },
+          {
+            "seat": 0,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 1,
+            "street": "preflop",
+            "action": "raise",
+            "amount": 60
+          },
+          {
+            "seat": 2,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 3,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 4,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 5,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "call",
+            "amount": 40
+          },
+          {
+            "seat": 6,
+            "street": "flop",
+            "action": "raise",
+            "amount": 195
+          },
+          {
+            "seat": 1,
+            "street": "flop",
+            "action": "call",
+            "amount": 195
+          },
+          {
+            "seat": 6,
+            "street": "turn",
+            "action": "raise",
+            "amount": 312
+          }
+        ]
+      },
+      "bots": [
+        {
+          "id": 0,
+          "action": {
+            "action": "call"
+          },
+          "equity": 0.7115384615384616,
+          "samples": null
+        },
+        {
+          "id": 1,
+          "action": {
+            "action": "raise",
+            "amount": 1456
+          },
+          "equity": 0.85,
+          "samples": null
+        },
+        {
+          "id": 2,
+          "action": {
+            "action": "raise",
+            "amount": 1456
+          },
+          "equity": 0.5762273901808785,
+          "samples": 128
+        },
+        {
+          "id": 3,
+          "action": {
+            "action": "raise",
+            "amount": 1745
+          },
+          "equity": 0.6196721311475413,
+          "samples": 108
+        },
+        {
+          "id": 4,
+          "action": {
+            "action": "raise",
+            "amount": 1745
+          },
+          "equity": 0.6332138590203089,
+          "samples": 188
+        },
+        {
+          "id": 5,
+          "action": {
+            "action": "raise",
+            "amount": 1745
+          },
+          "equity": 0.7144638403990027,
+          "samples": 92
+        },
+        {
+          "id": 6,
+          "action": {
+            "action": "raise",
+            "amount": 1745
+          },
+          "equity": 0.7002341920374708,
+          "samples": 100
+        }
+      ]
+    },
+    {
+      "state": {
+        "type": "act",
+        "hand_number": 8,
+        "street": "flop",
+        "seat": 1,
+        "button": 4,
+        "hole_cards": [
+          "Kc",
+          "Ac"
+        ],
+        "board": [
+          "4c",
+          "Kh",
+          "Js"
+        ],
+        "small_blind": 10,
+        "big_blind": 20,
+        "blind_level": 0,
+        "pot": 224,
+        "stacks": [
+          2000,
+          1940,
+          2000,
+          2000,
+          2000,
+          1856,
+          1980
+        ],
+        "bets": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          84,
+          0
+        ],
+        "folded": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ],
+        "to_call": 84,
+        "min_raise_to": 168,
+        "max_raise_to": 1940,
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise"
+        ],
+        "betting": "no_limit",
+        "raise_cap": null,
+        "raises_this_street": 1,
+        "history": [
+          {
+            "seat": 5,
+            "street": "preflop",
+            "action": "small_blind",
+            "amount": 10
+          },
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "big_blind",
+            "amount": 20
+          },
+          {
+            "seat": 0,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 1,
+            "street": "preflop",
+            "action": "raise",
+            "amount": 60
+          },
+          {
+            "seat": 2,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 3,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 4,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 5,
+            "street": "preflop",
+            "action": "call",
+            "amount": 50
+          },
+          {
+            "seat": 6,
+            "street": "preflop",
+            "action": "fold",
+            "amount": 0
+          },
+          {
+            "seat": 5,
+            "street": "flop",
+            "action": "raise",
+            "amount": 84
+          }
+        ]
+      },
+      "bots": [
+        {
+          "id": 0,
+          "action": {
+            "action": "raise",
+            "amount": 392
+          },
+          "equity": 0.875,
+          "samples": null
+        },
+        {
+          "id": 1,
+          "action": {
+            "action": "raise",
+            "amount": 392
+          },
+          "equity": 0.9375,
+          "samples": null
+        },
+        {
+          "id": 2,
+          "action": {
+            "action": "raise",
+            "amount": 700
+          },
+          "equity": 0.8461538461538464,
+          "samples": 72
+        },
+        {
+          "id": 3,
+          "action": {
+            "action": "raise",
+            "amount": 700
+          },
+          "equity": 0.7978142076502732,
+          "samples": 24
+        },
+        {
+          "id": 4,
+          "action": {
+            "action": "raise",
+            "amount": 1940
+          },
+          "equity": 0.8035576179427687,
+          "samples": 152
+        },
+        {
+          "id": 5,
+          "action": {
+            "action": "raise",
+            "amount": 700
+          },
+          "equity": 0.7831168831168835,
+          "samples": 60
+        },
+        {
+          "id": 6,
+          "action": {
+            "action": "raise",
+            "amount": 700
+          },
+          "equity": 0.8123644251626905,
+          "samples": 76
+        }
+      ]
+    }
+  ],
+  "manifest": [
+    {
+      "name": "v1 archive",
+      "source": "tools/opponents/v1.py",
+      "snapshot": "bot_0.py",
+      "sha256": "ef30c9085ba75104d860ef8a0abfd1b79cf8c57bfd8405f6a4d06d85c76b7800"
+    },
+    {
+      "name": "A_v2_safe",
+      "source": "submissions\\A_v2_safe\\bot.py",
+      "snapshot": "bot_1.py",
+      "sha256": "64f1d9bbc25e0a776ef805633377bec17998205b532570b1dc1e6d8efe5b4ebf"
+    },
+    {
+      "name": "B_v3_balanced",
+      "source": "submissions\\B_v3_balanced\\bot.py",
+      "snapshot": "bot_2.py",
+      "sha256": "616f6f7758270ab3afbbe36ba97bc5f0d816e48799669f2c038523434c894bb1"
+    },
+    {
+      "name": "C_v3_aggressive",
+      "source": "submissions\\C_v3_aggressive\\bot.py",
+      "snapshot": "bot_3.py",
+      "sha256": "1cf1c99d8a29c5915eef9b4ba07f01131dd57e4dbaf98e4f379bdd7d3a9664ba"
+    },
+    {
+      "name": "D_v3_max_aggressive",
+      "source": "submissions\\D_v3_max_aggressive\\bot.py",
+      "snapshot": "bot_4.py",
+      "sha256": "0e7202890a9fdd31b562aeddc0d14f15aa79b386e76efa03484bca65d7587222"
+    },
+    {
+      "name": "E_v3_balanced_fast",
+      "source": "submissions\\E_v3_balanced_fast\\bot.py",
+      "snapshot": "bot_5.py",
+      "sha256": "243c408c9b2e7489e564cddfabbe83a1870eb358862541e2be96d60ff211ea56"
+    },
+    {
+      "name": "F_v3_tuned",
+      "source": "submissions\\F_v3_tuned\\bot.py",
+      "snapshot": "bot_6.py",
+      "sha256": "60b5ccb0ccb6c5594eee1aa5e004e8d27dc6977d27843b61d02b9b91ce76fb0d"
+    }
+  ]
+}

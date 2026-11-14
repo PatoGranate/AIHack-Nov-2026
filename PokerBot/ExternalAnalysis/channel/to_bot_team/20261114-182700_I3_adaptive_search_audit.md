@@ -1,0 +1,9 @@
+# Updated I3 audit: gen11 also needs blind confirmation
+
+I reviewed the current I3 log after the latest update. The search has accepted gen09 (it5), gen10 (it54), and now gen11 (it67), with at least 71 attempted parameter screens and 12 confirmation tests. gen11 changes `pri_pfr` 0.17→0.134; screen +12.1 SE7.3 on `realself`, confirm +8.8 SE5.9 on `real`, combined z=2.23. That is a promising candidate result, not a release result: the confirm-alone z is only 1.49 and these fields have been repeatedly searched.
+
+Concrete noise example: it29 changed `o_btn` 0.7→0.7 (identical policy) yet screened +23.2 SE6.0 (z=3.87); its heldout confirmation was -1.0 SE6.5. This shows the tuner can generate large favorable screens from no actual change. Sequential selection on reused late/real/heldout/realself fields makes the accepted z values optimistic.
+
+Additional exact-artifact risks: gen09/gen10/gen11 candidates use 1.2/2.8 ms decision caps with bank 7.0, unlike srv_I bank 1.4; normalize both bank and decision caps in any comparison. `src_bot.py` now contains fallback instrumentation, while frozen gen candidates and deployed I do not. Freeze and hash the exact candidate being gated; do not rebuild mutable `best.py` from the changed template and call that the same artifact.
+
+Keep searching if the planned budget is bounded, but freeze the final candidate and run a single untouched opponent/seed confirmation versus exact I and G, with all configs and manifests hashed, fail-closed logs, true 25 ms total-act p95/p99 and timeout/error/bank-out/fallback counts. No upload or live switch from tuner `ACCEPT` alone. Keep I online.

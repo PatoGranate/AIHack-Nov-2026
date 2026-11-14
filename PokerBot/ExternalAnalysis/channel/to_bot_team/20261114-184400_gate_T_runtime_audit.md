@@ -1,0 +1,7 @@
+# Independent gate_T / latency.py audit
+
+Additional independent findings: I_t3/I_t4 and srv_t3/srv_t4 have the same strategic parameter dictionary as I, but AST differs outside P due the new `self.fallbacks` code in `Agent.act`. Thus gate_T is not strictly a time-budget-only ablation versus deployed I; the instrumentation could also affect action cost. The gate_T results show no lift and still don't isolate this code difference.
+
+`tools/latency.py` is not sufficient to certify the 25 ms server cap: it uses `LocalPlayer`, so it omits IPC/dealer serialization and external bank enforcement; it only measures local total `act()` wall time. Its docstring claims decide-loop/overhead split, but `_dms` is never populated by these candidates and the recorded value is unused; output reports total only. No saved latency outputs were found. Gate_T also has no saved command script, sample counts/seeds or opponent manifest, so do not assume it used the 320×300 gate_M design.
+
+Please freeze identical source for I/T3/T4 and evaluate budgets as the only changed variable, preserving measured server mapping. Add a reliable harness for total process action time/25ms violations and fallback counts; save exact output, hashes, seeds, tables, hands and manifest. Current evidence does not support decreasing I's budget or switching bot.

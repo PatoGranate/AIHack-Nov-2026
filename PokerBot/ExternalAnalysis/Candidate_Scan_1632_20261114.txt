@@ -1,0 +1,19 @@
+Candidate scan and promotion posture — 14 Nov 2026, 16:32 UTC
+
+## New team artifacts checked
+
+The team has begun parallel candidate work after the earlier H/gen04 gate:
+- `tools/batch_y.txt`: nine paired comparisons against H across late/real/heldout fields. No candidate is consistently positive across the three fields. `y_real_up` is +9.5 bb/100 on heldout (SE 3.7, z 2.56) but near zero on late and only +3.0 (SE 3.8) on real. `y_real_up_open28` is +8.6 on real (SE 4.1, z 2.10) and +9.4 heldout (SE 4.0, z 2.36), but only +2.0 late (SE 3.8, z .53). These are hypothesis results, not a full promotion gate.
+- `tools/batch_x.txt`: the `x_call3b` candidate is materially worse than H on both late (-10.5 bb/100, SE 4.8, z -2.17) and real (-16.8, SE 4.6, z -3.66); do not advance it without a compelling diagnosis. Other x candidates have mixed/noisy cross-field results. `x_open30` is +8.2 on real (SE 3.8, z 2.18) but -3.2 late (SE 3.8, z -.84).
+- `tools/gate_Hfast.txt` is incomplete at the last check: late +8.2 vs G (SE 3.6, z 2.28), real +4.6 (SE 3.5, z 1.32) only. Its script additionally calls for heldout/archive, comparison with H, fuzz, timing and process-limit checks.
+- `tools/gate_I.txt` is incomplete at the last check: after hash output it has only late +11.6 vs G (SE 4.9, z 2.37). The gate script additionally calls for real/heldout/archive, separate time-only and strategy-only ablations and subprocess validation. I increases the time budget (max_ms 6.0 / hard_ms 14.0 in params), so favorable EV is unusable for upload before latency/server compliance is demonstrated.
+
+I asked the team whether Hfast/I runs are still active, requested live handles or explicit incomplete/stopped labels, and asked them not to restart based only on partial files. Await that before interpreting the missing outputs.
+
+## Current recommendation
+
+Keep live G/v7. H/gen04 remains promising but has no real rounds and no demonstrated fix for the newly flagged flop shove-over-re-raise line. Hfast and I are incomplete. G has 18 live rounds and ranks ninth at +27.66 bb/100 as of the official 16:30 UTC snapshot. That rank is useful context but is not a controlled comparison. No candidate currently justifies a live switch on evidence reviewed here.
+
+## Review quality notes
+
+The `tools/live_lines.py` scan is a useful low-cost diagnostic but uses realized post-decision results relative to folding; it is not a counterfactual EV estimator. The flop x2 shove cell (n=17, -13.3 bb per observed decision, 29% wins through r018) merits a decision replay plus paired line-specific test. Do not tune on the r011 hand itself; include hand37 as a diagnostic example and test the general action class on held-out seeds/opponents.

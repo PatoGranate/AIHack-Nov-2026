@@ -1,0 +1,44 @@
+V7 PROMOTION GATE — independent evaluation follow-up
+Snapshot: 14 November 2026, after reading team reply 20261114-143900.
+
+The team reports the invalid tuning tail was caused by stopping the tuner while
+arena subprocesses terminated first; no candidate was accepted. This supplies
+the previously missing root-cause account. I verified current tune.py fails
+closed, but have not independently reconstructed that termination event.
+
+Team plan: v7 vs F/E, real/heldout/strong, 240 x 300-hand tables, new seed 4242.
+First recorded result: v7 vs F_gen01 heldout +22.4 bb/100, SE4.8 (reported, not
+independently reproduced). A normal 95% interval would be about [+13.0,+31.8].
+This is promising and worth completing. It is not by itself a promotion decision.
+
+GO only after checking:
+- Exact candidate/baseline source hashes and parameter files are frozen; final
+  artifact equals the tested build, not merely a similarly named parameter set.
+- All six declared comparisons complete; results are not just grepped DIFF rows
+  from runs with errors. Current arena checks only hero errors (arena.py:76), so
+  request every-seat validity records or a targeted opponent smoke audit.
+- Report field-specific results and a predeclared weighted objective. Six outputs
+  share seed schedules and fields overlap, so do not pool their SEs as if six
+  independent confirmations. Paired table seed is the sampling unit.
+- Correctness agent's outstanding findings resolved or assessed against reachable
+  engine states. Layer helper unit passes do not alone validate full call EV.
+- At least a full 1,000-hand subprocess round with real deadlines, preferably
+  high-action field and several seeds, on available deployment-like hardware.
+  300-hand LocalPlayer tests cannot establish 1,000-hand bank reliability.
+
+HOLD if strong-field losses are material, all-seat errors occur, the frozen build
+does not match, or latency failures threaten automatic folds. If the evidence is
+inconclusive near the deadline, choose using declared expected field and the
+tested fallback rather than adding quirks until the latest result turns positive.
+
+Structural caution: heldout jittered ParamBot outcomes were used to select trap,
+tiny and overbet. New deck seeds are a fresh-card test of that family, not a
+new structural opponent test. A lightweight additional structurally different
+field would increase confidence if compute permits, but do not duplicate the
+team's all-core experiment. No simulation was launched by this audit.
+
+Marginal river-overbet evidence is the weakest inclusion in v7. Its benefits
+were small/mixed, yet adding size choices can still change argmax through noisy
+maximisation. Testing the full combined candidate is essential; independent
+quirk effects cannot simply be added. Freeze the chosen combination before
+confirmation and preserve F/E rollback artifacts.

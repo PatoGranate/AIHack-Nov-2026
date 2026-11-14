@@ -1,0 +1,244 @@
+EXTERNAL STRATEGY REVIEW — PokerBot
+Review date: 14 November 2026
+Purpose: increase expected chips won per hand, measured in bb/100.
+Companion research: Algorithm_Research_and_Training_Plan.txt contains online
+primary-source research and a staged MCCFR/blueprint training recommendation.
+Status: source review and descriptive recorded-hand checks completed.
+
+SCOPE AND EVIDENCE
+
+Reviewed tools/src_bot.py, parameters, kit/bot.py, submission variants, engine
+betting/runner code, arena/bench/tune tools, tuning logs and opponent clones.
+This is an advisory review. No playing strategy or submission was modified.
+Recommendations below are hypotheses about improving realised winnings unless
+explicitly identified as mathematical or implementation defects. No new A/B
+win-rate experiment was run, and no numerical uplift is promised.
+
+The actual kit/bot.py differs materially from the submission README's description:
+its base BTN/SB/CO opening cutoffs are .85/.75/.60, open_size is 4 BB,
+bet_sizes are [.75, 1.2, 2.0], shove_spr is 8, bet_margin is -.06 and
+raise_margin is -.03. Treat the current file as its own candidate; do not assume
+the README's historical results apply to it. tools/src_bot.py is a build template,
+not a standalone bot, and params_base.py is not the current production parameter set.
+
+EXECUTIVE ASSESSMENT
+
+The bot has a useful foundation: quick hand evaluation, precomputed preflop
+equity, persistent opponent statistics, card removal, weighted Monte Carlo and
+legal-action sanitisation. Exploiting weak, overfolding opponents can justify
+aggression. The biggest next gains are likely to come from correcting the value
+model and measuring its predictions, before searching more parameter combinations.
+Current tuning can compensate for model errors rather than remove them.
+
+PRIORITY 1 — FIX THE SET OF PLAYERS CONTESTING EACH SIMULATED POT
+
+Evidence: simulate(), postflop() in tools/src_bot.py and kit/bot.py.
+
+simulate() evaluates hero against every sampled opponent, then computes the
+probability that all opponents fold. For the 'called' result it reweights the
+same all-opponent showdown share by the probability that someone continues.
+It does not remove individual folders from the showdown comparison. Consequently
+eq_when_called is not the equity against the players who actually call.
+
+Example: hero beats a caller but loses to a player who would fold. The simulated
+called branch can still count hero as losing. This can suppress profitable value
+bets and distort bluffs. Meanwhile postflop() assumes one matching contribution:
+pot + 2*add for an unopposed bet, or pot + add + (R-cur) for a raise.
+With multiple callers the extra money differs; with short stacks it differs again.
+An all-in opponent is correctly assigned zero fold probability but can still be
+implicitly treated as contributing new money in this approximation.
+
+Suggested implementation: for each sampled deal and candidate size, sample each
+opponent's response, compare only continuing hands, and calculate incremental
+contributions capped by remaining stacks. Account for existing street bets and
+pot eligibility. Sampled response subsets are an economical alternative to
+enumerating all subsets; use shared random draws across candidate sizes to reduce
+comparison noise. Initially permit call/fold responses, then add raise responses.
+
+Separately, postflop() truncates models to models[:4], in seat order. In a large
+multiway pot this ignores real opponents, potentially including the bettor, and
+also computes position against only that subset. Include all live opponents;
+reduce sample count or use a documented conservative fallback if necessary.
+
+Verification: compare deterministic heads-up and three-way river scenarios with
+hand-calculated EV. Cover one caller/one folder, two callers, an existing all-in,
+short calls, split pots, and a bettor beyond the first four live seats. Establish
+correctness before estimating whether the change improves field win rate.
+
+PRIORITY 2 — REMOVE ORDER-DEPENDENT ACTION DEGRADATION
+
+Evidence: postflop() candidate loops; current negative bet_margin/raise_margin.
+
+The loop updates best_ev when ev > best_ev + margin*pot. With a negative margin,
+a worse candidate can replace a better one. Example: pot=100, best_ev=40,
+margin=-.06: a candidate worth 35 passes 35 > 34. Repeated candidates can ratchet
+the selected value downward. The result depends on candidate enumeration order.
+A raise can even replace folding with negative estimated EV when the comparison
+starts at zero and raise_margin is negative.
+
+Choose the actual argmax of adjusted action values. If intentional aggression
+is desired, add an explicit, calibrated bonus to each action, then compare those
+scores strictly; keep the unadjusted EV for diagnostics. Apply any confidence or
+switching threshold relative to a fixed baseline, not repeatedly to the latest
+candidate. First test zero margins and reversed size ordering as an ablation.
+
+PRIORITY 3 — PRICE PREFLOP DECISIONS AS DECISIONS, NOT EQUITY THRESHOLDS
+
+Evidence: preflop(), pf_range(), eq_vs_range().
+
+The three/four-bet decision uses equity thresholds, then often shoves when there
+are already two raises or target size exceeds 35% of stack. Equity against a
+raiser's current range is not the same as equity against their shove-calling
+range. Fold equity, amount risked, cold callers and subsequent raises matter.
+
+Use action-specific EV for fold/call/three-bet/shove, with conditional continuing
+ranges and effective stack sizes. Separate open raises, isolation raises,
+three-bets and four-bets by position and sizing. A single cumulative 'top X%'
+range cannot describe both suited calling hands and polarised three-bets well.
+pf_range returns a low/high interval, but preflop equity only uses hi. This loses
+the excluded premium portion if interval ranges are used in future call modelling.
+
+The current IP realisation multiplier is 1.1 and premium hands force it to 1.0.
+Realisation above one can represent future implied winnings, but multiplying only
+the current pot is not an explicit future betting model and may overvalue calls.
+Validate call profitability separately by position, raise size and hand family;
+include reverse implied odds and players still to act. Do not globally tighten
+everything just because individual large pots were lost.
+
+PRIORITY 4 — CONDITION RANGES ON WHAT HAPPENED AND WHEN
+
+Evidence: opp_models() counts aggression/calls across previous postflop streets,
+then applies weights using strength on the current board.
+
+A flop bet and turn check remain evidence of aggression, but current logic can
+interpret them like a fresh turn bet. Two routine barrels and a check-raise can
+also enter the same strong-range branch. It does not score the actual earlier
+board on which the opponent chose an action. Checks, sizing, position, number of
+opponents and straight draws receive little or no specific treatment.
+
+Maintain approximate combo weights sequentially: preflop prior -> likelihood of
+each observed action on that street's board -> card removal -> next action.
+Use a few board/draw categories and cached features to fit the time budget.
+Distinguish top pair, overpair, board-only pair, strong/weak draws and blockers.
+Check suit symmetry and board-only made-hand cases in strength classification.
+Likelihoods should distinguish ordinary bets, raises, check-raises and river
+overbets, with shrinkage when observations are scarce.
+
+The product of opponent likelihood weights is floored at .01 in simulate().
+That deliberately inflates highly unlikely multiway deals. Track effective
+sample size, (sum weights)^2 / sum squared weights. Prefer better proposals or
+normalised per-opponent sampling over a joint weight floor. After 12 failed
+range draws the sampler falls back to unrestricted cards, also leaking hands
+outside the assumed range. Cache legal combos or retry from valid range lists.
+
+PRIORITY 5 — LEARN CONDITIONAL RESPONSE RATES
+
+Evidence: Stats/_learn/ftb/af, fixed 12-hand and 8-opportunity prior strengths.
+
+Fold-to-bet combines streets, bet sizes and situations. A player who folds to
+small flop bets may still call large river bets very selectively. VPIP/PFR over
+all positions similarly confounds a tight early opener with a wide button steal.
+f3 counts responses after any raise, rather than only fold-to-three-bet
+opportunities; avoid using that counter as a genuine fold-to-three-bet statistic.
+big is a count of large raises per hand, not necessarily a hand-level shove rate.
+
+Use opportunity-specific counts: opening by position, facing an open versus a
+three-bet, postflop response by street and coarse size, and response after prior
+aggression. Start with a small number of buckets and hierarchical shrinkage to
+table/global priors. Keep uncertainty as well as a mean. Reduce exploit size when
+the estimate rests on a handful of opportunities. Separate all-in aggression
+from ordinary large raises and express thresholds in BB/effective-stack units.
+
+Use revealed cards to check range predictions, but do not treat showdown hands
+as an unbiased sample of all hands: reaching showdown depends on hand strength
+and both players' decisions. sdwin is currently unused; raw showdown statistics
+alone will not identify profitable bluff frequencies.
+
+PRIORITY 6 — SPEND COMPUTE WHERE THE ACTION CAN CHANGE
+
+The simulation always runs at least 24 samples, even when budget is exhausted;
+budget checks happen only after batches. Close decisions can be driven by noise,
+while obvious decisions consume similar minimum work. Effective weighted sample
+size can be substantially lower than raw simulation count.
+
+Use a cheap initial pass and refine only competing actions whose value gap is
+small relative to simulation error and pot size. Keep common deals across sizes.
+Use exact or cached river evaluation where affordable, and deadline-aware batch
+sizes. Measure p99/p99.9 latency and complete-round bank use under the subprocess
+runner, including 5,000-hand finals and high-action tables. A LocalPlayer result
+does not enforce tournament timeouts or time-bank exhaustion. Silent exceptions
+inside act/_learn can look like strategic folding; instrument them in offline
+debug runs, while preserving a safe deployment fallback.
+
+EVALUATION CHANGES REQUIRED BEFORE PROMOTING A NEW BOT
+
+1. Freeze file hashes, parameters, interpreter, seeds and field configuration
+   for every comparison. Record actual deployed version per downloaded round.
+   Resolve the README/current-file mismatch before attributing results.
+2. Preserve arena.py's paired table design. The reset-stack engine shuffles a
+   fresh deck each hand and deals seats before actions, so the engine supports
+   matching cards across the paired runs. Bot RNGs are not explicitly seeded,
+   and simulations stop by elapsed time, so full action reproducibility is not
+   guaranteed. Use controlled bot RNGs and fixed simulation counts for diagnostic
+   reproducibility, then separately validate realistic elapsed-time operation.
+3. The 'real' opponents are ParamBot clones inferred from observed aggregate
+   statistics, not the actual competitors' strategies. Test several plausible
+   clones per opponent, held-out archetypes, and strong/self-play fields. Report
+   each field separately and use an explicit intended-field weighting.
+4. Avoid selecting winners from repeated exploratory z>2 searches. tune.py
+   screens and confirms across many adaptive trials, so the resulting z-score
+   is not a clean confirmatory claim. Reserve untouched seeds/fields for a final
+   fixed comparison. Use table/round-level uncertainty; do not treat every
+   correlated action as an independent observation.
+5. arena.run appends error tuples into the same list as chip outcomes. An error
+   after candidate play shifts out[1] away from the baseline chip result and can
+   break parsing. Return a structured result with separate chip/error fields;
+   fail evaluation clearly on invalid runs. Benchmark missing replies and hidden
+   fallbacks as well as surfaced exceptions.
+6. Evaluate under the real subprocess limits after fast in-process screening.
+   Include no-limit, pot-limit and fixed-limit/capped structures when relevant.
+   Legal amount clamping does not make a no-limit strategy appropriate to fixed
+   limit; deduplicate sizes AFTER clamping and condition strategic thresholds.
+7. Add diagnostic aggregates: EV/action, predicted versus observed fold rates,
+   call outcomes by street and size, multiway player count, position, pot-size
+   band, and timeouts. Use outcomes to find calibration problems; realised losses
+   alone do not prove a particular decision was wrong.
+
+PROPOSED TEAM WORK ORDER
+
+First: fix action argmax and caller-subset/pot accounting; remove opponent
+truncation; verify on small exact scenarios. Keep each as an independent change.
+Second: run paired comparisons with frozen seeds and fields, followed by an
+untouched confirmation and a full subprocess timing check.
+Third: improve conditional opponent estimates and sequential range updates.
+Fourth: retune opening ranges, bet sizes and aggression after those corrections.
+Use measured field-weighted bb/100, uncertainty and runtime reliability to choose
+the deployed version. The current evidence does not establish a universal best
+submission or justify an unconditional 'more aggressive wins more' conclusion.
+
+RECORDED-HAND CHECK (LOCAL FILE SNAPSHOT)
+
+Parsed WBot's actual chip results and preflop actions with PowerShell, using
+round ref as the identity. Duplicate copies exist across Hand_data, kit/hands
+and the top-level r1v1.json; do not count them as independent observations.
+Files were changing during review: Hand_data/r1v3.json appeared in the later
+inventory. These numbers describe the available snapshot, not a frozen dataset.
+
+Round ref                 Hands    Chips    bb/100    VPIP     PFR
+saturday/practice/r010    1,000    +5,224     +26.12   .172    .096
+saturday/practice/r011    1,000   +28,719    +143.60   .219    .129
+saturday/practice/r012    1,000   -22,796    -113.98   .147    .082
+saturday/practice/r013    1,000   +25,136    +125.68   .433    .239
+saturday/practice/r014    1,000    -6,908     -34.54   .477    .318
+saturday/practice/r015    1,000    -3,314     -16.57   .304    .228
+
+Total across these six distinct rounds: +26,061 chips / 6,000 hands =
++21.72 bb/100. This is descriptive, not an estimate of the current bot's edge:
+opponents and likely submitted versions differ. Large positive and negative
+rounds occur at both lower and higher participation rates. These data do not
+isolate a causal advantage from increasing aggression. Add a deployment
+manifest before joining rounds to bot variants or tuning parameters.
+
+Validation limits: the default python executable was inaccessible in this
+environment, so no Python simulation was executed. Hand aggregates above were
+computed directly from JSON, and source findings were checked against the engine.

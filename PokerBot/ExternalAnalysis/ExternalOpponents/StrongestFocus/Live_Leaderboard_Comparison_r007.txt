@@ -1,0 +1,64 @@
+LIVE LEADERBOARD RECONCILIATION AFTER R006/R007
+14 November 2026
+
+The screenshot supplied by the user gives seven counted rounds / 7,000 hands
+for every listed bot. It is the broader performance source; the local hand
+sample covers selected tables, except WBot now has all seven own rounds.
+Practice results are excluded from every local value in the comparison below.
+Screenshot values are transcribed observations, not independently queried online.
+
+Name | Screenshot bb/100 over 7k | Local live bb/100 | Local coverage | Missing rounds
+Gherkers | +86.0 | +110.61 | 3,000 hands / 3 rounds | 4
+Attention Is All In | +62.8 | +37.07 | 3,000 hands / 3 rounds | 4
+AAST | +51.0 | +41.66 | 4,000 hands / 4 rounds | 3
+Equity Engine | +40.8 | +21.50 | 1,000 hands / 1 rounds | 6
+WBot | +35.4 | +35.42 | 7,000 hands / 7 rounds | 0
+
+WBot: local +35.4207 rounds to screenshot +35.4, a useful reconciliation check.
+The other differences are NOT discrepancies proven in the leaderboard: their
+local coverage is incomplete and selected by available table perspectives.
+Do not average the screenshot rate with the overlapping local rate or mix in
+practice hands. Do not replace +86/+62.8/+51/+40.8 with incomplete local averages.
+Gherkers +86 updates the earlier approximate +85 claim; neither is contradicted
+by a different selected-table average. No universal skill change is inferred.
+
+Current inventory: 60 files -> 31 unique table-rounds / 31,000 hands; 29 duplicate perspectives; 0 public-hash conflicts.
+R006 WBot and kaiserbot are the SAME ordered-roster table, counted once.
+Other equal round refs with different ordered rosters remain distinct tables.
+Full public-history and file hashes remain in Target_Profiles.json.
+
+NEW TARGET EXPOSURES
+Gherkers
+  saturday/r007: 1000 hands, +87.570 bb/100; VPIP 323/1000=32.3%, PFR 271/1000=27.1%.
+  Single-open defence: folds 392/493; opener vs three-bet folds 24/88, calls 58, raises 6.
+  Live VPIP 500/2000 (25.0%) -> 823/3000 (27.4%); PFR 388/2000 (19.4%) -> 659/3000 (22.0%).
+  Live opener folds vs three-bet 20/75 (26.7%) -> 44/163 (27.0%).
+  Updated opener-fold Wilson95 [20.8%,34.3%]; opportunity clusters and changing contexts still matter.
+Attention Is All In
+  saturday/r007: 1000 hands, -6.135 bb/100; VPIP 251/1000=25.1%, PFR 164/1000=16.4%.
+  Single-open defence: folds 338/487; opener vs three-bet folds 32/41, calls 9, raises 0.
+  Live VPIP 519/2000 (25.9%) -> 770/3000 (25.7%); PFR 358/2000 (17.9%) -> 522/3000 (17.4%).
+  Live opener folds vs three-bet 64/85 (75.3%) -> 96/126 (76.2%).
+  Updated opener-fold Wilson95 [68.0%,82.8%]; opportunity clusters and changing contexts still matter.
+AAST
+  No new r006/r007 local exposure. Existing target estimates unchanged.
+  Live VPIP 770/4000 (19.2%) -> 770/4000 (19.2%); PFR 497/4000 (12.4%) -> 497/4000 (12.4%).
+  Live opener folds vs three-bet 52/102 (51.0%) -> 52/102 (51.0%).
+  Updated opener-fold Wilson95 [41.4%,60.5%]; opportunity clusters and changing contexts still matter.
+
+TRAINING PRIORITIES AND V7
+The new selected rounds refine target profiles; they do not warrant replacing
+the v7 policy from unlike-table profit comparisons. Preserve frozen v7,
+its promotion evidence and rollback baseline. No direct v7-versus-target
+counterfactual performance can be inferred from target net results alone.
+Gherkers remains a selective live opener with meaningful call/four-bet defence;
+keep it structurally separate from blind overfolders and aggressive practice variants.
+Attention needs conditional opener-defence and street/size models, not one global
+fold rate. Preserve fresh held-out confirmation before enabling targeted exploits.
+AAST received no new exposure, so retain its tight preflop / active postflop
+raising archetype with uncertainty. The screenshot validates its broad strong
+standing, not a particular inferred mechanism.
+Use new public action counts as additional training-data candidates, holding out
+later rounds to assess calibration. Do not train and test on the same r007 responses.
+Full practice/live action profiles and Wilson intervals are in Strongest_Bots_Review.txt;
+the before-r006/r007 report/JSON are preserved for audit. All reports are UTF-8.

@@ -1,0 +1,3 @@
+# Reviewer status check
+
+I cannot verify recent team activity from shared files: latest gate/tuner artifacts are from 18:57, latest no-jam candidate is from 19:12, last reviewer-channel reply is from 18:22, and local Saturday hands stop at r046. Please send a short concrete status: (1) whether N has actually gone live and the first confirmed round/version, (2) whether the c-bet attribution issue in 	ools/analyze.py / 	ools/review/build_review_data.py is fixed or assigned, and (3) which no-jam pilot result you will use to continue or stop that experiment. Please identify active work and next evidence; no new broad simulation is requested.

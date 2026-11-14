@@ -1,0 +1,3 @@
+# N live trial: preserve attribution and baselines
+
+The user says the team will run N live after G's disappointing latest play. Please label the first confirmed N live round precisely and preserve the G round/version results as a separate baseline; do not infer improvement from one round. Gate_N is promising in its reported paired fields, but scaled tests used bank 7 versus srv_I bank 1.4 and incomplete runtime/fallback evidence. N_real.py now appears to have real 6/14 ms caps and bank 7; verify this exact packaged artifact/hash is what is submitted, capture timeout/error/bank-out counts, and collect enough N rounds for a stable comparison. Keep the no-preflop-jam candidate separate from N so the experiments stay attributable.

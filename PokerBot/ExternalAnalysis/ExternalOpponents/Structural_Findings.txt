@@ -1,0 +1,111 @@
+EXTERNAL OPPONENTS: STRUCTURAL FINDINGS
+14 November 2026
+
+SCOPE AND DEDUPLICATION
+New other-table data: 5 files, 5,000 table hands, 21 distinct names, 6/7/8-seat tables.
+Combined with 7 own-table files: 11 unique table-rounds / 11,000 table hands /
+29 names. Dedup key is (round ref, ordered player roster), not round ref alone.
+External r015 and own r1v3 are the same table from different perspectives:
+identical public events/results, counted once globally. No public conflicts.
+Source subgroups intentionally overlap on that shared table; do not sum their
+exposures. This report labels external-only versus combined estimates explicitly.
+Pot reconstruction: raises total-to, calls/posts incremental, refunds subtract.
+All 11,000 pots reconcile to awards; no negative/overstack contributions or
+nonzero-sum chip results. 8,321 refunds processed. No hidden cards were used.
+
+1. GENERAL FOLD-TO-OPEN IS NOT OPENER FOLD-TO-THREEBET
+This is directly visible in public actions. The combined estimates use historical
+own + external observations; external-only estimates isolate the new 5 files.
+
+Durahim 1453
+  External only: 1000 hands; fold vs single open 517/589 = 87.8% (Wilson95 84.9%..90.2%); opener fold vs three-bet 14/63 = 22.2% (Wilson95 13.7%..33.9%)
+  Combined unique tables: 1000 hands; fold vs single open 517/589 = 87.8% (Wilson95 84.9%..90.2%); opener fold vs three-bet 14/63 = 22.2% (Wilson95 13.7%..33.9%)
+
+Claudebot
+  External only: 1000 hands; fold vs single open 415/477 = 87.0% (Wilson95 83.7%..89.7%); opener fold vs three-bet 9/11 = 81.8% (Wilson95 52.3%..94.9%)
+  Combined unique tables: 2000 hands; fold vs single open 738/869 = 84.9% (Wilson95 82.4%..87.2%); opener fold vs three-bet 15/34 = 44.1% (Wilson95 28.9%..60.5%)
+
+FisherMen
+  External only: 2000 hands; fold vs single open 790/955 = 82.7% (Wilson95 80.2%..85.0%); opener fold vs three-bet 0/13 = 0.0% (Wilson95 0.0%..22.8%)
+  Combined unique tables: 4000 hands; fold vs single open 1799/2206 = 81.6% (Wilson95 79.9%..83.1%); opener fold vs three-bet 0/27 = 0.0% (Wilson95 0.0%..12.5%)
+
+Lehman Brothers
+  External only: 2000 hands; fold vs single open 686/1217 = 56.4% (Wilson95 53.6%..59.1%); opener fold vs three-bet 0/108 = 0.0% (Wilson95 0.0%..3.4%)
+  Combined unique tables: 3000 hands; fold vs single open 1194/1995 = 59.8% (Wilson95 57.7%..62.0%); opener fold vs three-bet 0/164 = 0.0% (Wilson95 0.0%..2.3%)
+
+Attention Is All In
+  External only: 1000 hands; fold vs single open 329/420 = 78.3% (Wilson95 74.1%..82.0%); opener fold vs three-bet 16/19 = 84.2% (Wilson95 62.4%..94.5%)
+  Combined unique tables: 3000 hands; fold vs single open 924/1212 = 76.2% (Wilson95 73.8%..78.5%); opener fold vs three-bet 58/74 = 78.4% (Wilson95 67.7%..86.2%)
+
+gamblerlove
+  External only: 1000 hands; fold vs single open 336/382 = 88.0% (Wilson95 84.3%..90.8%); opener fold vs three-bet 42/45 = 93.3% (Wilson95 82.1%..97.7%)
+  Combined unique tables: 2000 hands; fold vs single open 752/837 = 89.8% (Wilson95 87.6%..91.7%); opener fold vs three-bet 53/57 = 93.0% (Wilson95 83.3%..97.2%)
+
+YSL_TWIZZY
+  External only: 2000 hands; fold vs single open 628/757 = 83.0% (Wilson95 80.1%..85.5%); opener fold vs three-bet 21/28 = 75.0% (Wilson95 56.6%..87.3%)
+  Combined unique tables: 5000 hands; fold vs single open 1499/1777 = 84.4% (Wilson95 82.6%..86.0%); opener fold vs three-bet 96/126 = 76.2% (Wilson95 68.0%..82.8%)
+
+Clone recommendation: preserve opportunity conditioning. Durahim can be highly
+selective against opens while strongly defending hands it opens. FisherMen and
+Lehman exhibit the same general issue. A single generic fold threshold cannot
+faithfully represent both situations. Split cold/limp defence from opener defence
+and retain sample-aware priors. These rates do not reveal unseen holding ranges.
+
+2. OVERBET FOLD RESPONSE HAS LITTLE GENERAL SUPPORT
+External-only heads-up river, first bet >1 pot:
+  Chinese people can fly: 0/2 = 0.0% (Wilson95 0.0%..65.8%); calls=2, raises=0
+  Durahim 1453: 0/1 = 0.0% (Wilson95 0.0%..79.3%); calls=1, raises=0
+  Equity Engine: 2/2 = 100.0% (Wilson95 34.2%..100.0%); calls=0, raises=0
+  FisherMen: 0/1 = 0.0% (Wilson95 0.0%..79.3%); calls=1, raises=0
+  GamesGone: 3/5 = 60.0% (Wilson95 23.1%..88.2%); calls=2, raises=0
+  Lehman Brothers: 0/17 = 0.0% (Wilson95 0.0%..18.4%); calls=17, raises=0
+  Mohil'sPokerBot: 2/2 = 100.0% (Wilson95 34.2%..100.0%); calls=0, raises=0
+  The Market Makers: 1/1 = 100.0% (Wilson95 20.7%..100.0%); calls=0, raises=0
+  YSL_TWIZZY: 1/2 = 50.0% (Wilson95 9.5%..90.5%); calls=1, raises=0
+  bigRoddy: 0/1 = 0.0% (Wilson95 0.0%..79.3%); calls=1, raises=0
+  kaiserbot: 2/6 = 33.3% (Wilson95 9.7%..70.0%); calls=4, raises=0
+Most cells have 1-6 opportunities. Lehman Brothers has 0 folds in 17,
+which supports a low-fold response hypothesis for that historical exposure,
+not a field-wide overbet rule. The mean of player percentages would overweight
+tiny cells. Do not infer complete size curves or make universal overbet claims.
+
+3. TINY BETS: OBSERVE CALL/RAISE RESPONSE, NOT JUST FOLD RATE
+External-only heads-up flop, first bet <=0.33 pot:
+  Mohil'sPokerBot: 8/47 = 17.0% (Wilson95 8.9%..30.1%); calls=33, raises=6
+  Lehman Brothers: 19/31 = 61.3% (Wilson95 43.8%..76.3%); calls=12, raises=0
+  Phil AIvey: 2/16 = 12.5% (Wilson95 3.5%..36.0%); calls=13, raises=1
+  kaiserbot: 2/16 = 12.5% (Wilson95 3.5%..36.0%); calls=13, raises=1
+  Claudebot: 0/6 = 0.0% (Wilson95 0.0%..39.0%); calls=6, raises=0
+Low folds to small bets can support thin value while undermining air bluffs.
+Category/range composition and chosen-bet selection confound this inference.
+Add opponents with small-bet raises and size-insensitive calls, not only jittered
+ParamBot thresholds. Full per-street/size HU/multiway counts are in profiles.json.
+
+4. HISTORICAL MIX AND ROUND DRIFT
+Same display name need not mean unchanged policy across practice rounds. WBot
+definitely represents multiple versions. Field composition can also cause drift.
+The following external-only histories show >=15 percentage-point VPIP range or
+>=12 percentage-point PFR range; these are behavioural changes, not causal proof
+of code changes:
+  None cross those descriptive thresholds in the external-only subset.
+Largest external-only VPIP spreads below/alongside that screen:
+  FisherMen: r015 VPIP 45.5%, PFR 6.1%; r016 VPIP 32.7%, PFR 5.9%
+  Mohil'sPokerBot: r015 VPIP 36.6%, PFR 29.5%; r016 VPIP 46.1%, PFR 41.3%
+  kaiserbot: r013 VPIP 23.8%, PFR 12.8%; r014 VPIP 26.4%, PFR 13.4%; r015 VPIP 17.7%, PFR 11.1%; r016 VPIP 19.3%, PFR 10.6%; r017 VPIP 17.1%, PFR 10.2%
+WBot combined version history (do not treat as one stable opponent):
+  r015: VPIP 30.4%; PFR 22.8%; -16.6 bb/100
+  r012: VPIP 14.7%; PFR 8.2%; -114.0 bb/100
+  r013: VPIP 43.3%; PFR 23.9%; +125.7 bb/100
+  r017: VPIP 43.3%; PFR 35.8%; -150.7 bb/100
+  r011: VPIP 21.9%; PFR 12.9%; +143.6 bb/100
+  r016: VPIP 27.3%; PFR 18.1%; +32.0 bb/100
+  r010: VPIP 17.2%; PFR 9.6%; +26.1 bb/100
+
+LIMITS
+Wilson intervals describe opportunity counts and do not model table/hand clustering.
+Profit figures are descriptive, with different table fields and policy versions.
+No net-winnings ranking establishes universal skill; no counterfactual responses
+to unchosen sizes can be recovered from these public histories. First-bet response
+buckets exclude facing later raises and distinguish heads-up from multiway.
+All-position RFI denominators mean no earlier raise OR limper; opening/isolating
+over limpers is a separate context, not silently counted as a clean open.

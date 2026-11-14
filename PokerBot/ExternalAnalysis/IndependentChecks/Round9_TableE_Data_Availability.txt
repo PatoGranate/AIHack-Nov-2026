@@ -1,0 +1,61 @@
+ROUND 9 / TABLE E LOSS AUDIT: DATA AVAILABILITY
+SUPERSEDED: r008/r009 and then r010 raw hands arrived during this review.
+See Round9TableE/Round9_Audit.txt, Round10Audit/Round10_Audit.txt and
+R009_R010_Comparison.txt for the completed evidence and reconciliation.
+Independent filesystem check, 14 November 2026, approximately 15:46 London.
+
+REQUESTED OBSERVATION
+User cites round 9, table E, -81.6 bb/100. This check does not independently
+verify the table identity, score, deployed version, or hand count from a result
+artifact. The citation is the observation to investigate, not yet a local record.
+
+WHAT WAS SEARCHED
+- Recursive filenames and matching content under the shared PokerBot workspace.
+- Hand_data/SaturdayRealRounds and both ExternalTeamData counted-round trees.
+- Hand_data/_fetched, kit/hands, cached result summaries, analysis reports and
+  team channel files for saturday/r009, round 9, table E and the cited score.
+
+FINDING
+No raw saturday/r009 or saturday/r008 hand file was present in this snapshot.
+The own-team, kaiserbot and Red archives stop at r007. kit/hands/_results.json
+is older still, containing counted rounds only through r004. The only matching
+round-9/Table-E text found was the newly sent team postmortem request, not a
+result response or hand history.
+
+MISSING EVIDENCE
+1. The round's authenticated result record: ref, displayed/numeric table identity,
+   seat, team, hands, chips, bb100 and uploaded version/validation hash.
+2. That table's complete raw hand events/results with hero cards and available
+   showdowns, not just an aggregate screenshot. A different team's perspective
+   from the same ordered roster can corroborate public actions but cannot replace
+   hero cards if the hero's cards are not visible there.
+3. Runtime diagnostics: timeouts, errors, bank_out, think_s and any error sample.
+   Aggregate timeout counts alone do not identify which hand auto-folded.
+
+ARTIFACT/FETCH ROUTE ALREADY IN THE PROJECT
+kit/fetch_hands.py implements GET /api/poker/results followed by
+GET /api/poker/hands?ref=saturday%2Fr009 at https://imperialaihack.com, authenticated
+with the own team's existing bearer token. It saves round metadata and team into
+the downloaded hand JSON, with UTF-8 encoding. The results metadata supplies
+table/seat/version and runtime diagnostics. Use the established working fetch
+configuration; no credentials are recorded here. Do not infer a numeric table
+index from letter E without checking the site's mapping/result record.
+
+If 1,000 hands and 20-chip blinds apply, -81.6 bb/100 corresponds approximately
+to -16,320 net chips, subject to displayed rounding. This is only a consistency
+check after retrieving the actual record, not independent verification.
+
+WHAT CANNOT YET BE CONCLUDED
+There is no evidence here to apportion the loss among bad runouts, large-pots,
+opponent exploitation, systematic strategy errors or missed deadlines. It would
+be premature to call it variance or to promote a new candidate in response.
+
+ON ARRIVAL OF THE CORRECT TABLE
+Deduplicate by ref plus ordered roster and public-history hash. Reconcile every
+pot/refund/result; then report largest losing and winning hands, top-5/top-10 loss
+concentration, position and action-line segments, showdown/non-showdown outcome,
+opponent exposures, all-in commitments and available runtime incidents. Examine
+decisions using information available at the time; a losing showdown alone does
+not prove a bad decision, and folded hidden cards remain unknown. Preserve v7
+and existing promotion evidence until this analysis supplies a concrete reason
+for a change. No playing source, process or deployment was modified.

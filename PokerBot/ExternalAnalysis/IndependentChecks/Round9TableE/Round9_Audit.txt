@@ -1,0 +1,108 @@
+ROUND 9 WBot RAW-HAND AUDIT
+
+Verified ref saturday/r009; WBot seat 5; 1000 hands; net -16,329 chips = -81.645 bb/100 (rounds to -81.6).
+Roster: supernut, FisherMen, bigRoddy, Kojack, Joca, WBot, Astra La Vista, ND
+Round metadata/table letter/uploaded version/timeouts are absent from this hand JSON.
+Thus the score and ref are independently matched; displayed table letter and version need result metadata.
+
+Gross wins 33,701; gross losses 50,030; 191 winning / 301 losing / 508 zero-result hands.
+Full-stack losses: 11. Top5 losses 10,000 (20.0% of gross losses); top10 20,000 (40.0%).
+Losses as a proportion of NET loss are not a useful concentration statistic because wins offset losses.
+
+SEGMENTS (descriptive net chips, not causal attribution)
+allin:False: 969 hands, net -11,506; gross loss 28,030, gross win 16,524
+allin:True: 31 hands, net -4,823; gross loss 22,000, gross win 17,177
+finalRisk:WBot full stack: 21 hands, net -7,865; gross loss 22,000, gross win 14,135
+finalRisk:neither: 924 hands, net -7,974; gross loss 27,540, gross win 19,566
+finalRisk:opponent-only full stack: 55 hands, net -490; gross loss 490, gross win 0
+position:BB: 125 hands, net +1,325; gross loss 5,636, gross win 6,961
+position:BTN: 125 hands, net -3,334; gross loss 6,605, gross win 3,271
+position:CO: 125 hands, net -4,887; gross loss 7,676, gross win 2,789
+position:HJ: 125 hands, net +719; gross loss 3,784, gross win 4,503
+position:MP: 125 hands, net -1,386; gross loss 6,627, gross win 5,241
+position:SB: 125 hands, net -2,239; gross loss 4,151, gross win 1,912
+position:UTG: 125 hands, net -5,268; gross loss 9,858, gross win 4,590
+position:UTG+1: 125 hands, net -1,259; gross loss 5,693, gross win 4,434
+preflop:call initial open: 62 hands, net +322; gross loss 8,226, gross win 8,548
+preflop:fold preflop: 730 hands, net -7,223; gross loss 7,223, gross win 0
+preflop:hero reraise: 20 hands, net -139; gross loss 2,000, gross win 1,861
+preflop:limp/check other: 11 hands, net +40; gross loss 156, gross win 196
+preflop:open without later call-reraise: 143 hands, net -3,903; gross loss 16,489, gross win 12,586
+preflop:open/call reraise: 34 hands, net -5,426; gross loss 15,936, gross win 10,510
+showdown:False: 934 hands, net +473; gross loss 15,018, gross win 15,491
+showdown:True: 66 hands, net -16,802; gross loss 35,012, gross win 18,210
+terminal:all-in flop: 9 hands, net -684; gross loss 6,000, gross win 5,316
+terminal:all-in preflop: 4 hands, net -3,695; gross loss 4,000, gross win 305
+terminal:all-in river: 10 hands, net -2,754; gross loss 6,000, gross win 3,246
+terminal:all-in turn: 8 hands, net +2,310; gross loss 6,000, gross win 8,310
+terminal:fold flop: 29 hands, net -4,840; gross loss 4,840, gross win 0
+terminal:fold preflop: 730 hands, net -7,223; gross loss 7,223, gross win 0
+terminal:fold river: 3 hands, net -1,696; gross loss 1,696, gross win 0
+terminal:fold turn: 3 hands, net -1,259; gross loss 1,259, gross win 0
+terminal:showdown no all-in: 45 hands, net -8,937; gross loss 13,012, gross win 4,075
+terminal:win without showdown: 159 hands, net +12,449; gross loss 0, gross win 12,449
+The allin/terminal all-in labels mark WBot pre-refund shove/call attempts,
+including uncalled excess later returned. They do NOT mark opponent-only all-ins.
+Use finalRisk categories for mutually exclusive actual full-stack exposure:
+WBot final contribution 2,000; else any opponent final 2,000; else neither.
+
+LARGEST LOSSES
+Hand 35 MP Tc Ac / board 9s Ad 3c 3d 8c: -2000; open/call reraise; all-in flop; winners Astra La Vista
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); preflop call 210 (add 210, pot 430, call 210); flop call 1720 (add 1720, pot 2570, call 1720)
+  Hindsight all-in runout equity vs revealed contestants 20.2%; exact runouts (903); NOT range EV.
+Hand 60 UTG+1 Qh Qs / board 3c 9s Kd Th 5h: -2000; open without later call-reraise; all-in river; winners ND
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 102 (add 102, pot 170, call 0); flop call 204 (add 204, pot 578, call 204); turn raise 117 (add 117, pot 782, call 0); turn call 234 (add 234, pot 1250, call 234); river raise 222 (add 222, pot 1484, call 0); river call 1051 (add 1051, pot 2979, call 1051)
+  Hindsight all-in runout equity vs revealed contestants 0.0%; exact runouts (1); NOT range EV.
+Hand 145 CO Ts Ks / board 2c Td Kd 2d 6d: -2000; open/call reraise; all-in flop; winners Astra La Vista
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); preflop call 140 (add 140, pot 310, call 140); flop raise 1790 (add 1790, pot 450, call 0)
+  Hindsight all-in runout equity vs revealed contestants 72.9%; exact runouts (990); NOT range EV.
+Hand 169 CO 6h Kh / board 2s 4h 9h Ts 5d: -2000; open/call reraise; all-in flop; winners Astra La Vista
+  Hero line: preflop raise 90 (add 90, pot 50, call 20); preflop call 270 (add 270, pot 570, call 270); flop raise 1640 (add 1640, pot 1110, call 0)
+  Hindsight all-in runout equity vs revealed contestants 44.8%; exact runouts (990); NOT range EV.
+Hand 216 BTN Kh Qd / board 3d Ks 9d Js 8c: -2000; call initial open; all-in turn; winners FisherMen
+  Hero line: preflop call 65 (add 65, pot 95, call 65); flop raise 920 (add 920, pot 280, call 120); turn call 1015 (add 1015, pot 3015, call 1015)
+  Hindsight all-in runout equity vs revealed contestants 9.1%; exact runouts (44); NOT range EV.
+Hand 333 UTG Qs Ac / board 6c 3s 7d Th 5d: -2000; open without later call-reraise; all-in turn; winners ND
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 170 (add 170, pot 170, call 0); flop call 340 (add 340, pot 850, call 340); turn raise 178 (add 178, pot 1190, call 0); turn raise 1420 (add 1242, pot 1902, call 356)
+  Hindsight all-in runout equity vs revealed contestants 0.0%; exact runouts (44); NOT range EV.
+Hand 509 UTG Jc Qc / board 4s Ts Qd 3d 7h: -2000; open/call reraise; all-in river; winners ND
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); preflop call 140 (add 140, pot 310, call 140); flop raise 67 (add 67, pot 450, call 0); flop call 134 (add 134, pot 718, call 134); turn raise 127 (add 127, pot 852, call 0); turn call 254 (add 254, pot 1360, call 254); river raise 242 (add 242, pot 1614, call 0); river call 966 (add 966, pot 3064, call 966)
+  Hindsight all-in runout equity vs revealed contestants 0.0%; exact runouts (1); NOT range EV.
+Hand 909 UTG Ad Kc / board Kh 6s Jd 9d Jh: -2000; open without later call-reraise; all-in river; winners Joca
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 210 (add 210, pot 170, call 20); flop call 190 (add 190, pot 760, call 190); turn raise 142 (add 142, pot 950, call 0); river call 1388 (add 1388, pot 2622, call 1388)
+  Hindsight all-in runout equity vs revealed contestants 0.0%; exact runouts (1); NOT range EV.
+Hand 915 MP Ks Ac / board 4h 4s 9h Jc Js: -2000; open/call reraise; all-in preflop; winners bigRoddy
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); preflop call 1930 (add 1930, pot 2080, call 1930)
+  Hindsight all-in runout equity vs revealed contestants 73.9%; 12000 sampled runouts (12000); NOT range EV.
+Hand 957 UTG Ts Kh / board 3s Td 7d 2s Jd: -2000; open without later call-reraise; all-in turn; winners Kojack
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 160 (add 160, pot 160, call 0); turn raise 1770 (add 1770, pot 480, call 0)
+  Hindsight all-in runout equity vs revealed contestants 93.2%; exact runouts (44); NOT range EV.
+Hand 980 UTG+1 Kc Kh / board 6s 5s 7d 2h Qs: -2000; hero reraise; all-in preflop; winners Astra La Vista
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); preflop raise 2000 (add 1930, pot 352, call 182)
+  Hindsight all-in runout equity vs revealed contestants 18.9%; 12000 sampled runouts (12000); NOT range EV.
+Hand 178 HJ 9h 9s / board 3h 3d 2s Th Qc: -1235; open/call reraise; showdown no all-in; winners Astra La Vista
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); preflop call 182 (add 182, pot 352, call 182); flop raise 80 (add 80, pot 534, call 0); turn raise 104 (add 104, pot 694, call 0); turn call 208 (add 208, pot 1110, call 208); river raise 197 (add 197, pot 1318, call 0); river call 394 (add 394, pot 2106, call 394)
+Hand 206 BB 8c 8d / board Jc 7c Tc 7h 3h: -1216; call initial open; showdown no all-in; winners supernut
+  Hero line: preflop call 40 (add 40, pot 150, call 40); flop raise 190 (add 190, pot 190, call 0); flop call 456 (add 456, pot 1026, call 456); turn raise 222 (add 222, pot 1482, call 0); river raise 288 (add 288, pot 1926, call 0)
+Hand 887 SB Kd 6s / board Kh Jd 4c Th Qd: -1102; open without later call-reraise; fold river; winners Astra La Vista
+  Hero line: preflop raise 100 (add 90, pot 50, call 10); flop raise 132 (add 132, pot 220, call 0); turn raise 290 (add 290, pot 484, call 0); turn call 580 (add 580, pot 1644, call 580); river check 0 (add 0, pot 2224, call 0); river fold 0 (add 0, pot 3122, call 898)
+Hand 854 BB Jc Jh / board Qd 5h 7c 9s Qc: -986; call initial open; showdown no all-in; winners Kojack
+  Hero line: preflop call 30 (add 30, pot 130, call 30); flop raise 52 (add 52, pot 160, call 0); turn raise 316 (add 316, pot 316, call 0); river raise 568 (add 568, pot 948, call 0)
+Hand 51 MP Kc Qs / board 9c 6c 3d 7d Th: -979; open without later call-reraise; showdown no all-in; winners ND
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 170 (add 170, pot 170, call 0); turn raise 510 (add 510, pot 510, call 0); river raise 229 (add 229, pot 1530, call 0)
+Hand 749 UTG Ah 8c / board 6h 4d Tc 7d 7h: -916; open without later call-reraise; showdown no all-in; winners ND
+  Hero line: preflop raise 70 (add 70, pot 30, call 20); flop raise 170 (add 170, pot 170, call 0); turn raise 306 (add 306, pot 510, call 0); river raise 370 (add 370, pot 1122, call 0)
+Hand 857 CO 4d As / board Ts Qs 3h 8d: -885; call initial open; fold turn; winners supernut
+  Hero line: preflop call 65 (add 65, pot 95, call 65); flop raise 820 (add 820, pot 410, call 205); turn fold 0 (add 0, pot 2960, call 1115)
+Hand 170 HJ 9d 9s / board Ks As 4h Ac Td: -846; open/call reraise; showdown no all-in; winners FisherMen
+  Hero line: preflop raise 90 (add 90, pot 50, call 20); preflop call 288 (add 288, pot 498, call 288); flop raise 117 (add 117, pot 786, call 0); turn raise 153 (add 153, pot 1020, call 0); river raise 198 (add 198, pot 1326, call 0)
+Hand 104 BTN Js Ks / board 6c 3h 3s 8h 5h: -783; open/call reraise; showdown no all-in; winners bigRoddy
+  Hero line: preflop raise 90 (add 90, pot 50, call 20); preflop call 180 (add 180, pot 390, call 180); flop raise 188 (add 188, pot 570, call 0); turn raise 141 (add 141, pot 946, call 0); river raise 184 (add 184, pot 1228, call 0)
+
+INTERPRETATION LIMITS
+Both bad runouts and potentially costly decision patterns can coexist. A losing all-in
+does not establish a leak; the revealed hand equity is hindsight, not what hero knew.
+Review repeated raise/call lines and large pot commitments against observed opponent
+ranges, with earlier actions and available information. Do not promote a new candidate
+on this round alone. Runtime counts and tested deployed hash are still needed.
+No playing source or strategy changed. Pot/refund totals and zero-sum results validated.

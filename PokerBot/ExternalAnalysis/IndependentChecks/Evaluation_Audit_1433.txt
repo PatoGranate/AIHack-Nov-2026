@@ -1,0 +1,86 @@
+INDEPENDENT EVALUATION AUDIT — 14 November 2026, 14:33 London
+Read-only assessment by evaluation_audit subagent. No playing code changed.
+
+Reviewed current tune.py, arena.py, quirk_results.txt, ParamBot shared helper,
+heldout example/list, channel statuses and completed seven-bot tournament report.
+
+1. HISTORICAL INVALID TUNING ROWS: CURRENT RUNNER NOW FAILS CLOSED
+
+tune.py:70-76 now retains subprocess return code and stderr, rejects missing
+DIFF/nonzero return/invalid/ERR, writes tune_failures.txt, and raises. main catches
+that failure and stops search. This resolves the prior silent (0,1e9) fallback
+at source level. The historical 14:23:36 rows remain invalid and should be
+excluded. No tune_failures.txt was available in this snapshot, so I cannot
+establish their underlying cause. Parser failure describes the symptom, not
+necessarily the root cause: a worker crash, import error or changed output could
+produce the same historical placeholder.
+
+2. NEW ACTIONABLE DEFECT: ARENA IGNORES OPPONENT ERRORS
+
+arena.py:76 examines only players[hero].stats.errors. If an opponent errors,
+LocalPlayer auto-plays its fallback; that affects the field and can inflate or
+otherwise distort hero returns while the arena still reports valid results.
+Include every player's surfaced errors in each run's validity record, including
+bot name/seat and error sample. Check both paired runs. This is independent of
+the already-fixed structured chips/errors return issue. Internal exceptions
+swallowed by bots still need separate debug instrumentation.
+
+3. HELDOUT IS NOW A VALIDATION FIELD, NOT A FINAL TEST FIELD
+
+The quirk screen compared five options across real/heldout/strong. Once the
+heldout outcomes are used to choose an option, that field participates in model
+selection. New seeds on it provide fresh cards but not structural independence
+from its ParamBot rule family. Keep a new final field with different response
+logic, not only jittered PARAMS of the same code. Preserve current heldout as
+a useful validation benchmark; the naming need not dictate its statistical role.
+
+4. QUIRK INTERPRETATION (TEAM-REPORTED AGGREGATES, NOT REPRODUCED HERE)
+
+q_3bet: -10.0 SE6.1 real; -11.0 SE5.3 heldout; -3.9 SE6.2 strong. Leave OFF
+pending correction of the opener-response statistic and targeted retesting.
+
+q_trap: +9.3 SE5.0 real; +10.3 SE4.8 heldout; +5.3 SE4.8 strong.
+q_small: +4.4 SE4.9 real; +6.7 SE4.5 heldout; +11.7 SE5.6 strong.
+These are candidates for confirmation, not established winners. There are
+15 displayed comparisons. One z just over two is weak selection evidence when
+many options were screened. If combining trap+small, test the combination itself;
+their standalone gains need not add and their interactions may change callers.
+
+q_steal/q_over have small mixed results. Do not promote them from these results.
+The result file lacks source hashes, command flags and seed IDs. Keep full run
+metadata before extending these claims or trying to reproduce them.
+
+5. STRUCTURAL BIAS IN PARAMBOT FAMILY
+
+ParamBot uses fixed made-hand categories and a discontinuous call threshold:
+need = call_min + 1 if to_call/pot > .6. Bet-size variants can win by crossing
+this particular rule boundary, not by a transferable poker advantage. Tiny bets
+may exploit a fixed category rule; overbets face similarly coarse response rules.
+The trap exploit can benefit from shared betting heuristics that do not model
+checking back or delayed aggression realistically. Jittering parameters leaves
+these shared structures intact.
+
+6. RECOMMENDED FINAL PROMOTION GATE BEFORE COUNTED ROUNDS
+
+- Freeze exact candidate and baseline source hashes and parameters. Run smoke
+  comparisons first; require all seats free of surfaced errors and clear status.
+- One declared final comparison: candidate vs F and vs live E, on fresh seed
+  ranges and a declared weighted mix of validation and structurally new fields.
+  Report each field and a predeclared weighted estimate separately. Do not
+  repeatedly peek and add tests until a z-score passes.
+- Use paired independent table-seed differences and report SE/intervals. Preserve
+  enough full-round 1,000-hand samples to test learned opponent adaptation and
+  actual time-bank use; 300-hand screens are not full-round deployment tests.
+- Verify the exported single-file build under SubprocessPlayer on relevant
+  hardware/load, including high-action fields. LocalPlayer screens enforce no
+  deadlines. Windows timing here is diagnostic, not hosted-platform certification.
+- If gains remain unresolved, use the proven fallback with preserved rollback;
+  do not select a complex combined quirk simply because it is the newest build.
+
+7. EXISTING TOURNAMENT EVIDENCE
+
+The frozen seven-bot league supports retaining F/E/D for further comparison.
+It does not measure the new fixed template or new quirks. F's reported paired
+95% intervals versus E and D cross zero. The single-seed-block strict screen
+cannot establish its alternative ranking. These are appropriately qualified
+in the archived report; preserve those qualifications when communicating results.

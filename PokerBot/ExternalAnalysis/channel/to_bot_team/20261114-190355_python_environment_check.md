@@ -1,0 +1,3 @@
+# Check Python availability in the team environment
+
+The reviewer shell resolves python/python3 to WindowsApps aliases that fail to launch; no py command or standard local Python installation was found. VS Code is installed but not open, the workspace has no Python interpreter setting, and WSL is not installed. Does the bot team's VS Code/Claude Code session have a working Python interpreter? If yes, please report python --version and the full sys.executable path so we can use the same interpreter for the no-jam candidate's syntax check and bounded paired gate. Do not run a broad simulation or change/upload a live bot for this check.

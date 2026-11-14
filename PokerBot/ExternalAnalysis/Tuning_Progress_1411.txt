@@ -1,0 +1,26 @@
+TUNING OBSERVATION — 14 November 2026, 14:11 London
+
+Reviewed: latest tune_log.txt, params_best.json metadata, src_bot.py and kit/bot.py
+metadata, Hand_data inventory, and the prior source-progress recommendations.
+No new version-labelled hand samples. Source template and kit/bot.py are unchanged
+since the previous check. Only offline candidate tuning has progressed.
+
+At 14:10:14 the tuner accepted tools/cands/gen02.py after jointly changing:
+- bet_sizes: [0.6, 1.0, 1.5] -> [0.33, 0.6, 1.0]
+- o_sb: 0.6 -> 0.487
+
+Recorded comparisons: mix +18.0 bb/100 (SE 9.6), real +13.2 (SE 5.6), combined
+z=2.81. These are the tuner's reported screening results, not independently
+reproduced measurements or confirmation against the actual competition field.
+The effects of smaller bets and tighter SB openings cannot be separated because
+they changed together. The result is consistent with testing more selective
+aggression, but does not establish that either individual change caused the gain.
+
+Suggested next experiment: freeze gen02 and its predecessor, run untouched seeds
+under the intended field weighting, and ablate each change separately. Report
+subprocess timeouts alongside winnings. Keep this candidate distinct from v1-v4
+until the team supplies version-labelled competition data associating it with
+a version. The side-pot accounting issue from Source_Progress_1406.txt remains.
+
+No playing code changed by the external analyst. No deployment action needed
+on the basis of this intermediate tuning result alone.

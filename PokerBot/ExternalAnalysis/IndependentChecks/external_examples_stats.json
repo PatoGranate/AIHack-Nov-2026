@@ -1,0 +1,181 @@
+{
+  "Attention Is All In": {
+    "hands": 1000,
+    "chips": 4961,
+    "post_bets": 118,
+    "overbets_1p5": 7,
+    "open_faces_reraise": 19,
+    "open_fold_reraise": 16
+  },
+  "Claudebot": {
+    "hands": 1000,
+    "chips": -2365,
+    "post_bets": 91,
+    "open_faces_reraise": 11,
+    "open_fold_reraise": 9,
+    "overbets_1p5": 5
+  },
+  "YSL_TWIZZY": {
+    "hands": 2000,
+    "chips": 1263,
+    "post_bets": 86,
+    "overbets_1p5": 3,
+    "open_faces_reraise": 30,
+    "open_fold_reraise": 23
+  },
+  "kaiserbot": {
+    "hands": 5000,
+    "chips": 28578,
+    "post_bets": 340,
+    "open_faces_reraise": 97,
+    "open_fold_reraise": 67,
+    "tinybets": 2,
+    "overbets_1p5": 8
+  },
+  "aydine": {
+    "hands": 1000,
+    "chips": -8336,
+    "open_faces_reraise": 13,
+    "open_fold_reraise": 12,
+    "post_bets": 84,
+    "overbets_1p5": 1
+  },
+  "Equity Engine": {
+    "hands": 2000,
+    "chips": 20415,
+    "post_bets": 244,
+    "overbets_1p5": 15,
+    "open_faces_reraise": 38,
+    "open_fold_reraise": 17,
+    "tinybets": 1
+  },
+  "The Market Makers": {
+    "hands": 2000,
+    "chips": 48733,
+    "post_bets": 234,
+    "open_faces_reraise": 36,
+    "open_fold_reraise": 14,
+    "overbets_1p5": 11,
+    "tinybets": 2
+  },
+  "gamblerlove": {
+    "hands": 1000,
+    "chips": 10519,
+    "open_faces_reraise": 46,
+    "open_fold_reraise": 43,
+    "post_bets": 83,
+    "overbets_1p5": 7
+  },
+  "matcha mille crêpes cake": {
+    "hands": 1000,
+    "chips": 11869,
+    "post_bets": 96,
+    "open_faces_reraise": 37,
+    "open_fold_reraise": 16,
+    "overbets_1p5": 1,
+    "tinybets": 1
+  },
+  "bigRoddy": {
+    "hands": 1000,
+    "chips": -47574,
+    "post_bets": 274,
+    "overbets_1p5": 12,
+    "tinybets": 3,
+    "open_faces_reraise": 26,
+    "open_fold_reraise": 0
+  },
+  "Phil AIvey": {
+    "hands": 1000,
+    "chips": 21296,
+    "post_bets": 50,
+    "open_faces_reraise": 20,
+    "open_fold_reraise": 16,
+    "overbets_1p5": 2
+  },
+  "FisherMen": {
+    "hands": 2000,
+    "chips": -60158,
+    "post_bets": 395,
+    "open_faces_reraise": 13,
+    "open_fold_reraise": 0,
+    "overbets_1p5": 5,
+    "tinybets": 2
+  },
+  "Kojack": {
+    "hands": 2000,
+    "chips": 38676,
+    "post_bets": 101,
+    "open_faces_reraise": 62,
+    "open_fold_reraise": 29,
+    "tinybets": 2,
+    "overbets_1p5": 3
+  },
+  "WBot": {
+    "hands": 1000,
+    "chips": -3314,
+    "post_bets": 195,
+    "overbets_1p5": 121,
+    "open_faces_reraise": 113,
+    "open_fold_reraise": 51,
+    "tinybets": 1
+  },
+  "Chinese people can fly": {
+    "hands": 1000,
+    "chips": 13313,
+    "post_bets": 214,
+    "open_faces_reraise": 52,
+    "open_fold_reraise": 34,
+    "overbets_1p5": 6
+  },
+  "Mohil'sPokerBot": {
+    "hands": 2000,
+    "chips": 14639,
+    "open_faces_reraise": 58,
+    "open_fold_reraise": 17,
+    "post_bets": 410,
+    "overbets_1p5": 18,
+    "tinybets": 7
+  },
+  "Lehman Brothers": {
+    "hands": 2000,
+    "chips": -163552,
+    "open_faces_reraise": 111,
+    "open_fold_reraise": 0,
+    "post_bets": 701,
+    "tinybets": 18,
+    "overbets_1p5": 10
+  },
+  "GamesGone": {
+    "hands": 2000,
+    "chips": -1751,
+    "post_bets": 316,
+    "open_faces_reraise": 94,
+    "open_fold_reraise": 31,
+    "tinybets": 5,
+    "overbets_1p5": 17
+  },
+  "Gherkers": {
+    "hands": 2000,
+    "chips": 41680,
+    "post_bets": 348,
+    "open_faces_reraise": 381,
+    "open_fold_reraise": 187,
+    "overbets_1p5": 28,
+    "tinybets": 16
+  },
+  "SmartBGerBot": {
+    "hands": 1000,
+    "chips": 5072,
+    "post_bets": 22,
+    "open_faces_reraise": 22,
+    "open_fold_reraise": 17
+  },
+  "Durahim 1453": {
+    "hands": 1000,
+    "chips": 26036,
+    "open_faces_reraise": 65,
+    "open_fold_reraise": 16,
+    "post_bets": 63,
+    "tinybets": 2
+  }
+}

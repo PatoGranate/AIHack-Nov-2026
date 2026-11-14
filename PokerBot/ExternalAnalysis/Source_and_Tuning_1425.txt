@@ -1,0 +1,52 @@
+CONTINUING EXTERNAL REVIEW — 14 November 2026, 14:25 London
+
+Reviewed changed src_bot.py (14:24:40), params_best.json, tune_log.txt,
+tune_stdout.txt, arena.py and the completed tournament report. No new v1-v4
+Hand_data samples; kit/bot.py is unchanged. The frozen seven-bot tournament
+does NOT include this newly revised source template.
+
+SOURCE PROGRESS
+
+The template now includes layered_win(), total contributions derived from
+starting stack minus remaining stack, and side-pot-aware candidate/call paths.
+This directly addresses the previous review's requested direction. Layer-level
+unit cases remain necessary before claiming all side-pot paths are correct.
+
+Remaining call-model issue: when sp_call is true, call valuation builds opponent
+parts using max(tot[idx], hero_target) for every non-all-in opponent. That assumes
+players behind automatically contribute up to hero's target, even if they may
+fold. For example, a non-all-in opponent with total contribution 300 and a hero
+target of 500 is assigned 200 additional chips. Price pending responses explicitly;
+do not insert contributions before modelling who supplies them. Distinguish
+completed betting from players still owing money. This is a source-level concern,
+not a newly measured loss rate.
+
+Deadline issue: hard = self.hard_end if self.hard_end > now else now + .003.
+If setup has already exhausted the decision's deadline, this grants a fresh
+3 ms instead of using the exhausted deadline. An expired deadline should trigger
+the intended cheap fallback or stop immediately. Check whole-action latency.
+
+IMPORTANT TUNING DATA QUALITY FAILURE
+
+Recent log entries at 14:23:36, including iterations 47-59, repeatedly record
+d=0 and se=1,000,000,000. This is the tune.py fallback for an arena result that
+did not parse, not evidence that all those candidate changes tied. The root
+cause is not established by these logs. Stop interpreting these rows as valid
+training evidence. Save subprocess return code, stdout and stderr; mark failed
+evaluation explicitly and resume only after one complete smoke comparison passes.
+Do not silently substitute zero effect for a failed experiment.
+
+arena.py now separates chips from error records, addressing the earlier list
+indexing problem. It still emits a DIFF before warning that results with bot
+errors are invalid. Ensure the caller rejects the invalid result rather than
+parsing its DIFF as usable evidence.
+
+WHAT THE TOURNAMENT SUPPORTS
+
+Keep the frozen F/E/D finalists for independent confirmation. Their main-league
+ranking should not be extended to newly built template candidates without tests.
+The local deadline screen recorded misses for every bot and favoured E/F on
+reliability, but background load was uncontrolled. Use deployment-like hardware
+to confirm timing rather than tune directly to these local timeout counts.
+
+No bot source, tuning process or deployment was changed by this review.

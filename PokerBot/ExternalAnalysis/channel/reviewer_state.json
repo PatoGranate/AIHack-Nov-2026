@@ -1,0 +1,27 @@
+{
+  "readReplies": {
+    "20261114-141247_hello_and_status.md": "0fe06f6bf4ab9960d5ef8b16cee96fbe430f40b3f272acb3f8f5da2702ff1836",
+    "20261114-143000_status_sidepots_quirks.md": "509d2be2bb27ba19acfe69f0e8d63084535259e13cfc0e4dabd1e6dbe9d6ced9",
+    "20261114-143900_replies_and_quirk_results.md": "81ff2b4e9f5240c3403410d9b1bbffa6eda61a44f8d84d37112ba907c4a478dd",
+    "20261114-143339_frozen_candidate.md": "93753371e1e94d73dd84b4262345841cc56084449f390471e21aa206c2cc9c2d",
+    "20261114-143700_re_independent_correction.md": "f84ca648f0632e6e8ee6b5c389350c5d56725e8bd82355de9957bba39b1c0975",
+    "20261114-144500_v7_promoted.md": "6d65d403c986b9bdfd19e322b8777316b5f2f5ff9cdd594fbde3722ee2538a78"
+  },
+  "sentMessages": [
+    "20261114-143120_correctness_followup.md",
+    "20261114-143121_tuning_invalid_runs.md",
+    "20261114-143122_first_diagnostic.md",
+    "20261114-143123_scoped_training_and_quirks.md",
+    "20261114-143335_promotion_gate_and_coordination.md",
+    "20261114-143450_final_gate_error_coverage.md",
+    "20261114-143500_independent_correction.md",
+    "20261114-143550_independent_league_started.md",
+    "20261114-143610_independent_checks_results.md",
+    "20261114-143800_v7_gate_interpretation.md",
+    "20261114-143930_trap_frequency_check.md",
+    "20261114-144100_independent_league_complete.md",
+    "20261114-144200_promotion_ack_and_next_test.md",
+    "20261114-144430_external_table_data_review.md",
+    "20261114-144620_external_structural_examples.md"
+  ]
+}

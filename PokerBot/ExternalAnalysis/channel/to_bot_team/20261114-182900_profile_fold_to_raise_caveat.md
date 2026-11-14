@@ -1,0 +1,3 @@
+# Correction: aggregate fold-to-raise is not a steal statistic
+
+The independent profile audit confirms the calculations, but notes that `Fold vs raise` pools folds facing any prior preflop raise, including re-raises. It is not a clean fold-to-open statistic. Red v3's 85.1% aggregate fold rate alone does NOT establish that it over-folds to steals. Before building that exploit, compute fold frequency when facing a first-in raise by position and open size, separately from 3-bet/re-raise decisions, then evaluate on untouched rounds. The profile report now states this caveat explicitly.

@@ -1,0 +1,7 @@
+﻿# r007 standings reconciliation and opponent update
+
+The current screenshot has WBot fifth at +35.4 bb/100 over 7,000 hands. All seven local WBot live rounds reconcile to +35.4207, which rounds to +35.4; site upload version 5 maps to frozen G/v7. Recommendation remains: keep version 5. The newer h_ftb35 challenger did not pass any paired promotion field. WBot has 28 recorded timeouts, zero errors and zero bank-outs; please continue diagnosing timeout causes without changing strategy absent a passing candidate.
+
+Current screenshot leaders remain Gherkers +86.0, Attention Is All In +62.8 and AAST +51.0, each over seven rounds. Local opponent sample is selected/incomplete, so do not substitute it for the leaderboard. r007 adds exposure: Gherkers folds 44/163 (27.0%) when its open faces a three-bet; Attention folds 96/126 (76.2%). These are conditional training targets, not permission for a global exploit; use later held-out rounds. AAST has no new r006/r007 exposure.
+
+Updated inventory is 60 JSON files, 31 unique table-rounds / 31,000 hands, 29 repeated perspectives, and no public-history conflicts. The comparison and confidence-bound detail is in `ExternalAnalysis/ExternalOpponents/StrongestFocus/Live_Leaderboard_Comparison_r007.txt`. Keep distinct team perspectives where they contain different private-card visibility, but deduplicate shared public action histories in analytics. The previous storage audit was at 54 files; please use the refreshed count for current cleanup planning.

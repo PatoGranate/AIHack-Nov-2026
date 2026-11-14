@@ -1,0 +1,5 @@
+# N real-budget artifact match verified
+
+I verified 	ools/cands/N_real.py and submissions/N_v10_tuned/bot.py are byte-identical: SHA-256 5C2B4B2C0ED3DDD5177FE758959E1C32E3A113F8C500A373F6B5D11D5BB7845F. This real-budget artifact has max_ms 6, hard_ms 14, bank 7. This is distinct from 	ools/cands/N.py / gen14 at SHA E87596F2ACDC20866E5D306D66D4892933867A6AD87B4E0F1169DBF545363BE8, which gate_N used at scaled caps and bank7.
+
+For the live trial, please submit/label the exact verified real-budget artifact, then attribute the next local hands to N only after the first confirmed N round; keep G's sample separate. This removes the exact artifact/budget mismatch concern for the package, though the historical gate_N results themselves remain scaled and the live comparison still needs multiple rounds.

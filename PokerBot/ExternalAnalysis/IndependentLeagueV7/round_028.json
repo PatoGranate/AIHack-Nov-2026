@@ -1,0 +1,122 @@
+{
+  "round": 28,
+  "seed": 616164,
+  "rotation": 4,
+  "hands": 1000,
+  "seconds": 5.754233200044837,
+  "rows": [
+    {
+      "id": 4,
+      "seat": 0,
+      "chips": -10467,
+      "stats": {
+        "decisions": 1443,
+        "timeouts": 0,
+        "errors": 0,
+        "error_samples": [],
+        "max_ms": 3.386,
+        "avg_ms": 0.747,
+        "bank_out": 0
+      }
+    },
+    {
+      "id": 5,
+      "seat": 1,
+      "chips": -8083,
+      "stats": {
+        "decisions": 1279,
+        "timeouts": 0,
+        "errors": 0,
+        "error_samples": [],
+        "max_ms": 2.024,
+        "avg_ms": 0.308,
+        "bank_out": 0
+      }
+    },
+    {
+      "id": 6,
+      "seat": 2,
+      "chips": 9702,
+      "stats": {
+        "decisions": 1242,
+        "timeouts": 0,
+        "errors": 0,
+        "error_samples": [],
+        "max_ms": 2.153,
+        "avg_ms": 0.281,
+        "bank_out": 0
+      }
+    },
+    {
+      "id": 7,
+      "seat": 3,
+      "chips": 7778,
+      "stats": {
+        "decisions": 1226,
+        "timeouts": 0,
+        "errors": 0,
+        "error_samples": [],
+        "max_ms": 1.743,
+        "avg_ms": 0.254,
+        "bank_out": 0
+      }
+    },
+    {
+      "id": 0,
+      "seat": 4,
+      "chips": -5484,
+      "stats": {
+        "decisions": 1191,
+        "timeouts": 0,
+        "errors": 0,
+        "error_samples": [],
+        "max_ms": 3.977,
+        "avg_ms": 0.506,
+        "bank_out": 0
+      }
+    },
+    {
+      "id": 1,
+      "seat": 5,
+      "chips": 2060,
+      "stats": {
+        "decisions": 1188,
+        "timeouts": 0,
+        "errors": 0,
+        "error_samples": [],
+        "max_ms": 4.024,
+        "avg_ms": 0.531,
+        "bank_out": 0
+      }
+    },
+    {
+      "id": 2,
+      "seat": 6,
+      "chips": 13208,
+      "stats": {
+        "decisions": 1287,
+        "timeouts": 0,
+        "errors": 0,
+        "error_samples": [],
+        "max_ms": 3.237,
+        "avg_ms": 0.551,
+        "bank_out": 0
+      }
+    },
+    {
+      "id": 3,
+      "seat": 7,
+      "chips": -8714,
+      "stats": {
+        "decisions": 1354,
+        "timeouts": 0,
+        "errors": 0,
+        "error_samples": [],
+        "max_ms": 3.136,
+        "avg_ms": 0.654,
+        "bank_out": 0
+      }
+    }
+  ],
+  "errors": 0
+}

@@ -1,0 +1,10 @@
+H versus G — live test recommendation — 14 Nov 2026, 16:20 UTC
+
+Recommendation: H is promising enough for a single controlled live round if the team/user wants a real-field test, but evidence does not yet justify describing H as the proven replacement for G. Keep G/v7 as the baseline and compare by exact uploaded version after the test.
+
+Evidence checked locally:
+- G/v7 (site version 5) has played all 15 local live rounds. Overall mean is +30.59 bb/100; the last five rounds, r011–r015, average +71.87 bb/100. The last two were +160.91 and +63.94. These are short, high-variance samples, not stable skill estimates.
+- H is byte-identical to gen04 (SHA-256 08ae3fef8a34c27454c4562505f06ba3d6fd5e513e7546aa04692d2971b6b639). It has no real tournament rounds.
+- Existing paired gate estimates H minus G are positive: late clones +9.0 bb/100 (SE 4.1), held-out +7.0 (SE 3.8), real clones +7.3 (SE 3.9); archive +1.9 (SE 5.8), emulated-slow +6.5 (SE 4.6). Fuzz was clean 8/8; the local subprocess smoke test was only two rounds. These checks are encouraging but do not establish a robust edge across environments.
+
+Action for team: please confirm the intended test procedure and provide the exact artifact/version label to upload if the user chooses H for one live round. Do not upload or change the live policy on the user's behalf. Keep runtime/timeout reporting attached to the result and preserve G so a rollback is immediate. A single live round should be treated as a deployment/runtime observation, not conclusive head-to-head performance evidence.

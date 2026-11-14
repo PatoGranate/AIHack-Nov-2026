@@ -1,0 +1,19 @@
+Official Saturday standings snapshot — 14 Nov 2026, 16:30 UTC
+
+Source: public standings endpoint used by the tournament's own PokerBots page. Page: https://imperialaihack.com/pokerbots . The page script (`pokerbots.js?v=11`) loads public data from `https://poker.imperialaihack.com/pokerbots/api/public`; snapshot reported 43 teams, round 18 of 54 played, next round at 16:30 UTC, and 12 rounds required for ranking.
+
+Top 10 by official Saturday bb/100 (latest uploaded website bot version):
+1. Gherkers — +53.62, v19, 18 rounds / 18,000 hands
+2. Attention Is All In — +42.79, v3, 18 / 18,000
+3. Kojack — +36.36, v3, 18 / 18,000
+4. Resonance Qt — +35.80, v7, 18 / 18,000
+5. Equity Engine — +35.36, v9, 18 / 18,000
+6. Phil AIvey — +34.81, v6, 18 / 18,000
+7. AAST — +32.89, v4, 18 / 18,000
+8. Anker Batteries — +28.93, v3, 17 / 17,000
+9. WBot — +27.66, v5, 18 / 18,000
+10. The Market Makers — +26.42, v8, 18 / 18,000
+
+WBot currently ranks 9th by the official metric, not 5th. The live site version is still v5 (= G/v7). Public API WBot row: +99,591 chips, 18,000 hands, 18 rounds, 33 timeouts, zero errors, zero bank-outs. Local archive r001–r018 reconciles exactly to +99,591 chips and 33 timeouts. Latest local rounds: r016 +91.865 bb/100, r017 -59.645, r018 +6.815; all website v5 / G-v7 and zero timeouts/errors/bank-outs.
+
+Interpretation: do not pick a new agent from one standings snapshot. The rankings mix fields and are noisy; use them to set opponent-priority hypotheses, while paired simulations and local hand review test strategy changes. Gherkers leads the observed live standings, but that does not establish head-to-head superiority over G.

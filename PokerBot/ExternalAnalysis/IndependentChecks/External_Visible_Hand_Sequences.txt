@@ -1,0 +1,415 @@
+EXTERNAL TABLES — EXACT VISIBLE HAND SEQUENCES
+
+UTF-8. Raise amounts are street-total RAISE TO; call amounts are increments.
+Pot/remaining-stack values below are reconstructed immediately before each act.
+Only cards present in the JSON are listed. Unknown hidden cards remain unknown.
+kaiserbot is the source viewpoint and has its own hole cards even when it folds.
+For other actors, listed cards generally come from visible showdown data.
+Round refs identify time, not unique tables; identity is (ref, ordered roster).
+These are deliberately selected illustrative wins AND failures, not an unbiased
+performance sample. r015 is an alternate viewpoint of the WBot v3 table; do not
+count its action/results a second time when combining datasets.
+
+============================================================================
+FILE Hand_data\ExternalData_OtherBots\saturday_practice_r014.json
+REF saturday/practice/r014
+ROSTER {"0": "kaiserbot", "1": "The Market Makers", "2": "Equity Engine", "3": "gamblerlove", "4": "matcha mille crêpes cake", "5": "bigRoddy"}
+
+HAND 568 — Market Makers top pair versus bigRoddy gutshot/overcards, full flop stack-off.
+Button 2; board ['Ad', '2d', 'Ts', 'Jh', 'As']
+VISIBLE CARDS {"kaiserbot": ["6h", "3d"], "The Market Makers": ["Qd", "Ac"], "bigRoddy": ["Kd", "Js"]}
+SHOWDOWN {"The Market Makers": "Three of a Kind", "bigRoddy": "Two Pair"}
+  gamblerlove posts 10
+  matcha mille crêpes cake posts 20
+  bigRoddy: raise TO 55 (adds 55); pot before=30; stack before=2000
+  kaiserbot: fold; pot before=85; stack before=2000
+  The Market Makers: call 55; pot before=85; stack before=2000
+  Equity Engine: fold; pot before=140; stack before=2000
+  gamblerlove: fold; pot before=140; stack before=1990
+  matcha mille crêpes cake: fold; pot before=140; stack before=1980
+  FLOP ['Ad', '2d', 'Ts']
+  bigRoddy: raise TO 90 (adds 90); pot before=140; stack before=1945
+  The Market Makers: raise TO 410 (adds 410); pot before=230; stack before=1945
+  bigRoddy: raise TO 1050 (adds 960); pot before=640; stack before=1855
+  The Market Makers: raise TO 1945 (adds 1535); pot before=1600; stack before=1535
+  bigRoddy: call 895; pot before=3135; stack before=895
+  TURN ['Ad', '2d', 'Ts', 'Jh']
+  RIVER ['Ad', '2d', 'Ts', 'Jh', 'As']
+  Award The Market Makers: 4030 (Three of a Kind)
+NET RESULTS {"kaiserbot": 0, "The Market Makers": 2030, "Equity Engine": 0, "gamblerlove": -10, "matcha mille crêpes cake": -20, "bigRoddy": -2000}
+
+HAND 718 — Market Makers set; late tiny fraction is all remaining chips.
+Button 2; board ['4d', '9h', '3h', '7c', '6s']
+VISIBLE CARDS {"kaiserbot": ["Kc", "Ac"], "The Market Makers": ["9s", "9d"]}
+SHOWDOWN {"kaiserbot": "High Card", "The Market Makers": "Three of a Kind"}
+  gamblerlove posts 10
+  matcha mille crêpes cake posts 20
+  bigRoddy: call 20; pot before=30; stack before=2000
+  kaiserbot: raise TO 70 (adds 70); pot before=50; stack before=2000
+  The Market Makers: raise TO 210 (adds 210); pot before=120; stack before=2000
+  Equity Engine: fold; pot before=330; stack before=2000
+  gamblerlove: fold; pot before=330; stack before=1990
+  matcha mille crêpes cake: fold; pot before=330; stack before=1980
+  bigRoddy: fold; pot before=330; stack before=1980
+  kaiserbot: call 140; pot before=330; stack before=1930
+  FLOP ['4d', '9h', '3h']
+  kaiserbot: raise TO 258 (adds 258); pot before=470; stack before=1790
+  The Market Makers: raise TO 1244 (adds 1244); pot before=728; stack before=1790
+  kaiserbot: call 986; pot before=1972; stack before=1532
+  TURN ['4d', '9h', '3h', '7c']
+  kaiserbot: check; pot before=2958; stack before=546
+  The Market Makers: raise TO 546 (adds 546); pot before=2958; stack before=546
+  kaiserbot: call 546; pot before=3504; stack before=546
+  RIVER ['4d', '9h', '3h', '7c', '6s']
+  Award The Market Makers: 4050 (Three of a Kind)
+NET RESULTS {"kaiserbot": -2000, "The Market Makers": 2050, "Equity Engine": 0, "gamblerlove": -10, "matcha mille crêpes cake": -20, "bigRoddy": -20}
+
+HAND 362 — Counterexample: Market Makers QTs top pair loses full stack to bigRoddy AQ.
+Button 0; board ['8s', 'Qh', '6h', 'Ac', '7c']
+VISIBLE CARDS {"kaiserbot": ["5d", "4c"], "The Market Makers": ["Tc", "Qc"], "bigRoddy": ["Qd", "Ah"]}
+SHOWDOWN {"The Market Makers": "Pair", "bigRoddy": "Two Pair"}
+  The Market Makers posts 10
+  Equity Engine posts 20
+  gamblerlove: fold; pot before=30; stack before=2000
+  matcha mille crêpes cake: fold; pot before=30; stack before=2000
+  bigRoddy: raise TO 55 (adds 55); pot before=30; stack before=2000
+  kaiserbot: fold; pot before=85; stack before=2000
+  The Market Makers: call 45; pot before=85; stack before=1990
+  Equity Engine: call 35; pot before=130; stack before=1980
+  FLOP ['8s', 'Qh', '6h']
+  The Market Makers: raise TO 165 (adds 165); pot before=165; stack before=1945
+  Equity Engine: fold; pot before=330; stack before=1945
+  bigRoddy: raise TO 495 (adds 495); pot before=330; stack before=1945
+  The Market Makers: raise TO 1650 (adds 1485); pot before=825; stack before=1780
+  bigRoddy: raise TO 1945 (adds 1450); pot before=2310; stack before=1450
+  The Market Makers: call 295; pot before=3760; stack before=295
+  TURN ['8s', 'Qh', '6h', 'Ac']
+  RIVER ['8s', 'Qh', '6h', 'Ac', '7c']
+  Award bigRoddy: 4055 (Two Pair)
+NET RESULTS {"kaiserbot": 0, "The Market Makers": -2000, "Equity Engine": -55, "gamblerlove": 0, "matcha mille crêpes cake": 0, "bigRoddy": 2055}
+
+============================================================================
+FILE Hand_data\ExternalData_OtherBots\saturday_practice_r015.json
+REF saturday/practice/r015
+ROSTER {"0": "Phil AIvey", "1": "kaiserbot", "2": "FisherMen", "3": "Kojack", "4": "WBot", "5": "Chinese people can fly", "6": "Mohil'sPokerBot"}
+
+HAND 492 — Phil AIvey turns two pair versus FisherMen one pair; turn stack-off.
+Button 5; board ['8s', '2h', '9h', '3s', '4c']
+VISIBLE CARDS {"Phil AIvey": ["3h", "9s"], "kaiserbot": ["2d", "Ks"], "FisherMen": ["8h", "Ah"]}
+SHOWDOWN {"Phil AIvey": "Two Pair", "FisherMen": "Pair"}
+  Mohil'sPokerBot posts 10
+  Phil AIvey posts 20
+  kaiserbot: fold; pot before=30; stack before=2000
+  FisherMen: call 20; pot before=30; stack before=2000
+  Kojack: fold; pot before=50; stack before=2000
+  WBot: fold; pot before=50; stack before=2000
+  Chinese people can fly: call 20; pot before=50; stack before=2000
+  Mohil'sPokerBot: call 10; pot before=70; stack before=1990
+  Phil AIvey: check; pot before=80; stack before=1980
+  FLOP ['8s', '2h', '9h']
+  Mohil'sPokerBot: check; pot before=80; stack before=1980
+  Phil AIvey: check; pot before=80; stack before=1980
+  FisherMen: raise TO 48 (adds 48); pot before=80; stack before=1980
+  Chinese people can fly: fold; pot before=128; stack before=1980
+  Mohil'sPokerBot: fold; pot before=128; stack before=1980
+  Phil AIvey: call 48; pot before=128; stack before=1980
+  TURN ['8s', '2h', '9h', '3s']
+  Phil AIvey: raise TO 176 (adds 176); pot before=176; stack before=1932
+  FisherMen: raise TO 475 (adds 475); pot before=352; stack before=1932
+  Phil AIvey: raise TO 1932 (adds 1756); pot before=827; stack before=1756
+  FisherMen: call 1457; pot before=2583; stack before=1457
+  RIVER ['8s', '2h', '9h', '3s', '4c']
+  Award Phil AIvey: 4040 (Two Pair)
+NET RESULTS {"Phil AIvey": 2040, "kaiserbot": 0, "FisherMen": -2000, "Kojack": 0, "WBot": 0, "Chinese people can fly": -20, "Mohil'sPokerBot": -20}
+
+============================================================================
+FILE Hand_data\ExternalData_OtherBots\saturday_practice_r016.json
+REF saturday/practice/r016
+ROSTER {"0": "Lehman Brothers", "1": "YSL_TWIZZY", "2": "GamesGone", "3": "Gherkers", "4": "Mohil'sPokerBot", "5": "FisherMen", "6": "kaiserbot"}
+
+HAND 893 — Gherkers 66 river shove called by Lehman A3 high card; success.
+Button 1; board ['Jc', '2s', '9h', '9d', '7c']
+VISIBLE CARDS {"Lehman Brothers": ["Ac", "3h"], "Gherkers": ["6c", "6d"], "kaiserbot": ["2d", "7s"]}
+SHOWDOWN {"Lehman Brothers": "Pair", "Gherkers": "Two Pair"}
+  GamesGone posts 10
+  Gherkers posts 20
+  Mohil'sPokerBot: fold; pot before=30; stack before=2000
+  FisherMen: call 20; pot before=30; stack before=2000
+  kaiserbot: fold; pot before=50; stack before=2000
+  Lehman Brothers: raise TO 65 (adds 65); pot before=50; stack before=2000
+  YSL_TWIZZY: fold; pot before=115; stack before=2000
+  GamesGone: call 55; pot before=115; stack before=1990
+  Gherkers: call 45; pot before=170; stack before=1980
+  FisherMen: fold; pot before=215; stack before=1980
+  FLOP ['Jc', '2s', '9h']
+  GamesGone: check; pot before=215; stack before=1935
+  Gherkers: check; pot before=215; stack before=1935
+  Lehman Brothers: raise TO 127 (adds 127); pot before=215; stack before=1935
+  GamesGone: fold; pot before=342; stack before=1935
+  Gherkers: call 127; pot before=342; stack before=1935
+  TURN ['Jc', '2s', '9h', '9d']
+  Gherkers: check; pot before=469; stack before=1808
+  Lehman Brothers: raise TO 254 (adds 254); pot before=469; stack before=1808
+  Gherkers: call 254; pot before=723; stack before=1808
+  RIVER ['Jc', '2s', '9h', '9d', '7c']
+  Gherkers: raise TO 1554 (adds 1554); pot before=977; stack before=1554
+  Lehman Brothers: call 1554; pot before=2531; stack before=1554
+  Award Gherkers: 4085 (Two Pair)
+NET RESULTS {"Lehman Brothers": -2000, "YSL_TWIZZY": 0, "GamesGone": -65, "Gherkers": 2085, "Mohil'sPokerBot": 0, "FisherMen": -20, "kaiserbot": 0}
+
+HAND 963 — Gherkers A5 river shove called by Lehman K7; success.
+Button 1; board ['3s', '3c', '7s', 'Ah', '8s']
+VISIBLE CARDS {"Lehman Brothers": ["7c", "Kd"], "Gherkers": ["Ac", "5d"], "kaiserbot": ["Qc", "2d"]}
+SHOWDOWN {"Lehman Brothers": "Two Pair", "Gherkers": "Two Pair"}
+  GamesGone posts 10
+  Gherkers posts 20
+  Mohil'sPokerBot: fold; pot before=30; stack before=2000
+  FisherMen: fold; pot before=30; stack before=2000
+  kaiserbot: fold; pot before=30; stack before=2000
+  Lehman Brothers: raise TO 55 (adds 55); pot before=30; stack before=2000
+  YSL_TWIZZY: call 55; pot before=85; stack before=2000
+  GamesGone: call 45; pot before=140; stack before=1990
+  Gherkers: call 35; pot before=185; stack before=1980
+  FLOP ['3s', '3c', '7s']
+  GamesGone: check; pot before=220; stack before=1945
+  Gherkers: check; pot before=220; stack before=1945
+  Lehman Brothers: raise TO 130 (adds 130); pot before=220; stack before=1945
+  YSL_TWIZZY: fold; pot before=350; stack before=1945
+  GamesGone: fold; pot before=350; stack before=1945
+  Gherkers: call 130; pot before=350; stack before=1945
+  TURN ['3s', '3c', '7s', 'Ah']
+  Gherkers: check; pot before=480; stack before=1815
+  Lehman Brothers: raise TO 260 (adds 260); pot before=480; stack before=1815
+  Gherkers: call 260; pot before=740; stack before=1815
+  RIVER ['3s', '3c', '7s', 'Ah', '8s']
+  Gherkers: raise TO 1555 (adds 1555); pot before=1000; stack before=1555
+  Lehman Brothers: call 1555; pot before=2555; stack before=1555
+  Award Gherkers: 4110 (Two Pair)
+NET RESULTS {"Lehman Brothers": -2000, "YSL_TWIZZY": -55, "GamesGone": -55, "Gherkers": 2110, "Mohil'sPokerBot": 0, "FisherMen": 0, "kaiserbot": 0}
+
+HAND 978 — Counterexample: Gherkers 95 river shove called by Lehman KK; failure.
+Button 2; board ['2c', 'Js', '5c', '6h', 'Qh']
+VISIBLE CARDS {"Lehman Brothers": ["Kd", "Ks"], "Gherkers": ["5s", "9s"], "kaiserbot": ["3d", "Jc"]}
+SHOWDOWN {"Lehman Brothers": "Pair", "Gherkers": "Pair"}
+  Gherkers posts 10
+  Mohil'sPokerBot posts 20
+  FisherMen: fold; pot before=30; stack before=2000
+  kaiserbot: fold; pot before=30; stack before=2000
+  Lehman Brothers: raise TO 55 (adds 55); pot before=30; stack before=2000
+  YSL_TWIZZY: fold; pot before=85; stack before=2000
+  GamesGone: fold; pot before=85; stack before=2000
+  Gherkers: call 45; pot before=85; stack before=1990
+  Mohil'sPokerBot: fold; pot before=130; stack before=1980
+  FLOP ['2c', 'Js', '5c']
+  Gherkers: check; pot before=130; stack before=1945
+  Lehman Brothers: raise TO 85 (adds 85); pot before=130; stack before=1945
+  Gherkers: call 85; pot before=215; stack before=1945
+  TURN ['2c', 'Js', '5c', '6h']
+  Gherkers: check; pot before=300; stack before=1860
+  Lehman Brothers: raise TO 170 (adds 170); pot before=300; stack before=1860
+  Gherkers: call 170; pot before=470; stack before=1860
+  RIVER ['2c', 'Js', '5c', '6h', 'Qh']
+  Gherkers: raise TO 1690 (adds 1690); pot before=640; stack before=1690
+  Lehman Brothers: call 1690; pot before=2330; stack before=1690
+  Award Lehman Brothers: 4020 (Pair)
+NET RESULTS {"Lehman Brothers": 2020, "YSL_TWIZZY": 0, "GamesGone": 0, "Gherkers": -2000, "Mohil'sPokerBot": -20, "FisherMen": 0, "kaiserbot": 0}
+
+HAND 242 — Counterexample: Gherkers TT river shove runs into Lehman K9 straight.
+Button 1; board ['Th', 'Jd', '6s', '5h', 'Qh']
+VISIBLE CARDS {"Lehman Brothers": ["Kc", "9h"], "Gherkers": ["Td", "Tc"], "kaiserbot": ["8s", "2d"]}
+SHOWDOWN {"Lehman Brothers": "Straight", "Gherkers": "Three of a Kind"}
+  GamesGone posts 10
+  Gherkers posts 20
+  Mohil'sPokerBot: fold; pot before=30; stack before=2000
+  FisherMen: call 20; pot before=30; stack before=2000
+  kaiserbot: fold; pot before=50; stack before=2000
+  Lehman Brothers: raise TO 65 (adds 65); pot before=50; stack before=2000
+  YSL_TWIZZY: fold; pot before=115; stack before=2000
+  GamesGone: fold; pot before=115; stack before=1990
+  Gherkers: call 45; pot before=115; stack before=1980
+  FisherMen: fold; pot before=160; stack before=1980
+  FLOP ['Th', 'Jd', '6s']
+  Gherkers: check; pot before=160; stack before=1935
+  Lehman Brothers: raise TO 100 (adds 100); pot before=160; stack before=1935
+  Gherkers: call 100; pot before=260; stack before=1935
+  TURN ['Th', 'Jd', '6s', '5h']
+  Gherkers: check; pot before=360; stack before=1835
+  Lehman Brothers: raise TO 200 (adds 200); pot before=360; stack before=1835
+  Gherkers: call 200; pot before=560; stack before=1835
+  RIVER ['Th', 'Jd', '6s', '5h', 'Qh']
+  Gherkers: raise TO 1635 (adds 1635); pot before=760; stack before=1635
+  Lehman Brothers: call 1635; pot before=2395; stack before=1635
+  Award Lehman Brothers: 4030 (Straight)
+NET RESULTS {"Lehman Brothers": 2030, "YSL_TWIZZY": 0, "GamesGone": -10, "Gherkers": -2000, "Mohil'sPokerBot": 0, "FisherMen": -20, "kaiserbot": 0}
+
+============================================================================
+FILE Hand_data\ExternalData_OtherBots\saturday_practice_r017.json
+REF saturday/practice/r017
+ROSTER {"0": "GamesGone", "1": "Kojack", "2": "The Market Makers", "3": "SmartBGerBot", "4": "kaiserbot", "5": "Gherkers", "6": "Durahim 1453", "7": "Lehman Brothers"}
+
+HAND 500 — Durahim turns set; river 405 bet is the entire remaining stack, not evidence of deliberate tiny sizing.
+Button 7; board ['9h', '8d', '7c', '3s', '6h']
+VISIBLE CARDS {"kaiserbot": ["2s", "Ts"], "Durahim 1453": ["3d", "3c"], "Lehman Brothers": ["Kc", "7s"]}
+SHOWDOWN {"Durahim 1453": "Three of a Kind", "Lehman Brothers": "Pair"}
+  GamesGone posts 10
+  Kojack posts 20
+  The Market Makers: fold; pot before=30; stack before=2000
+  SmartBGerBot: fold; pot before=30; stack before=2000
+  kaiserbot: fold; pot before=30; stack before=2000
+  Gherkers: fold; pot before=30; stack before=2000
+  Durahim 1453: raise TO 48 (adds 48); pot before=30; stack before=2000
+  Lehman Brothers: raise TO 115 (adds 115); pot before=78; stack before=2000
+  GamesGone: fold; pot before=193; stack before=1990
+  Kojack: fold; pot before=193; stack before=1980
+  Durahim 1453: call 67; pot before=193; stack before=1952
+  FLOP ['9h', '8d', '7c']
+  Durahim 1453: check; pot before=260; stack before=1885
+  Lehman Brothers: raise TO 150 (adds 150); pot before=260; stack before=1885
+  Durahim 1453: call 150; pot before=410; stack before=1885
+  TURN ['9h', '8d', '7c', '3s']
+  Durahim 1453: raise TO 420 (adds 420); pot before=560; stack before=1735
+  Lehman Brothers: raise TO 1330 (adds 1330); pot before=980; stack before=1735
+  Durahim 1453: call 910; pot before=2310; stack before=1315
+  RIVER ['9h', '8d', '7c', '3s', '6h']
+  Durahim 1453: raise TO 405 (adds 405); pot before=3220; stack before=405
+  Lehman Brothers: call 405; pot before=3625; stack before=405
+  Award Durahim 1453: 4030 (Three of a Kind)
+NET RESULTS {"GamesGone": -10, "Kojack": -20, "The Market Makers": 0, "SmartBGerBot": 0, "kaiserbot": 0, "Gherkers": 0, "Durahim 1453": 2030, "Lehman Brothers": -2000}
+
+HAND 694 — Durahim flops two pair and calls flop reraise; turn 578 is its entire remaining stack.
+Button 1; board ['Kc', '9d', 'Th', '4h', '8c']
+VISIBLE CARDS {"kaiserbot": ["3c", "Ts"], "Durahim 1453": ["9s", "Ks"], "Lehman Brothers": ["Jh", "Js"]}
+SHOWDOWN {"Durahim 1453": "Two Pair", "Lehman Brothers": "Pair"}
+  The Market Makers posts 10
+  SmartBGerBot posts 20
+  kaiserbot: fold; pot before=30; stack before=2000
+  Gherkers: raise TO 60 (adds 60); pot before=30; stack before=2000
+  Durahim 1453: call 60; pot before=90; stack before=2000
+  Lehman Brothers: raise TO 175 (adds 175); pot before=150; stack before=2000
+  GamesGone: fold; pot before=325; stack before=2000
+  Kojack: fold; pot before=325; stack before=2000
+  The Market Makers: fold; pot before=325; stack before=1990
+  SmartBGerBot: fold; pot before=325; stack before=1980
+  Gherkers: call 115; pot before=325; stack before=1940
+  Durahim 1453: call 115; pot before=440; stack before=1940
+  FLOP ['Kc', '9d', 'Th']
+  Gherkers: check; pot before=555; stack before=1825
+  Durahim 1453: raise TO 388 (adds 388); pot before=555; stack before=1825
+  Lehman Brothers: raise TO 1247 (adds 1247); pot before=943; stack before=1825
+  Gherkers: fold; pot before=2190; stack before=1825
+  Durahim 1453: call 859; pot before=2190; stack before=1437
+  TURN ['Kc', '9d', 'Th', '4h']
+  Durahim 1453: raise TO 578 (adds 578); pot before=3049; stack before=578
+  Lehman Brothers: call 578; pot before=3627; stack before=578
+  RIVER ['Kc', '9d', 'Th', '4h', '8c']
+  Award Durahim 1453: 4205 (Two Pair)
+NET RESULTS {"GamesGone": 0, "Kojack": 0, "The Market Makers": -10, "SmartBGerBot": -20, "kaiserbot": 0, "Gherkers": -175, "Durahim 1453": 2205, "Lehman Brothers": -2000}
+
+HAND 258 — Market Makers KQ top pair calls Lehman large flop reraise and small turn all-in.
+Button 5; board ['4s', '3d', 'Kd', '7s', '8d']
+VISIBLE CARDS {"The Market Makers": ["Qs", "Kc"], "kaiserbot": ["4h", "Js"], "Lehman Brothers": ["Ac", "Jd"]}
+SHOWDOWN {"The Market Makers": "Pair", "Lehman Brothers": "High Card"}
+  Durahim 1453 posts 10
+  Lehman Brothers posts 20
+  GamesGone: fold; pot before=30; stack before=2000
+  Kojack: fold; pot before=30; stack before=2000
+  The Market Makers: raise TO 50 (adds 50); pot before=30; stack before=2000
+  SmartBGerBot: fold; pot before=80; stack before=2000
+  kaiserbot: fold; pot before=80; stack before=2000
+  Gherkers: fold; pot before=80; stack before=2000
+  Durahim 1453: fold; pot before=80; stack before=1990
+  Lehman Brothers: raise TO 120 (adds 100); pot before=80; stack before=1980
+  The Market Makers: call 70; pot before=180; stack before=1950
+  FLOP ['4s', '3d', 'Kd']
+  Lehman Brothers: raise TO 145 (adds 145); pot before=250; stack before=1880
+  The Market Makers: raise TO 685 (adds 685); pot before=395; stack before=1880
+  Lehman Brothers: raise TO 1765 (adds 1620); pot before=1080; stack before=1735
+  The Market Makers: call 1080; pot before=2700; stack before=1195
+  TURN ['4s', '3d', 'Kd', '7s']
+  Lehman Brothers: raise TO 115 (adds 115); pot before=3780; stack before=115
+  The Market Makers: call 115; pot before=3895; stack before=115
+  RIVER ['4s', '3d', 'Kd', '7s', '8d']
+  Award The Market Makers: 4010 (Pair)
+NET RESULTS {"GamesGone": 0, "Kojack": 0, "The Market Makers": 2010, "SmartBGerBot": 0, "kaiserbot": 0, "Gherkers": 0, "Durahim 1453": -10, "Lehman Brothers": -2000}
+
+HAND 115 — Counterexample: Durahim AJ four-bet/calls preflop and loses to Lehman AQ.
+Button 6; board ['Ac', 'Kd', '4h', '9s', 'Ks']
+VISIBLE CARDS {"kaiserbot": ["2s", "5c"], "Durahim 1453": ["Ah", "Jc"], "Lehman Brothers": ["Qc", "As"]}
+SHOWDOWN {"Durahim 1453": "Two Pair", "Lehman Brothers": "Two Pair"}
+  Lehman Brothers posts 10
+  GamesGone posts 20
+  Kojack: fold; pot before=30; stack before=2000
+  The Market Makers: fold; pot before=30; stack before=2000
+  SmartBGerBot: fold; pot before=30; stack before=2000
+  kaiserbot: fold; pot before=30; stack before=2000
+  Gherkers: fold; pot before=30; stack before=2000
+  Durahim 1453: raise TO 46 (adds 46); pot before=30; stack before=2000
+  Lehman Brothers: raise TO 110 (adds 100); pot before=76; stack before=1990
+  GamesGone: fold; pot before=176; stack before=1980
+  Durahim 1453: raise TO 252 (adds 206); pot before=176; stack before=1954
+  Lehman Brothers: raise TO 585 (adds 475); pot before=382; stack before=1890
+  Durahim 1453: call 333; pot before=857; stack before=1748
+  FLOP ['Ac', 'Kd', '4h']
+  Lehman Brothers: raise TO 615 (adds 615); pot before=1190; stack before=1415
+  Durahim 1453: call 615; pot before=1805; stack before=1415
+  TURN ['Ac', 'Kd', '4h', '9s']
+  Lehman Brothers: raise TO 800 (adds 800); pot before=2420; stack before=800
+  Durahim 1453: call 800; pot before=3220; stack before=800
+  RIVER ['Ac', 'Kd', '4h', '9s', 'Ks']
+  Award Lehman Brothers: 4020 (Two Pair)
+NET RESULTS {"GamesGone": -20, "Kojack": 0, "The Market Makers": 0, "SmartBGerBot": 0, "kaiserbot": 0, "Gherkers": 0, "Durahim 1453": -2000, "Lehman Brothers": 2020}
+
+HAND 979 — Kojack AK trips with stronger kicker than GamesGone A9; turn stack-off.
+Button 6; board ['As', 'Ah', '4c', '3d', '7c']
+VISIBLE CARDS {"GamesGone": ["9s", "Ac"], "Kojack": ["Ks", "Ad"], "kaiserbot": ["Qd", "3h"]}
+SHOWDOWN {"GamesGone": "Three of a Kind", "Kojack": "Three of a Kind"}
+  Lehman Brothers posts 10
+  GamesGone posts 20
+  Kojack: raise TO 50 (adds 50); pot before=30; stack before=2000
+  The Market Makers: fold; pot before=80; stack before=2000
+  SmartBGerBot: fold; pot before=80; stack before=2000
+  kaiserbot: fold; pot before=80; stack before=2000
+  Gherkers: fold; pot before=80; stack before=2000
+  Durahim 1453: fold; pot before=80; stack before=2000
+  Lehman Brothers: call 40; pot before=80; stack before=1990
+  GamesGone: call 30; pot before=120; stack before=1980
+  FLOP ['As', 'Ah', '4c']
+  Lehman Brothers: check; pot before=150; stack before=1950
+  GamesGone: raise TO 150 (adds 150); pot before=150; stack before=1950
+  Kojack: call 150; pot before=300; stack before=1950
+  Lehman Brothers: fold; pot before=450; stack before=1950
+  TURN ['As', 'Ah', '4c', '3d']
+  GamesGone: raise TO 450 (adds 450); pot before=450; stack before=1800
+  Kojack: raise TO 1800 (adds 1800); pot before=900; stack before=1800
+  GamesGone: call 1350; pot before=2700; stack before=1350
+  RIVER ['As', 'Ah', '4c', '3d', '7c']
+  Award Kojack: 4050 (Three of a Kind)
+NET RESULTS {"GamesGone": -2000, "Kojack": 2050, "The Market Makers": 0, "SmartBGerBot": 0, "kaiserbot": 0, "Gherkers": 0, "Durahim 1453": 0, "Lehman Brothers": -50}
+
+HAND 441 — Kojack T9 draw flop raise then turned straight stack-off versus GamesGone JT.
+Button 4; board ['Kc', '7h', 'Jd', '8c', '6d']
+VISIBLE CARDS {"GamesGone": ["Jc", "Tc"], "Kojack": ["Ts", "9s"], "kaiserbot": ["Ah", "9c"]}
+SHOWDOWN {"GamesGone": "Pair", "Kojack": "Straight"}
+  Gherkers posts 10
+  Durahim 1453 posts 20
+  Lehman Brothers: call 20; pot before=30; stack before=2000
+  GamesGone: call 20; pot before=50; stack before=2000
+  Kojack: raise TO 90 (adds 90); pot before=70; stack before=2000
+  The Market Makers: fold; pot before=160; stack before=2000
+  SmartBGerBot: fold; pot before=160; stack before=2000
+  kaiserbot: fold; pot before=160; stack before=2000
+  Gherkers: fold; pot before=160; stack before=1990
+  Durahim 1453: fold; pot before=160; stack before=1980
+  Lehman Brothers: fold; pot before=160; stack before=1980
+  GamesGone: call 70; pot before=160; stack before=1980
+  FLOP ['Kc', '7h', 'Jd']
+  GamesGone: raise TO 230 (adds 230); pot before=230; stack before=1910
+  Kojack: raise TO 747 (adds 747); pot before=460; stack before=1910
+  GamesGone: call 517; pot before=1207; stack before=1680
+  TURN ['Kc', '7h', 'Jd', '8c']
+  GamesGone: check; pot before=1724; stack before=1163
+  Kojack: raise TO 1163 (adds 1163); pot before=1724; stack before=1163
+  GamesGone: call 1163; pot before=2887; stack before=1163
+  RIVER ['Kc', '7h', 'Jd', '8c', '6d']
+  Award Kojack: 4050 (Straight)
+NET RESULTS {"GamesGone": -2000, "Kojack": 2050, "The Market Makers": 0, "SmartBGerBot": 0, "kaiserbot": 0, "Gherkers": -10, "Durahim 1453": -20, "Lehman Brothers": -20}

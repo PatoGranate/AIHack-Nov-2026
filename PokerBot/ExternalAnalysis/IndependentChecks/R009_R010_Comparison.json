@@ -1,0 +1,717 @@
+{
+  "rounds": {
+    "9": {
+      "groups": {
+        "position:CO": {
+          "hands": 125,
+          "chips": -4887,
+          "grossLoss": 7676,
+          "grossWin": 2789
+        },
+        "preflop:fold preflop": {
+          "hands": 730,
+          "chips": -7223,
+          "grossLoss": 7223,
+          "grossWin": 0
+        },
+        "terminal:fold preflop": {
+          "hands": 730,
+          "chips": -7223,
+          "grossLoss": 7223,
+          "grossWin": 0
+        },
+        "showdown:False": {
+          "hands": 934,
+          "chips": 473,
+          "grossLoss": 15018,
+          "grossWin": 15491
+        },
+        "allin:False": {
+          "hands": 969,
+          "chips": -11506,
+          "grossLoss": 28030,
+          "grossWin": 16524
+        },
+        "finalRisk:neither": {
+          "hands": 924,
+          "chips": -7974,
+          "grossLoss": 27540,
+          "grossWin": 19566
+        },
+        "position:HJ": {
+          "hands": 125,
+          "chips": 719,
+          "grossLoss": 3784,
+          "grossWin": 4503
+        },
+        "position:MP": {
+          "hands": 125,
+          "chips": -1386,
+          "grossLoss": 6627,
+          "grossWin": 5241
+        },
+        "position:UTG+1": {
+          "hands": 125,
+          "chips": -1259,
+          "grossLoss": 5693,
+          "grossWin": 4434
+        },
+        "position:UTG": {
+          "hands": 125,
+          "chips": -5268,
+          "grossLoss": 9858,
+          "grossWin": 4590
+        },
+        "preflop:open without later call-reraise": {
+          "hands": 143,
+          "chips": -3903,
+          "grossLoss": 16489,
+          "grossWin": 12586
+        },
+        "terminal:win without showdown": {
+          "hands": 159,
+          "chips": 12449,
+          "grossLoss": 0,
+          "grossWin": 12449
+        },
+        "position:BB": {
+          "hands": 125,
+          "chips": 1325,
+          "grossLoss": 5636,
+          "grossWin": 6961
+        },
+        "position:SB": {
+          "hands": 125,
+          "chips": -2239,
+          "grossLoss": 4151,
+          "grossWin": 1912
+        },
+        "position:BTN": {
+          "hands": 125,
+          "chips": -3334,
+          "grossLoss": 6605,
+          "grossWin": 3271
+        },
+        "preflop:call initial open": {
+          "hands": 62,
+          "chips": 322,
+          "grossLoss": 8226,
+          "grossWin": 8548
+        },
+        "finalRisk:opponent-only full stack": {
+          "hands": 55,
+          "chips": -490,
+          "grossLoss": 490,
+          "grossWin": 0
+        },
+        "preflop:open/call reraise": {
+          "hands": 34,
+          "chips": -5426,
+          "grossLoss": 15936,
+          "grossWin": 10510
+        },
+        "terminal:showdown no all-in": {
+          "hands": 45,
+          "chips": -8937,
+          "grossLoss": 13012,
+          "grossWin": 4075
+        },
+        "showdown:True": {
+          "hands": 66,
+          "chips": -16802,
+          "grossLoss": 35012,
+          "grossWin": 18210
+        },
+        "terminal:all-in flop": {
+          "hands": 9,
+          "chips": -684,
+          "grossLoss": 6000,
+          "grossWin": 5316
+        },
+        "allin:True": {
+          "hands": 31,
+          "chips": -4823,
+          "grossLoss": 22000,
+          "grossWin": 17177
+        },
+        "finalRisk:WBot full stack": {
+          "hands": 21,
+          "chips": -7865,
+          "grossLoss": 22000,
+          "grossWin": 14135
+        },
+        "terminal:all-in river": {
+          "hands": 10,
+          "chips": -2754,
+          "grossLoss": 6000,
+          "grossWin": 3246
+        },
+        "terminal:fold river": {
+          "hands": 3,
+          "chips": -1696,
+          "grossLoss": 1696,
+          "grossWin": 0
+        },
+        "preflop:hero reraise": {
+          "hands": 20,
+          "chips": -139,
+          "grossLoss": 2000,
+          "grossWin": 1861
+        },
+        "preflop:limp/check other": {
+          "hands": 11,
+          "chips": 40,
+          "grossLoss": 156,
+          "grossWin": 196
+        },
+        "terminal:all-in turn": {
+          "hands": 8,
+          "chips": 2310,
+          "grossLoss": 6000,
+          "grossWin": 8310
+        },
+        "terminal:fold flop": {
+          "hands": 29,
+          "chips": -4840,
+          "grossLoss": 4840,
+          "grossWin": 0
+        },
+        "terminal:all-in preflop": {
+          "hands": 4,
+          "chips": -3695,
+          "grossLoss": 4000,
+          "grossWin": 305
+        },
+        "terminal:fold turn": {
+          "hands": 3,
+          "chips": -1259,
+          "grossLoss": 1259,
+          "grossWin": 0
+        }
+      },
+      "winnerContexts": {
+        "ND": {
+          "losingHands": 48,
+          "grossHeroLoss": 12219
+        },
+        "bigRoddy": {
+          "losingHands": 73,
+          "grossHeroLoss": 9216
+        },
+        "Kojack": {
+          "losingHands": 40,
+          "grossHeroLoss": 4721
+        },
+        "Astra La Vista": {
+          "losingHands": 66,
+          "grossHeroLoss": 12869
+        },
+        "supernut": {
+          "losingHands": 27,
+          "grossHeroLoss": 3804
+        },
+        "FisherMen": {
+          "losingHands": 36,
+          "grossHeroLoss": 4305
+        },
+        "Joca": {
+          "losingHands": 10,
+          "grossHeroLoss": 2886
+        },
+        "Kojack + bigRoddy": {
+          "losingHands": 1,
+          "grossHeroLoss": 10
+        }
+      },
+      "patterns": {
+        "postflop over-pot bet/raise increment": {
+          "hands": 21,
+          "chips": 5051
+        },
+        "bet/call on at least two streets": {
+          "hands": 3,
+          "chips": -5235
+        },
+        "postflop raise while facing bet": {
+          "hands": 5,
+          "chips": -7636
+        }
+      },
+      "roster": [
+        "supernut",
+        "FisherMen",
+        "bigRoddy",
+        "Kojack",
+        "Joca",
+        "WBot",
+        "Astra La Vista",
+        "ND"
+      ],
+      "finalRiskCategories": {
+        "WBot full stack": {
+          "hands": 21,
+          "chips": -7865,
+          "grossLoss": 22000,
+          "grossWin": 14135
+        },
+        "opponent-only full stack": {
+          "hands": 55,
+          "chips": -490,
+          "grossLoss": 490,
+          "grossWin": 0
+        },
+        "neither": {
+          "hands": 924,
+          "chips": -7974,
+          "grossLoss": 27540,
+          "grossWin": 19566
+        }
+      }
+    },
+    "10": {
+      "groups": {
+        "position:CO": {
+          "hands": 143,
+          "chips": -1235,
+          "grossLoss": 5277,
+          "grossWin": 4042
+        },
+        "preflop:fold preflop": {
+          "hands": 697,
+          "chips": -6140,
+          "grossLoss": 6140,
+          "grossWin": 0
+        },
+        "terminal:fold preflop": {
+          "hands": 697,
+          "chips": -6140,
+          "grossLoss": 6140,
+          "grossWin": 0
+        },
+        "showdown:False": {
+          "hands": 948,
+          "chips": -2709,
+          "grossLoss": 19347,
+          "grossWin": 16638
+        },
+        "allin:False": {
+          "hands": 960,
+          "chips": -4991,
+          "grossLoss": 23519,
+          "grossWin": 18528
+        },
+        "finalRisk:neither": {
+          "hands": 965,
+          "chips": 1564,
+          "grossLoss": 23317,
+          "grossWin": 24881
+        },
+        "position:HJ": {
+          "hands": 143,
+          "chips": 420,
+          "grossLoss": 7102,
+          "grossWin": 7522
+        },
+        "preflop:open without later call-reraise": {
+          "hands": 152,
+          "chips": -5857,
+          "grossLoss": 24229,
+          "grossWin": 18372
+        },
+        "terminal:win without showdown": {
+          "hands": 155,
+          "chips": 10285,
+          "grossLoss": 0,
+          "grossWin": 10285
+        },
+        "position:MP": {
+          "hands": 143,
+          "chips": -617,
+          "grossLoss": 10599,
+          "grossWin": 9982
+        },
+        "position:UTG": {
+          "hands": 143,
+          "chips": 1943,
+          "grossLoss": 3696,
+          "grossWin": 5639
+        },
+        "position:BB": {
+          "hands": 143,
+          "chips": -5813,
+          "grossLoss": 10772,
+          "grossWin": 4959
+        },
+        "position:SB": {
+          "hands": 143,
+          "chips": 421,
+          "grossLoss": 3519,
+          "grossWin": 3940
+        },
+        "position:BTN": {
+          "hands": 142,
+          "chips": -9397,
+          "grossLoss": 14554,
+          "grossWin": 5157
+        },
+        "terminal:fold flop": {
+          "hands": 49,
+          "chips": -7055,
+          "grossLoss": 7055,
+          "grossWin": 0
+        },
+        "terminal:showdown no all-in": {
+          "hands": 28,
+          "chips": 4071,
+          "grossLoss": 4172,
+          "grossWin": 8243
+        },
+        "showdown:True": {
+          "hands": 52,
+          "chips": -11569,
+          "grossLoss": 36172,
+          "grossWin": 24603
+        },
+        "preflop:limp/check other": {
+          "hands": 21,
+          "chips": 210,
+          "grossLoss": 0,
+          "grossWin": 210
+        },
+        "preflop:call initial open": {
+          "hands": 93,
+          "chips": -5518,
+          "grossLoss": 20627,
+          "grossWin": 15109
+        },
+        "terminal:fold river": {
+          "hands": 18,
+          "chips": -3666,
+          "grossLoss": 3666,
+          "grossWin": 0
+        },
+        "preflop:open/call reraise": {
+          "hands": 14,
+          "chips": -692,
+          "grossLoss": 3979,
+          "grossWin": 3287
+        },
+        "terminal:all-in turn": {
+          "hands": 17,
+          "chips": -11353,
+          "grossLoss": 18000,
+          "grossWin": 6647
+        },
+        "allin:True": {
+          "hands": 40,
+          "chips": -9287,
+          "grossLoss": 32000,
+          "grossWin": 22713
+        },
+        "finalRisk:WBot full stack": {
+          "hands": 24,
+          "chips": -15640,
+          "grossLoss": 32000,
+          "grossWin": 16360
+        },
+        "terminal:all-in river": {
+          "hands": 7,
+          "chips": 1053,
+          "grossLoss": 4000,
+          "grossWin": 5053
+        },
+        "finalRisk:opponent-only full stack": {
+          "hands": 11,
+          "chips": -202,
+          "grossLoss": 202,
+          "grossWin": 0
+        },
+        "terminal:fold turn": {
+          "hands": 13,
+          "chips": -2486,
+          "grossLoss": 2486,
+          "grossWin": 0
+        },
+        "terminal:all-in flop": {
+          "hands": 12,
+          "chips": -1715,
+          "grossLoss": 10000,
+          "grossWin": 8285
+        },
+        "preflop:hero reraise": {
+          "hands": 23,
+          "chips": 3719,
+          "grossLoss": 544,
+          "grossWin": 4263
+        },
+        "terminal:all-in preflop": {
+          "hands": 4,
+          "chips": 2728,
+          "grossLoss": 0,
+          "grossWin": 2728
+        }
+      },
+      "winnerContexts": {
+        "Attention Is All In": {
+          "losingHands": 76,
+          "grossHeroLoss": 9874
+        },
+        "The Market Makers": {
+          "losingHands": 49,
+          "grossHeroLoss": 4123
+        },
+        "Mohil'sPokerBot": {
+          "losingHands": 54,
+          "grossHeroLoss": 9358
+        },
+        "Anker Batteries": {
+          "losingHands": 50,
+          "grossHeroLoss": 13928
+        },
+        "Jump Street": {
+          "losingHands": 66,
+          "grossHeroLoss": 7377
+        },
+        "kaiserbot": {
+          "losingHands": 45,
+          "grossHeroLoss": 10859
+        }
+      },
+      "patterns": {
+        "postflop raise while facing bet": {
+          "hands": 38,
+          "chips": -11850
+        },
+        "postflop over-pot bet/raise increment": {
+          "hands": 26,
+          "chips": -2585
+        },
+        "bet/call on at least two streets": {
+          "hands": 1,
+          "chips": -322
+        }
+      },
+      "roster": [
+        "kaiserbot",
+        "Anker Batteries",
+        "Jump Street",
+        "The Market Makers",
+        "Mohil'sPokerBot",
+        "WBot",
+        "Attention Is All In"
+      ],
+      "finalRiskCategories": {
+        "WBot full stack": {
+          "hands": 24,
+          "chips": -15640,
+          "grossLoss": 32000,
+          "grossWin": 16360
+        },
+        "opponent-only full stack": {
+          "hands": 11,
+          "chips": -202,
+          "grossLoss": 202,
+          "grossWin": 0
+        },
+        "neither": {
+          "hands": 965,
+          "chips": 1564,
+          "grossLoss": 23317,
+          "grossWin": 24881
+        }
+      }
+    }
+  },
+  "cumulative": {
+    "hands": 10000,
+    "chips": 19913,
+    "perRound": [
+      {
+        "ref": "saturday/r001",
+        "hands": 1000,
+        "chips": 7342,
+        "bb100": 36.71,
+        "roundMetadataPresent": true,
+        "roundMetadata": {
+          "ref": "saturday/r001",
+          "slot": "2026-11-14T15:00:00",
+          "table": 0,
+          "seat": 0,
+          "chips": 7342,
+          "hands": 1000,
+          "version": 5,
+          "bb100": 36.71,
+          "timeouts": 2,
+          "errors": 0,
+          "bank_out": 0,
+          "think_s": 3.04,
+          "violations": [],
+          "error_sample": null
+        }
+      },
+      {
+        "ref": "saturday/r002",
+        "hands": 1000,
+        "chips": 8566,
+        "bb100": 42.83,
+        "roundMetadataPresent": true,
+        "roundMetadata": {
+          "ref": "saturday/r002",
+          "slot": "2026-11-14T15:05:00",
+          "table": 1,
+          "seat": 6,
+          "chips": 8566,
+          "hands": 1000,
+          "version": 5,
+          "bb100": 42.83,
+          "timeouts": 0,
+          "errors": 0,
+          "bank_out": 0,
+          "think_s": 2.48,
+          "violations": [],
+          "error_sample": null
+        }
+      },
+      {
+        "ref": "saturday/r003",
+        "hands": 1000,
+        "chips": 4126,
+        "bb100": 20.630000000000003,
+        "roundMetadataPresent": true,
+        "roundMetadata": {
+          "ref": "saturday/r003",
+          "slot": "2026-11-14T15:10:00",
+          "table": 2,
+          "seat": 6,
+          "chips": 4126,
+          "hands": 1000,
+          "version": 5,
+          "bb100": 20.630000000000003,
+          "timeouts": 18,
+          "errors": 0,
+          "bank_out": 0,
+          "think_s": 3.22,
+          "violations": [],
+          "error_sample": null
+        }
+      },
+      {
+        "ref": "saturday/r004",
+        "hands": 1000,
+        "chips": 3828,
+        "bb100": 19.14,
+        "roundMetadataPresent": true,
+        "roundMetadata": {
+          "ref": "saturday/r004",
+          "slot": "2026-11-14T15:15:00",
+          "table": 0,
+          "seat": 3,
+          "chips": 3828,
+          "hands": 1000,
+          "version": 5,
+          "bb100": 19.14,
+          "timeouts": 4,
+          "errors": 0,
+          "bank_out": 0,
+          "think_s": 2.97,
+          "violations": [],
+          "error_sample": null
+        }
+      },
+      {
+        "ref": "saturday/r005",
+        "hands": 1000,
+        "chips": 9941,
+        "bb100": 49.705,
+        "roundMetadataPresent": true,
+        "roundMetadata": {
+          "ref": "saturday/r005",
+          "slot": "2026-11-14T15:20:00",
+          "table": 0,
+          "seat": 7,
+          "chips": 9941,
+          "hands": 1000,
+          "version": 5,
+          "bb100": 49.705,
+          "timeouts": 3,
+          "errors": 0,
+          "bank_out": 0,
+          "think_s": 2.62,
+          "violations": [],
+          "error_sample": null
+        }
+      },
+      {
+        "ref": "saturday/r006",
+        "hands": 1000,
+        "chips": 3297,
+        "bb100": 16.485,
+        "roundMetadataPresent": true,
+        "roundMetadata": {
+          "ref": "saturday/r006",
+          "slot": "2026-11-14T15:25:00",
+          "table": 1,
+          "seat": 4,
+          "chips": 3297,
+          "hands": 1000,
+          "version": 5,
+          "bb100": 16.485,
+          "timeouts": 0,
+          "errors": 0,
+          "bank_out": 0,
+          "think_s": 2.29,
+          "violations": [],
+          "error_sample": null
+        }
+      },
+      {
+        "ref": "saturday/r007",
+        "hands": 1000,
+        "chips": 12489,
+        "bb100": 62.44500000000001,
+        "roundMetadataPresent": true,
+        "roundMetadata": {
+          "ref": "saturday/r007",
+          "slot": "2026-11-14T15:30:00",
+          "table": 2,
+          "seat": 6,
+          "chips": 12489,
+          "hands": 1000,
+          "version": 5,
+          "bb100": 62.44500000000001,
+          "timeouts": 1,
+          "errors": 0,
+          "bank_out": 0,
+          "think_s": 2.35,
+          "violations": [],
+          "error_sample": null
+        }
+      },
+      {
+        "ref": "saturday/r008",
+        "hands": 1000,
+        "chips": 931,
+        "bb100": 4.654999999999999,
+        "roundMetadataPresent": false,
+        "roundMetadata": null
+      },
+      {
+        "ref": "saturday/r009",
+        "hands": 1000,
+        "chips": -16329,
+        "bb100": -81.645,
+        "roundMetadataPresent": false,
+        "roundMetadata": null
+      },
+      {
+        "ref": "saturday/r010",
+        "hands": 1000,
+        "chips": -14278,
+        "bb100": -71.39,
+        "roundMetadataPresent": false,
+        "roundMetadata": null
+      }
+    ],
+    "bb100": 9.9565
+  }
+}

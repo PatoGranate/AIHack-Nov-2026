@@ -1,0 +1,162 @@
+{
+  "sha256": "b8a22e4b9085cf8c634a129deba71faf479834cac7ab127b84f551e2b0f0c16a",
+  "handsPerRound": 1000,
+  "debug": true,
+  "mode": "LocalPlayer; no external deadline enforcement",
+  "results": [
+    {
+      "seed": 515151,
+      "chips": [
+        62474,
+        29137,
+        78612,
+        -313785,
+        69308,
+        51766,
+        22488
+      ],
+      "allSeatStats": [
+        {
+          "decisions": 1330,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 4.235,
+          "avg_ms": 0.209,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1942,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 1.821,
+          "avg_ms": 0.026,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1007,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.211,
+          "avg_ms": 0.01,
+          "bank_out": 0
+        },
+        {
+          "decisions": 2656,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 2.386,
+          "avg_ms": 0.031,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1302,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.285,
+          "avg_ms": 0.016,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1461,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 3.001,
+          "avg_ms": 0.024,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1718,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 1.863,
+          "avg_ms": 0.024,
+          "bank_out": 0
+        }
+      ]
+    },
+    {
+      "seed": 515152,
+      "chips": [
+        61590,
+        -1482,
+        26661,
+        -225550,
+        55480,
+        47005,
+        36296
+      ],
+      "allSeatStats": [
+        {
+          "decisions": 1303,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 4.334,
+          "avg_ms": 0.234,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1930,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 2.427,
+          "avg_ms": 0.026,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1008,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.626,
+          "avg_ms": 0.011,
+          "bank_out": 0
+        },
+        {
+          "decisions": 2768,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 1.874,
+          "avg_ms": 0.032,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1328,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.598,
+          "avg_ms": 0.017,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1545,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 2.071,
+          "avg_ms": 0.021,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1713,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 1.279,
+          "avg_ms": 0.023,
+          "bank_out": 0
+        }
+      ]
+    }
+  ]
+}

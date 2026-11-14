@@ -1,0 +1,347 @@
+FOCUSED AUDIT: GHERKERS, ATTENTION IS ALL IN, AAST
+14 November 2026
+
+60 source JSON files -> 31 unique table-rounds / 31,000 table hands.
+Dedup identity: (round ref, ordered roster), then verify public-history SHA256
+over hand number, complete events and results. All duplicate perspectives match.
+29 duplicate files are not counted twice. Full file/public hashes in Target_Profiles.json.
+All pots reconcile to awards; 24,744 refunds processed, no recorded arithmetic
+anomalies. Only public actions/results used; no hidden-card assumptions.
+Opponent code versions are UNKNOWN. Dataset rNvM labels identify WBot version
+context only, not a target opponent revision. Per-round exposure is retained.
+Rates include counts and Wilson95 intervals; opportunities cluster by hand/table.
+Profit t intervals are illustrative across a tiny heterogeneous round sample,
+not a guaranteed stationary win-rate confidence bound. Practice and live stay separate.
+
+THE GHERKERS LEADERBOARD CLAIM
+Available records are selected table perspectives, not the complete leaderboard.
+They neither reproduce nor refute a complete tournament-wide average.
+This snapshot has Gherkers +142.54 over 8,000 hands; practice +161.69 / 5,000 hands;
+live +110.61 / 3,000 hands. One practice round is +470.62.
+Do not use these selected tables to overwrite the complete event average.
+
+GHERKERS
+
+practice: 5000 hands, 5 table-rounds, +161.69 bb/100; illustrative round-t95 [-57.3,+380.7]
+  VPIP 1908/5000=38.2%; Wilson95 [36.8%,39.5%]
+  PFR 1518/5000=30.4%; Wilson95 [29.1%,31.6%]
+  Clean RFI 1085/2162=50.2%; Wilson95 [48.1%,52.3%]
+  Fold facing single open 1684/2194=76.8%; Wilson95 [74.9%,78.5%]
+  Opener fold facing three-bet 148/561=26.4%; Wilson95 [22.9%,30.2%]
+  Clean RFI by position (table sizes kept separate):
+    6max BTN: 60/96=62.5%; Wilson95 [52.5%,71.5%]
+    6max CO: 81/173=46.8%; Wilson95 [39.5%,54.2%]
+    6max HJ: 101/227=44.5%; Wilson95 [38.2%,51.0%]
+    6max SB: 5/5=100.0%; Wilson95 [56.6%,100.0%]
+    6max UTG: 124/334=37.1%; Wilson95 [32.1%,42.4%]
+    7max BTN: 14/26=53.8%; Wilson95 [35.5%,71.2%]
+    7max CO: 14/24=58.3%; Wilson95 [38.8%,75.5%]
+    7max HJ: 99/205=48.3%; Wilson95 [41.5%,55.1%]
+    7max MP: 142/245=58.0%; Wilson95 [51.7%,64.0%]
+    7max SB: 6/13=46.2%; Wilson95 [23.2%,70.9%]
+    7max UTG: 155/286=54.2%; Wilson95 [48.4%,59.9%]
+    8max BTN: 25/40=62.5%; Wilson95 [47.0%,75.8%]
+    8max CO: 39/68=57.4%; Wilson95 [45.5%,68.4%]
+    8max HJ: 42/82=51.2%; Wilson95 [40.6%,61.7%]
+    8max MP: 57/105=54.3%; Wilson95 [44.8%,63.5%]
+    8max UTG: 67/125=53.6%; Wilson95 [44.9%,62.1%]
+    8max UTG+1: 54/108=50.0%; Wilson95 [40.7%,59.3%]
+  First postflop bet responses: street x original bet/pot-before-bet x HU/multiway:
+    flop <=0.33 HU: fold 0/2=0.0%; Wilson95 [0.0%,65.8%]; calls 2, raises 0
+    flop <=0.33 multiway: fold 1/3=33.3%; Wilson95 [6.1%,79.2%]; calls 2, raises 0
+    flop <=0.67 HU: fold 183/395=46.3%; Wilson95 [41.5%,51.3%]; calls 193, raises 19
+    flop <=0.67 multiway: fold 102/194=52.6%; Wilson95 [45.6%,59.5%]; calls 84, raises 8
+    flop <=1.0 HU: fold 27/40=67.5%; Wilson95 [52.0%,79.9%]; calls 5, raises 8
+    flop <=1.0 multiway: fold 23/35=65.7%; Wilson95 [49.2%,79.2%]; calls 7, raises 5
+    flop >1.0 HU: fold 26/60=43.3%; Wilson95 [31.6%,55.9%]; calls 20, raises 14
+    flop >1.0 multiway: fold 20/25=80.0%; Wilson95 [60.9%,91.1%]; calls 4, raises 1
+    flop ALL HU: fold 236/497=47.5%; Wilson95 [43.1%,51.9%]; calls 220, raises 41
+    flop ALL multiway: fold 146/257=56.8%; Wilson95 [50.7%,62.7%]; calls 97, raises 14
+    river <=0.33 HU: fold 3/5=60.0%; Wilson95 [23.1%,88.2%]; calls 2, raises 0
+    river <=0.33 multiway: fold 1/2=50.0%; Wilson95 [9.5%,90.5%]; calls 1, raises 0
+    river <=0.67 HU: fold 28/87=32.2%; Wilson95 [23.3%,42.6%]; calls 39, raises 20
+    river <=0.67 multiway: fold 2/5=40.0%; Wilson95 [11.8%,76.9%]; calls 1, raises 2
+    river <=1.0 HU: fold 6/7=85.7%; Wilson95 [48.7%,97.4%]; calls 1, raises 0
+    river <=1.0 multiway: fold 3/4=75.0%; Wilson95 [30.1%,95.4%]; calls 1, raises 0
+    river ALL HU: fold 37/99=37.4%; Wilson95 [28.5%,47.2%]; calls 42, raises 20
+    river ALL multiway: fold 6/11=54.5%; Wilson95 [28.0%,78.7%]; calls 3, raises 2
+    turn <=0.33 HU: fold 0/1=0.0%; Wilson95 [0.0%,79.3%]; calls 1, raises 0
+    turn <=0.67 HU: fold 53/273=19.4%; Wilson95 [15.2%,24.5%]; calls 209, raises 11
+    turn <=0.67 multiway: fold 15/32=46.9%; Wilson95 [30.9%,63.6%]; calls 12, raises 5
+    turn <=1.0 HU: fold 15/29=51.7%; Wilson95 [34.4%,68.6%]; calls 9, raises 5
+    turn <=1.0 multiway: fold 7/8=87.5%; Wilson95 [52.9%,97.8%]; calls 1, raises 0
+    turn >1.0 HU: fold 4/10=40.0%; Wilson95 [16.8%,68.7%]; calls 5, raises 1
+    turn >1.0 multiway: fold 0/1=0.0%; Wilson95 [0.0%,79.3%]; calls 1, raises 0
+    turn ALL HU: fold 72/313=23.0%; Wilson95 [18.7%,28.0%]; calls 224, raises 17
+    turn ALL multiway: fold 22/41=53.7%; Wilson95 [38.7%,67.9%]; calls 14, raises 5
+live: 3000 hands, 3 table-rounds, +110.61 bb/100; illustrative round-t95 [-10.0,+231.3]
+  VPIP 823/3000=27.4%; Wilson95 [25.9%,29.1%]
+  PFR 659/3000=22.0%; Wilson95 [20.5%,23.5%]
+  Clean RFI 426/1320=32.3%; Wilson95 [29.8%,34.8%]
+  Fold facing single open 1067/1396=76.4%; Wilson95 [74.1%,78.6%]
+  Opener fold facing three-bet 44/163=27.0%; Wilson95 [20.8%,34.3%]
+  Clean RFI by position (table sizes kept separate):
+    7max BTN: 25/42=59.5%; Wilson95 [44.5%,73.0%]
+    7max CO: 18/59=30.5%; Wilson95 [20.3%,43.1%]
+    7max HJ: 18/76=23.7%; Wilson95 [15.5%,34.4%]
+    7max MP: 21/113=18.6%; Wilson95 [12.5%,26.7%]
+    7max SB: 18/19=94.7%; Wilson95 [75.4%,99.1%]
+    7max UTG: 24/143=16.8%; Wilson95 [11.5%,23.8%]
+    8max BTN: 28/34=82.4%; Wilson95 [66.5%,91.7%]
+    8max CO: 31/48=64.6%; Wilson95 [50.4%,76.6%]
+    8max HJ: 59/138=42.8%; Wilson95 [34.8%,51.1%]
+    8max MP: 45/173=26.0%; Wilson95 [20.0%,33.0%]
+    8max SB: 18/26=69.2%; Wilson95 [50.0%,83.5%]
+    8max UTG: 64/250=25.6%; Wilson95 [20.6%,31.4%]
+    8max UTG+1: 57/199=28.6%; Wilson95 [22.8%,35.3%]
+  First postflop bet responses: street x original bet/pot-before-bet x HU/multiway:
+    flop <=0.33 HU: fold 1/6=16.7%; Wilson95 [3.0%,56.4%]; calls 3, raises 2
+    flop <=0.33 multiway: fold 5/9=55.6%; Wilson95 [26.7%,81.1%]; calls 1, raises 3
+    flop <=0.67 HU: fold 37/111=33.3%; Wilson95 [25.3%,42.5%]; calls 62, raises 12
+    flop <=0.67 multiway: fold 40/68=58.8%; Wilson95 [47.0%,69.7%]; calls 22, raises 6
+    flop <=1.0 HU: fold 11/16=68.8%; Wilson95 [44.4%,85.8%]; calls 4, raises 1
+    flop <=1.0 multiway: fold 13/14=92.9%; Wilson95 [68.5%,98.7%]; calls 1, raises 0
+    flop >1.0 HU: fold 4/8=50.0%; Wilson95 [21.5%,78.5%]; calls 4, raises 0
+    flop >1.0 multiway: fold 2/3=66.7%; Wilson95 [20.8%,93.9%]; calls 1, raises 0
+    flop ALL HU: fold 53/141=37.6%; Wilson95 [30.0%,45.8%]; calls 73, raises 15
+    flop ALL multiway: fold 60/94=63.8%; Wilson95 [53.8%,72.8%]; calls 25, raises 9
+    river <=0.33 HU: fold 1/4=25.0%; Wilson95 [4.6%,69.9%]; calls 2, raises 1
+    river <=0.67 HU: fold 13/39=33.3%; Wilson95 [20.6%,49.0%]; calls 18, raises 8
+    river <=0.67 multiway: fold 1/1=100.0%; Wilson95 [20.7%,100.0%]; calls 0, raises 0
+    river <=1.0 HU: fold 4/5=80.0%; Wilson95 [37.6%,96.4%]; calls 1, raises 0
+    river >1.0 HU: fold 2/2=100.0%; Wilson95 [34.2%,100.0%]; calls 0, raises 0
+    river ALL HU: fold 20/50=40.0%; Wilson95 [27.6%,53.8%]; calls 21, raises 9
+    river ALL multiway: fold 1/1=100.0%; Wilson95 [20.7%,100.0%]; calls 0, raises 0
+    turn <=0.33 HU: fold 4/10=40.0%; Wilson95 [16.8%,68.7%]; calls 4, raises 2
+    turn <=0.33 multiway: fold 0/1=0.0%; Wilson95 [0.0%,79.3%]; calls 0, raises 1
+    turn <=0.67 HU: fold 22/84=26.2%; Wilson95 [18.0%,36.5%]; calls 61, raises 1
+    turn <=0.67 multiway: fold 5/11=45.5%; Wilson95 [21.3%,72.0%]; calls 6, raises 0
+    turn <=1.0 HU: fold 10/13=76.9%; Wilson95 [49.7%,91.8%]; calls 3, raises 0
+    turn <=1.0 multiway: fold 4/4=100.0%; Wilson95 [51.0%,100.0%]; calls 0, raises 0
+    turn >1.0 HU: fold 3/3=100.0%; Wilson95 [43.9%,100.0%]; calls 0, raises 0
+    turn ALL HU: fold 39/110=35.5%; Wilson95 [27.1%,44.7%]; calls 68, raises 3
+    turn ALL multiway: fold 9/16=56.2%; Wilson95 [33.2%,76.9%]; calls 6, raises 1
+all: 8000 hands, 8 table-rounds, +142.54 bb/100; illustrative round-t95 [+26.8,+258.3]
+  VPIP 2731/8000=34.1%; Wilson95 [33.1%,35.2%]
+  PFR 2177/8000=27.2%; Wilson95 [26.2%,28.2%]
+  Clean RFI 1511/3482=43.4%; Wilson95 [41.8%,45.0%]
+  Fold facing single open 2751/3590=76.6%; Wilson95 [75.2%,78.0%]
+  Opener fold facing three-bet 192/724=26.5%; Wilson95 [23.4%,29.9%]
+Per-round exposure (opponent code version unknown):
+  saturday/r003 / 7 seats / 1000 hands: +77.86 bb/100, VPIP 28.5%, PFR 23.1%; WBot version context not supplied
+  saturday/r005 / 8 seats / 1000 hands: +166.41 bb/100, VPIP 21.5%, PFR 15.7%; WBot version context not supplied
+  saturday/r007 / 8 seats / 1000 hands: +87.57 bb/100, VPIP 32.3%, PFR 27.1%; WBot version context not supplied
+  saturday/practice/r011 / 7 seats / 1000 hands: +106.61 bb/100, VPIP 40.6%, PFR 36.1%; WBot version context 1
+  saturday/practice/r013 / 6 seats / 1000 hands: +470.62 bb/100, VPIP 42.2%, PFR 34.2%; WBot version context 2
+  saturday/practice/r014 / 6 seats / 1000 hands: +22.81 bb/100, VPIP 24.5%, PFR 15.4%; WBot version context not supplied
+  saturday/practice/r016 / 7 seats / 1000 hands: +111.28 bb/100, VPIP 43.7%, PFR 31.8%; WBot version context not supplied
+  saturday/practice/r017 / 8 seats / 1000 hands: +97.12 bb/100, VPIP 39.8%, PFR 34.3%; WBot version context not supplied
+
+ATTENTION IS ALL IN
+
+practice: 4000 hands, 4 table-rounds, +117.87 bb/100; illustrative round-t95 [-95.9,+331.7]
+  VPIP 1153/4000=28.8%; Wilson95 [27.4%,30.2%]
+  PFR 797/4000=19.9%; Wilson95 [18.7%,21.2%]
+  Clean RFI 460/1681=27.4%; Wilson95 [25.3%,29.5%]
+  Fold facing single open 1288/1657=77.7%; Wilson95 [75.7%,79.7%]
+  Opener fold facing three-bet 63/108=58.3%; Wilson95 [48.9%,67.2%]
+  Clean RFI by position (table sizes kept separate):
+    6max BTN: 55/67=82.1%; Wilson95 [71.3%,89.4%]
+    6max CO: 32/106=30.2%; Wilson95 [22.3%,39.5%]
+    6max HJ: 28/138=20.3%; Wilson95 [14.4%,27.8%]
+    6max SB: 58/64=90.6%; Wilson95 [81.0%,95.6%]
+    6max UTG: 26/166=15.7%; Wilson95 [10.9%,22.0%]
+    7max BTN: 51/63=81.0%; Wilson95 [69.6%,88.8%]
+    7max CO: 25/89=28.1%; Wilson95 [19.8%,38.2%]
+    7max HJ: 28/108=25.9%; Wilson95 [18.6%,34.9%]
+    7max MP: 20/116=17.2%; Wilson95 [11.4%,25.1%]
+    7max SB: 12/16=75.0%; Wilson95 [50.5%,89.8%]
+    7max UTG: 48/286=16.8%; Wilson95 [12.9%,21.5%]
+    8max BTN: 11/21=52.4%; Wilson95 [32.4%,71.7%]
+    8max CO: 11/42=26.2%; Wilson95 [15.3%,41.1%]
+    8max HJ: 9/66=13.6%; Wilson95 [7.3%,23.9%]
+    8max MP: 14/84=16.7%; Wilson95 [10.2%,26.1%]
+    8max SB: 4/13=30.8%; Wilson95 [12.7%,57.6%]
+    8max UTG: 14/125=11.2%; Wilson95 [6.8%,17.9%]
+    8max UTG+1: 14/111=12.6%; Wilson95 [7.7%,20.1%]
+  First postflop bet responses: street x original bet/pot-before-bet x HU/multiway:
+    flop <=0.33 HU: fold 3/4=75.0%; Wilson95 [30.1%,95.4%]; calls 1, raises 0
+    flop <=0.33 multiway: fold 1/1=100.0%; Wilson95 [20.7%,100.0%]; calls 0, raises 0
+    flop <=0.67 HU: fold 69/122=56.6%; Wilson95 [47.7%,65.0%]; calls 40, raises 13
+    flop <=0.67 multiway: fold 41/66=62.1%; Wilson95 [50.1%,72.9%]; calls 18, raises 7
+    flop <=1.0 HU: fold 32/48=66.7%; Wilson95 [52.5%,78.3%]; calls 12, raises 4
+    flop <=1.0 multiway: fold 18/24=75.0%; Wilson95 [55.1%,88.0%]; calls 4, raises 2
+    flop >1.0 multiway: fold 7/7=100.0%; Wilson95 [64.6%,100.0%]; calls 0, raises 0
+    flop ALL HU: fold 104/174=59.8%; Wilson95 [52.3%,66.8%]; calls 53, raises 17
+    flop ALL multiway: fold 67/98=68.4%; Wilson95 [58.6%,76.7%]; calls 22, raises 9
+    river <=0.33 HU: fold 1/2=50.0%; Wilson95 [9.5%,90.5%]; calls 1, raises 0
+    river <=0.33 multiway: fold 1/1=100.0%; Wilson95 [20.7%,100.0%]; calls 0, raises 0
+    river <=0.67 HU: fold 20/29=69.0%; Wilson95 [50.8%,82.7%]; calls 7, raises 2
+    river <=0.67 multiway: fold 3/4=75.0%; Wilson95 [30.1%,95.4%]; calls 0, raises 1
+    river <=1.0 HU: fold 7/8=87.5%; Wilson95 [52.9%,97.8%]; calls 1, raises 0
+    river <=1.0 multiway: fold 3/3=100.0%; Wilson95 [43.9%,100.0%]; calls 0, raises 0
+    river ALL HU: fold 28/39=71.8%; Wilson95 [56.2%,83.5%]; calls 9, raises 2
+    river ALL multiway: fold 7/8=87.5%; Wilson95 [52.9%,97.8%]; calls 0, raises 1
+    turn <=0.33 HU: fold 1/3=33.3%; Wilson95 [6.1%,79.2%]; calls 2, raises 0
+    turn <=0.67 HU: fold 39/78=50.0%; Wilson95 [39.2%,60.8%]; calls 27, raises 12
+    turn <=0.67 multiway: fold 11/17=64.7%; Wilson95 [41.3%,82.7%]; calls 6, raises 0
+    turn <=1.0 HU: fold 18/23=78.3%; Wilson95 [58.1%,90.3%]; calls 3, raises 2
+    turn <=1.0 multiway: fold 3/3=100.0%; Wilson95 [43.9%,100.0%]; calls 0, raises 0
+    turn >1.0 HU: fold 0/1=0.0%; Wilson95 [0.0%,79.3%]; calls 1, raises 0
+    turn >1.0 multiway: fold 1/1=100.0%; Wilson95 [20.7%,100.0%]; calls 0, raises 0
+    turn ALL HU: fold 58/105=55.2%; Wilson95 [45.7%,64.4%]; calls 33, raises 14
+    turn ALL multiway: fold 15/21=71.4%; Wilson95 [50.0%,86.2%]; calls 6, raises 0
+live: 3000 hands, 3 table-rounds, +37.07 bb/100; illustrative round-t95 [-154.5,+228.6]
+  VPIP 770/3000=25.7%; Wilson95 [24.1%,27.3%]
+  PFR 522/3000=17.4%; Wilson95 [16.1%,18.8%]
+  Clean RFI 356/1499=23.7%; Wilson95 [21.7%,26.0%]
+  Fold facing single open 926/1317=70.3%; Wilson95 [67.8%,72.7%]
+  Opener fold facing three-bet 96/126=76.2%; Wilson95 [68.0%,82.8%]
+  Clean RFI by position (table sizes kept separate):
+    7max BTN: 17/26=65.4%; Wilson95 [46.2%,80.6%]
+    7max CO: 17/60=28.3%; Wilson95 [18.5%,40.8%]
+    7max HJ: 14/87=16.1%; Wilson95 [9.8%,25.2%]
+    7max MP: 22/114=19.3%; Wilson95 [13.1%,27.5%]
+    7max SB: 12/12=100.0%; Wilson95 [75.8%,100.0%]
+    7max UTG: 13/143=9.1%; Wilson95 [5.4%,14.9%]
+    8max BTN: 65/85=76.5%; Wilson95 [66.4%,84.2%]
+    8max CO: 39/126=31.0%; Wilson95 [23.5%,39.5%]
+    8max HJ: 29/151=19.2%; Wilson95 [13.7%,26.2%]
+    8max MP: 30/185=16.2%; Wilson95 [11.6%,22.2%]
+    8max SB: 38/44=86.4%; Wilson95 [73.3%,93.6%]
+    8max UTG: 33/250=13.2%; Wilson95 [9.6%,18.0%]
+    8max UTG+1: 27/216=12.5%; Wilson95 [8.7%,17.6%]
+  First postflop bet responses: street x original bet/pot-before-bet x HU/multiway:
+    flop <=0.33 HU: fold 3/8=37.5%; Wilson95 [13.7%,69.4%]; calls 5, raises 0
+    flop <=0.33 multiway: fold 5/5=100.0%; Wilson95 [56.6%,100.0%]; calls 0, raises 0
+    flop <=0.67 HU: fold 30/63=47.6%; Wilson95 [35.8%,59.7%]; calls 21, raises 12
+    flop <=0.67 multiway: fold 20/37=54.1%; Wilson95 [38.4%,69.0%]; calls 14, raises 3
+    flop <=1.0 HU: fold 18/30=60.0%; Wilson95 [42.3%,75.4%]; calls 10, raises 2
+    flop <=1.0 multiway: fold 30/35=85.7%; Wilson95 [70.6%,93.7%]; calls 3, raises 2
+    flop >1.0 HU: fold 10/11=90.9%; Wilson95 [62.3%,98.4%]; calls 0, raises 1
+    flop >1.0 multiway: fold 10/14=71.4%; Wilson95 [45.4%,88.3%]; calls 3, raises 1
+    flop ALL HU: fold 61/112=54.5%; Wilson95 [45.2%,63.4%]; calls 36, raises 15
+    flop ALL multiway: fold 65/91=71.4%; Wilson95 [61.4%,79.7%]; calls 20, raises 6
+    river <=0.33 HU: fold 3/5=60.0%; Wilson95 [23.1%,88.2%]; calls 2, raises 0
+    river <=0.67 HU: fold 11/16=68.8%; Wilson95 [44.4%,85.8%]; calls 4, raises 1
+    river <=1.0 HU: fold 4/4=100.0%; Wilson95 [51.0%,100.0%]; calls 0, raises 0
+    river <=1.0 multiway: fold 1/2=50.0%; Wilson95 [9.5%,90.5%]; calls 0, raises 1
+    river >1.0 HU: fold 1/1=100.0%; Wilson95 [20.7%,100.0%]; calls 0, raises 0
+    river ALL HU: fold 19/26=73.1%; Wilson95 [53.9%,86.3%]; calls 6, raises 1
+    river ALL multiway: fold 1/2=50.0%; Wilson95 [9.5%,90.5%]; calls 0, raises 1
+    turn <=0.33 HU: fold 4/10=40.0%; Wilson95 [16.8%,68.7%]; calls 5, raises 1
+    turn <=0.67 HU: fold 19/31=61.3%; Wilson95 [43.8%,76.3%]; calls 8, raises 4
+    turn <=0.67 multiway: fold 3/5=60.0%; Wilson95 [23.1%,88.2%]; calls 1, raises 1
+    turn <=1.0 HU: fold 8/13=61.5%; Wilson95 [35.5%,82.3%]; calls 3, raises 2
+    turn <=1.0 multiway: fold 8/8=100.0%; Wilson95 [67.6%,100.0%]; calls 0, raises 0
+    turn >1.0 HU: fold 7/9=77.8%; Wilson95 [45.3%,93.7%]; calls 2, raises 0
+    turn >1.0 multiway: fold 3/4=75.0%; Wilson95 [30.1%,95.4%]; calls 0, raises 1
+    turn ALL HU: fold 38/63=60.3%; Wilson95 [48.0%,71.5%]; calls 18, raises 7
+    turn ALL multiway: fold 14/17=82.4%; Wilson95 [59.0%,93.8%]; calls 1, raises 2
+all: 7000 hands, 7 table-rounds, +83.24 bb/100; illustrative round-t95 [-21.7,+188.2]
+  VPIP 1923/7000=27.5%; Wilson95 [26.4%,28.5%]
+  PFR 1319/7000=18.8%; Wilson95 [17.9%,19.8%]
+  Clean RFI 816/3180=25.7%; Wilson95 [24.2%,27.2%]
+  Fold facing single open 2214/2974=74.4%; Wilson95 [72.8%,76.0%]
+  Opener fold facing three-bet 159/234=67.9%; Wilson95 [61.7%,73.6%]
+Per-round exposure (opponent code version unknown):
+  saturday/r001 / 7 seats / 1000 hands: +126.09 bb/100, VPIP 24.3%, PFR 14.2%; WBot version context not supplied
+  saturday/r005 / 8 seats / 1000 hands: -8.74 bb/100, VPIP 27.6%, PFR 21.6%; WBot version context not supplied
+  saturday/r007 / 8 seats / 1000 hands: -6.13 bb/100, VPIP 25.1%, PFR 16.4%; WBot version context not supplied
+  saturday/practice/r010 / 7 seats / 1000 hands: +317.39 bb/100, VPIP 39.8%, PFR 25.4%; WBot version context 1
+  saturday/practice/r012 / 7 seats / 1000 hands: +67.89 bb/100, VPIP 27.9%, PFR 22.1%; WBot version context 1
+  saturday/practice/r013 / 6 seats / 1000 hands: +24.81 bb/100, VPIP 29.1%, PFR 21.0%; WBot version context not supplied
+  saturday/practice/r017 / 8 seats / 1000 hands: +61.38 bb/100, VPIP 18.5%, PFR 11.2%; WBot version context not supplied
+
+AAST
+
+practice: no exposure
+live: 4000 hands, 4 table-rounds, +41.66 bb/100; illustrative round-t95 [-12.4,+95.7]
+  VPIP 770/4000=19.2%; Wilson95 [18.1%,20.5%]
+  PFR 497/4000=12.4%; Wilson95 [11.4%,13.5%]
+  Clean RFI 325/1754=18.5%; Wilson95 [16.8%,20.4%]
+  Fold facing single open 1408/1743=80.8%; Wilson95 [78.9%,82.6%]
+  Opener fold facing three-bet 52/102=51.0%; Wilson95 [41.4%,60.5%]
+  Clean RFI by position (table sizes kept separate):
+    8max BTN: 39/82=47.6%; Wilson95 [37.1%,58.2%]
+    8max CO: 52/152=34.2%; Wilson95 [27.1%,42.1%]
+    8max HJ: 51/205=24.9%; Wilson95 [19.5%,31.2%]
+    8max MP: 52/355=14.6%; Wilson95 [11.3%,18.7%]
+    8max SB: 18/35=51.4%; Wilson95 [35.6%,67.0%]
+    8max UTG: 59/500=11.8%; Wilson95 [9.3%,14.9%]
+    8max UTG+1: 54/425=12.7%; Wilson95 [9.9%,16.2%]
+  First postflop bet responses: street x original bet/pot-before-bet x HU/multiway:
+    flop <=0.33 HU: fold 3/9=33.3%; Wilson95 [12.1%,64.6%]; calls 5, raises 1
+    flop <=0.33 multiway: fold 3/7=42.9%; Wilson95 [15.8%,75.0%]; calls 3, raises 1
+    flop <=0.67 HU: fold 40/85=47.1%; Wilson95 [36.8%,57.6%]; calls 21, raises 24
+    flop <=0.67 multiway: fold 35/53=66.0%; Wilson95 [52.6%,77.3%]; calls 7, raises 11
+    flop <=1.0 HU: fold 14/19=73.7%; Wilson95 [51.2%,88.2%]; calls 5, raises 0
+    flop <=1.0 multiway: fold 21/24=87.5%; Wilson95 [69.0%,95.7%]; calls 1, raises 2
+    flop >1.0 HU: fold 7/7=100.0%; Wilson95 [64.6%,100.0%]; calls 0, raises 0
+    flop >1.0 multiway: fold 3/5=60.0%; Wilson95 [23.1%,88.2%]; calls 0, raises 2
+    flop ALL HU: fold 64/120=53.3%; Wilson95 [44.4%,62.0%]; calls 31, raises 25
+    flop ALL multiway: fold 62/89=69.7%; Wilson95 [59.5%,78.2%]; calls 11, raises 16
+    river <=0.33 HU: fold 2/8=25.0%; Wilson95 [7.1%,59.1%]; calls 6, raises 0
+    river <=0.67 HU: fold 6/8=75.0%; Wilson95 [40.9%,92.9%]; calls 2, raises 0
+    river <=0.67 multiway: fold 0/1=0.0%; Wilson95 [0.0%,79.3%]; calls 1, raises 0
+    river <=1.0 HU: fold 2/4=50.0%; Wilson95 [15.0%,85.0%]; calls 2, raises 0
+    river <=1.0 multiway: fold 1/1=100.0%; Wilson95 [20.7%,100.0%]; calls 0, raises 0
+    river >1.0 HU: fold 2/2=100.0%; Wilson95 [34.2%,100.0%]; calls 0, raises 0
+    river >1.0 multiway: fold 1/1=100.0%; Wilson95 [20.7%,100.0%]; calls 0, raises 0
+    river ALL HU: fold 12/22=54.5%; Wilson95 [34.7%,73.1%]; calls 10, raises 0
+    river ALL multiway: fold 2/3=66.7%; Wilson95 [20.8%,93.9%]; calls 1, raises 0
+    turn <=0.33 HU: fold 0/9=0.0%; Wilson95 [0.0%,29.9%]; calls 7, raises 2
+    turn <=0.33 multiway: fold 0/1=0.0%; Wilson95 [0.0%,79.3%]; calls 1, raises 0
+    turn <=0.67 HU: fold 9/26=34.6%; Wilson95 [19.4%,53.8%]; calls 12, raises 5
+    turn <=0.67 multiway: fold 3/3=100.0%; Wilson95 [43.9%,100.0%]; calls 0, raises 0
+    turn <=1.0 HU: fold 3/10=30.0%; Wilson95 [10.8%,60.3%]; calls 3, raises 4
+    turn <=1.0 multiway: fold 3/6=50.0%; Wilson95 [18.8%,81.2%]; calls 2, raises 1
+    turn >1.0 HU: fold 2/3=66.7%; Wilson95 [20.8%,93.9%]; calls 1, raises 0
+    turn >1.0 multiway: fold 1/1=100.0%; Wilson95 [20.7%,100.0%]; calls 0, raises 0
+    turn ALL HU: fold 14/48=29.2%; Wilson95 [18.2%,43.2%]; calls 23, raises 11
+    turn ALL multiway: fold 7/11=63.6%; Wilson95 [35.4%,84.8%]; calls 3, raises 1
+all: 4000 hands, 4 table-rounds, +41.66 bb/100; illustrative round-t95 [-12.4,+95.7]
+  VPIP 770/4000=19.2%; Wilson95 [18.1%,20.5%]
+  PFR 497/4000=12.4%; Wilson95 [11.4%,13.5%]
+  Clean RFI 325/1754=18.5%; Wilson95 [16.8%,20.4%]
+  Fold facing single open 1408/1743=80.8%; Wilson95 [78.9%,82.6%]
+  Opener fold facing three-bet 52/102=51.0%; Wilson95 [41.4%,60.5%]
+Per-round exposure (opponent code version unknown):
+  saturday/r001 / 8 seats / 1000 hands: +9.57 bb/100, VPIP 18.4%, PFR 12.0%; WBot version context not supplied
+  saturday/r002 / 8 seats / 1000 hands: +31.54 bb/100, VPIP 18.6%, PFR 11.1%; WBot version context not supplied
+  saturday/r004 / 8 seats / 1000 hands: +35.96 bb/100, VPIP 20.4%, PFR 13.4%; WBot version context not supplied
+  saturday/r005 / 8 seats / 1000 hands: +89.56 bb/100, VPIP 19.6%, PFR 13.2%; WBot version context not supplied
+
+TRAINING IMPLICATIONS
+1. Do not implement one generic strong-bot clone. Use target-specific conditional
+   profiles, including position, response context, street and size. Preserve
+   multiple practice/live variants as a population instead of forcing one policy.
+2. Add less-aggressive Gherkers live variants as well as its loose/aggressive
+   practice variants. Test early-versus-late position response before increasing
+   wide opening or three-betting globally. Its observed profit is not a mechanism.
+3. Preserve separate open defence and opener-versus-threebet counters. Their
+   denominators differ; pooled folds alone cannot establish light-threebet value.
+4. Sample AAST from its live-only profile; there is no practice evidence here.
+   Use shrinkage for small river/size cells, and avoid zero/one-rate hardcoding.
+5. Add check-back/delayed-aggression and raise-vs-small-bet structural variants.
+   First-bet fold statistics do not identify what opponents do after a check or
+   facing later raises. Do not claim those counterfactuals were observed.
+6. Fit on practice or an earlier live subset, freeze, and confirm on later live
+   table rounds. Keep candidate source hashes, all-seat errors and timing gates.
+   Reusing these same outcomes to choose then validate a clone overfits the sample.
+7. Compare exploit changes by paired chip outcomes against these diverse variants,
+   not only whether the clone matches VPIP/PFR. Match conditional responses too.
+8. Gherkers live: inspect current opener-threebet counts above, including calls
+   and raises in the JSON. Train a selective opener that both calls and four-bets;
+   a generic overfolder clone is structurally wrong. Test value-heavy responses
+   and four-bet defence before proposing wider three-bet bluffs.
+9. AAST live: substantial raises facing heads-up flop/turn bets remain important.
+   Inspect current counts above. A tight preflop clone with
+   no postflop counter-aggression would miss this behaviour. Add raise pressure
+   and test the candidate's response to it, preserving size/board uncertainty.
+10. Attention live: use current street-specific first-bet fold counts above,
+   with strong shrinkage on the small river sample. Opener fold-to-threebet
+   frequency is a targeted
+   hypothesis, not permission to reactivate globally losing light-threebet logic.
+
+No playing code modified. Reports are UTF-8; complete source provenance retained.

@@ -1,0 +1,3205 @@
+{
+  "source": "User-provided current leaderboard screenshot, supplied values; not independently queried online",
+  "leaderboardComparison": [
+    {
+      "name": "Gherkers",
+      "leaderboardBb100_userScreenshot": 86.0,
+      "leaderboardHands": 7000,
+      "localLiveHands": 3000,
+      "localLiveTableRounds": 3,
+      "localLiveBb100": 110.615,
+      "localMinusScreenshot": 24.614999999999995,
+      "missingTableRounds": 4,
+      "liveRounds": [
+        "saturday/r003",
+        "saturday/r007",
+        "saturday/r005"
+      ]
+    },
+    {
+      "name": "Attention Is All In",
+      "leaderboardBb100_userScreenshot": 62.8,
+      "leaderboardHands": 7000,
+      "localLiveHands": 3000,
+      "localLiveTableRounds": 3,
+      "localLiveBb100": 37.07333333333334,
+      "localMinusScreenshot": -25.72666666666666,
+      "missingTableRounds": 4,
+      "liveRounds": [
+        "saturday/r001",
+        "saturday/r005",
+        "saturday/r007"
+      ]
+    },
+    {
+      "name": "AAST",
+      "leaderboardBb100_userScreenshot": 51.0,
+      "leaderboardHands": 7000,
+      "localLiveHands": 4000,
+      "localLiveTableRounds": 4,
+      "localLiveBb100": 41.65875,
+      "localMinusScreenshot": -9.341250000000002,
+      "missingTableRounds": 3,
+      "liveRounds": [
+        "saturday/r001",
+        "saturday/r004",
+        "saturday/r002",
+        "saturday/r005"
+      ]
+    },
+    {
+      "name": "Equity Engine",
+      "leaderboardBb100_userScreenshot": 40.8,
+      "leaderboardHands": 7000,
+      "localLiveHands": 1000,
+      "localLiveTableRounds": 1,
+      "localLiveBb100": 21.5,
+      "localMinusScreenshot": -19.299999999999997,
+      "missingTableRounds": 6,
+      "liveRounds": [
+        "saturday/r006"
+      ]
+    },
+    {
+      "name": "WBot",
+      "leaderboardBb100_userScreenshot": 35.4,
+      "leaderboardHands": 7000,
+      "localLiveHands": 7000,
+      "localLiveTableRounds": 7,
+      "localLiveBb100": 35.42071428571428,
+      "localMinusScreenshot": 0.02071428571428413,
+      "missingTableRounds": 0,
+      "liveRounds": [
+        "saturday/r001",
+        "saturday/r002",
+        "saturday/r003",
+        "saturday/r004",
+        "saturday/r006",
+        "saturday/r005",
+        "saturday/r007"
+      ]
+    }
+  ],
+  "newTargetExposures": [
+    {
+      "name": "Gherkers",
+      "newExposure": [
+        {
+          "ref": "saturday/r007",
+          "roster": [
+            "Durahim 1453",
+            "Phil AIvey",
+            "Gherkers",
+            "ediz_slow",
+            "Chinese people can fly",
+            "Jump Street",
+            "SmartBGerBot",
+            "Red"
+          ],
+          "hands": 1000,
+          "chips": 17514,
+          "bb100": 87.57000000000001,
+          "groups": [
+            "external"
+          ],
+          "rfiCounts": {
+            "opp": 454,
+            "raise": 214
+          },
+          "rfiPosCounts": {
+            "8max HJ": {
+              "opp": 60,
+              "raise": 37
+            },
+            "8max MP": {
+              "opp": 70,
+              "raise": 23
+            },
+            "8max UTG+1": {
+              "opp": 91,
+              "raise": 34
+            },
+            "8max UTG": {
+              "opp": 125,
+              "raise": 43
+            },
+            "8max CO": {
+              "opp": 48,
+              "raise": 31
+            },
+            "8max BTN": {
+              "opp": 34,
+              "raise": 28
+            },
+            "8max SB": {
+              "opp": 26,
+              "raise": 18
+            }
+          },
+          "vpipCount": 323,
+          "pfrCount": 271,
+          "foldOpenCounts": {
+            "opp": 493,
+            "fold": 392,
+            "raise": 47,
+            "call": 54
+          },
+          "openerThreebetCounts": {
+            "opp": 88,
+            "fold": 24,
+            "call": 58,
+            "raise": 6
+          },
+          "postCounts": {
+            "turn <=1.0 HU": {
+              "opp": 2,
+              "fold": 2
+            },
+            "turn ALL HU": {
+              "opp": 56,
+              "fold": 13,
+              "call": 42,
+              "raise": 1
+            },
+            "flop <=0.67 HU": {
+              "opp": 52,
+              "raise": 1,
+              "fold": 18,
+              "call": 33
+            },
+            "flop ALL HU": {
+              "opp": 59,
+              "raise": 3,
+              "fold": 21,
+              "call": 35
+            },
+            "flop <=0.67 multiway": {
+              "opp": 35,
+              "fold": 15,
+              "call": 17,
+              "raise": 3
+            },
+            "flop ALL multiway": {
+              "opp": 42,
+              "fold": 22,
+              "call": 17,
+              "raise": 3
+            },
+            "turn <=0.67 multiway": {
+              "opp": 8,
+              "fold": 3,
+              "call": 5
+            },
+            "turn ALL multiway": {
+              "opp": 9,
+              "fold": 4,
+              "call": 5
+            },
+            "turn <=0.67 HU": {
+              "opp": 46,
+              "call": 39,
+              "fold": 6,
+              "raise": 1
+            },
+            "river <=0.67 HU": {
+              "opp": 22,
+              "fold": 8,
+              "raise": 3,
+              "call": 11
+            },
+            "river ALL HU": {
+              "opp": 27,
+              "fold": 12,
+              "raise": 3,
+              "call": 12
+            },
+            "flop <=1.0 multiway": {
+              "opp": 4,
+              "fold": 4
+            },
+            "flop <=1.0 HU": {
+              "opp": 3,
+              "fold": 3
+            },
+            "flop <=0.33 multiway": {
+              "opp": 2,
+              "fold": 2
+            },
+            "river <=0.67 multiway": {
+              "opp": 1,
+              "fold": 1
+            },
+            "river ALL multiway": {
+              "opp": 1,
+              "fold": 1
+            },
+            "river <=1.0 HU": {
+              "opp": 3,
+              "fold": 3
+            },
+            "turn <=1.0 multiway": {
+              "opp": 1,
+              "fold": 1
+            },
+            "flop >1.0 multiway": {
+              "opp": 1,
+              "fold": 1
+            },
+            "turn >1.0 HU": {
+              "opp": 1,
+              "fold": 1
+            },
+            "river <=0.33 HU": {
+              "opp": 2,
+              "fold": 1,
+              "call": 1
+            },
+            "flop <=0.33 HU": {
+              "opp": 4,
+              "call": 2,
+              "raise": 2
+            },
+            "turn <=0.33 HU": {
+              "opp": 7,
+              "call": 3,
+              "fold": 4
+            }
+          },
+          "period": "live",
+          "opponentCodeVersion": "unknown",
+          "WBotVersionContext": [],
+          "publicEventSha256": "28d88493c8e9004ea257ff1983b27ca370185c3d39df3d1b6e635334bab5b039",
+          "sourcePaths": [
+            "Hand_data\\ExternalTeamData\\external_team_03\\SaturdayRealRounds\\saturday_r007.json"
+          ]
+        }
+      ],
+      "beforeLive": {
+        "hands": 2000,
+        "tableRounds": 2,
+        "chips": 48855,
+        "bb100_descriptive": 122.13750000000002,
+        "approxRoundT95": [
+          -440.39794935165,
+          684.6729493516501
+        ],
+        "roundRates": [
+          77.865,
+          166.41
+        ],
+        "vpip": {
+          "events": 500,
+          "opportunities": 2000,
+          "rate": 0.25,
+          "wilson95": [
+            0.23151413442481927,
+            0.26944438921580716
+          ]
+        },
+        "pfr": {
+          "events": 388,
+          "opportunities": 2000,
+          "rate": 0.194,
+          "wilson95": [
+            0.17726318436104654,
+            0.21191004857508017
+          ]
+        },
+        "rfi": {
+          "events": 212,
+          "opportunities": 866,
+          "rate": 0.24480369515011546,
+          "wilson95": [
+            0.21733476362901133,
+            0.27452666063645087
+          ]
+        },
+        "rfiPositions": {
+          "7max HJ": {
+            "events": 18,
+            "opportunities": 76,
+            "rate": 0.23684210526315788,
+            "wilson95": [
+              0.15539330268790774,
+              0.3436138473463737
+            ]
+          },
+          "7max MP": {
+            "events": 21,
+            "opportunities": 113,
+            "rate": 0.18584070796460178,
+            "wilson95": [
+              0.12488706689643617,
+              0.26745191349101927
+            ]
+          },
+          "7max UTG": {
+            "events": 24,
+            "opportunities": 143,
+            "rate": 0.16783216783216784,
+            "wilson95": [
+              0.11545455678665202,
+              0.23758919010227542
+            ]
+          },
+          "7max BTN": {
+            "events": 25,
+            "opportunities": 42,
+            "rate": 0.5952380952380952,
+            "wilson95": [
+              0.44494312750039755,
+              0.7295713885251834
+            ]
+          },
+          "7max CO": {
+            "events": 18,
+            "opportunities": 59,
+            "rate": 0.3050847457627119,
+            "wilson95": [
+              0.20253631980116293,
+              0.43146326531944823
+            ]
+          },
+          "7max SB": {
+            "events": 18,
+            "opportunities": 19,
+            "rate": 0.9473684210526315,
+            "wilson95": [
+              0.7536126883310192,
+              0.9906480059376992
+            ]
+          },
+          "8max HJ": {
+            "events": 22,
+            "opportunities": 78,
+            "rate": 0.28205128205128205,
+            "wilson95": [
+              0.19425334729674226,
+              0.39030928770600803
+            ]
+          },
+          "8max MP": {
+            "events": 22,
+            "opportunities": 103,
+            "rate": 0.21359223300970873,
+            "wilson95": [
+              0.14549744857392594,
+              0.30228246147937626
+            ]
+          },
+          "8max UTG+1": {
+            "events": 23,
+            "opportunities": 108,
+            "rate": 0.21296296296296297,
+            "wilson95": [
+              0.14630950224163458,
+              0.29933435242768414
+            ]
+          },
+          "8max UTG": {
+            "events": 21,
+            "opportunities": 125,
+            "rate": 0.168,
+            "wilson95": [
+              0.11258821427515349,
+              0.24320920714717426
+            ]
+          }
+        },
+        "foldToOpen": {
+          "events": 675,
+          "opportunities": 903,
+          "rate": 0.7475083056478405,
+          "wilson95": [
+            0.7181646679425426,
+            0.7747550101909464
+          ],
+          "calls": 101,
+          "raises": 127
+        },
+        "openerFoldToThreebet": {
+          "events": 20,
+          "opportunities": 75,
+          "rate": 0.26666666666666666,
+          "wilson95": [
+            0.17976313631474045,
+            0.3763079901772343
+          ],
+          "calls": 34,
+          "raises": 21
+        },
+        "postFirstBet": {
+          "turn <=1.0 HU": {
+            "events": 8,
+            "opportunities": 11,
+            "rate": 0.7272727272727273,
+            "wilson95": [
+              0.43435469882387834,
+              0.9025394070997484
+            ],
+            "calls": 3,
+            "raises": 0
+          },
+          "turn ALL HU": {
+            "events": 26,
+            "opportunities": 54,
+            "rate": 0.48148148148148145,
+            "wilson95": [
+              0.353939727466122,
+              0.6114829980187257
+            ],
+            "calls": 26,
+            "raises": 2
+          },
+          "flop <=0.67 HU": {
+            "events": 19,
+            "opportunities": 59,
+            "rate": 0.3220338983050847,
+            "wilson95": [
+              0.21687575241885876,
+              0.44894995573474267
+            ],
+            "calls": 29,
+            "raises": 11
+          },
+          "flop ALL HU": {
+            "events": 32,
+            "opportunities": 82,
+            "rate": 0.3902439024390244,
+            "wilson95": [
+              0.2918468135988448,
+              0.49846429891849375
+            ],
+            "calls": 38,
+            "raises": 12
+          },
+          "flop <=0.67 multiway": {
+            "events": 25,
+            "opportunities": 33,
+            "rate": 0.7575757575757576,
+            "wilson95": [
+              0.5897538017044313,
+              0.8716828662282476
+            ],
+            "calls": 5,
+            "raises": 3
+          },
+          "flop ALL multiway": {
+            "events": 38,
+            "opportunities": 52,
+            "rate": 0.7307692307692307,
+            "wilson95": [
+              0.5974778016637324,
+              0.8323103970483324
+            ],
+            "calls": 8,
+            "raises": 6
+          },
+          "turn <=0.67 multiway": {
+            "events": 2,
+            "opportunities": 3,
+            "rate": 0.6666666666666666,
+            "wilson95": [
+              0.20765960080205476,
+              0.9385080552796012
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "turn ALL multiway": {
+            "events": 5,
+            "opportunities": 7,
+            "rate": 0.7142857142857143,
+            "wilson95": [
+              0.3589344518326274,
+              0.9177810759959406
+            ],
+            "calls": 1,
+            "raises": 1
+          },
+          "turn <=0.67 HU": {
+            "events": 16,
+            "opportunities": 38,
+            "rate": 0.42105263157894735,
+            "wilson95": [
+              0.27852501157759046,
+              0.5780765465632904
+            ],
+            "calls": 22,
+            "raises": 0
+          },
+          "river <=0.67 HU": {
+            "events": 5,
+            "opportunities": 17,
+            "rate": 0.29411764705882354,
+            "wilson95": [
+              0.1327998961029552,
+              0.5313311006653921
+            ],
+            "calls": 7,
+            "raises": 5
+          },
+          "river ALL HU": {
+            "events": 8,
+            "opportunities": 23,
+            "rate": 0.34782608695652173,
+            "wilson95": [
+              0.18811275938798067,
+              0.5510966462273645
+            ],
+            "calls": 9,
+            "raises": 6
+          },
+          "flop <=1.0 multiway": {
+            "events": 9,
+            "opportunities": 10,
+            "rate": 0.9,
+            "wilson95": [
+              0.595849973204771,
+              0.9821237869049263
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "flop <=1.0 HU": {
+            "events": 8,
+            "opportunities": 13,
+            "rate": 0.6153846153846154,
+            "wilson95": [
+              0.35522891512666305,
+              0.8229029220223705
+            ],
+            "calls": 4,
+            "raises": 1
+          },
+          "flop <=0.33 multiway": {
+            "events": 3,
+            "opportunities": 7,
+            "rate": 0.42857142857142855,
+            "wilson95": [
+              0.15821985525147414,
+              0.7495416354723365
+            ],
+            "calls": 1,
+            "raises": 3
+          },
+          "river <=1.0 HU": {
+            "events": 1,
+            "opportunities": 2,
+            "rate": 0.5,
+            "wilson95": [
+              0.09453120573423457,
+              0.9054687942657654
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "turn <=1.0 multiway": {
+            "events": 3,
+            "opportunities": 3,
+            "rate": 1.0,
+            "wilson95": [
+              0.4385029682449681,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "flop >1.0 HU": {
+            "events": 4,
+            "opportunities": 8,
+            "rate": 0.5,
+            "wilson95": [
+              0.2152160622138829,
+              0.7847839377861171
+            ],
+            "calls": 4,
+            "raises": 0
+          },
+          "flop >1.0 multiway": {
+            "events": 1,
+            "opportunities": 2,
+            "rate": 0.5,
+            "wilson95": [
+              0.09453120573423457,
+              0.9054687942657654
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "river <=0.33 HU": {
+            "events": 0,
+            "opportunities": 2,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.6576197724933345
+            ],
+            "calls": 1,
+            "raises": 1
+          },
+          "turn <=0.33 HU": {
+            "events": 0,
+            "opportunities": 3,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.561497031755032
+            ],
+            "calls": 1,
+            "raises": 2
+          },
+          "turn >1.0 HU": {
+            "events": 2,
+            "opportunities": 2,
+            "rate": 1.0,
+            "wilson95": [
+              0.34238022750666547,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "flop <=0.33 HU": {
+            "events": 1,
+            "opportunities": 2,
+            "rate": 0.5,
+            "wilson95": [
+              0.09453120573423457,
+              0.9054687942657654
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "river >1.0 HU": {
+            "events": 2,
+            "opportunities": 2,
+            "rate": 1.0,
+            "wilson95": [
+              0.34238022750666547,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "turn <=0.33 multiway": {
+            "events": 0,
+            "opportunities": 1,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.7934506856227534
+            ],
+            "calls": 0,
+            "raises": 1
+          }
+        }
+      },
+      "afterLive": {
+        "hands": 3000,
+        "tableRounds": 3,
+        "chips": 66369,
+        "bb100_descriptive": 110.615,
+        "approxRoundT95": [
+          -10.022008493917383,
+          231.25200849391737
+        ],
+        "roundRates": [
+          77.865,
+          87.57000000000001,
+          166.41
+        ],
+        "vpip": {
+          "events": 823,
+          "opportunities": 3000,
+          "rate": 0.2743333333333333,
+          "wilson95": [
+            0.2586635582789992,
+            0.2905802954456978
+          ]
+        },
+        "pfr": {
+          "events": 659,
+          "opportunities": 3000,
+          "rate": 0.21966666666666668,
+          "wilson95": [
+            0.2052150353533159,
+            0.2348353058320168
+          ]
+        },
+        "rfi": {
+          "events": 426,
+          "opportunities": 1320,
+          "rate": 0.32272727272727275,
+          "wilson95": [
+            0.29805213015641596,
+            0.34843121807101896
+          ]
+        },
+        "rfiPositions": {
+          "7max HJ": {
+            "events": 18,
+            "opportunities": 76,
+            "rate": 0.23684210526315788,
+            "wilson95": [
+              0.15539330268790774,
+              0.3436138473463737
+            ]
+          },
+          "7max MP": {
+            "events": 21,
+            "opportunities": 113,
+            "rate": 0.18584070796460178,
+            "wilson95": [
+              0.12488706689643617,
+              0.26745191349101927
+            ]
+          },
+          "7max UTG": {
+            "events": 24,
+            "opportunities": 143,
+            "rate": 0.16783216783216784,
+            "wilson95": [
+              0.11545455678665202,
+              0.23758919010227542
+            ]
+          },
+          "7max BTN": {
+            "events": 25,
+            "opportunities": 42,
+            "rate": 0.5952380952380952,
+            "wilson95": [
+              0.44494312750039755,
+              0.7295713885251834
+            ]
+          },
+          "7max CO": {
+            "events": 18,
+            "opportunities": 59,
+            "rate": 0.3050847457627119,
+            "wilson95": [
+              0.20253631980116293,
+              0.43146326531944823
+            ]
+          },
+          "7max SB": {
+            "events": 18,
+            "opportunities": 19,
+            "rate": 0.9473684210526315,
+            "wilson95": [
+              0.7536126883310192,
+              0.9906480059376992
+            ]
+          },
+          "8max HJ": {
+            "events": 59,
+            "opportunities": 138,
+            "rate": 0.427536231884058,
+            "wilson95": [
+              0.34805962614976976,
+              0.5109378759466898
+            ]
+          },
+          "8max MP": {
+            "events": 45,
+            "opportunities": 173,
+            "rate": 0.26011560693641617,
+            "wilson95": [
+              0.20045904446780732,
+              0.3301940017493879
+            ]
+          },
+          "8max UTG+1": {
+            "events": 57,
+            "opportunities": 199,
+            "rate": 0.2864321608040201,
+            "wilson95": [
+              0.22812997746804167,
+              0.35282353916418896
+            ]
+          },
+          "8max UTG": {
+            "events": 64,
+            "opportunities": 250,
+            "rate": 0.256,
+            "wilson95": [
+              0.20587818222534315,
+              0.3135068679284334
+            ]
+          },
+          "8max CO": {
+            "events": 31,
+            "opportunities": 48,
+            "rate": 0.6458333333333334,
+            "wilson95": [
+              0.5043905701034349,
+              0.7656635587439488
+            ]
+          },
+          "8max BTN": {
+            "events": 28,
+            "opportunities": 34,
+            "rate": 0.8235294117647058,
+            "wilson95": [
+              0.6648626260015774,
+              0.9165103095462751
+            ]
+          },
+          "8max SB": {
+            "events": 18,
+            "opportunities": 26,
+            "rate": 0.6923076923076923,
+            "wilson95": [
+              0.5001174167780217,
+              0.8349868440453595
+            ]
+          }
+        },
+        "foldToOpen": {
+          "events": 1067,
+          "opportunities": 1396,
+          "rate": 0.7643266475644699,
+          "wilson95": [
+            0.7413561769730476,
+            0.7858463825380367
+          ],
+          "calls": 155,
+          "raises": 174
+        },
+        "openerFoldToThreebet": {
+          "events": 44,
+          "opportunities": 163,
+          "rate": 0.26993865030674846,
+          "wilson95": [
+            0.20766680246537234,
+            0.34280464192182153
+          ],
+          "calls": 92,
+          "raises": 27
+        },
+        "postFirstBet": {
+          "turn <=1.0 HU": {
+            "events": 10,
+            "opportunities": 13,
+            "rate": 0.7692307692307693,
+            "wilson95": [
+              0.4974362405327324,
+              0.9182047128150121
+            ],
+            "calls": 3,
+            "raises": 0
+          },
+          "turn ALL HU": {
+            "events": 39,
+            "opportunities": 110,
+            "rate": 0.35454545454545455,
+            "wilson95": [
+              0.27144143085863004,
+              0.44746589577356266
+            ],
+            "calls": 68,
+            "raises": 3
+          },
+          "flop <=0.67 HU": {
+            "events": 37,
+            "opportunities": 111,
+            "rate": 0.3333333333333333,
+            "wilson95": [
+              0.2525113750360474,
+              0.42530532652841607
+            ],
+            "calls": 62,
+            "raises": 12
+          },
+          "flop ALL HU": {
+            "events": 53,
+            "opportunities": 141,
+            "rate": 0.375886524822695,
+            "wilson95": [
+              0.30023051207779017,
+              0.4581259675864464
+            ],
+            "calls": 73,
+            "raises": 15
+          },
+          "flop <=0.67 multiway": {
+            "events": 40,
+            "opportunities": 68,
+            "rate": 0.5882352941176471,
+            "wilson95": [
+              0.4696146675310571,
+              0.6974198024948133
+            ],
+            "calls": 22,
+            "raises": 6
+          },
+          "flop ALL multiway": {
+            "events": 60,
+            "opportunities": 94,
+            "rate": 0.6382978723404256,
+            "wilson95": [
+              0.5375052079060199,
+              0.7282308135452555
+            ],
+            "calls": 25,
+            "raises": 9
+          },
+          "turn <=0.67 multiway": {
+            "events": 5,
+            "opportunities": 11,
+            "rate": 0.45454545454545453,
+            "wilson95": [
+              0.21271271622460242,
+              0.7199084625906723
+            ],
+            "calls": 6,
+            "raises": 0
+          },
+          "turn ALL multiway": {
+            "events": 9,
+            "opportunities": 16,
+            "rate": 0.5625,
+            "wilson95": [
+              0.3317855639881244,
+              0.7690134759450722
+            ],
+            "calls": 6,
+            "raises": 1
+          },
+          "turn <=0.67 HU": {
+            "events": 22,
+            "opportunities": 84,
+            "rate": 0.2619047619047619,
+            "wilson95": [
+              0.17978478378725732,
+              0.3648493726006748
+            ],
+            "calls": 61,
+            "raises": 1
+          },
+          "river <=0.67 HU": {
+            "events": 13,
+            "opportunities": 39,
+            "rate": 0.3333333333333333,
+            "wilson95": [
+              0.20632956189598659,
+              0.4902260560065357
+            ],
+            "calls": 18,
+            "raises": 8
+          },
+          "river ALL HU": {
+            "events": 20,
+            "opportunities": 50,
+            "rate": 0.4,
+            "wilson95": [
+              0.27608389730256844,
+              0.5381856225241026
+            ],
+            "calls": 21,
+            "raises": 9
+          },
+          "flop <=1.0 multiway": {
+            "events": 13,
+            "opportunities": 14,
+            "rate": 0.9285714285714286,
+            "wilson95": [
+              0.6853129557584975,
+              0.9872777847521087
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "flop <=1.0 HU": {
+            "events": 11,
+            "opportunities": 16,
+            "rate": 0.6875,
+            "wilson95": [
+              0.44404355834741305,
+              0.8583535614521766
+            ],
+            "calls": 4,
+            "raises": 1
+          },
+          "flop <=0.33 multiway": {
+            "events": 5,
+            "opportunities": 9,
+            "rate": 0.5555555555555556,
+            "wilson95": [
+              0.266651293495499,
+              0.8112214789023309
+            ],
+            "calls": 1,
+            "raises": 3
+          },
+          "river <=1.0 HU": {
+            "events": 4,
+            "opportunities": 5,
+            "rate": 0.8,
+            "wilson95": [
+              0.3755346297625348,
+              0.9637758913675682
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "turn <=1.0 multiway": {
+            "events": 4,
+            "opportunities": 4,
+            "rate": 1.0,
+            "wilson95": [
+              0.5101091635454165,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "flop >1.0 HU": {
+            "events": 4,
+            "opportunities": 8,
+            "rate": 0.5,
+            "wilson95": [
+              0.2152160622138829,
+              0.7847839377861171
+            ],
+            "calls": 4,
+            "raises": 0
+          },
+          "flop >1.0 multiway": {
+            "events": 2,
+            "opportunities": 3,
+            "rate": 0.6666666666666666,
+            "wilson95": [
+              0.20765960080205476,
+              0.9385080552796012
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "river <=0.33 HU": {
+            "events": 1,
+            "opportunities": 4,
+            "rate": 0.25,
+            "wilson95": [
+              0.04558726080970238,
+              0.6993581574175893
+            ],
+            "calls": 2,
+            "raises": 1
+          },
+          "turn <=0.33 HU": {
+            "events": 4,
+            "opportunities": 10,
+            "rate": 0.4,
+            "wilson95": [
+              0.1681803297062402,
+              0.6873262302663353
+            ],
+            "calls": 4,
+            "raises": 2
+          },
+          "river <=0.67 multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "river ALL multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "turn >1.0 HU": {
+            "events": 3,
+            "opportunities": 3,
+            "rate": 1.0,
+            "wilson95": [
+              0.4385029682449681,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "flop <=0.33 HU": {
+            "events": 1,
+            "opportunities": 6,
+            "rate": 0.16666666666666666,
+            "wilson95": [
+              0.030053369748307746,
+              0.5635028221864603
+            ],
+            "calls": 3,
+            "raises": 2
+          },
+          "river >1.0 HU": {
+            "events": 2,
+            "opportunities": 2,
+            "rate": 1.0,
+            "wilson95": [
+              0.34238022750666547,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "turn <=0.33 multiway": {
+            "events": 0,
+            "opportunities": 1,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.7934506856227534
+            ],
+            "calls": 0,
+            "raises": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "Attention Is All In",
+      "newExposure": [
+        {
+          "ref": "saturday/r007",
+          "roster": [
+            "gamblerlove",
+            "aydine",
+            "Attention Is All In",
+            "supernut",
+            "AIl IN",
+            "Resonance Qt",
+            "WBot",
+            "Pok\u00e9 Bot"
+          ],
+          "hands": 1000,
+          "chips": -1227,
+          "bb100": -6.135,
+          "groups": [
+            "own"
+          ],
+          "rfiCounts": {
+            "opp": 476,
+            "raise": 100
+          },
+          "rfiPosCounts": {
+            "8max MP": {
+              "opp": 94,
+              "raise": 14
+            },
+            "8max UTG+1": {
+              "opp": 101,
+              "raise": 14
+            },
+            "8max UTG": {
+              "opp": 125,
+              "raise": 12
+            },
+            "8max HJ": {
+              "opp": 60,
+              "raise": 7
+            },
+            "8max CO": {
+              "opp": 50,
+              "raise": 14
+            },
+            "8max BTN": {
+              "opp": 28,
+              "raise": 23
+            },
+            "8max SB": {
+              "opp": 18,
+              "raise": 16
+            }
+          },
+          "vpipCount": 251,
+          "pfrCount": 164,
+          "foldOpenCounts": {
+            "opp": 487,
+            "fold": 338,
+            "call": 87,
+            "raise": 62
+          },
+          "openerThreebetCounts": {
+            "opp": 41,
+            "fold": 32,
+            "call": 9
+          },
+          "postCounts": {
+            "flop <=0.67 multiway": {
+              "opp": 13,
+              "call": 3,
+              "raise": 1,
+              "fold": 9
+            },
+            "flop ALL multiway": {
+              "opp": 28,
+              "call": 4,
+              "raise": 2,
+              "fold": 22
+            },
+            "turn <=0.67 multiway": {
+              "opp": 2,
+              "fold": 2
+            },
+            "turn ALL multiway": {
+              "opp": 7,
+              "fold": 7
+            },
+            "flop <=0.67 HU": {
+              "opp": 19,
+              "fold": 8,
+              "call": 7,
+              "raise": 4
+            },
+            "flop ALL HU": {
+              "opp": 40,
+              "fold": 19,
+              "call": 16,
+              "raise": 5
+            },
+            "turn <=1.0 HU": {
+              "opp": 4,
+              "fold": 4
+            },
+            "turn ALL HU": {
+              "opp": 21,
+              "fold": 13,
+              "call": 6,
+              "raise": 2
+            },
+            "turn <=0.67 HU": {
+              "opp": 7,
+              "raise": 1,
+              "fold": 6
+            },
+            "river <=0.67 HU": {
+              "opp": 4,
+              "call": 1,
+              "fold": 3
+            },
+            "river ALL HU": {
+              "opp": 7,
+              "call": 2,
+              "fold": 5
+            },
+            "river ALL multiway": {
+              "opp": 1,
+              "raise": 1
+            },
+            "flop <=1.0 HU": {
+              "opp": 16,
+              "fold": 11,
+              "raise": 1,
+              "call": 4
+            },
+            "flop >1.0 multiway": {
+              "opp": 1,
+              "raise": 1
+            },
+            "flop <=1.0 multiway": {
+              "opp": 9,
+              "fold": 8,
+              "call": 1
+            },
+            "river <=1.0 multiway": {
+              "opp": 1,
+              "raise": 1
+            },
+            "river <=0.33 HU": {
+              "opp": 3,
+              "call": 1,
+              "fold": 2
+            },
+            "turn <=1.0 multiway": {
+              "opp": 4,
+              "fold": 4
+            },
+            "flop <=0.33 HU": {
+              "opp": 5,
+              "call": 5
+            },
+            "turn <=0.33 HU": {
+              "opp": 9,
+              "call": 5,
+              "fold": 3,
+              "raise": 1
+            },
+            "turn >1.0 HU": {
+              "opp": 1,
+              "call": 1
+            },
+            "flop <=0.33 multiway": {
+              "opp": 5,
+              "fold": 5
+            },
+            "turn >1.0 multiway": {
+              "opp": 1,
+              "fold": 1
+            }
+          },
+          "period": "live",
+          "opponentCodeVersion": "unknown",
+          "WBotVersionContext": [],
+          "publicEventSha256": "1b446da30e967a8ab57565547c30e961db31133979612d5be00fea8151f538c3",
+          "sourcePaths": [
+            "Hand_data\\SaturdayRealRounds\\saturday_r007.json"
+          ]
+        }
+      ],
+      "beforeLive": {
+        "hands": 2000,
+        "tableRounds": 2,
+        "chips": 23471,
+        "bb100_descriptive": 58.677499999999995,
+        "approxRoundT95": [
+          -797.9430580589501,
+          915.2980580589501
+        ],
+        "roundRates": [
+          126.095,
+          -8.74
+        ],
+        "vpip": {
+          "events": 519,
+          "opportunities": 2000,
+          "rate": 0.2595,
+          "wilson95": [
+            0.2407623026909891,
+            0.27915979705129357
+          ]
+        },
+        "pfr": {
+          "events": 358,
+          "opportunities": 2000,
+          "rate": 0.179,
+          "wilson95": [
+            0.16281935972425607,
+            0.19641138463030824
+          ]
+        },
+        "rfi": {
+          "events": 256,
+          "opportunities": 1023,
+          "rate": 0.25024437927663734,
+          "wilson95": [
+            0.22466881085303356,
+            0.2776886411075907
+          ]
+        },
+        "rfiPositions": {
+          "7max UTG": {
+            "events": 13,
+            "opportunities": 143,
+            "rate": 0.09090909090909091,
+            "wilson95": [
+              0.05389777523393053,
+              0.1493245235661169
+            ]
+          },
+          "7max MP": {
+            "events": 22,
+            "opportunities": 114,
+            "rate": 0.19298245614035087,
+            "wilson95": [
+              0.13103892161535932,
+              0.2749426344470862
+            ]
+          },
+          "7max BTN": {
+            "events": 17,
+            "opportunities": 26,
+            "rate": 0.6538461538461539,
+            "wilson95": [
+              0.4622057118881133,
+              0.8058776967705916
+            ]
+          },
+          "7max CO": {
+            "events": 17,
+            "opportunities": 60,
+            "rate": 0.2833333333333333,
+            "wilson95": [
+              0.18506828428432937,
+              0.40767285164390826
+            ]
+          },
+          "7max HJ": {
+            "events": 14,
+            "opportunities": 87,
+            "rate": 0.16091954022988506,
+            "wilson95": [
+              0.09834644398625983,
+              0.25217037106779727
+            ]
+          },
+          "7max SB": {
+            "events": 12,
+            "opportunities": 12,
+            "rate": 1.0,
+            "wilson95": [
+              0.7575059933447693,
+              1.0
+            ]
+          },
+          "8max MP": {
+            "events": 16,
+            "opportunities": 91,
+            "rate": 0.17582417582417584,
+            "wilson95": [
+              0.11122529179441384,
+              0.2666838975660676
+            ]
+          },
+          "8max UTG+1": {
+            "events": 13,
+            "opportunities": 115,
+            "rate": 0.11304347826086956,
+            "wilson95": [
+              0.06726407637851345,
+              0.18383902448225792
+            ]
+          },
+          "8max UTG": {
+            "events": 21,
+            "opportunities": 125,
+            "rate": 0.168,
+            "wilson95": [
+              0.11258821427515349,
+              0.24320920714717426
+            ]
+          },
+          "8max HJ": {
+            "events": 22,
+            "opportunities": 91,
+            "rate": 0.24175824175824176,
+            "wilson95": [
+              0.16541803655030135,
+              0.3390180973470313
+            ]
+          },
+          "8max CO": {
+            "events": 25,
+            "opportunities": 76,
+            "rate": 0.32894736842105265,
+            "wilson95": [
+              0.23379273635816278,
+              0.44056191116412025
+            ]
+          },
+          "8max BTN": {
+            "events": 42,
+            "opportunities": 57,
+            "rate": 0.7368421052631579,
+            "wilson95": [
+              0.6102342073651654,
+              0.8335421340202671
+            ]
+          },
+          "8max SB": {
+            "events": 22,
+            "opportunities": 26,
+            "rate": 0.8461538461538461,
+            "wilson95": [
+              0.664688006717871,
+              0.9384996627642149
+            ]
+          }
+        },
+        "foldToOpen": {
+          "events": 588,
+          "opportunities": 830,
+          "rate": 0.708433734939759,
+          "wilson95": [
+            0.6766107223302695,
+            0.7383362635024444
+          ],
+          "calls": 149,
+          "raises": 93
+        },
+        "openerFoldToThreebet": {
+          "events": 64,
+          "opportunities": 85,
+          "rate": 0.7529411764705882,
+          "wilson95": [
+            0.6516544727451449,
+            0.8323537883842184
+          ],
+          "calls": 14,
+          "raises": 7
+        },
+        "postFirstBet": {
+          "flop <=0.67 multiway": {
+            "events": 11,
+            "opportunities": 24,
+            "rate": 0.4583333333333333,
+            "wilson95": [
+              0.278913337312114,
+              0.6492513464108005
+            ],
+            "calls": 11,
+            "raises": 2
+          },
+          "flop ALL multiway": {
+            "events": 43,
+            "opportunities": 63,
+            "rate": 0.6825396825396826,
+            "wilson95": [
+              0.5599646825583177,
+              0.7841331334648011
+            ],
+            "calls": 16,
+            "raises": 4
+          },
+          "turn <=0.67 multiway": {
+            "events": 1,
+            "opportunities": 3,
+            "rate": 0.3333333333333333,
+            "wilson95": [
+              0.061491944720398706,
+              0.7923403991979452
+            ],
+            "calls": 1,
+            "raises": 1
+          },
+          "turn ALL multiway": {
+            "events": 7,
+            "opportunities": 10,
+            "rate": 0.7,
+            "wilson95": [
+              0.3967781474611528,
+              0.8922087325936959
+            ],
+            "calls": 1,
+            "raises": 2
+          },
+          "flop <=0.67 HU": {
+            "events": 22,
+            "opportunities": 44,
+            "rate": 0.5,
+            "wilson95": [
+              0.35831760539989754,
+              0.6416823946001025
+            ],
+            "calls": 14,
+            "raises": 8
+          },
+          "flop ALL HU": {
+            "events": 42,
+            "opportunities": 72,
+            "rate": 0.5833333333333334,
+            "wilson95": [
+              0.4680769793146587,
+              0.690147825252599
+            ],
+            "calls": 20,
+            "raises": 10
+          },
+          "turn <=1.0 HU": {
+            "events": 4,
+            "opportunities": 9,
+            "rate": 0.4444444444444444,
+            "wilson95": [
+              0.18877852109766918,
+              0.733348706504501
+            ],
+            "calls": 3,
+            "raises": 2
+          },
+          "turn ALL HU": {
+            "events": 25,
+            "opportunities": 42,
+            "rate": 0.5952380952380952,
+            "wilson95": [
+              0.44494312750039755,
+              0.7295713885251834
+            ],
+            "calls": 12,
+            "raises": 5
+          },
+          "turn <=0.67 HU": {
+            "events": 13,
+            "opportunities": 24,
+            "rate": 0.5416666666666666,
+            "wilson95": [
+              0.3507486535891995,
+              0.721086662687886
+            ],
+            "calls": 8,
+            "raises": 3
+          },
+          "river <=0.67 HU": {
+            "events": 8,
+            "opportunities": 12,
+            "rate": 0.6666666666666666,
+            "wilson95": [
+              0.39062208887280625,
+              0.8618799089087836
+            ],
+            "calls": 3,
+            "raises": 1
+          },
+          "river ALL HU": {
+            "events": 14,
+            "opportunities": 19,
+            "rate": 0.7368421052631579,
+            "wilson95": [
+              0.5120844910218552,
+              0.8819358765321723
+            ],
+            "calls": 4,
+            "raises": 1
+          },
+          "flop <=1.0 HU": {
+            "events": 7,
+            "opportunities": 14,
+            "rate": 0.5,
+            "wilson95": [
+              0.26799202452414134,
+              0.7320079754758586
+            ],
+            "calls": 6,
+            "raises": 1
+          },
+          "flop >1.0 multiway": {
+            "events": 10,
+            "opportunities": 13,
+            "rate": 0.7692307692307693,
+            "wilson95": [
+              0.4974362405327324,
+              0.9182047128150121
+            ],
+            "calls": 3,
+            "raises": 0
+          },
+          "flop <=1.0 multiway": {
+            "events": 22,
+            "opportunities": 26,
+            "rate": 0.8461538461538461,
+            "wilson95": [
+              0.664688006717871,
+              0.9384996627642149
+            ],
+            "calls": 2,
+            "raises": 2
+          },
+          "river <=1.0 HU": {
+            "events": 4,
+            "opportunities": 4,
+            "rate": 1.0,
+            "wilson95": [
+              0.5101091635454165,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "river <=0.33 HU": {
+            "events": 1,
+            "opportunities": 2,
+            "rate": 0.5,
+            "wilson95": [
+              0.09453120573423457,
+              0.9054687942657654
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "turn <=1.0 multiway": {
+            "events": 4,
+            "opportunities": 4,
+            "rate": 1.0,
+            "wilson95": [
+              0.5101091635454165,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "flop <=0.33 HU": {
+            "events": 3,
+            "opportunities": 3,
+            "rate": 1.0,
+            "wilson95": [
+              0.4385029682449681,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "turn <=0.33 HU": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "turn >1.0 HU": {
+            "events": 7,
+            "opportunities": 8,
+            "rate": 0.875,
+            "wilson95": [
+              0.5291118177871563,
+              0.9775825085499423
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "turn >1.0 multiway": {
+            "events": 2,
+            "opportunities": 3,
+            "rate": 0.6666666666666666,
+            "wilson95": [
+              0.20765960080205476,
+              0.9385080552796012
+            ],
+            "calls": 0,
+            "raises": 1
+          },
+          "flop >1.0 HU": {
+            "events": 10,
+            "opportunities": 11,
+            "rate": 0.9090909090909091,
+            "wilson95": [
+              0.6226415635484137,
+              0.9837678271141146
+            ],
+            "calls": 0,
+            "raises": 1
+          },
+          "river ALL multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "river <=1.0 multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "river >1.0 HU": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          }
+        }
+      },
+      "afterLive": {
+        "hands": 3000,
+        "tableRounds": 3,
+        "chips": 22244,
+        "bb100_descriptive": 37.07333333333334,
+        "approxRoundT95": [
+          -154.46865548500233,
+          228.61532215166903
+        ],
+        "roundRates": [
+          126.095,
+          -8.74,
+          -6.135
+        ],
+        "vpip": {
+          "events": 770,
+          "opportunities": 3000,
+          "rate": 0.25666666666666665,
+          "wilson95": [
+            0.24135457042294262,
+            0.27260113595671587
+          ]
+        },
+        "pfr": {
+          "events": 522,
+          "opportunities": 3000,
+          "rate": 0.174,
+          "wilson95": [
+            0.16085316391302226,
+            0.1879806454558902
+          ]
+        },
+        "rfi": {
+          "events": 356,
+          "opportunities": 1499,
+          "rate": 0.23749166110740494,
+          "wilson95": [
+            0.21663737207687286,
+            0.25968796125697546
+          ]
+        },
+        "rfiPositions": {
+          "7max UTG": {
+            "events": 13,
+            "opportunities": 143,
+            "rate": 0.09090909090909091,
+            "wilson95": [
+              0.05389777523393053,
+              0.1493245235661169
+            ]
+          },
+          "7max MP": {
+            "events": 22,
+            "opportunities": 114,
+            "rate": 0.19298245614035087,
+            "wilson95": [
+              0.13103892161535932,
+              0.2749426344470862
+            ]
+          },
+          "7max BTN": {
+            "events": 17,
+            "opportunities": 26,
+            "rate": 0.6538461538461539,
+            "wilson95": [
+              0.4622057118881133,
+              0.8058776967705916
+            ]
+          },
+          "7max CO": {
+            "events": 17,
+            "opportunities": 60,
+            "rate": 0.2833333333333333,
+            "wilson95": [
+              0.18506828428432937,
+              0.40767285164390826
+            ]
+          },
+          "7max HJ": {
+            "events": 14,
+            "opportunities": 87,
+            "rate": 0.16091954022988506,
+            "wilson95": [
+              0.09834644398625983,
+              0.25217037106779727
+            ]
+          },
+          "7max SB": {
+            "events": 12,
+            "opportunities": 12,
+            "rate": 1.0,
+            "wilson95": [
+              0.7575059933447693,
+              1.0
+            ]
+          },
+          "8max MP": {
+            "events": 30,
+            "opportunities": 185,
+            "rate": 0.16216216216216217,
+            "wilson95": [
+              0.11601529466072064,
+              0.22205378836469575
+            ]
+          },
+          "8max UTG+1": {
+            "events": 27,
+            "opportunities": 216,
+            "rate": 0.125,
+            "wilson95": [
+              0.08734711096128683,
+              0.17575821562713573
+            ]
+          },
+          "8max UTG": {
+            "events": 33,
+            "opportunities": 250,
+            "rate": 0.132,
+            "wilson95": [
+              0.09555801652383017,
+              0.17958009190481644
+            ]
+          },
+          "8max HJ": {
+            "events": 29,
+            "opportunities": 151,
+            "rate": 0.19205298013245034,
+            "wilson95": [
+              0.13717928928278253,
+              0.2622063745548735
+            ]
+          },
+          "8max CO": {
+            "events": 39,
+            "opportunities": 126,
+            "rate": 0.30952380952380953,
+            "wilson95": [
+              0.23544224240870076,
+              0.39487614406070753
+            ]
+          },
+          "8max BTN": {
+            "events": 65,
+            "opportunities": 85,
+            "rate": 0.7647058823529411,
+            "wilson95": [
+              0.6643156605319043,
+              0.8422046127430107
+            ]
+          },
+          "8max SB": {
+            "events": 38,
+            "opportunities": 44,
+            "rate": 0.8636363636363636,
+            "wilson95": [
+              0.7329054695148498,
+              0.9359704550244399
+            ]
+          }
+        },
+        "foldToOpen": {
+          "events": 926,
+          "opportunities": 1317,
+          "rate": 0.7031131359149583,
+          "wilson95": [
+            0.6778758927515667,
+            0.7271689341102976
+          ],
+          "calls": 236,
+          "raises": 155
+        },
+        "openerFoldToThreebet": {
+          "events": 96,
+          "opportunities": 126,
+          "rate": 0.7619047619047619,
+          "wilson95": [
+            0.6804874339865964,
+            0.827824784617967
+          ],
+          "calls": 23,
+          "raises": 7
+        },
+        "postFirstBet": {
+          "flop <=0.67 multiway": {
+            "events": 20,
+            "opportunities": 37,
+            "rate": 0.5405405405405406,
+            "wilson95": [
+              0.38384046892179896,
+              0.6896143019562662
+            ],
+            "calls": 14,
+            "raises": 3
+          },
+          "flop ALL multiway": {
+            "events": 65,
+            "opportunities": 91,
+            "rate": 0.7142857142857143,
+            "wilson95": [
+              0.6142747145052182,
+              0.7969378552395484
+            ],
+            "calls": 20,
+            "raises": 6
+          },
+          "turn <=0.67 multiway": {
+            "events": 3,
+            "opportunities": 5,
+            "rate": 0.6,
+            "wilson95": [
+              0.23072428127601946,
+              0.8823792257673482
+            ],
+            "calls": 1,
+            "raises": 1
+          },
+          "turn ALL multiway": {
+            "events": 14,
+            "opportunities": 17,
+            "rate": 0.8235294117647058,
+            "wilson95": [
+              0.5897054143116658,
+              0.9380887336237884
+            ],
+            "calls": 1,
+            "raises": 2
+          },
+          "flop <=0.67 HU": {
+            "events": 30,
+            "opportunities": 63,
+            "rate": 0.47619047619047616,
+            "wilson95": [
+              0.35782124053827313,
+              0.5972964356326244
+            ],
+            "calls": 21,
+            "raises": 12
+          },
+          "flop ALL HU": {
+            "events": 61,
+            "opportunities": 112,
+            "rate": 0.5446428571428571,
+            "wilson95": [
+              0.4524627246213854,
+              0.6338621551047803
+            ],
+            "calls": 36,
+            "raises": 15
+          },
+          "turn <=1.0 HU": {
+            "events": 8,
+            "opportunities": 13,
+            "rate": 0.6153846153846154,
+            "wilson95": [
+              0.35522891512666305,
+              0.8229029220223705
+            ],
+            "calls": 3,
+            "raises": 2
+          },
+          "turn ALL HU": {
+            "events": 38,
+            "opportunities": 63,
+            "rate": 0.6031746031746031,
+            "wilson95": [
+              0.4798091851165779,
+              0.7146808848095326
+            ],
+            "calls": 18,
+            "raises": 7
+          },
+          "turn <=0.67 HU": {
+            "events": 19,
+            "opportunities": 31,
+            "rate": 0.6129032258064516,
+            "wilson95": [
+              0.43824108619661195,
+              0.7626689857961941
+            ],
+            "calls": 8,
+            "raises": 4
+          },
+          "river <=0.67 HU": {
+            "events": 11,
+            "opportunities": 16,
+            "rate": 0.6875,
+            "wilson95": [
+              0.44404355834741305,
+              0.8583535614521766
+            ],
+            "calls": 4,
+            "raises": 1
+          },
+          "river ALL HU": {
+            "events": 19,
+            "opportunities": 26,
+            "rate": 0.7307692307692307,
+            "wilson95": [
+              0.5391695962082437,
+              0.8629555167798135
+            ],
+            "calls": 6,
+            "raises": 1
+          },
+          "flop <=1.0 HU": {
+            "events": 18,
+            "opportunities": 30,
+            "rate": 0.6,
+            "wilson95": [
+              0.4232036025332294,
+              0.754093718831978
+            ],
+            "calls": 10,
+            "raises": 2
+          },
+          "flop >1.0 multiway": {
+            "events": 10,
+            "opportunities": 14,
+            "rate": 0.7142857142857143,
+            "wilson95": [
+              0.453509156701075,
+              0.8827862135542279
+            ],
+            "calls": 3,
+            "raises": 1
+          },
+          "flop <=1.0 multiway": {
+            "events": 30,
+            "opportunities": 35,
+            "rate": 0.8571428571428571,
+            "wilson95": [
+              0.7062444591340533,
+              0.9373976892056615
+            ],
+            "calls": 3,
+            "raises": 2
+          },
+          "river <=1.0 HU": {
+            "events": 4,
+            "opportunities": 4,
+            "rate": 1.0,
+            "wilson95": [
+              0.5101091635454165,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "river <=0.33 HU": {
+            "events": 3,
+            "opportunities": 5,
+            "rate": 0.6,
+            "wilson95": [
+              0.23072428127601946,
+              0.8823792257673482
+            ],
+            "calls": 2,
+            "raises": 0
+          },
+          "turn <=1.0 multiway": {
+            "events": 8,
+            "opportunities": 8,
+            "rate": 1.0,
+            "wilson95": [
+              0.6755924351161318,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "flop <=0.33 HU": {
+            "events": 3,
+            "opportunities": 8,
+            "rate": 0.375,
+            "wilson95": [
+              0.13684428582360114,
+              0.6942576053973659
+            ],
+            "calls": 5,
+            "raises": 0
+          },
+          "turn <=0.33 HU": {
+            "events": 4,
+            "opportunities": 10,
+            "rate": 0.4,
+            "wilson95": [
+              0.1681803297062402,
+              0.6873262302663353
+            ],
+            "calls": 5,
+            "raises": 1
+          },
+          "turn >1.0 HU": {
+            "events": 7,
+            "opportunities": 9,
+            "rate": 0.7777777777777778,
+            "wilson95": [
+              0.45258896910699736,
+              0.9367748928821513
+            ],
+            "calls": 2,
+            "raises": 0
+          },
+          "turn >1.0 multiway": {
+            "events": 3,
+            "opportunities": 4,
+            "rate": 0.75,
+            "wilson95": [
+              0.30064184258241056,
+              0.9544127391902976
+            ],
+            "calls": 0,
+            "raises": 1
+          },
+          "flop >1.0 HU": {
+            "events": 10,
+            "opportunities": 11,
+            "rate": 0.9090909090909091,
+            "wilson95": [
+              0.6226415635484137,
+              0.9837678271141146
+            ],
+            "calls": 0,
+            "raises": 1
+          },
+          "river ALL multiway": {
+            "events": 1,
+            "opportunities": 2,
+            "rate": 0.5,
+            "wilson95": [
+              0.09453120573423457,
+              0.9054687942657654
+            ],
+            "calls": 0,
+            "raises": 1
+          },
+          "river <=1.0 multiway": {
+            "events": 1,
+            "opportunities": 2,
+            "rate": 0.5,
+            "wilson95": [
+              0.09453120573423457,
+              0.9054687942657654
+            ],
+            "calls": 0,
+            "raises": 1
+          },
+          "river >1.0 HU": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "flop <=0.33 multiway": {
+            "events": 5,
+            "opportunities": 5,
+            "rate": 1.0,
+            "wilson95": [
+              0.5655175352168389,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "AAST",
+      "newExposure": [],
+      "beforeLive": {
+        "hands": 4000,
+        "tableRounds": 4,
+        "chips": 33327,
+        "bb100_descriptive": 41.65875,
+        "approxRoundT95": [
+          -12.374915377401571,
+          95.69241537740157
+        ],
+        "roundRates": [
+          9.575,
+          35.955000000000005,
+          31.539999999999996,
+          89.565
+        ],
+        "vpip": {
+          "events": 770,
+          "opportunities": 4000,
+          "rate": 0.1925,
+          "wilson95": [
+            0.18057919871849532,
+            0.20501085890467108
+          ]
+        },
+        "pfr": {
+          "events": 497,
+          "opportunities": 4000,
+          "rate": 0.12425,
+          "wilson95": [
+            0.11438657559906115,
+            0.13483444603314945
+          ]
+        },
+        "rfi": {
+          "events": 325,
+          "opportunities": 1754,
+          "rate": 0.18529076396807298,
+          "wilson95": [
+            0.16780253814048623,
+            0.20415447512699303
+          ]
+        },
+        "rfiPositions": {
+          "8max HJ": {
+            "events": 51,
+            "opportunities": 205,
+            "rate": 0.24878048780487805,
+            "wilson95": [
+              0.19458809626100426,
+              0.3122148125980396
+            ]
+          },
+          "8max MP": {
+            "events": 52,
+            "opportunities": 355,
+            "rate": 0.14647887323943662,
+            "wilson95": [
+              0.11348413101364563,
+              0.1870426229882664
+            ]
+          },
+          "8max UTG+1": {
+            "events": 54,
+            "opportunities": 425,
+            "rate": 0.12705882352941175,
+            "wilson95": [
+              0.0987023921600817,
+              0.16209668992553528
+            ]
+          },
+          "8max UTG": {
+            "events": 59,
+            "opportunities": 500,
+            "rate": 0.118,
+            "wilson95": [
+              0.0925930082515071,
+              0.1492319878611185
+            ]
+          },
+          "8max CO": {
+            "events": 52,
+            "opportunities": 152,
+            "rate": 0.34210526315789475,
+            "wilson95": [
+              0.2714114284995268,
+              0.4205832411908589
+            ]
+          },
+          "8max BTN": {
+            "events": 39,
+            "opportunities": 82,
+            "rate": 0.47560975609756095,
+            "wilson95": [
+              0.37104979924786174,
+              0.5823526702004356
+            ]
+          },
+          "8max SB": {
+            "events": 18,
+            "opportunities": 35,
+            "rate": 0.5142857142857142,
+            "wilson95": [
+              0.3556880459586897,
+              0.6700576399748988
+            ]
+          }
+        },
+        "foldToOpen": {
+          "events": 1408,
+          "opportunities": 1743,
+          "rate": 0.8078026391279404,
+          "wilson95": [
+            0.7886356695006537,
+            0.8256158383175719
+          ],
+          "calls": 259,
+          "raises": 76
+        },
+        "openerFoldToThreebet": {
+          "events": 52,
+          "opportunities": 102,
+          "rate": 0.5098039215686274,
+          "wilson95": [
+            0.4142102142804626,
+            0.6046859727362733
+          ],
+          "calls": 35,
+          "raises": 15
+        },
+        "postFirstBet": {
+          "flop <=0.67 HU": {
+            "events": 40,
+            "opportunities": 85,
+            "rate": 0.47058823529411764,
+            "wilson95": [
+              0.3680617001376238,
+              0.5756582694984966
+            ],
+            "calls": 21,
+            "raises": 24
+          },
+          "flop ALL HU": {
+            "events": 64,
+            "opportunities": 120,
+            "rate": 0.5333333333333333,
+            "wilson95": [
+              0.44442789269674543,
+              0.6201708295420078
+            ],
+            "calls": 31,
+            "raises": 25
+          },
+          "river <=0.67 multiway": {
+            "events": 0,
+            "opportunities": 1,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.7934506856227534
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "river ALL multiway": {
+            "events": 2,
+            "opportunities": 3,
+            "rate": 0.6666666666666666,
+            "wilson95": [
+              0.20765960080205476,
+              0.9385080552796012
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "flop <=0.67 multiway": {
+            "events": 35,
+            "opportunities": 53,
+            "rate": 0.660377358490566,
+            "wilson95": [
+              0.5259478663754866,
+              0.7731296089867554
+            ],
+            "calls": 7,
+            "raises": 11
+          },
+          "flop ALL multiway": {
+            "events": 62,
+            "opportunities": 89,
+            "rate": 0.6966292134831461,
+            "wilson95": [
+              0.5946286603942744,
+              0.7823580914791103
+            ],
+            "calls": 11,
+            "raises": 16
+          },
+          "turn <=0.67 HU": {
+            "events": 9,
+            "opportunities": 26,
+            "rate": 0.34615384615384615,
+            "wilson95": [
+              0.19412230322940838,
+              0.5377942881118867
+            ],
+            "calls": 12,
+            "raises": 5
+          },
+          "turn ALL HU": {
+            "events": 14,
+            "opportunities": 48,
+            "rate": 0.2916666666666667,
+            "wilson95": [
+              0.18241578926516777,
+              0.431792598095713
+            ],
+            "calls": 23,
+            "raises": 11
+          },
+          "flop <=0.33 HU": {
+            "events": 3,
+            "opportunities": 9,
+            "rate": 0.3333333333333333,
+            "wilson95": [
+              0.12058381838691423,
+              0.6457978644195965
+            ],
+            "calls": 5,
+            "raises": 1
+          },
+          "flop <=1.0 HU": {
+            "events": 14,
+            "opportunities": 19,
+            "rate": 0.7368421052631579,
+            "wilson95": [
+              0.5120844910218552,
+              0.8819358765321723
+            ],
+            "calls": 5,
+            "raises": 0
+          },
+          "flop <=1.0 multiway": {
+            "events": 21,
+            "opportunities": 24,
+            "rate": 0.875,
+            "wilson95": [
+              0.6899611872950053,
+              0.9565566591987644
+            ],
+            "calls": 1,
+            "raises": 2
+          },
+          "river <=0.33 HU": {
+            "events": 2,
+            "opportunities": 8,
+            "rate": 0.25,
+            "wilson95": [
+              0.07147921275211133,
+              0.5907245696898228
+            ],
+            "calls": 6,
+            "raises": 0
+          },
+          "river ALL HU": {
+            "events": 12,
+            "opportunities": 22,
+            "rate": 0.5454545454545454,
+            "wilson95": [
+              0.3465979532073542,
+              0.7307970581918626
+            ],
+            "calls": 10,
+            "raises": 0
+          },
+          "turn <=0.33 HU": {
+            "events": 0,
+            "opportunities": 9,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.2991450484195325
+            ],
+            "calls": 7,
+            "raises": 2
+          },
+          "flop >1.0 HU": {
+            "events": 7,
+            "opportunities": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333253,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "flop <=0.33 multiway": {
+            "events": 3,
+            "opportunities": 7,
+            "rate": 0.42857142857142855,
+            "wilson95": [
+              0.15821985525147414,
+              0.7495416354723365
+            ],
+            "calls": 3,
+            "raises": 1
+          },
+          "turn <=1.0 multiway": {
+            "events": 3,
+            "opportunities": 6,
+            "rate": 0.5,
+            "wilson95": [
+              0.18761630648265576,
+              0.8123836935173443
+            ],
+            "calls": 2,
+            "raises": 1
+          },
+          "turn ALL multiway": {
+            "events": 7,
+            "opportunities": 11,
+            "rate": 0.6363636363636364,
+            "wilson95": [
+              0.3538011745078556,
+              0.8483352890463207
+            ],
+            "calls": 3,
+            "raises": 1
+          },
+          "river >1.0 multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "turn <=0.67 multiway": {
+            "events": 3,
+            "opportunities": 3,
+            "rate": 1.0,
+            "wilson95": [
+              0.4385029682449681,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "river <=0.67 HU": {
+            "events": 6,
+            "opportunities": 8,
+            "rate": 0.75,
+            "wilson95": [
+              0.40927543031017727,
+              0.9285207872478887
+            ],
+            "calls": 2,
+            "raises": 0
+          },
+          "flop >1.0 multiway": {
+            "events": 3,
+            "opportunities": 5,
+            "rate": 0.6,
+            "wilson95": [
+              0.23072428127601946,
+              0.8823792257673482
+            ],
+            "calls": 0,
+            "raises": 2
+          },
+          "turn <=1.0 HU": {
+            "events": 3,
+            "opportunities": 10,
+            "rate": 0.3,
+            "wilson95": [
+              0.10779126740630399,
+              0.6032218525388472
+            ],
+            "calls": 3,
+            "raises": 4
+          },
+          "river <=1.0 HU": {
+            "events": 2,
+            "opportunities": 4,
+            "rate": 0.5,
+            "wilson95": [
+              0.1500389891521544,
+              0.8499610108478456
+            ],
+            "calls": 2,
+            "raises": 0
+          },
+          "turn <=0.33 multiway": {
+            "events": 0,
+            "opportunities": 1,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.7934506856227534
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "river >1.0 HU": {
+            "events": 2,
+            "opportunities": 2,
+            "rate": 1.0,
+            "wilson95": [
+              0.34238022750666547,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "turn >1.0 HU": {
+            "events": 2,
+            "opportunities": 3,
+            "rate": 0.6666666666666666,
+            "wilson95": [
+              0.20765960080205476,
+              0.9385080552796012
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "turn >1.0 multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "river <=1.0 multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          }
+        }
+      },
+      "afterLive": {
+        "hands": 4000,
+        "tableRounds": 4,
+        "chips": 33327,
+        "bb100_descriptive": 41.65875,
+        "approxRoundT95": [
+          -12.374915377401571,
+          95.69241537740157
+        ],
+        "roundRates": [
+          9.575,
+          35.955000000000005,
+          31.539999999999996,
+          89.565
+        ],
+        "vpip": {
+          "events": 770,
+          "opportunities": 4000,
+          "rate": 0.1925,
+          "wilson95": [
+            0.18057919871849532,
+            0.20501085890467108
+          ]
+        },
+        "pfr": {
+          "events": 497,
+          "opportunities": 4000,
+          "rate": 0.12425,
+          "wilson95": [
+            0.11438657559906115,
+            0.13483444603314945
+          ]
+        },
+        "rfi": {
+          "events": 325,
+          "opportunities": 1754,
+          "rate": 0.18529076396807298,
+          "wilson95": [
+            0.16780253814048623,
+            0.20415447512699303
+          ]
+        },
+        "rfiPositions": {
+          "8max HJ": {
+            "events": 51,
+            "opportunities": 205,
+            "rate": 0.24878048780487805,
+            "wilson95": [
+              0.19458809626100426,
+              0.3122148125980396
+            ]
+          },
+          "8max MP": {
+            "events": 52,
+            "opportunities": 355,
+            "rate": 0.14647887323943662,
+            "wilson95": [
+              0.11348413101364563,
+              0.1870426229882664
+            ]
+          },
+          "8max UTG+1": {
+            "events": 54,
+            "opportunities": 425,
+            "rate": 0.12705882352941175,
+            "wilson95": [
+              0.0987023921600817,
+              0.16209668992553528
+            ]
+          },
+          "8max UTG": {
+            "events": 59,
+            "opportunities": 500,
+            "rate": 0.118,
+            "wilson95": [
+              0.0925930082515071,
+              0.1492319878611185
+            ]
+          },
+          "8max CO": {
+            "events": 52,
+            "opportunities": 152,
+            "rate": 0.34210526315789475,
+            "wilson95": [
+              0.2714114284995268,
+              0.4205832411908589
+            ]
+          },
+          "8max BTN": {
+            "events": 39,
+            "opportunities": 82,
+            "rate": 0.47560975609756095,
+            "wilson95": [
+              0.37104979924786174,
+              0.5823526702004356
+            ]
+          },
+          "8max SB": {
+            "events": 18,
+            "opportunities": 35,
+            "rate": 0.5142857142857142,
+            "wilson95": [
+              0.3556880459586897,
+              0.6700576399748988
+            ]
+          }
+        },
+        "foldToOpen": {
+          "events": 1408,
+          "opportunities": 1743,
+          "rate": 0.8078026391279404,
+          "wilson95": [
+            0.7886356695006537,
+            0.8256158383175719
+          ],
+          "calls": 259,
+          "raises": 76
+        },
+        "openerFoldToThreebet": {
+          "events": 52,
+          "opportunities": 102,
+          "rate": 0.5098039215686274,
+          "wilson95": [
+            0.4142102142804626,
+            0.6046859727362733
+          ],
+          "calls": 35,
+          "raises": 15
+        },
+        "postFirstBet": {
+          "flop <=0.67 HU": {
+            "events": 40,
+            "opportunities": 85,
+            "rate": 0.47058823529411764,
+            "wilson95": [
+              0.3680617001376238,
+              0.5756582694984966
+            ],
+            "calls": 21,
+            "raises": 24
+          },
+          "flop ALL HU": {
+            "events": 64,
+            "opportunities": 120,
+            "rate": 0.5333333333333333,
+            "wilson95": [
+              0.44442789269674543,
+              0.6201708295420078
+            ],
+            "calls": 31,
+            "raises": 25
+          },
+          "river <=0.67 multiway": {
+            "events": 0,
+            "opportunities": 1,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.7934506856227534
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "river ALL multiway": {
+            "events": 2,
+            "opportunities": 3,
+            "rate": 0.6666666666666666,
+            "wilson95": [
+              0.20765960080205476,
+              0.9385080552796012
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "flop <=0.67 multiway": {
+            "events": 35,
+            "opportunities": 53,
+            "rate": 0.660377358490566,
+            "wilson95": [
+              0.5259478663754866,
+              0.7731296089867554
+            ],
+            "calls": 7,
+            "raises": 11
+          },
+          "flop ALL multiway": {
+            "events": 62,
+            "opportunities": 89,
+            "rate": 0.6966292134831461,
+            "wilson95": [
+              0.5946286603942744,
+              0.7823580914791103
+            ],
+            "calls": 11,
+            "raises": 16
+          },
+          "turn <=0.67 HU": {
+            "events": 9,
+            "opportunities": 26,
+            "rate": 0.34615384615384615,
+            "wilson95": [
+              0.19412230322940838,
+              0.5377942881118867
+            ],
+            "calls": 12,
+            "raises": 5
+          },
+          "turn ALL HU": {
+            "events": 14,
+            "opportunities": 48,
+            "rate": 0.2916666666666667,
+            "wilson95": [
+              0.18241578926516777,
+              0.431792598095713
+            ],
+            "calls": 23,
+            "raises": 11
+          },
+          "flop <=0.33 HU": {
+            "events": 3,
+            "opportunities": 9,
+            "rate": 0.3333333333333333,
+            "wilson95": [
+              0.12058381838691423,
+              0.6457978644195965
+            ],
+            "calls": 5,
+            "raises": 1
+          },
+          "flop <=1.0 HU": {
+            "events": 14,
+            "opportunities": 19,
+            "rate": 0.7368421052631579,
+            "wilson95": [
+              0.5120844910218552,
+              0.8819358765321723
+            ],
+            "calls": 5,
+            "raises": 0
+          },
+          "flop <=1.0 multiway": {
+            "events": 21,
+            "opportunities": 24,
+            "rate": 0.875,
+            "wilson95": [
+              0.6899611872950053,
+              0.9565566591987644
+            ],
+            "calls": 1,
+            "raises": 2
+          },
+          "river <=0.33 HU": {
+            "events": 2,
+            "opportunities": 8,
+            "rate": 0.25,
+            "wilson95": [
+              0.07147921275211133,
+              0.5907245696898228
+            ],
+            "calls": 6,
+            "raises": 0
+          },
+          "river ALL HU": {
+            "events": 12,
+            "opportunities": 22,
+            "rate": 0.5454545454545454,
+            "wilson95": [
+              0.3465979532073542,
+              0.7307970581918626
+            ],
+            "calls": 10,
+            "raises": 0
+          },
+          "turn <=0.33 HU": {
+            "events": 0,
+            "opportunities": 9,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.2991450484195325
+            ],
+            "calls": 7,
+            "raises": 2
+          },
+          "flop >1.0 HU": {
+            "events": 7,
+            "opportunities": 7,
+            "rate": 1.0,
+            "wilson95": [
+              0.6456695649333253,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "flop <=0.33 multiway": {
+            "events": 3,
+            "opportunities": 7,
+            "rate": 0.42857142857142855,
+            "wilson95": [
+              0.15821985525147414,
+              0.7495416354723365
+            ],
+            "calls": 3,
+            "raises": 1
+          },
+          "turn <=1.0 multiway": {
+            "events": 3,
+            "opportunities": 6,
+            "rate": 0.5,
+            "wilson95": [
+              0.18761630648265576,
+              0.8123836935173443
+            ],
+            "calls": 2,
+            "raises": 1
+          },
+          "turn ALL multiway": {
+            "events": 7,
+            "opportunities": 11,
+            "rate": 0.6363636363636364,
+            "wilson95": [
+              0.3538011745078556,
+              0.8483352890463207
+            ],
+            "calls": 3,
+            "raises": 1
+          },
+          "river >1.0 multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "turn <=0.67 multiway": {
+            "events": 3,
+            "opportunities": 3,
+            "rate": 1.0,
+            "wilson95": [
+              0.4385029682449681,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "river <=0.67 HU": {
+            "events": 6,
+            "opportunities": 8,
+            "rate": 0.75,
+            "wilson95": [
+              0.40927543031017727,
+              0.9285207872478887
+            ],
+            "calls": 2,
+            "raises": 0
+          },
+          "flop >1.0 multiway": {
+            "events": 3,
+            "opportunities": 5,
+            "rate": 0.6,
+            "wilson95": [
+              0.23072428127601946,
+              0.8823792257673482
+            ],
+            "calls": 0,
+            "raises": 2
+          },
+          "turn <=1.0 HU": {
+            "events": 3,
+            "opportunities": 10,
+            "rate": 0.3,
+            "wilson95": [
+              0.10779126740630399,
+              0.6032218525388472
+            ],
+            "calls": 3,
+            "raises": 4
+          },
+          "river <=1.0 HU": {
+            "events": 2,
+            "opportunities": 4,
+            "rate": 0.5,
+            "wilson95": [
+              0.1500389891521544,
+              0.8499610108478456
+            ],
+            "calls": 2,
+            "raises": 0
+          },
+          "turn <=0.33 multiway": {
+            "events": 0,
+            "opportunities": 1,
+            "rate": 0.0,
+            "wilson95": [
+              0.0,
+              0.7934506856227534
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "river >1.0 HU": {
+            "events": 2,
+            "opportunities": 2,
+            "rate": 1.0,
+            "wilson95": [
+              0.34238022750666547,
+              1.0
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "turn >1.0 HU": {
+            "events": 2,
+            "opportunities": 3,
+            "rate": 0.6666666666666666,
+            "wilson95": [
+              0.20765960080205476,
+              0.9385080552796012
+            ],
+            "calls": 1,
+            "raises": 0
+          },
+          "turn >1.0 multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          },
+          "river <=1.0 multiway": {
+            "events": 1,
+            "opportunities": 1,
+            "rate": 1.0,
+            "wilson95": [
+              0.20654931437724644,
+              0.9999999999999999
+            ],
+            "calls": 0,
+            "raises": 0
+          }
+        }
+      }
+    }
+  ],
+  "dedup": {
+    "files": 60,
+    "uniqueTableRounds": 31,
+    "hands": 31000,
+    "duplicateCopies": 29,
+    "conflicts": 0
+  }
+}

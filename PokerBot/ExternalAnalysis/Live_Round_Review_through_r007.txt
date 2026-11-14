@@ -1,0 +1,17 @@
+﻿LIVE ROUND REVIEW THROUGH saturday/r007
+14 November 2026
+
+CURRENT CHOICE
+Keep website version 5, which the team maps to G/v7 SHA b8a22e4b...f0c16a. The user's current leaderboard screenshot shows WBot 5th at +35.4 bb/100 over 7 rounds / 7,000 hands. I independently fetched the same seven refs; API metadata has version 5 for every WBot round and totals +49,589 chips = +35.4 bb/100. Runtime totals: 28 timeouts, 0 errors, 0 bank-outs. Do not switch based on rank alone or one round.
+
+CHANGE GATE
+No later candidate has passed a gate. The team's h_ftb35 alternative lost to G/v7 in refit-real (-0.7 bb/100, SE 4.4), heldout + a_trapper (-5.4, SE 4.8), and archive (-2.4, SE 6.0); no errors. It should remain rejected. Preserve G/v7 while monitoring timeout counts and evaluating new candidates in paired held-out tests.
+
+LEADERBOARD CONTEXT FROM USER SCREENSHOT
+Gherkers +86.0, Attention Is All In +62.8, AAST +51.0, Equity Engine +40.8, WBot +35.4. Each has 7 rounds / 7,000 hands. These are encouraging standings; they are not controlled head-to-head estimates.
+
+STRONG-OPPONENT PROFILE (separate external-table review)
+The local selected-perspective sample does not reproduce or refute Gherkers' screenshot average: it includes different practice and live tables. In that sample, live Gherkers folded 675/903 (74.8%) when facing an open, but only 20/75 (26.7%) when its own open faced a three-bet; it raised 21/75 and called 34/75. Do not label it a generic 3-bet overfolder. Attention's live opener fold-to-three-bet was 64/85 (75.3%); AAST's was 52/102 (51.0%). Use these as bounded, context-specific training hypotheses, not a global exploit rule.
+
+DATA PROVENANCE
+WBot files and round metadata are in Hand_data/SaturdayRealRounds/saturday_r001.json through saturday_r007.json. The API round metadata includes uploaded version, per-round bb/100, hands, timeouts, errors, bank-outs and think time. The latest two refs were fetched after the User-Agent fix. Full local validation and the focused bot profiles are under ExternalAnalysis/ExternalOpponents/StrongestFocus/.

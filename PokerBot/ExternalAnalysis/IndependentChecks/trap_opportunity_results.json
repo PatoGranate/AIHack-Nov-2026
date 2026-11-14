@@ -1,0 +1,13 @@
+{
+  "trap_on": {
+    "action": "check"
+  },
+  "trap_off": {
+    "action": "raise",
+    "amount": 45
+  },
+  "aggressive_opponent": 0,
+  "already_checked": true,
+  "remaining_opponent_af": 0.1,
+  "note": "Stubbed equity/EV isolates branch; no measured profitability claim."
+}

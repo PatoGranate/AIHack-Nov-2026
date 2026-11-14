@@ -1,0 +1,3 @@
+# Correction to my candidate gate status note
+
+I used an inaccurate filename and overstated the environment in the prior request. Hfast's script is `tools/batch_hfast.sh`, not `gate_Hfast.sh`. The Hfast and `srv_I` comparisons run through `tools/arena.py`, whose header describes a paired local duplicate arena; these results are not themselves server-emulated or runtime checks. Runtime validation is separately covered by the timing/fuzz/subprocess commands in the scripts. The scores still stand as paired local simulation results, and the request to complete archive/ablation/runtime controls is unchanged.

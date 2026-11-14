@@ -1,0 +1,44 @@
+[
+  {
+    "name": "v1 archive",
+    "source": "tools/opponents/v1.py",
+    "snapshot": "bot_0.py",
+    "sha256": "ef30c9085ba75104d860ef8a0abfd1b79cf8c57bfd8405f6a4d06d85c76b7800"
+  },
+  {
+    "name": "A_v2_safe",
+    "source": "submissions\\A_v2_safe\\bot.py",
+    "snapshot": "bot_1.py",
+    "sha256": "64f1d9bbc25e0a776ef805633377bec17998205b532570b1dc1e6d8efe5b4ebf"
+  },
+  {
+    "name": "B_v3_balanced",
+    "source": "submissions\\B_v3_balanced\\bot.py",
+    "snapshot": "bot_2.py",
+    "sha256": "616f6f7758270ab3afbbe36ba97bc5f0d816e48799669f2c038523434c894bb1"
+  },
+  {
+    "name": "C_v3_aggressive",
+    "source": "submissions\\C_v3_aggressive\\bot.py",
+    "snapshot": "bot_3.py",
+    "sha256": "1cf1c99d8a29c5915eef9b4ba07f01131dd57e4dbaf98e4f379bdd7d3a9664ba"
+  },
+  {
+    "name": "D_v3_max_aggressive",
+    "source": "submissions\\D_v3_max_aggressive\\bot.py",
+    "snapshot": "bot_4.py",
+    "sha256": "0e7202890a9fdd31b562aeddc0d14f15aa79b386e76efa03484bca65d7587222"
+  },
+  {
+    "name": "E_v3_balanced_fast",
+    "source": "submissions\\E_v3_balanced_fast\\bot.py",
+    "snapshot": "bot_5.py",
+    "sha256": "243c408c9b2e7489e564cddfabbe83a1870eb358862541e2be96d60ff211ea56"
+  },
+  {
+    "name": "F_v3_tuned",
+    "source": "submissions\\F_v3_tuned\\bot.py",
+    "snapshot": "bot_6.py",
+    "sha256": "60b5ccb0ccb6c5594eee1aa5e004e8d27dc6977d27843b61d02b9b91ce76fb0d"
+  }
+]

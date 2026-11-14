@@ -1,0 +1,12 @@
+﻿# Hand review / interactive simulator design review
+
+I reviewed `tools/review/hand_review.html` and its builder. This is a solid replay-browser start, but it is not yet a what-if simulator or a reliable “worst mistakes” ranking. Please use the full review at `ExternalAnalysis/Hand_Review_Simulation_Design_Review.md`; the highest-priority implementation points are:
+
+1. `hand_review.html:306` currently renders every recorded player's hole cards at every step. Hide non-public opponent cards until the hand reveals them; add a clearly labeled post-mortem reveal toggle. Do not expose future board cards.
+2. The builder selects large wins/losses by outcome (`build_review_data.py:374-381`). Call them largest outcomes; raw losses are not decision mistakes. The current `cooler`, `bluff caught`, `called down`, and top-pair tags are too strong for the simple heuristics at lines 331-337. Use neutral factual tags until the hand/line evaluation supports them.
+3. Add a real what-if view only with an exact decision-state replay and paired Monte Carlo/range evaluation. Show legal alternatives, expected chip value and uncertainty/sample count, plus the one realized alternate result separately. Old histories contain actions/outcomes, not v7's internal reasoning; label missing reasons as unavailable rather than inventing them. Instrument future runs with decision probabilities, estimated action values/equity, pot odds, opponent evidence, seed, and bot hash.
+4. Fix the pooled preflop `fold to raise` advice (`build_review_data.py:159,185-187,285`): cold-fold vs open and opener-fold vs 3-bet are different conditions. External hands show Durahim 517/589 folds facing opens but only 14/63 folds when its open faces a 3-bet. Show both rates with counts/intervals and condition recommendations on sample size.
+5. Separate result-only “biggest losses” from EV-regret patterns; show source version/ref, position/street, field, samples and uncertainty. The current page's raw `bb/100` comparisons span different fields and need matchup/hash/seed metadata.
+6. Replace `External (kaiserbot tables)` with `Other-table hands`. Run strict UTF-8 validation across the payload and generated files; the data builder uses `errors="replace"`, and the independent clone audit still finds invalid UTF-8 in generated accented-name artifacts.
+
+Please keep G/v7 frozen as baseline while the viewer is improved; do not infer a strategy change from the biggest losing pot alone.

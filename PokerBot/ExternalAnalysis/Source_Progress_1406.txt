@@ -1,0 +1,60 @@
+SOURCE PROGRESS REVIEW — 14 November 2026, 14:06 London
+
+Reviewed changed tools/src_bot.py and tools/params_best.json. No new Hand_data
+samples since the version performance report: v1-v4 results remain unchanged.
+These source changes are not assigned a new version number without corresponding
+version-labelled data. kit/bot.py still has its older modification timestamp.
+
+IMPORTANT PROGRESS
+
+The current source template addresses three high-priority findings:
+1. postflop now compares ev + bonus consistently against the best score, removing
+   the previous repeated negative-margin ratchet. The bonus itself remains an
+   intentional aggression preference requiring validation.
+2. The first-four-opponents truncation is gone; position uses all models.
+3. Multiway candidate EV samples caller subsets, uses only continuing showdown
+   hands, and adds capped incremental contributions. Shared random draws across
+   sizes improve comparison consistency. This is materially closer to the
+   recommended model than the previous all-opponent called-equity approximation.
+
+These are source-level observations, not proof of deployment or improved bb/100.
+The original review's descriptions of these defects remain applicable to its
+earlier snapshot and older built bots; they should not be read as unchanged
+descriptions of this revised template.
+
+REMAINING ACCOUNTING ISSUE TO TEST
+
+The new multiway EV still applies a single showdown share s2 to the entire pot
+plus contributions. When callers have unequal effective stacks, different pot
+layers have different eligible winners. Capping total hero exposure with the
+largest caller cap does not replace per-layer side-pot accounting.
+
+Example test: hero and caller B can each contribute 500 more, caller A can
+contribute only 100, with A's hand stronger than hero and hero stronger than B.
+A wins only the main-pot portion it is eligible for; hero can still win the
+side pot against B. A single all-caller winner comparison gives hero zero share
+of both. Enumerate contribution levels, eligible seats and tied winners for each
+pot layer. Include prior-street contributions in eligibility; those cannot be
+recovered from current-street bets alone without reconstructing history.
+
+CALL VALUE STILL NEEDS THE SAME ELIGIBILITY CHECK
+
+ev_call remains e*(pot+to_call)-to_call. This is exact only when the estimated
+share applies to all money hero can win and future contributions are accounted
+for appropriately. Multiway short all-ins can make parts of the pot ineligible
+for hero; other players may still act. Test these separately from bet EV.
+
+OTHER OBSERVATIONS
+
+The simulation now checks a hard deadline and reduces the minimum samples to 8.
+Measure whole-act time, not just simulation time, and report weighted effective
+sample size: fewer samples may make action selection noisier. params_best.json
+currently includes hard_ms=3, max_ms=1.2, bet_margin=-.08 and raise_margin=-.04.
+Their presence is not evidence that the exported or uploaded bot uses them.
+
+NEXT STEP FOR THE TEAM
+
+Run exact synthetic side-pot cases and export/build parity checks, then paired
+held-out comparisons against v1, v2, v3 and v4 under subprocess limits. Keep the
+algorithm research plan's offline MCCFR blueprint as the training direction;
+do not infer successful learning merely from a source refactor.

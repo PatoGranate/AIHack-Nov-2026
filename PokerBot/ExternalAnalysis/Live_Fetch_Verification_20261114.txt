@@ -1,0 +1,16 @@
+PokerBot live results fetch verification — 14 Nov 2026, 16:16 UTC
+
+Status: SUCCESS. The local SaturdayRealRounds archive now contains r001–r015. The first 10 files already existed; r008–r010 received refreshed summary metadata. The fetch script reported 5 new round refs and 23 total refs checked.
+
+Latest verified rounds (WBot, site version 5 = G/v7; 1,000 hands each; BB=20 chips):
+r011 table 5: -1,622 chips, -8.11 bb/100, 0 timeouts, 0 errors.
+r012 table 5: +16,055 chips, +80.28 bb/100, 1 timeout, 0 errors.
+r013 table 4: +12,470 chips, +62.35 bb/100, 0 timeouts, 0 errors.
+r014 table 1: +32,181 chips, +160.91 bb/100, 0 timeouts, 0 errors.
+r015 table 4: +12,787 chips, +63.94 bb/100, 0 timeouts, 0 errors.
+
+Validation: each new JSON parses, has 1,000 hands, matches team WBot and refs saturday/r011 through saturday/r015. The reported +160.9 for r014 is confirmed by its official summary: 32,181 / (20 chips per BB * 10 blocks of 100 hands) = 160.905 bb/100.
+
+Runtime diagnosis: ordinary `python` is a nonfunctional Windows Store alias in this environment. The Codex bundled Python 3.12.14 at C:\Program Files\WindowsApps\OpenAI.CodexPrimaryRuntime.v26-1112-737-0_26.1112.737.0_x64__3k8sg7r9htsxt\dependencies\python\python.exe successfully ran PokerBot/kit/fetch_hands.py. The restricted shell could not resolve imperialaihack.com; the successful download used the approved network-capable execution path.
+
+Recurring check: the existing five-minute heartbeat is active, but its prompt does not name the working interpreter. Update that automation to call the bundled interpreter explicitly and verify file timestamps/round completeness after each fetch. No tokens are recorded here.

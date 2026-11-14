@@ -1,0 +1,73 @@
+INDEPENDENT CORRECTNESS AUDIT — 14 November 2026
+
+Scope: tools/src_bot.py latest 14:32:58 revision and tools/cands/v7.py;
+engine/game.py fixed-hands rules; earlier external review side-pot/deadline
+claims. No playing sources or team-channel messages modified by this checker.
+
+HIGH-PRIORITY CORRECTION TO EARLIER REVIEW
+
+The unequal-all-in side-pot examples were not reachable in this tournament.
+Every player begins every hand with the same S=2000 chips. Thus an all-in
+opponent always has total contribution S, whereas hero's total after any legal
+call is at most S. The sp_call test requires an all-in contribution STRICTLY
+BELOW hero's total after calling, which cannot hold. Folded players may have
+unequal contributions, but their dead money does not alter this inequality.
+
+At a completed earlier street, every live non-all-in player has matched the
+same cumulative contribution. On the current street its cap bets[j]+stack[j]
+therefore matches hero's cap. An all-in player's current-street cap matches it
+as well if the all-in occurred on this street. An all-in on an earlier street
+would require every continuing equal-start opponent to reach S too, leaving
+no active hero on a later street. Consequently a live opponent with cap below
+a legal hero raise is also unreachable. Layered bet-EV slow paths are not
+expected to run in this format.
+
+The helper can be useful for unequal-start games, but apparent gains attributed
+solely to layering need interpretation: time-budgeted sampling and RNG changes,
+other code/parameter changes, and statistical noise may explain the differences.
+Do not devote pre-deployment effort to hypothetical unequal-stack cases while
+the actual format remains fixed equal reset stacks.
+
+REACHABLE-STATE VALIDATION
+
+Ran check_reset_stack_invariants.py against the exact engine for 3000 hands
+over 12 seeds with randomized raising/calling/folding agents.
+Observed: 45356 decisions, 15732 postflop decisions, 2872 postflop decisions
+facing an all-in. Zero sp_call conditions; zero legal-raise states with a live
+opponent cap below hero's maximum. Chip conservation passed every table.
+These samples corroborate the invariant proof; they do not exhaust the game.
+Results: reset_stack_invariants_results.json, including inspected source hash.
+
+CURRENT FIXES CONFIRMED BY SOURCE INSPECTION
+
+- hard now preserves an existing expired hard_end instead of granting a fresh
+  3 ms. The original deadline-reset criticism is superseded. The loop still
+  completes a two-sample batch before checking, so this is not a formal hard
+  execution bound; keep whole-act latency testing.
+- Pending opponents' call responses are sampled in the side-pot branch, though
+  this branch is unreachable under the format above.
+- fold3 uses opener-facing-reraise observations and a minimum opportunity
+  requirement. The earlier general-fold-rate light-3bet criticism is superseded
+  for v7, and q_3bet is disabled there anyway.
+
+REACHABLE V7 STRATEGIC CONCERN — TRAP OPPORTUNITY
+
+The trap override asks whether ANY live non-all-in opponent has AF >= .45.
+It does not require that aggressive opponent still has a turn after hero.
+In three-way postflop order A -> hero -> B, A can already have checked and B
+can be passive. A's historical AF can nevertheless force hero to check.
+This conflates an aggressive opponent being present with an available betting
+opportunity to induce that opponent.
+
+check_trap_opportunity.py isolates this branch with an engine-consistent turn
+state and fixed simulation outputs. With A's AF=.8, B's AF=.1, A already checked,
+and hero estimated equity .9, trap-on returns check while trap-off selects a
+raise. Test outputs: trap_opportunity_results.json. The stubbed simulation
+isolates the control-flow decision; it does NOT establish an actual EV loss.
+
+Suggested next ablation: require a non-all-in aggressive opponent still to act
+behind hero, preferably using bet-when-checked-to evidence. Treat this as a
+testable strategy refinement, not an emergency correctness hotfix. Preserve
+the frozen v7 promotion comparison before changing candidates mid-evaluation.
+
+No other confirmed reachable arithmetic defect identified in this focused audit.

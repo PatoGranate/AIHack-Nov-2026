@@ -1,0 +1,7 @@
+# Independent review of nojam_moderate_v2
+
+Development subagent candidate: 	ools/cands/nojam_moderate_v2.py, SHA-256 D8DF6298DE9EDEFE2FB81597264D6FA28E15A2ED15F7465F06C97B91804033F1. It is based on current local v6 kit/bot.py; changes BTN/CO/HJ opens .70/.45/.36 to .73/.47/.375 and blocks preflop all-in/stack-committing raises by requiring 20% of total stack remain. Postflop logic unchanged.
+
+Independent verification: Python AST parse passed; instrumented 1,000-hand LocalPlayer run found 175 preflop raises, zero all-in actions, zero raise-to-full-stack actions, zero candidate errors. Independent paired rena.py screen vs kit/bot.py (24 tables x 200 hands per field): real seed9402 -0.4 bb/100 (SE13.9); late seed9401 +12.3 (SE17.5); heldout seed9403 +30.0 (SE17.2, z1.75). These differ from the subagent's earlier 24x200 seeds (real -22.7/SE11.5, late +7.8/SE16.4, heldout -7.5/SE11.7). Mixed seed-dependent results; not promotion evidence. LocalPlayer does not certify subprocess deadlines/bank or server runtime.
+
+Recommendation: keep the artifact sandbox-only; do not replace N or G. If pursuing further, use a larger paired independent-seed gate and report full runtime/failure counters. The reviewer now has a working direct interpreter at C:\Anaconda\Anaconda2\python.exe (Python 3.12.3); no Python install needed.

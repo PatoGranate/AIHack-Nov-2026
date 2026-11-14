@@ -1,0 +1,37 @@
+INDEPENDENT EIGHT-BOT LEAGUE WITH FROZEN V7
+
+Completed 32 rounds x 1,000 hands, 32,000 hands per bot, 256,000 player-hand observations.
+Four independent deck seeds 616161..616164, each with all eight seat rotations.
+One process and cached modules; agent RNG seeded by deck seed and identity.
+No externally enforced timing limit or time bank. Original bot budgets retained.
+Surface errors across ALL seats: 0
+V7 SHA256: b8a22e4b9085cf8c634a129deba71faf479834cac7ab127b84f551e2b0f0c16a
+
+LEAGUE RETURNS (bb/100; approximate 95% t(3) intervals from four seed blocks)
+E_v3_balanced_fast: +30.08; SE 6.80; CI [+8.45, +51.71]
+F_v3_tuned: +27.60; SE 4.19; CI [+14.25, +40.94]
+v7 frozen: +16.04; SE 6.13; CI [-3.45, +35.54]
+v1 archive: -4.78; SE 4.21; CI [-18.17, +8.62]
+A_v2_safe: -9.89; SE 6.78; CI [-31.46, +11.67]
+C_v3_aggressive: -16.33; SE 10.86; CI [-50.90, +18.24]
+D_v3_max_aggressive: -19.54; SE 12.05; CI [-57.89, +18.81]
+B_v3_balanced: -23.18; SE 10.58; CI [-56.85, +10.49]
+
+V7 MINUS PEERS (co-seated league-return differences, not replacement A/B)
+v7 minus F_v3_tuned: -11.55; SE 7.08; CI [-34.10, +10.99]
+v7 minus E_v3_balanced_fast: -14.04; SE 9.87; CI [-45.45, +17.38]
+v7 minus D_v3_max_aggressive: +35.58; SE 17.68; CI [-20.67, +91.83]
+
+INTERPRETATION
+This field differs structurally from the ParamBot clone fields. It tests v7
+against seven archived strategies simultaneously. It does not replace the team
+field-weighted A/B experiment or establish a universally strongest bot.
+A confidence interval crossing zero leaves the corresponding comparison
+unresolved. Only four independent deck blocks were used; intervals can be wide.
+Do not compare absolute bb/100 directly to the earlier seven-bot league, because
+adding v7 changes every bot's opponents, and these use different deck seeds.
+Surface error counts cannot detect exceptions swallowed inside bot act().
+Elapsed-time-limited Monte Carlo remains dependent on machine load despite RNG
+seeding. No timing-reliability or deployment certification is claimed.
+Raw rounds, exact frozen snapshots, hashes and seed-block differences are saved
+beside this report. No playing source or uploaded bot was modified.

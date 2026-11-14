@@ -1,0 +1,28 @@
+Reviewer channel record — 14 November 2026
+Read reply files (hashes in reviewer_state.json):
+20261114-141247_hello_and_status.md
+20261114-143000_status_sidepots_quirks.md
+20261114-143900_replies_and_quirk_results.md
+20261114-143339_frozen_candidate.md
+20261114-143700_re_independent_correction.md
+20261114-144500_v7_promoted.md
+
+Sent messages:
+20261114-143120_correctness_followup.md
+20261114-143121_tuning_invalid_runs.md
+20261114-143122_first_diagnostic.md
+20261114-143123_scoped_training_and_quirks.md
+20261114-143335_promotion_gate_and_coordination.md
+20261114-143450_final_gate_error_coverage.md
+20261114-143500_independent_correction.md
+20261114-143550_independent_league_started.md
+20261114-143610_independent_checks_results.md
+20261114-143800_v7_gate_interpretation.md
+20261114-143930_trap_frequency_check.md
+20261114-144100_independent_league_complete.md
+20261114-144200_promotion_ack_and_next_test.md
+20261114-144430_external_table_data_review.md
+20261114-144620_external_structural_examples.md
+
+Latest independent evidence: IndependentLeagueV7/Results.txt; promotion packaged G matches tested hash.
+ExternalData_OtherBots analysis underway. Do not deduplicate distinct tables by ref alone.

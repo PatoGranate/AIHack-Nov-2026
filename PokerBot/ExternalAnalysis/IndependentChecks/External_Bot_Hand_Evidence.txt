@@ -1,0 +1,120 @@
+EXTERNAL BOT HAND EVIDENCE — 14 November 2026
+
+Sources: five JSON files in Hand_data/ExternalData_OtherBots. Table identity is
+(round ref, ordered roster), never round ref alone. r015's seven-player roster
+is the same WBot v3 table as r1v3; it provides an alternate card-visibility
+viewpoint, not an additional action/results sample. No playing source modified.
+
+All 14 complete example sequences, rosters, visible hole cards, per-action pot,
+remaining stack and net results are in External_Visible_Hand_Sequences.txt.
+This note selects mechanisms and counterexamples; selection is not an unbiased
+evaluation. High observed winnings below do not establish universal strength.
+
+1. THE IMPORTANT DIFFERENCE IS WHO PAYS OFF, NOT JUST HOW LARGE WINNERS BET
+
+The Market Makers wins +48,733 chips / 2,000 supplied hands (+121.83 bb/100).
+Examples show large payments from weak callers, not proof of a superior universal
+equilibrium strategy:
+- external r014 h568: AcQd calls bigRoddy's preflop55. On Ad2dTs, bigRoddy KdJs
+  bets90, Market raises TO410, bigRoddy TO1050, Market TO1945 all-in, called.
+  Market +2030, bigRoddy -2000. At commitment, Market has top pair; the opponent
+  has a gutshot to Broadway, not a private made pair. The complete
+  runout gives Market trips. This is a field-specific value-commitment example.
+- external r017 h258: Market KcQs calls Lehman's preflop reraise120. On 4s3dKd,
+  Lehman AcJd bets145, Market TO685, Lehman TO1765, Market calls1080. On turn7s,
+  Lehman bets its final115 and is called. Market +2010, Lehman -2000.
+- Counterexample external r014 h362: Market QcTc stacks off on 8sQh6h against
+  bigRoddy AhQd; bigRoddy has the better kicker and wins after Ac7c, Market -2000.
+  'Call off lighter against donors' still needs hand/board/range discrimination.
+
+2. GHERKERS: REAL RIVER SHOVE DISTRIBUTION IS BROADER THAN THE CURRENT CLONE
+
+Gherkers +41,680 / 2,000 hands (+104.20 bb/100). Reconstructed action inventory:
+77 river bets/raises, 60 of which exhaust total 2,000-chip stack (77.9%).
+This is a structural sizing pattern, not evidence that all those shoves are good.
+
+Successes versus Lehman:
+- r016 h893: 6c6d calls flop127 on Jc2s9h, calls turn254 on 9d. River7c: pot977,
+  remaining stack1554, shove1554 (159.1% pot). Lehman Ac3h calls. Gherkers +2085.
+- r016 h963: Ac5d calls flop130 on 3s3c7s, calls turn260 on Ah. River8s: pot1000,
+  remaining1555, shove1555. Lehman Kd7c calls. Gherkers +2110.
+These are consistent with extracting thin value from the observed weak caller,
+but neither intentional adaptation nor positive EV against the full range is
+proven by these outcomes.
+
+Failures using the same broad line:
+- r016 h978: 9s5s calls85 flop on 2cJs5c, calls170 turn6h, riverQh shoves1690
+  into640 (264.1% pot), called by Lehman KdKs. Gherkers -2000.
+- r016 h242: TdTc set on ThJd6s check-calls100, turn5h check-calls200, riverQh
+  shoves1635 into760; Lehman Kc9h has a straight and calls. Gherkers -2000.
+Do not blindly imitate Gherkers' river aggression based on its aggregate ranking.
+
+DIRECT CLONE REPLAY (one hand, two visible decisions)
+
+Ran replay_external_clone_gaps.py on the actual r016 h893 decision states using
+the current r_Gherkers.py and r_LehmanBrothers.py policies, without source edits:
+- Actual Gherkers flop call127; clone folds.
+- Actual Lehman river call1554; clone folds.
+Both actions are deterministic under the clone rules for these states. Existing
+Gherkers clone already has trapper=True, so the family DOES model river trapping
+in a limited category range. Its weak-pair threshold misses this observed line.
+Lehman clone's call_min/size rule misses the visible board-pair/ace-kicker river
+payment (Ac3h on Jc2s9h9d7c; no private pair).
+Thus parameter jitter alone does not reproduce these particular decisions.
+Full reconstructed states and results: external_clone_replay_results.json.
+
+3. DURAHIM: BEWARE MISTAKING STACK EXHAUSTION FOR A TINY-BET STRATEGY
+
+Durahim +26,036 / 1,000 supplied hands (+130.18 bb/100), in a table containing
+Lehman. Two strong-hand extraction examples:
+- r017 h500: 3d3c raises48, calls Lehman reraise115; check-calls150 on 9h8d7c,
+  turns a set on3s, bets420 and calls a reraise TO1330. River6h: pot3220, stack
+ 405. Its 405 bet (12.6% pot) is ALL-IN, called by Lehman Kc7s; +2030.
+- r017 h694: Ks9s calls preflop175 in three-way pot; flops two pair Kc9dTh,
+  bets388 and calls Lehman TO1247. Turn4h: pot3049, stack578; 578 bet (19.0%
+  pot) is ALL-IN, called by Lehman JhJs; +2205.
+Neither example supports deliberately betting 12-19% pot when deeper stacked.
+Counterexample r017 h115: AhJc four-bets TO252, calls Lehman TO585, then calls
+615 flop AcKd4h and800 turn9s; loses -2000 to Lehman AcQc after Ks river.
+
+4. PHIL AIVEY / KOJACK: STRONG-HAND EXTRACTION ALSO EXPLAINS LARGE WINS
+
+- r015 h492: Phil 9s3h defends free BB in limped pot, calls FisherMen flop48
+  on8s2h9h, turns two pair3s; bets176, faces475 and shoves TO1932. FisherMen
+  Ah8h calls1457 (pair plus heart draw); blank4c, Phil +2040. Strong made hand
+  plus opponent willingness to pay, not evidence for bluff-heavy play.
+- r017 h979: Kojack AdKs versus GamesGone Ac9s on AsAh4c, calls flop150,
+  turn3d faces450 and raises TO1800 all-in; called. Kojack +2050.
+- r017 h441: Kojack Ts9s raises preflop90 over limpers; on Kc7hJd raises a
+  GamesGone bet230 TO747 (double-gutshot straight potential), turns8c straight,
+  shoves1163, gets called by GamesGone JcTc; +2050. A draw may justify aggression,
+  but this successful runout alone does not establish the flop raise's EV.
+
+5. RESPONSE-TO-RERAISE HETEROGENEITY
+
+Using opener's FIRST response after at least two preflop raises, at most one
+observation per hand, the supplied external tables show:
+Lehman 0 folds /111 responses; FisherMen 0/13; bigRoddy 0/26;
+gamblerlove 43/46; Phil AIvey 16/20; aydine 12/13;
+Durahim 16/65; Gherkers 187/381; Market Makers 14/36; Kojack29/62.
+These counts differ from general fold-to-open rates. The responder's hidden
+cards and true strategy remain unknown on folded hands. Sparse counts must be
+shrunk; cannot conclude never-fold or always-fold from small samples.
+
+DEVELOPMENT IMPLICATIONS (HYPOTHESES TO TEST)
+
+A. Add a structurally distinct defender that can call large river bets with
+   ace high/weak pairs after barreling; do not merely jitter ParamBot call_min.
+B. Add a weak-pair check-call / broad river-shove adversary and inspect bot
+   bluff-catching and opponent-range updating. Retain narrower value-heavy
+   river shove opponents too; one observed style is not the entire field.
+C. Separate all-in-for-the-last-15%-pot from elective tiny bets and deep
+   overbets. Include remaining stack/SPR in size calibration.
+D. Against observed donor archetypes, evaluate larger value bets and reduce
+   bluff investment; do not turn a few visible losses into global lighter calls.
+E. Preserve competitive bot's existing selective value lines; no evidence here
+   justifies wholesale imitation of the highest single-table win rate.
+
+All suggestions require offline paired testing with the actual payoff/rules
+and untouched confirmation. No hidden cards were inferred or opponent code
+claimed recovered. Public sample outcomes do not identify causality.

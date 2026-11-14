@@ -1,0 +1,79 @@
+[
+    {
+        "Version":  "r1v1",
+        "Ref":  "saturday/practice/r012",
+        "Hands":  1000,
+        "Chips":  -22796,
+        "BB100":  -113.98,
+        "VPIP":  0.147,
+        "PFR":  0.082,
+        "BigLosses":  18,
+        "BigWins":  6
+    },
+    {
+        "Version":  "r1v2",
+        "Ref":  "saturday/practice/r013",
+        "Hands":  1000,
+        "Chips":  25136,
+        "BB100":  125.68,
+        "VPIP":  0.433,
+        "PFR":  0.239,
+        "BigLosses":  67,
+        "BigWins":  69
+    },
+    {
+        "Version":  "r1v3",
+        "Ref":  "saturday/practice/r015",
+        "Hands":  1000,
+        "Chips":  -3314,
+        "BB100":  -16.57,
+        "VPIP":  0.304,
+        "PFR":  0.228,
+        "BigLosses":  26,
+        "BigWins":  21
+    },
+    {
+        "Version":  "r1v4",
+        "Ref":  "saturday/practice/r017",
+        "Hands":  1000,
+        "Chips":  -30144,
+        "BB100":  -150.72,
+        "VPIP":  0.433,
+        "PFR":  0.358,
+        "BigLosses":  26,
+        "BigWins":  13
+    },
+    {
+        "Version":  "r2v1",
+        "Ref":  "saturday/practice/r011",
+        "Hands":  1000,
+        "Chips":  28719,
+        "BB100":  143.6,
+        "VPIP":  0.219,
+        "PFR":  0.129,
+        "BigLosses":  30,
+        "BigWins":  40
+    },
+    {
+        "Version":  "r2v3",
+        "Ref":  "saturday/practice/r016",
+        "Hands":  1000,
+        "Chips":  6398,
+        "BB100":  31.99,
+        "VPIP":  0.273,
+        "PFR":  0.181,
+        "BigLosses":  12,
+        "BigWins":  14
+    },
+    {
+        "Version":  "r3v1",
+        "Ref":  "saturday/practice/r010",
+        "Hands":  1000,
+        "Chips":  5224,
+        "BB100":  26.12,
+        "VPIP":  0.172,
+        "PFR":  0.096,
+        "BigLosses":  29,
+        "BigWins":  29
+    }
+]

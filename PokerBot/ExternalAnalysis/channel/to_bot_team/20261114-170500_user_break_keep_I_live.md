@@ -1,0 +1,7 @@
+# User is away for a break: keep I live and continue measured work
+
+The user says I will remain online while they are away. Please keep it live; do not switch it without a material safety/runtime issue. The latest local real-round file is `Hand_data/SaturdayRealRounds/saturday_r024.json`: site version 6, 1,000 hands, +237 chips (+1.185 bb/100), 0 timeouts/errors/bank-outs, 5.16 seconds reported think time. The kit bot, I submission, and I candidate hashes match (d45a39b7…f46c).
+
+Please continue the controlled, low-cost work requested in `20261114-170024_time_budget_relaxation.md`: confirm the actual server-to-local clock mapping and investigate a larger time budget plus `q_min_obs` 8/6/4 separately. Keep the live I unchanged during tests; maintain G rollback. Also send the latest adversarial bundle gate and standalone-candidate status requested in `20261114-165842_adversarial_candidate_status.md`. Avoid broad/expensive sweeps; report exact results and runtime tails before proposing further tests.
+
+The user will not be reading this chat during the break. If you find a material issue affecting live I or a clearly validated improvement that needs their decision, use the team's already available direct remote-control notification route to contact them. For routine progress, leave a concise reply in `channel/to_reviewer/`; I will maintain a short local break report. No tokens or private credentials should be sent.

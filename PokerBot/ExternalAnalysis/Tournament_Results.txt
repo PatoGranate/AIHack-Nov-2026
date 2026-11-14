@@ -1,0 +1,47 @@
+COMPLETED SEVEN-BOT COMPARISON — 14 November 2026
+
+56 league rounds + 7 enforced-deadline screening rounds, 1,000 hands each.
+63,000 table hands; 441,000 player-hand observations. Frozen sources and
+methodology are in Tournament/manifest.json and Tournament_Method.txt.
+
+FAST
+F_v3_tuned: +31.31 bb/100; approximate 95% CI [+16.9, +45.7]; timeouts=0, bank-outs=0, errors=0
+E_v3_balanced_fast: +13.61 bb/100; approximate 95% CI [-11.7, +38.9]; timeouts=0, bank-outs=0, errors=0
+D_v3_max_aggressive: +7.01 bb/100; approximate 95% CI [-19.0, +33.0]; timeouts=0, bank-outs=0, errors=0
+B_v3_balanced: -1.49 bb/100; approximate 95% CI [-18.5, +15.5]; timeouts=0, bank-outs=0, errors=0
+v1 archive: -6.74 bb/100; approximate 95% CI [-27.7, +14.2]; timeouts=0, bank-outs=0, errors=0
+A_v2_safe: -19.28 bb/100; approximate 95% CI [-30.4, -8.2]; timeouts=0, bank-outs=0, errors=0
+C_v3_aggressive: -24.42 bb/100; approximate 95% CI [-41.6, -7.3]; timeouts=0, bank-outs=0, errors=0
+
+STRICT
+E_v3_balanced_fast: +74.72 bb/100; single seed block, no CI; timeouts=14, bank-outs=0, errors=0
+F_v3_tuned: +45.62 bb/100; single seed block, no CI; timeouts=22, bank-outs=0, errors=0
+v1 archive: +22.40 bb/100; single seed block, no CI; timeouts=83, bank-outs=0, errors=0
+D_v3_max_aggressive: +1.09 bb/100; single seed block, no CI; timeouts=97, bank-outs=0, errors=0
+A_v2_safe: -2.45 bb/100; single seed block, no CI; timeouts=98, bank-outs=0, errors=0
+B_v3_balanced: -65.92 bb/100; single seed block, no CI; timeouts=106, bank-outs=0, errors=0
+C_v3_aggressive: -75.47 bb/100; single seed block, no CI; timeouts=95, bank-outs=0, errors=0
+
+F leads the main league at +31.31 bb/100. Its paired advantage over E
+is +17.71 with an approximate 95% interval of [-5.44, +40.85] bb/100;
+over D it is +24.31 with interval [-8.51, +57.13]. These close comparisons
+remain unresolved. Its comparisons against A/B/C and the v1 archive are
+positive at unadjusted pairwise 95% intervals; multiple comparisons and this
+specific field limit generalisation. Preserve F, E and D for confirmation.
+
+PAIRED DIFFERENCES RELATIVE TO A_v2_safe
+Within each seed, average the seven seat-rotation differences.
+v1 archive: +12.54 bb/100; 95% t interval [-0.73, +25.80]
+B_v3_balanced: +17.79 bb/100; 95% t interval [-5.08, +40.67]
+C_v3_aggressive: -5.13 bb/100; 95% t interval [-29.09, +18.82]
+D_v3_max_aggressive: +26.29 bb/100; 95% t interval [-2.58, +55.16]
+E_v3_balanced_fast: +32.89 bb/100; 95% t interval [+2.39, +63.39]
+F_v3_tuned: +50.59 bb/100; 95% t interval [+28.28, +72.91]
+
+Interpretation: ranks and intervals concern this seven-bot field only.
+The timing screen is a local Windows check with one seed block; do not use
+its ranking as a precise independent strength estimate. Internal bot exceptions
+caught by act() can remain invisible to adapter error counts. No bot was modified.
+Policy descriptions and identical-state decision probes are in summary.json.
+Displayed equities are bot estimates with different opponent assumptions.
+Follow up close rankings on untouched deck seeds and varied opponents.

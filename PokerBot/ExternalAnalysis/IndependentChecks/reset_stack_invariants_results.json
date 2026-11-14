@@ -1,0 +1,9 @@
+{
+  "states": 45356,
+  "postflop_states": 15732,
+  "facing_allin": 2872,
+  "sp_call_true": 0,
+  "candidate_below_cap": 0,
+  "hands": 3000,
+  "source_sha256": "461d5bb07637296bae699274f4f2dc156ff046bded929cc9936198a9c4412b4f"
+}

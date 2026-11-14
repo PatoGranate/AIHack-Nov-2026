@@ -1,0 +1,559 @@
+{
+  "source": "tools/cands/v7.py",
+  "sha256": "b8a22e4b9085cf8c634a129deba71faf479834cac7ab127b84f551e2b0f0c16a",
+  "opponent_sources": [
+    "a_maniac.py",
+    "a_lag.py",
+    "a_station2.py",
+    "a_maniac.py",
+    "a_lag.py",
+    "a_tag.py"
+  ],
+  "rounds": [
+    {
+      "seed": 717171,
+      "hero_seat": 2,
+      "seconds": 1.024623100005556,
+      "hands": 1000,
+      "hero_chips": 71152,
+      "postflop_decisions": 242,
+      "trigger_count": 1,
+      "subset_count": 0,
+      "positive_gap_subset_count": 0,
+      "subset_raw_gap_sum": 0,
+      "subset_bonus_gap_sum": 0,
+      "all_seat_stats": [
+        {
+          "decisions": 2020,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.171,
+          "avg_ms": 0.014,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1559,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.091,
+          "avg_ms": 0.012,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1357,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 2.226,
+          "avg_ms": 0.244,
+          "bank_out": 0
+        },
+        {
+          "decisions": 3542,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.263,
+          "avg_ms": 0.017,
+          "bank_out": 0
+        },
+        {
+          "decisions": 2120,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 1.215,
+          "avg_ms": 0.015,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1540,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.084,
+          "avg_ms": 0.011,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1403,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.061,
+          "avg_ms": 0.01,
+          "bank_out": 0
+        }
+      ],
+      "triggers": [
+        {
+          "hand": 306,
+          "street": "flop",
+          "hole": [
+            "9d",
+            "Kd"
+          ],
+          "board": [
+            "9h",
+            "7c",
+            "9c"
+          ],
+          "pot": 570,
+          "equity": 0.8919753086419753,
+          "action": {
+            "action": "check",
+            "amount": null
+          },
+          "qualifying": [
+            4
+          ],
+          "remaining_qualifying": [
+            4
+          ],
+          "all_qualifiers_acted_subset": false,
+          "af": {
+            "4": 0.8054298642533937
+          },
+          "baseline": 355.89814814814815,
+          "best_bet_ev": 880.8921482674124,
+          "model_gap_raw": 524.9940001192642,
+          "model_gap_with_bonus": 570.5940001192643,
+          "history": [
+            {
+              "seat": 6,
+              "street": "preflop",
+              "action": "small_blind",
+              "amount": 10
+            },
+            {
+              "seat": 0,
+              "street": "preflop",
+              "action": "big_blind",
+              "amount": 20
+            },
+            {
+              "seat": 1,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 2,
+              "street": "preflop",
+              "action": "raise",
+              "amount": 90
+            },
+            {
+              "seat": 3,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 4,
+              "street": "preflop",
+              "action": "raise",
+              "amount": 270
+            },
+            {
+              "seat": 5,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 6,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 0,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 2,
+              "street": "preflop",
+              "action": "call",
+              "amount": 180
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 717172,
+      "hero_seat": 3,
+      "seconds": 0.7299986999714747,
+      "hands": 1000,
+      "hero_chips": 64852,
+      "postflop_decisions": 175,
+      "trigger_count": 3,
+      "subset_count": 0,
+      "positive_gap_subset_count": 0,
+      "subset_raw_gap_sum": 0,
+      "subset_bonus_gap_sum": 0,
+      "all_seat_stats": [
+        {
+          "decisions": 2059,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.162,
+          "avg_ms": 0.015,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1495,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.132,
+          "avg_ms": 0.012,
+          "bank_out": 0
+        },
+        {
+          "decisions": 3470,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.247,
+          "avg_ms": 0.018,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1281,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 1.447,
+          "avg_ms": 0.193,
+          "bank_out": 0
+        },
+        {
+          "decisions": 2108,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.132,
+          "avg_ms": 0.016,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1540,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.28,
+          "avg_ms": 0.012,
+          "bank_out": 0
+        },
+        {
+          "decisions": 1392,
+          "timeouts": 0,
+          "errors": 0,
+          "error_samples": [],
+          "max_ms": 0.109,
+          "avg_ms": 0.011,
+          "bank_out": 0
+        }
+      ],
+      "triggers": [
+        {
+          "hand": 258,
+          "street": "flop",
+          "hole": [
+            "Ah",
+            "Th"
+          ],
+          "board": [
+            "7h",
+            "3h",
+            "Kh"
+          ],
+          "pot": 570,
+          "equity": 0.9621212121212122,
+          "action": {
+            "action": "check",
+            "amount": null
+          },
+          "qualifying": [
+            4
+          ],
+          "remaining_qualifying": [
+            4
+          ],
+          "all_qualifiers_acted_subset": false,
+          "af": {
+            "4": 0.775609756097561
+          },
+          "baseline": 383.88636363636357,
+          "best_bet_ev": 1493.3550834163213,
+          "model_gap_raw": 1109.4687197799578,
+          "model_gap_with_bonus": 1155.0687197799577,
+          "history": [
+            {
+              "seat": 1,
+              "street": "preflop",
+              "action": "small_blind",
+              "amount": 10
+            },
+            {
+              "seat": 2,
+              "street": "preflop",
+              "action": "big_blind",
+              "amount": 20
+            },
+            {
+              "seat": 3,
+              "street": "preflop",
+              "action": "raise",
+              "amount": 90
+            },
+            {
+              "seat": 4,
+              "street": "preflop",
+              "action": "raise",
+              "amount": 270
+            },
+            {
+              "seat": 5,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 6,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 0,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 1,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 2,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 3,
+              "street": "preflop",
+              "action": "call",
+              "amount": 180
+            }
+          ]
+        },
+        {
+          "hand": 518,
+          "street": "flop",
+          "hole": [
+            "Ac",
+            "Jh"
+          ],
+          "board": [
+            "As",
+            "Ad",
+            "Tc"
+          ],
+          "pot": 730,
+          "equity": 0.8026315789473685,
+          "action": {
+            "action": "check",
+            "amount": null
+          },
+          "qualifying": [
+            0,
+            4
+          ],
+          "remaining_qualifying": [
+            0,
+            4
+          ],
+          "all_qualifiers_acted_subset": false,
+          "af": {
+            "0": 0.8502824858757062,
+            "4": 0.7881136950904393
+          },
+          "baseline": 410.14473684210526,
+          "best_bet_ev": 1583.421052631579,
+          "model_gap_raw": 1173.2763157894738,
+          "model_gap_with_bonus": 1231.6763157894738,
+          "history": [
+            {
+              "seat": 2,
+              "street": "preflop",
+              "action": "small_blind",
+              "amount": 10
+            },
+            {
+              "seat": 3,
+              "street": "preflop",
+              "action": "big_blind",
+              "amount": 20
+            },
+            {
+              "seat": 4,
+              "street": "preflop",
+              "action": "raise",
+              "amount": 80
+            },
+            {
+              "seat": 5,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 6,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 0,
+              "street": "preflop",
+              "action": "raise",
+              "amount": 240
+            },
+            {
+              "seat": 1,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 2,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 3,
+              "street": "preflop",
+              "action": "call",
+              "amount": 220
+            },
+            {
+              "seat": 4,
+              "street": "preflop",
+              "action": "call",
+              "amount": 160
+            }
+          ]
+        },
+        {
+          "hand": 764,
+          "street": "flop",
+          "hole": [
+            "Js",
+            "Jd"
+          ],
+          "board": [
+            "3s",
+            "8h",
+            "Jh"
+          ],
+          "pot": 620,
+          "equity": 0.84375,
+          "action": {
+            "action": "check",
+            "amount": null
+          },
+          "qualifying": [
+            0
+          ],
+          "remaining_qualifying": [
+            0
+          ],
+          "all_qualifiers_acted_subset": false,
+          "af": {
+            "0": 0.8411405295315683,
+            "2": 0.06221349050425671
+          },
+          "baseline": 366.1875,
+          "best_bet_ev": 2362.5,
+          "model_gap_raw": 1996.3125,
+          "model_gap_with_bonus": 2045.9125,
+          "history": [
+            {
+              "seat": 3,
+              "street": "preflop",
+              "action": "small_blind",
+              "amount": 10
+            },
+            {
+              "seat": 4,
+              "street": "preflop",
+              "action": "big_blind",
+              "amount": 20
+            },
+            {
+              "seat": 5,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 6,
+              "street": "preflop",
+              "action": "raise",
+              "amount": 60
+            },
+            {
+              "seat": 0,
+              "street": "preflop",
+              "action": "raise",
+              "amount": 180
+            },
+            {
+              "seat": 1,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 2,
+              "street": "preflop",
+              "action": "call",
+              "amount": 180
+            },
+            {
+              "seat": 3,
+              "street": "preflop",
+              "action": "call",
+              "amount": 170
+            },
+            {
+              "seat": 4,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            },
+            {
+              "seat": 6,
+              "street": "preflop",
+              "action": "fold",
+              "amount": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warning": "Observed opportunity counts and biased model-value gaps, not realised counterfactual loss. LocalPlayer deadlines unenforced; wall-clock sampling varies under load."
+}
