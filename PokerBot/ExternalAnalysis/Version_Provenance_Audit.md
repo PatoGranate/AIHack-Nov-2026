@@ -9,11 +9,11 @@ Note: `C:\Users\pelay\AIHack\PokerBot` is **not a git repository**, so the reque
 
 | Fingerprint | G (`G_v7_final`) | I (`I_v9_25ms`) | N (`N_v10_tuned`) | Observed v5 / v7 | Observed v6 | **Observed v8** |
 |---|---|---|---|---|---|---|
-| `open_size` param (bb) | 3.5 | 2.8 | 2.8 | 3.5 (3,802 / 183 opens) | 2.8 (3,886) | **2.8 (860)** |
+| `open_size` param (bb) | 3.5 | 2.8 | 2.8 | 3.5 (3,802 / 183 opens) | 2.8 (3,886) | **2.8 (860 of 928 first-in raises; the rest 3.3 bb, none 3.5)** |
 | Thinking budget `max_ms` / `hard_ms` | 1.2 / 3.0 | 6 / 14, bank 7 | 6 / 14, bank 7 | think 1.9–3.2 s/round | 4.6–7.1 s | **5.5–7.1 s** |
 | `o_ep` (EP open looseness) | 0.22 | 0.22 | **0.176** | EP open 26.2% (n=6,252) / 28.8% (n=344) | 26.8% (n=7,226) | **22.1% (n=1,604)** |
 
-- v8 shows zero 3.5 bb opens. A G build never opens 2.8 bb first-in, so v8 cannot be `G_v7_final`, and it cannot be H either (H also uses 3.5).
+- v8 made zero 3.5 bb first-in raises (928 raises: 860 at 2.8 bb, 67 at 3.3 bb, which is the I/N family's raise over limpers, and 1 at 4.1 bb). A G build never opens 2.8 bb first-in, so v8 cannot be `G_v7_final`, and it cannot be H either (H also uses 3.5).
 - Within the 2.8 bb family, v8's early-position open rate is lower than v6 (I) by 4.7 points (two-proportion z = 3.9). That matches N's tighter `o_ep`: the parameter ratio is 0.176/0.22 = 0.80 and the observed ratio is 0.221/0.268 = 0.82.
 - This is strong support for **v8 = N**, but it is not proof. A source hash would settle it (see "Conflicts" below).
 
@@ -67,6 +67,17 @@ Errors and bank-outs were 0 in all 53 rounds.
    - a v9 round showing 3.5 bb opens and ~2–3 s think, which confirms v9 = G and, by elimination, the README sequence;
    - a replay of r049–r053 preflop decisions through I and N, with both bots' opponent models fed the same history, measuring agreement. Not done here; ask before spending the compute.
 
-## Method
+## Method and reproducibility
 
-All numbers were reproduced with a short stdlib script (`ExternalAnalysis/provenance/fp.py`; run `python -I fp.py Hand_data/SaturdayRealRounds`). It reads every `saturday_r*.json`, takes `round.version`, and for the team seat counts first-in opportunities and raises by position: EP = earlier than HJ, plus HJ, CO, BTN and SB. Open size is the raise amount ÷ 20.
+Each claim, and where it comes from:
+- **Round metadata, timing, open rates, raise sizes and the EP z statistic** come from `ExternalAnalysis/provenance/fp.py` (stdlib only, read-only).
+  - Run `python -I fp.py Hand_data/SaturdayRealRounds`.
+  - Its output is preserved in `provenance/fp_output_r001-r053.txt`.
+- **Definitions used by the script:**
+  - Raise size is the raise target ÷ the hand's `bb` field (20).
+  - "First-in" means no raise before hero. The script prints two versions: *unopened* excludes pots with limpers, and *incl. limped pots* counts them. The EP numbers are identical in both, and the conclusions hold either way.
+  - Positions: EP = first to act after the BB up to HJ; HJ = two seats before the button; CO = one seat before the button.
+- **Source parameters** (`open_size`, `max_ms`, `hard_ms`, `bank`, `o_ep`) were read from each `bot.py`'s `P = {...}` dict with `ast.literal_eval`.
+- **Hashes** are `sha256sum` of the listed files.
+
+Neither the parameters nor the hashes come from `fp.py`.
