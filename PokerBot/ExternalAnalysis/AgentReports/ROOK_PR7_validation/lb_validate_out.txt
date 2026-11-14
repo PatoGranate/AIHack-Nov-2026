@@ -1,0 +1,20 @@
+rows 1591 columns ['captured_at', 'server_time', 'phase', 'played', 'rank', 'team', 'displayed_version', 'chips', 'hands', 'rounds', 'bb100', 'timeouts', 'errors', 'bank_out']
+captured_at decreases between consecutive rows: 0
+exact duplicate rows: 0 | duplicate (captured_at, team) keys: 0
+snapshots: 39 teams per snapshot (min/max): 40 43
+rows with empty/None played: {}
+snapshots with mixed played values: 0
+played decreases over capture time: 0
+played values present: 13 - 48 | missing: []
+(played, team) with >1 distinct chips/rounds/hands across captures: 0
+round-count delta distribution between consecutive played: {1: 1426}
+irregular team-steps (7):
+    (24, 'clanker', 'new team')
+    (24, 'Peanut Cookies', 'team vanished')
+    (25, '85p', 'new team')
+    (26, 'JoCal', 'new team')
+    (31, 'Vlad', 'team vanished')
+    (31, 'aydine', 'team vanished')
+    (32, 'ediz_slow', 'team vanished')
+team-rounds observed in hands AND in leaderboard increments: 665; exact chip match: 665; discrepant: 0
+hand-covered rounds in 14-48 with no increments at all: []
