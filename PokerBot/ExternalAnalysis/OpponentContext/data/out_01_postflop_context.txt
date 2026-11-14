@@ -1,0 +1,509 @@
+Opponent context audit, postflop (exploratory, descriptive)
+python 3.12.13, numpy 2.4.6
+inputs: 135 unique counted tables, 135000 hands (same set as the post-mortem manifest; checked)
+first responses to a first postflop bet: 110190; facing-a-raise decisions: 14706
+bootstrap: 2000 table resamples per estimate, 90% percentile intervals; seed 20261115
+
+== 1. Decisions per 1,000-hand round (per opponent-table): median [10th, 90th percentile] ==
+Field = every non-WBot seat at every counted table; T4 = the seven table-4 opponents only.
+bucket                   field                  T4                    
+all first-bet             100 [ 58, 163] ( 961)     123 [ 72, 189] (157)
+HU                         83 [ 47, 138] ( 961)     103 [ 57, 156] (157)
+MW                         16 [  7,  33] ( 961)      21 [  7,  45] (157)
+S<50%                      32 [  8,  67] ( 961)      39 [ 12,  73] (157)
+L>=50%                     66 [ 39, 114] ( 961)      77 [ 47, 139] (157)
+HU S                       26 [  6,  56] ( 961)      32 [ 10,  60] (157)
+HU L                       54 [ 31,  94] ( 961)      62 [ 40, 117] (157)
+MW S                        4 [  0,  14] ( 961)       4 [  1,  17] (157)
+MW L                       11 [  5,  24] ( 961)      13 [  5,  33] (157)
+<40%                       27 [  4,  61] ( 961)      35 [  6,  65] (157)
+40-75%                     40 [ 21,  74] ( 961)      47 [ 24,  86] (157)
+75-110%                    22 [ 10,  43] ( 961)      26 [ 13,  54] (157)
+>110%                       6 [  1,  17] ( 961)       7 [  2,  18] (157)
+flop                       58 [ 33,  94] ( 961)      69 [ 40, 114] (157)
+turn                       27 [ 14,  47] ( 961)      35 [ 18,  61] (157)
+river                      14 [  6,  28] ( 961)      19 [  9,  34] (157)
+IP                         66 [ 35, 114] ( 961)      85 [ 42, 131] (157)
+OOP                        31 [ 13,  66] ( 961)      34 [ 17,  70] (157)
+MW 0 callers               12 [  5,  27] ( 960)      15 [  5,  36] (157)
+MW 1+ callers               3 [  0,   9] ( 960)       4 [  1,  11] (157)
+bet                       100 [ 58, 163] ( 961)     123 [ 72, 189] (157)
+raise                      10 [  3,  26] ( 961)      12 [  4,  40] (157)
+bot 'faced' counter       111 [ 65, 183] ( 961)     132 [ 80, 215] (157)
+Binomial SE of a raw in-round rate at p=0.45: n=10 -> 16 pts, n=25 -> 10, n=50 -> 7, n=100 -> 5.
+
+== 2. Fold rate by context: rate [90% table-bootstrap CI] n=decisions ==
+
+-- Table-4 opponents --
+
+Resonance Qt  (23 tables)
+  all:all                    38% [36,40] n=2474
+  humw:HU                    34% [31,36] n=2130
+  humw:MW                    66% [60,72] n=344
+  humw_size2:HU S            14% [11,16] n=705
+  humw_size2:HU L            43% [41,46] n=1425
+  humw_size2:MW S            44% [37,54] n=107
+  humw_size2:MW L            76% [72,81] n=237
+  size4:<40%                 16% [13,19] n=724
+  size4:40-75%               41% [38,44] n=1050
+  size4:75-110%              55% [52,57] n=543
+  size4:>110%                64% [57,72] n=157
+  street:flop                42% [39,45] n=1370
+  street:turn                31% [28,34] n=730
+  street:river               39% [34,44] n=374
+  ip:IP                      35% [32,37] n=1722
+  ip:OOP                     46% [42,50] n=752
+  mw_callers:MW 0 callers    67% [61,73] n=267
+  mw_callers:MW 1+ callers   64% [53,76] n=77
+  facing:bet                 38% [36,40] n=2474
+  facing:raise               46% [39,54] n=162
+  bettor:vs WBot             22% [17,26] n=388
+  bettor:vs others           46% [43,50] n=646
+  half:r01-27                42% [40,45] n=1224
+  half:r28-54                34% [32,36] n=1250
+  size2:S<50%                18% [15,21] n=812
+  size2:L>=50%               48% [46,50] n=1662
+  hu_flop_size2:S<50%        16% [13,20] n=318
+  hu_flop_size2:L>=50%       44% [41,46] n=773
+  hu_ip:HU IP                28% [26,31] n=1457
+  hu_ip:HU OOP               44% [41,49] n=673
+  bot's pooled ftb counter   39% [37,41] n=2636
+
+Anker Batteries  (27 tables)
+  all:all                    46% [44,48] n=2754
+  humw:HU                    40% [37,42] n=2217
+  humw:MW                    70% [66,74] n=537
+  humw_size2:HU S            20% [16,24] n=805
+  humw_size2:HU L            51% [49,53] n=1412
+  humw_size2:MW S            49% [43,58] n=163
+  humw_size2:MW L            79% [75,83] n=374
+  size4:<40%                 23% [20,26] n=843
+  size4:40-75%               50% [47,52] n=1135
+  size4:75-110%              64% [62,67] n=625
+  size4:>110%                67% [61,74] n=151
+  street:flop                49% [47,51] n=1634
+  street:turn                42% [39,46] n=732
+  street:river               40% [35,45] n=388
+  ip:IP                      40% [38,42] n=2163
+  ip:OOP                     68% [64,71] n=591
+  mw_callers:MW 0 callers    74% [70,78] n=424
+  mw_callers:MW 1+ callers   56% [49,64] n=113
+  facing:bet                 46% [44,48] n=2754
+  facing:raise               45% [40,51] n=306
+  bettor:vs WBot             26% [23,29] n=561
+  bettor:vs others           53% [50,55] n=715
+  half:r01-27                51% [46,56] n=905
+  half:r28-54                43% [42,45] n=1849
+  size2:S<50%                25% [22,28] n=968
+  size2:L>=50%               57% [56,58] n=1786
+  hu_flop_size2:S<50%        21% [17,25] n=373
+  hu_flop_size2:L>=50%       51% [48,54] n=844
+  hu_ip:HU IP                34% [32,37] n=1805
+  hu_ip:HU OOP               64% [60,68] n=412
+  bot's pooled ftb counter   46% [44,48] n=3060
+
+Chinese people can fly  (24 tables)
+  all:all                    44% [42,46] n=4592
+  humw:HU                    38% [36,41] n=3492
+  humw:MW                    61% [58,64] n=1100
+  humw_size2:HU S            17% [14,21] n=970
+  humw_size2:HU L            46% [43,49] n=2522
+  humw_size2:MW S            40% [36,44] n=313
+  humw_size2:MW L            70% [66,73] n=787
+  size4:<40%                 20% [17,23] n=1088
+  size4:40-75%               42% [40,45] n=2171
+  size4:75-110%              64% [61,69] n=1013
+  size4:>110%                69% [63,75] n=320
+  street:flop                49% [46,51] n=2738
+  street:turn                35% [32,39] n=1226
+  street:river               37% [34,41] n=628
+  ip:IP                      42% [39,44] n=3460
+  ip:OOP                     49% [47,52] n=1132
+  mw_callers:MW 0 callers    64% [61,68] n=883
+  mw_callers:MW 1+ callers   49% [44,55] n=217
+  facing:bet                 44% [42,46] n=4592
+  facing:raise               60% [56,64] n=728
+  bettor:vs WBot             27% [24,31] n=878
+  bettor:vs others           45% [42,49] n=1475
+  half:r01-27                45% [42,48] n=2375
+  half:r28-54                42% [39,45] n=2217
+  size2:S<50%                23% [20,27] n=1283
+  size2:L>=50%               52% [49,54] n=3309
+  hu_flop_size2:S<50%        21% [16,26] n=454
+  hu_flop_size2:L>=50%       49% [46,52] n=1456
+  hu_ip:HU IP                36% [33,39] n=2693
+  hu_ip:HU OOP               45% [43,48] n=799
+  bot's pooled ftb counter   46% [44,48] n=5320
+
+GamesGone  (23 tables)
+  all:all                    40% [38,43] n=2981
+  humw:HU                    34% [31,36] n=2268
+  humw:MW                    61% [56,66] n=713
+  humw_size2:HU S            16% [13,19] n=893
+  humw_size2:HU L            46% [43,48] n=1375
+  humw_size2:MW S            37% [30,44] n=213
+  humw_size2:MW L            71% [67,75] n=500
+  size4:<40%                 18% [16,20] n=1017
+  size4:40-75%               47% [44,50] n=1070
+  size4:75-110%              55% [51,59] n=711
+  size4:>110%                69% [63,75] n=183
+  street:flop                43% [40,46] n=1701
+  street:turn                36% [32,39] n=779
+  street:river               39% [35,42] n=501
+  ip:IP                      33% [30,36] n=2106
+  ip:OOP                     59% [55,63] n=875
+  mw_callers:MW 0 callers    67% [62,72] n=470
+  mw_callers:MW 1+ callers   49% [43,57] n=243
+  facing:bet                 40% [38,43] n=2981
+  facing:raise               55% [50,61] n=622
+  bettor:vs WBot             24% [21,27] n=630
+  bettor:vs others           51% [48,54] n=628
+  half:r01-27                44% [41,48] n=1472
+  half:r28-54                36% [33,39] n=1509
+  size2:S<50%                20% [17,22] n=1106
+  size2:L>=50%               52% [50,55] n=1875
+  hu_flop_size2:S<50%        17% [13,22] n=371
+  hu_flop_size2:L>=50%       44% [41,47] n=830
+  hu_ip:HU IP                28% [25,30] n=1741
+  hu_ip:HU OOP               54% [51,58] n=527
+  bot's pooled ftb counter   43% [41,45] n=3603
+
+Poke  (18 tables)
+  all:all                    56% [53,59] n=2408
+  humw:HU                    54% [51,57] n=2024
+  humw:MW                    70% [65,75] n=384
+  humw_size2:HU S            32% [28,38] n=612
+  humw_size2:HU L            63% [61,65] n=1412
+  humw_size2:MW S            51% [41,60] n=122
+  humw_size2:MW L            79% [76,82] n=262
+  size4:<40%                 32% [27,36] n=590
+  size4:40-75%               59% [56,62] n=1065
+  size4:75-110%              72% [70,75] n=580
+  size4:>110%                76% [71,81] n=173
+  street:flop                55% [52,59] n=1253
+  street:turn                54% [50,58] n=740
+  street:river               64% [59,68] n=415
+  ip:IP                      46% [43,49] n=1605
+  ip:OOP                     77% [73,81] n=803
+  mw_callers:MW 0 callers    71% [66,76] n=301
+  mw_callers:MW 1+ callers   67% [56,78] n=83
+  facing:bet                 56% [54,60] n=2408
+  facing:raise               48% [44,53] n=561
+  bettor:vs WBot             37% [35,40] n=247
+  bettor:vs others           59% [53,65] n=465
+  half:r01-27                59% [54,63] n=765
+  half:r28-54                55% [51,60] n=1643
+  size2:S<50%                35% [31,41] n=734
+  size2:L>=50%               66% [64,67] n=1674
+  hu_flop_size2:S<50%        29% [23,35] n=246
+  hu_flop_size2:L>=50%       60% [56,63] n=726
+  hu_ip:HU IP                43% [40,46] n=1341
+  hu_ip:HU OOP               75% [71,79] n=683
+  bot's pooled ftb counter   55% [52,58] n=2969
+
+Anton  (22 tables)
+  all:all                    47% [44,50] n=2669
+  humw:HU                    44% [41,48] n=2343
+  humw:MW                    66% [60,72] n=326
+  humw_size2:HU S            25% [21,29] n=681
+  humw_size2:HU L            52% [48,57] n=1662
+  humw_size2:MW S            53% [43,64] n=101
+  humw_size2:MW L            72% [65,79] n=225
+  size4:<40%                 25% [22,30] n=660
+  size4:40-75%               48% [44,53] n=1202
+  size4:75-110%              61% [56,68] n=620
+  size4:>110%                67% [61,75] n=187
+  street:flop                50% [47,53] n=1537
+  street:turn                42% [38,47] n=735
+  street:river               43% [37,49] n=397
+  ip:IP                      39% [35,43] n=1672
+  ip:OOP                     60% [56,64] n=997
+  mw_callers:MW 0 callers    67% [60,74] n=260
+  mw_callers:MW 1+ callers   64% [54,76] n=66
+  facing:bet                 47% [44,50] n=2669
+  facing:raise               50% [38,62] n=202
+  bettor:vs WBot             29% [24,33] n=479
+  bettor:vs others           57% [52,61] n=885
+  half:r01-27                42% [39,44] n=1562
+  half:r28-54                54% [51,58] n=1107
+  size2:S<50%                29% [25,32] n=782
+  size2:L>=50%               54% [51,59] n=1887
+  hu_flop_size2:S<50%        28% [24,33] n=293
+  hu_flop_size2:L>=50%       53% [49,57] n=989
+  hu_ip:HU IP                36% [32,41] n=1444
+  hu_ip:HU OOP               58% [54,62] n=899
+  bot's pooled ftb counter   47% [44,51] n=2871
+
+YSL_TWIZZY  (20 tables)
+  all:all                    27% [25,29] n=2315
+  humw:HU                    23% [21,24] n=1979
+  humw:MW                    53% [45,59] n=336
+  humw_size2:HU S             5% [ 4, 7] n=676
+  humw_size2:HU L            32% [30,34] n=1303
+  humw_size2:MW S            27% [19,37] n=111
+  humw_size2:MW L            66% [58,72] n=225
+  size4:<40%                  7% [ 5, 9] n=728
+  size4:40-75%               27% [24,30] n=719
+  size4:75-110%              42% [38,46] n=633
+  size4:>110%                54% [48,58] n=235
+  street:flop                25% [22,28] n=1086
+  street:turn                29% [26,32] n=756
+  street:river               30% [27,33] n=473
+  ip:IP                      25% [22,27] n=1362
+  ip:OOP                     31% [28,35] n=953
+  mw_callers:MW 0 callers    64% [58,69] n=234
+  mw_callers:MW 1+ callers   27% [18,39] n=102
+  facing:bet                 27% [25,29] n=2315
+  facing:raise               12% [ 8,17] n=154
+  bettor:vs WBot             12% [ 9,15] n=465
+  bettor:vs others           39% [36,42] n=536
+  half:r01-27                30% [28,32] n=1307
+  half:r28-54                24% [21,26] n=1008
+  size2:S<50%                 8% [ 6,11] n=787
+  size2:L>=50%               37% [36,39] n=1528
+  hu_flop_size2:S<50%         2% [ 0, 4] n=244
+  hu_flop_size2:L>=50%       24% [23,26] n=614
+  hu_ip:HU IP                18% [16,21] n=1125
+  hu_ip:HU OOP               29% [26,32] n=854
+  bot's pooled ftb counter   26% [24,28] n=2469
+
+-- Strong teams (not at our table) --
+
+Gherkers  (24 tables)
+  all:all                    40% [38,43] n=2298
+  humw:HU                    37% [35,40] n=1970
+  humw:MW                    59% [52,65] n=328
+  humw_size2:HU S            14% [12,16] n=653
+  humw_size2:HU L            49% [45,53] n=1317
+  humw_size2:MW S            26% [15,38] n=93
+  humw_size2:MW L            71% [66,77] n=235
+  size4:<40%                 14% [11,17] n=629
+  size4:40-75%               38% [34,42] n=1050
+  size4:75-110%              69% [65,73] n=489
+  size4:>110%                79% [73,86] n=130
+  street:flop                41% [39,44] n=1402
+  street:turn                36% [32,41] n=610
+  street:river               45% [40,49] n=286
+  ip:IP                      36% [33,40] n=1474
+  ip:OOP                     48% [42,54] n=824
+  mw_callers:MW 0 callers    61% [54,67] n=250
+  mw_callers:MW 1+ callers   51% [39,62] n=78
+  facing:bet                 40% [38,43] n=2298
+  facing:raise               62% [54,68] n=252
+  bettor:vs WBot             28% [25,32] n=313
+  bettor:vs others           43% [39,48] n=555
+  half:r01-27                45% [41,49] n=1175
+  half:r28-54                36% [34,38] n=1123
+  size2:S<50%                15% [12,19] n=746
+  size2:L>=50%               52% [49,56] n=1552
+  hu_flop_size2:S<50%         8% [ 5,11] n=319
+  hu_flop_size2:L>=50%       49% [45,53] n=807
+  hu_ip:HU IP                33% [29,36] n=1230
+  hu_ip:HU OOP               46% [40,53] n=740
+  bot's pooled ftb counter   43% [40,45] n=2550
+
+Attention Is All In  (22 tables)
+  all:all                    51% [47,55] n=2654
+  humw:HU                    45% [41,51] n=2068
+  humw:MW                    70% [67,74] n=586
+  humw_size2:HU S            21% [16,28] n=683
+  humw_size2:HU L            57% [53,62] n=1385
+  humw_size2:MW S            62% [57,68] n=227
+  humw_size2:MW L            76% [72,79] n=359
+  size4:<40%                 29% [25,35] n=758
+  size4:40-75%               49% [45,54] n=1259
+  size4:75-110%              78% [75,81] n=463
+  size4:>110%                82% [76,87] n=174
+  street:flop                57% [54,61] n=1606
+  street:turn                39% [34,45] n=681
+  street:river               44% [36,53] n=367
+  ip:IP                      41% [37,46] n=1765
+  ip:OOP                     70% [63,77] n=889
+  mw_callers:MW 0 callers    69% [65,73] n=462
+  mw_callers:MW 1+ callers   75% [68,81] n=124
+  facing:bet                 51% [46,56] n=2654
+  facing:raise               72% [69,75] n=439
+  bettor:vs WBot             39% [34,45] n=476
+  bettor:vs others           51% [45,60] n=859
+  half:r01-27                58% [52,65] n=1344
+  half:r28-54                43% [39,47] n=1310
+  size2:S<50%                31% [27,37] n=910
+  size2:L>=50%               61% [57,64] n=1744
+  hu_flop_size2:S<50%        30% [25,36] n=310
+  hu_flop_size2:L>=50%       59% [55,63] n=825
+  hu_ip:HU IP                36% [31,41] n=1385
+  hu_ip:HU OOP               65% [57,73] n=683
+  bot's pooled ftb counter   54% [50,58] n=3093
+
+AAST  (18 tables)
+  all:all                    56% [53,60] n=1610
+  humw:HU                    53% [49,57] n=1349
+  humw:MW                    74% [69,78] n=261
+  humw_size2:HU S            28% [25,32] n=393
+  humw_size2:HU L            63% [59,67] n=956
+  humw_size2:MW S            48% [35,63] n=48
+  humw_size2:MW L            79% [74,85] n=213
+  size4:<40%                 25% [23,28] n=376
+  size4:40-75%               61% [58,63] n=775
+  size4:75-110%              73% [69,76] n=347
+  size4:>110%                77% [70,84] n=112
+  street:flop                59% [55,63] n=1025
+  street:turn                45% [39,50] n=401
+  street:river               65% [57,73] n=184
+  ip:IP                      49% [45,53] n=1033
+  ip:OOP                     70% [65,74] n=577
+  mw_callers:MW 0 callers    74% [70,79] n=206
+  mw_callers:MW 1+ callers   71% [62,81] n=55
+  facing:bet                 56% [52,60] n=1610
+  facing:raise               52% [44,61] n=205
+  bettor:vs WBot             28% [19,45] n=123
+  bettor:vs others           59% [52,66] n=255
+  half:r01-27                58% [55,62] n=873
+  half:r28-54                54% [47,62] n=737
+  size2:S<50%                30% [27,35] n=441
+  size2:L>=50%               66% [63,69] n=1169
+  hu_flop_size2:S<50%        30% [23,38] n=180
+  hu_flop_size2:L>=50%       63% [59,66] n=633
+  hu_ip:HU IP                44% [40,47] n=848
+  hu_ip:HU OOP               69% [64,74] n=501
+  bot's pooled ftb counter   56% [52,60] n=1815
+
+-- WBot itself (for reference) --
+
+WBot  (54 tables)
+  all:all                    45% [43,47] n=6594
+  humw:HU                    43% [41,45] n=5709
+  humw:MW                    62% [58,65] n=885
+  humw_size2:HU S            30% [28,33] n=1455
+  humw_size2:HU L            47% [45,49] n=4254
+  humw_size2:MW S            40% [33,47] n=162
+  humw_size2:MW L            67% [64,70] n=723
+  size4:<40%                 29% [27,32] n=1359
+  size4:40-75%               46% [43,48] n=3151
+  size4:75-110%              55% [52,58] n=1646
+  size4:>110%                58% [52,63] n=438
+  street:flop                42% [40,44] n=3995
+  street:turn                43% [40,45] n=1701
+  street:river               65% [62,68] n=898
+  ip:IP                      43% [41,45] n=6136
+  ip:OOP                     81% [76,85] n=458
+  mw_callers:MW 0 callers    62% [58,65] n=755
+  mw_callers:MW 1+ callers   62% [54,72] n=130
+  facing:bet                 45% [43,47] n=6594
+  facing:raise               56% [54,59] n=2407
+  half:r01-27                43% [40,46] n=2773
+  half:r28-54                47% [45,50] n=3821
+  size2:S<50%                31% [29,34] n=1617
+  size2:L>=50%               50% [48,52] n=4977
+  hu_flop_size2:S<50%        27% [24,30] n=770
+  hu_flop_size2:L>=50%       42% [40,45] n=2503
+  hu_ip:HU IP                40% [38,42] n=5311
+  hu_ip:HU OOP               79% [73,84] n=398
+  bot's pooled ftb counter   48% [47,50] n=9001
+
+== 3. Does it vary between opponents? (all non-WBot teams with >=5 tables and >=30 decisions per bucket) ==
+tau = DerSimonian-Laird between-team SD (pts, probability scale; logit scale in brackets).
+p_sim = share of 300 null simulations (no between-team variation, real per-table counts) with Q >= observed.
+k* = p(1-p)/tau^2 = the beta-binomial prior weight (pseudo-decisions) that this tau implies; exploratory.
+rel1 = tau_logit^2 / (tau_logit^2 + SE^2), SE = logit-scale binomial SE of ONE round's estimate at the field
+median per-round counts: the share of an opponent's true deviation that one round of data can recover.
+mean = random-effects mean across teams (p = percentage-point effect).
+quantity                       k    mean   tau [logit]  p_sim  p_simL   Q/null    k*  rel1
+level: all first-bet          43  +44.8    6.1 [0.24]  0.003   0.003  614/38      65  0.59
+level: HU                     43  +40.7    7.0 [0.29]  0.003   0.003  729/39      49  0.64
+level: MW                     43  +64.3    6.2 [0.26]  0.003   0.003  232/39      60  0.20
+level: HU S<50%               43  +20.8    6.3 [0.39]  0.003   0.003  402/38      41  0.39
+level: HU L>=50%              43  +50.9    9.2 [0.35]  0.003   0.003 1127/37      30  0.63
+level: MW S<50%               42  +41.5    9.8 [0.38]  0.003   0.003  206/37      25  0.12
+level: MW L>=50%              43  +74.7    5.0 [0.25]  0.003   0.003  171/38      75  0.12
+level: flop                   43  +46.6    7.8 [0.29]  0.003   0.003  747/38      41  0.55
+level: turn                   43  +39.1    6.2 [0.26]  0.003   0.003  301/38      62  0.30
+level: river                  43  +47.3    8.2 [0.33]  0.003   0.003  320/38      37  0.28
+level: facing raise           43  +47.9   16.1 [0.62]  0.003   0.003  800/38      10  0.49
+effect: MW - HU               43  +23.3p   6.0 [0.25]  0.003   0.003  203/39       -  0.16
+effect: L - S (all)           43  +30.6p   5.7 [0.26]  0.003   0.003  249/37       -  0.23
+effect: L - S (HU flop)       43  +28.6p   6.0 [0.32]  0.003   0.003  162/37       -  0.14
+effect: L - S (HU)            43  +29.9p   6.3 [0.30]  0.003   0.003  274/37       -  0.23
+effect: L - S (MW)            42  +32.8p   7.0 [0.25]  0.003   0.003  104/37       -  0.04
+effect: turn - flop           43   -7.3p   5.8 [0.24]  0.003   0.003  240/38       -  0.20
+effect: river - flop          43   +0.8p   9.3 [0.38]  0.003   0.003  342/37       -  0.29
+effect: OOP - IP              43  +21.2p   7.8 [0.30]  0.003   0.003  418/38       -  0.31
+effect: HU OOP - HU IP        43  +23.9p   6.8 [0.27]  0.003   0.003  287/38       -  0.23
+effect: MW 1+ callers - 0     42  -12.1p   5.8 [0.22]  0.003   0.003   76/37       -  0.03
+effect: raise - bet           43   +3.0p  13.8 [0.55]  0.003   0.003  517/38       -  0.41
+effect: late - early half     40   -5.8p   6.3 [0.26]  0.003   0.003  210/35       -  0.02
+
+== 3b. Same question per opponent-TABLE (one seat in one 1,000-hand round; units with >=10 decisions) ==
+This is the spread an in-round estimate has to learn. tau_within = table-to-table drift inside a team
+(uploads, table mix); tau_between = team-level spread. p_sim from 1,000 binomial null simulations.
+bucket                 units  med n   mean    tau  within between  p_sim     k*
+all first-bet            961    100  45.0%  11.3     8.6     7.3  0.001     19
+HU                       961     83  40.9%  11.9     9.0     7.7  0.001     17
+MW                       766     19  64.4%  13.7    12.0     6.6  0.001     12
+HU S<50%                 791     30  20.2%   9.7     8.6     4.3  0.001     17
+HU L>=50%                960     54  50.9%  13.1     8.9     9.6  0.001     15
+MW S<50%                 210     13  40.5%  19.9    15.2    12.9  0.001      6
+MW L>=50%                566     16  74.5%  10.2     9.5     3.8  0.001     18
+flop                     960     58  47.3%  13.4     9.4     9.5  0.001     14
+turn                     936     27  39.4%  12.4    10.5     6.7  0.001     15
+river                    733     17  45.9%  16.5    13.7     9.3  0.001      9
+IP                       957     66  38.2%  10.4     8.5     6.1  0.001     22
+OOP                      899     33  58.7%  17.3    12.3    12.2  0.001      8
+facing raise             490     16  50.9%  24.3    17.0    17.4  0.001      4
+vs WBot's bets           343     46  26.5%  10.9     8.6     6.6  0.001     16
+vs others' bets (WBot    350     66  50.7%  12.6    10.2     7.5  0.001     16
+
+== 4. Field fold rate by bet size vs the bot's fixed size curve (diagnostic) ==
+Bot: continue_class(size) = continue_class(0.6 pot) ** ((size/0.6) ** size_exp); G_v7 size_exp=1.0, N_v10 0.575.
+Implied exponent e: log(c_b)/log(c_ref) = (s_b/s_ref)**e with ref = the 40-75% bucket (single-class reading).
+
+all first-bet
+  <40%     mean size 0.24  fold 22% [21,23] n=29241  implied e 1.09 [1.04,1.14]
+  40-75%   mean size 0.58  fold 48% [47,49] n=43065  (reference)
+  75-110%  mean size 0.90  fold 61% [60,62] n=23689  implied e 0.80 [0.74,0.87]
+  >110%    mean size 3.48  fold 70% [69,71] n=7601  implied e 0.34 [0.32,0.37]
+
+HU flop only
+  <40%     mean size 0.27  fold 18% [16,19] n=9990  implied e 1.41 [1.32,1.50]
+  40-75%   mean size 0.57  fold 42% [41,43] n=21562  (reference)
+  75-110%  mean size 0.91  fold 56% [55,57] n=10772  implied e 0.85 [0.76,0.94]
+  >110%    mean size 3.64  fold 68% [66,70] n=3784  implied e 0.39 [0.36,0.42]
+
+== 5. Opponents' fold rate vs WBot's bets vs other bettors, same tables, by size bucket ==
+
+all opponents (54 tables with WBot)
+  <40%     vs WBot 16% n=11500 vs others 27% n=4734  diff -11 [-14, -9]
+  40-75%   vs WBot 37% n=2803  vs others 50% n=12431 diff -12 [-15,-10]
+  75-110%  vs WBot 52% n=2134  vs others 62% n=6709  diff -10 [-13, -8]
+  >110%    vs WBot 68% n=913   vs others 74% n=1869  diff  -6 [-10, -3]
+  WBot's bet-size mix faced by these responders: <40% 66%, 40-75% 16%, 75-110% 12%, >110% 5%
+  stratified by size x street x HU/MW x IP/OOP x preflop-aggressor role (144 cells): vs WBot minus vs others -12.3 pts [-13.9,-10.7]
+
+table-4 opponents (45 tables with WBot)
+  <40%     vs WBot 15% n=2485  vs others 28% n=788   diff -13 [-17, -9]
+  40-75%   vs WBot 35% n=523   vs others 48% n=2838  diff -13 [-17, -9]
+  75-110%  vs WBot 52% n=447   vs others 61% n=1379  diff  -9 [-13, -6]
+  >110%    vs WBot 64% n=193   vs others 67% n=345   diff  -3 [-11, +5]
+  WBot's bet-size mix faced by these responders: <40% 68%, 40-75% 14%, 75-110% 12%, >110% 5%
+  stratified by size x street x HU/MW x IP/OOP x preflop-aggressor role (139 cells): vs WBot minus vs others -13.2 pts [-15.7,-10.6]
+
+== 6. Stability of each table-4 opponent's first-bet fold rate across its tables ==
+phi = Pearson chi2 / (tables-1) of per-table rates vs the pooled rate (1 = binomial noise only).
+phi_sim = 90th percentile of phi under binomial simulation with the same table counts.
+  Resonance Qt             tables 23  pooled 38%  per-table range 29-51%  phi 2.01 (phi_sim90 1.46)
+  Anker Batteries          tables 27  pooled 46%  per-table range 36-65%  phi 1.99 (phi_sim90 1.40)
+  Chinese people can fly   tables 24  pooled 44%  per-table range 35-54%  phi 3.22 (phi_sim90 1.44)
+  GamesGone                tables 23  pooled 40%  per-table range 28-64%  phi 3.29 (phi_sim90 1.48)
+  Poke                     tables 18  pooled 56%  per-table range 44-74%  phi 3.14 (phi_sim90 1.54)
+  Anton                    tables 22  pooled 47%  per-table range 34-68%  phi 3.85 (phi_sim90 1.46)
+  YSL_TWIZZY               tables 20  pooled 27%  per-table range 16-35%  phi 1.70 (phi_sim90 1.49)
+  Gherkers                 tables 24  pooled 40%  per-table range 29-55%  phi 2.41 (phi_sim90 1.45)
+  Attention Is All In      tables 22  pooled 51%  per-table range 34-75%  phi 8.32 (phi_sim90 1.50)
+  AAST                     tables 18  pooled 56%  per-table range 40-80%  phi 3.65 (phi_sim90 1.52)
+
+== 7. The bot's pooled ftb counter (G_v7 / N_v10 _learn) replicated on the public histories ==
+Counts every postflop fold/call/raise while any bet is outstanding (bets AND raises, any bettor, any size).
+  field pooled raw counter: 0.455 (n=115895); per opponent-table (n>=20): median 0.449, 10-90% 0.333-0.613
+  bot prior pri_ftb = 0.60 with weight 8; the continue multiplier is m = ftb / 0.60.
+
+wrote data/postflop_context_summary.json

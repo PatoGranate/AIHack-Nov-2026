@@ -1,0 +1,111 @@
+obs vs LB increment same team-round: n=665, max |diff| 0.000
+team round-SD when at our tables 47.1 vs when not 79.1 (n teams 40)
+per-seat result SD at tables WITH clanker/ediz 62.7 (mean +31.7, n=148) vs WITHOUT 43.7 (mean +0.0, n=842)
+
+extreme single-round results on the leaderboard (|bb/100| > 250):
+   r30 Gherkers              +379.2
+   r41 Attention Is All In   +301.6
+   r41 The Market Makers     +409.3
+   r41 Durahim 1453          +280.9
+   r41 SmartBGerBot         -1551.7
+   r14 ediz_slow             -317.3
+   r15 ediz_slow             -425.7
+   r21 ediz_slow             -315.5
+   r22 ediz_slow             -321.3
+   r23 ediz_slow             -262.8
+   r24 ediz_slow             -268.6
+   r25 ediz_slow             -331.4
+   r26 ediz_slow             -314.8
+   r30 ediz_slow             -499.7
+   r31 ediz_slow             -372.2
+   r29 clanker               -309.1
+   r32 clanker               -293.8
+   r34 clanker               -255.4
+   r37 clanker               -369.4
+   r39 clanker               -255.7
+   r41 JoCal                 +271.2
+
+first-half (r14-31) vs second-half (r32-48) mean bb/100 and uploads during r13-48:
+   Attention Is All In     +36.3 ->  +51.4   uploads  2   v3->v5
+   Gherkers                +67.3 ->  +20.7   uploads 11   v15->v28
+   The Market Makers       +24.4 ->  +41.6   uploads  2   v8->v10
+   Resonance Qt            +34.4 ->  +18.8   uploads  4   v7->v12
+   Anker Batteries         +27.0 ->  +16.0   uploads  1   v3->v4
+   FisherMen               +26.4 ->  +26.4   uploads  7   v8->v15
+   Equity Engine           +31.4 ->   +6.7   uploads  8   v9->v17
+   Kojack                  +30.1 ->   +3.2   uploads  1   v3->v4
+   Mohil'sPokerBot          +4.7 ->  +27.0   uploads  5   v2->v7
+   Phil AIvey              +21.0 ->   +8.4   uploads  8   v5->v13
+   Durahim 1453             -2.2 ->  +35.4   uploads  6   v11->v17
+   Chinese people can fly  +18.8 ->  +18.5   uploads  7   v10->v17
+   WBot                    +26.9 ->   +4.5   uploads  2   v5->v7
+   Claudebot               +31.1 ->   +4.8   uploads  7   v1->v8
+   JoCal                    -0.9 ->  +16.3   uploads  5   v1->v6
+   Astra La Vista          +12.8 ->   +5.2   uploads  9   v8->v17
+   Anton                   -33.1 ->  +16.7   uploads  4   v3->v7
+   Joca                    -19.9 ->  -32.0   uploads  3   v2->v5
+   AIl IN                  -26.2 ->  -31.0   uploads  2   v2->v4
+   clanker                -135.2 -> -115.4   uploads  3   v1->v4
+
+spread of team means per block (SD across teams, top-5 mean, bottom-5 mean):
+   r14-25: teams 41  SD 47.9  top5 +41.2  bottom5 -86.6
+   r26-37: teams 40  SD 33.2  top5 +40.4  bottom5 -48.8
+   r38-48: teams 40  SD 31.6  top5 +38.2  bottom5 -61.5
+
+edge vs groups, as bb/100 at a table of 7 such opponents (±1 SE):
+   team                         LB        vs donors        vs top-21    vs ranks 8-16
+   Attention Is All In       +45.5    +94.2 ± 19.0    +32.5 ± 12.1    +25.2 ± 21.5
+   Gherkers                  +43.4   +121.2 ± 27.5    +12.7 ± 11.0    +21.1 ± 15.5
+   The Market Makers         +28.0    +96.5 ± 24.2    +15.0 ± 11.1     +9.8 ± 17.2
+   Resonance Qt              +24.0    +28.1 ± 16.3    +14.7 ± 11.2     +0.6 ± 19.0
+   Anker Batteries           +23.1    +49.4 ± 18.5    +16.6 ± 10.2    +26.8 ± 15.7
+   FisherMen                 +20.6    +39.8 ± 23.3    +25.5 ± 11.4    +53.8 ± 17.4
+   Equity Engine             +20.4    +49.6 ± 22.8     +7.3 ± 12.5    +22.3 ± 19.8
+   Kojack                    +19.0     -3.5 ± 16.9     +7.6 ±  7.9    +15.4 ± 11.2
+   Mohil'sPokerBot           +17.6    +73.1 ± 25.5     +5.7 ± 11.6     +6.5 ± 19.4
+   Phil AIvey                +16.8    +63.6 ± 19.1     +5.9 ±  8.7     +9.0 ± 13.4
+   Durahim 1453              +13.9    +23.1 ± 21.5     -6.9 ±  9.4     -4.2 ± 15.4
+   Chinese people can fly    +13.6    +52.3 ± 26.8    -16.8 ± 12.8    +34.3 ± 21.1
+   WBot                      +13.4    +56.1 ± 15.8    -18.0 ± 10.8    -31.1 ± 16.2
+   Claudebot                 +13.3    +14.3 ± 21.0    -19.4 ±  9.6    -10.9 ± 15.4
+   JoCal                     +11.0    +21.6 ± 16.7     -1.4 ±  9.5    +12.5 ± 16.1
+   Astra La Vista            +10.2    +44.6 ± 18.9     -0.7 ± 10.0     +4.6 ± 15.2
+   gamblerlove                +9.9    +70.2 ± 26.2    -12.5 ±  8.8    -19.2 ± 12.6
+   Lehman Brothers            +8.9    +21.1 ± 23.2     -7.8 ± 15.9    -15.8 ± 24.0
+   supernut                   +7.0    +11.6 ± 14.2     -7.6 ±  6.8    +15.5 ±  9.4
+   Jump Street                +5.7     -8.4 ± 27.6     +9.5 ±  9.7    +28.7 ± 15.2
+   GamesGone                  +5.0    +37.7 ± 27.1    -34.5 ± 12.8    -24.7 ± 18.6
+   pokermon                   +4.8    +58.5 ± 23.1    -27.0 ± 12.9    -46.2 ± 21.0
+   Red                        +nan    +57.7 ± 15.4    -22.6 ±  8.6    -16.9 ± 14.3
+   kaiserbot                  +nan    +47.2 ± 13.4     -6.3 ±  7.8     -1.9 ± 11.9
+   AAST                       +nan    +50.8 ± 20.7    +30.6 ± 11.3    +33.7 ± 18.1
+
+share of each team's net flow that came from donors:
+   Attention Is All In    from donors    55%
+   Gherkers               from donors    58%
+   The Market Makers      from donors    59%
+   Resonance Qt           from donors    48%
+   Anker Batteries        from donors    48%
+   FisherMen              from donors    33%
+   Equity Engine          from donors    46%
+   Kojack                 from donors   -15%
+   WBot                   from donors   111%
+
+WBot head-to-head (net bb per 100 hands together):
+   vs Equity Engine            -5.3  (10000 hands)
+   vs Kojack                   -5.0  (8000 hands)
+   vs Mohil'sPokerBot          -1.1  (6000 hands)
+   vs Phil AIvey              -10.6  (8000 hands)
+   vs Durahim 1453             +1.2  (9000 hands)
+   vs Chinese people can fly  -15.7  (10000 hands)
+   vs Claudebot                +3.7  (9000 hands)
+   vs JoCal                    -2.4  (6000 hands)
+   vs Astra La Vista           -3.4  (10000 hands)
+   vs gamblerlove              +7.4  (10000 hands)
+
+Sunday sim (assumes block buckets of 7, 36 rounds, per-round SD 50, skill = Saturday bb/100 shrunk 30% to bucket mean):
+   bucket 1: Attention Is A 77%, Gherkers 71%, The Market Mak 18%, Resonance Qt 11%, Anker Batterie 9%, FisherMen 7%, Equity Engine 7%
+   bucket 2: Kojack 40%, Mohil'sPokerBo 35%, Phil AIvey 33%, Durahim 1453 24%, Chinese people 24%, WBot 23%, Claudebot 22%
+   bucket 3: JoCal 37%, Astra La Vista 34%, gamblerlove 34%, Lehman Brother 30%, supernut 25%, Jump Street 21%, GamesGone 20%
+   bucket 4: pokermon 45%, Poke 44%, matcha mille c 40%, SARS 22%, munchlax 21%, test 14%, bigRoddy 14%
+   bucket 5: 85p 61%, ND 41%, Anton 35%, YSL_TWIZZY 34%, Joca 18%, AIl IN 11%, clanker 0%

@@ -1,0 +1,202 @@
+Opponent context audit, preflop (exploratory, descriptive)
+first responses to an unlimped first-in open: 431802; limped-pot responses (excluded): 21623; opener vs 3-bet: 30068
+
+== 1. Decisions per 1,000-hand round (per opponent-table): median [10th, 90th] ==
+  blind vs late open       field  82 [ 45,119]   T4  83 [ 56,119]
+  blind vs early open      field 112 [ 84,137]   T4 114 [ 89,136]
+  cold (non-blind)         field 233 [179,293]   T4 229 [181,291]
+  bb_size: <=2.5bb         field  28 [  6, 54]   T4  29 [ 10, 58]
+  bb_size: 2.6-3.0bb       field  21 [  5, 43]   T4  24 [  7, 45]
+  bb_size: 3.1-4.0bb       field  14 [  0, 34]   T4  14 [  0, 35]
+  bb_size: >4bb            field   0 [  0,  6]   T4   0 [  0,  7]
+  no caller yet            field 364 [277,428]   T4 363 [309,424]
+  1+ caller                field  65 [ 39,101]   T4  62 [ 34, 98]
+  opener IP                field  12 [  4, 28]   T4  15 [  7, 39]
+  opener OOP               field  11 [  4, 28]   T4  13 [  6, 31]
+
+== 2. Fold rate by context: rate [90% table-bootstrap CI] n ==
+
+Resonance Qt
+  role:blind vs late open            71% [69,74] n=1826
+  role:blind vs early open           74% [71,76] n=2503
+  role:cold (non-blind)              78% [77,80] n=5574
+  bb_size:<=2.5bb                    53% [50,57] n=665
+  bb_size:2.6-3.0bb                  67% [62,72] n=446
+  bb_size:3.1-4.0bb                  68% [65,71] n=459
+  bb_size:>4bb                       91% [85,100] n=32
+  bb_late_size:<=3.0bb               57% [53,63] n=609
+  bb_late_size:>=3.1bb               69% [63,74] n=225
+  callers:no caller yet              75% [74,77] n=8303
+  callers:1+ caller                  79% [77,81] n=1600
+  vs_wbot:open by WBot               84% [81,86] n=674
+  vs_wbot:open by others             75% [74,77] n=9229
+  o3:opener IP                       59% [54,63] n=283
+  o3:opener OOP                      65% [57,71] n=293
+
+Anker Batteries
+  role:blind vs late open            63% [59,67] n=1998
+  role:blind vs early open           76% [74,78] n=3135
+  role:cold (non-blind)              77% [74,80] n=6400
+  bb_size:<=2.5bb                    64% [59,68] n=923
+  bb_size:2.6-3.0bb                  72% [68,77] n=629
+  bb_size:3.1-4.0bb                  72% [66,77] n=311
+  bb_size:>4bb                       80% [76,95] n=56
+  bb_late_size:<=3.0bb               59% [55,64] n=792
+  bb_late_size:>=3.1bb               64% [56,71] n=147
+  callers:no caller yet              74% [71,77] n=9590
+  callers:1+ caller                  76% [73,78] n=1943
+  vs_wbot:open by WBot               74% [70,77] n=890
+  vs_wbot:open by others             74% [72,77] n=10643
+  o3:opener IP                       61% [52,69] n=307
+  o3:opener OOP                      58% [52,64] n=273
+
+Chinese people can fly
+  role:blind vs late open            54% [51,57] n=2055
+  role:blind vs early open           58% [55,60] n=2670
+  role:cold (non-blind)              68% [64,72] n=5684
+  bb_size:<=2.5bb                    45% [42,48] n=711
+  bb_size:2.6-3.0bb                  40% [36,44] n=669
+  bb_size:3.1-4.0bb                  44% [40,48] n=416
+  bb_size:>4bb                       90% [80,97] n=61
+  bb_late_size:<=3.0bb               42% [37,45] n=699
+  bb_late_size:>=3.1bb               51% [45,56] n=277
+  callers:no caller yet              63% [61,65] n=8757
+  callers:1+ caller                  59% [53,65] n=1652
+  vs_wbot:open by WBot               52% [43,59] n=925
+  vs_wbot:open by others             64% [61,66] n=9484
+  o3:opener IP                       83% [77,87] n=785
+  o3:opener OOP                      81% [78,84] n=912
+
+GamesGone
+  role:blind vs late open            63% [60,67] n=1969
+  role:blind vs early open           63% [59,66] n=2720
+  role:cold (non-blind)              89% [89,90] n=5437
+  bb_size:<=2.5bb                    50% [47,54] n=643
+  bb_size:2.6-3.0bb                  66% [60,71] n=595
+  bb_size:3.1-4.0bb                  73% [69,77] n=416
+  bb_size:>4bb                       89% [79,96] n=64
+  bb_late_size:<=3.0bb               55% [50,60] n=697
+  bb_late_size:>=3.1bb               76% [71,81] n=179
+  callers:no caller yet              83% [81,84] n=8457
+  callers:1+ caller                  50% [45,54] n=1669
+  vs_wbot:open by WBot               59% [43,65] n=458
+  vs_wbot:open by others             78% [76,80] n=9668
+  o3:opener IP                       68% [61,76] n=373
+  o3:opener OOP                      59% [54,63] n=339
+
+Poke
+  role:blind vs late open            69% [62,75] n=1635
+  role:blind vs early open           66% [61,71] n=2054
+  role:cold (non-blind)              86% [85,88] n=3957
+  bb_size:<=2.5bb                    42% [32,53] n=546
+  bb_size:2.6-3.0bb                  65% [57,73] n=477
+  bb_size:3.1-4.0bb                  70% [62,77] n=292
+  bb_size:>4bb                       94% [72,100] n=90
+  bb_late_size:<=3.0bb               55% [47,64] n=597
+  bb_late_size:>=3.1bb               83% [73,92] n=211
+  callers:no caller yet              78% [76,81] n=6537
+  callers:1+ caller                  70% [65,75] n=1109
+  vs_wbot:open by WBot               75% [61,83] n=361
+  vs_wbot:open by others             77% [74,80] n=7285
+  o3:opener IP                       71% [67,76] n=235
+  o3:opener OOP                      55% [47,62] n=244
+
+Anton
+  role:blind vs late open            47% [43,52] n=1938
+  role:blind vs early open           54% [50,58] n=2454
+  role:cold (non-blind)              80% [78,82] n=4949
+  bb_size:<=2.5bb                    26% [22,30] n=649
+  bb_size:2.6-3.0bb                  34% [28,40] n=663
+  bb_size:3.1-4.0bb                  47% [43,51] n=354
+  bb_size:>4bb                       82% [69,93] n=50
+  bb_late_size:<=3.0bb               26% [23,30] n=684
+  bb_late_size:>=3.1bb               56% [50,62] n=247
+  callers:no caller yet              66% [63,68] n=8009
+  callers:1+ caller                  71% [68,74] n=1332
+  vs_wbot:open by WBot               70% [66,74] n=1276
+  vs_wbot:open by others             66% [63,68] n=8065
+  o3:opener IP                       36% [27,45] n=301
+  o3:opener OOP                      27% [19,37] n=233
+
+YSL_TWIZZY
+  role:blind vs late open            80% [78,82] n=1732
+  role:blind vs early open           84% [82,85] n=2245
+  role:cold (non-blind)              89% [88,90] n=4621
+  bb_size:<=2.5bb                    73% [70,76] n=720
+  bb_size:2.6-3.0bb                  75% [72,78] n=447
+  bb_size:3.1-4.0bb                  78% [72,84] n=276
+  bb_size:>4bb                       90% [85,100] n=52
+  bb_late_size:<=3.0bb               72% [69,75] n=682
+  bb_late_size:>=3.1bb               77% [64,87] n=112
+  callers:no caller yet              86% [85,87] n=7266
+  callers:1+ caller                  82% [80,84] n=1332
+  vs_wbot:open by WBot               81% [78,84] n=673
+  vs_wbot:open by others             86% [85,87] n=7925
+  o3:opener IP                       91% [88,93] n=580
+  o3:opener OOP                      86% [82,89] n=497
+
+Gherkers
+  role:blind vs late open            66% [62,69] n=1967
+  role:blind vs early open           75% [73,77] n=2719
+  role:cold (non-blind)              82% [80,83] n=5752
+  bb_size:<=2.5bb                    51% [45,56] n=729
+  bb_size:2.6-3.0bb                  52% [45,59] n=578
+  bb_size:3.1-4.0bb                  60% [53,67] n=354
+  bb_size:>4bb                       89% [82,100] n=19
+  bb_late_size:<=3.0bb               50% [45,56] n=734
+  bb_late_size:>=3.1bb               51% [40,60] n=170
+  callers:no caller yet              75% [73,77] n=8677
+  callers:1+ caller                  85% [83,87] n=1761
+  vs_wbot:open by WBot               73% [71,76] n=827
+  vs_wbot:open by others             77% [75,79] n=9611
+  o3:opener IP                       42% [34,51] n=307
+  o3:opener OOP                      39% [30,48] n=327
+
+Attention Is All In
+  role:blind vs late open            55% [48,61] n=1736
+  role:blind vs early open           47% [43,51] n=2459
+  role:cold (non-blind)              84% [82,85] n=5058
+  bb_size:<=2.5bb                    42% [36,48] n=541
+  bb_size:2.6-3.0bb                  37% [29,45] n=452
+  bb_size:3.1-4.0bb                  46% [39,54] n=435
+  bb_size:>4bb                       88% [67,95] n=50
+  bb_late_size:<=3.0bb               42% [34,49] n=505
+  bb_late_size:>=3.1bb               59% [50,68] n=291
+  callers:no caller yet              73% [70,75] n=7627
+  callers:1+ caller                  50% [46,53] n=1626
+  vs_wbot:open by WBot               72% [67,76] n=1118
+  vs_wbot:open by others             68% [66,70] n=8135
+  o3:opener IP                       76% [69,83] n=477
+  o3:opener OOP                      66% [54,78] n=537
+
+AAST
+  role:blind vs late open            55% [46,64] n=1163
+  role:blind vs early open           73% [70,76] n=1953
+  role:cold (non-blind)              86% [85,88] n=4055
+  bb_size:<=2.5bb                    52% [40,64] n=513
+  bb_size:2.6-3.0bb                  60% [49,70] n=370
+  bb_size:3.1-4.0bb                  61% [50,71] n=270
+  bb_size:>4bb                       85% [71,97] n=26
+  bb_late_size:<=3.0bb               44% [30,56] n=409
+  bb_late_size:>=3.1bb               57% [29,74] n=164
+  callers:no caller yet              78% [75,81] n=6119
+  callers:1+ caller                  72% [65,78] n=1052
+  vs_wbot:open by WBot               79% [75,83] n=313
+  vs_wbot:open by others             77% [75,79] n=6858
+  o3:opener IP                       51% [44,58] n=188
+  o3:opener OOP                      38% [30,46] n=150
+
+== 3. Between-team heterogeneity (non-WBot teams, >=5 tables, >=30 decisions per bucket) ==
+quantity                             k    mean   tau [logit]  p_sim  p_simL
+level: blind vs late open           43  +68.8    9.5 [0.46]  0.003   0.003
+level: blind vs early open          43  +73.2    9.7 [0.56]  0.003   0.003
+level: cold (non-blind)             43  +85.5    4.6 [0.44]  0.003   0.003
+level: opener vs 3-bet              43  +60.6   19.6 [1.53]  0.003   0.003
+effect: blind early - late opener   43   +4.5p   5.1 [0.28]  0.003   0.003
+effect: BB >=3.1bb - <=3.0bb (late)  43  +13.2p  12.6 [0.46]  0.003   0.003
+effect: 1+ caller - none            43   -5.4p   9.7 [0.63]  0.003   0.003
+effect: opener OOP - IP             43   -3.2p   8.1 [0.41]  0.003   0.003
+effect: WBot open - others          43   +0.3p   2.9 [0.19]  0.003   0.003
+Open size is largely fixed per bot, so the size effect is partly an opener-identity effect.
+
+wrote data/preflop_context_summary.json
