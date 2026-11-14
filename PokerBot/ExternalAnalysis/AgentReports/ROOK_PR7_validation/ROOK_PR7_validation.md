@@ -120,7 +120,18 @@ Script sha256:
 |---|---|
 | `pm_manifest_check.py` | 868b8964c8b3be9ca45ec5ebc92688cfca04f9fadd42e50e002ef5f8fecc30b5 |
 | `pm_indep.py` | 7a19c6c0ef1c091a93c2761654c951513731ebe5f0cec71ec45a4b62b966ef1b |
-| `pm_byver.py` | 91469edb58732815d4fa8908cf9b39df485a0e48e6d1e7da922c5830a7a96bfd |
+| `pm_byver.py` | cc892c72c3be0677acb3920b1308c32e8a16bf0f34d886065ef465bdd68300a4 (corrected, see below) |
+| `lb_validate.py` | 9a5427da9c704d98481ce1972b61c41b56364ebb45da0e4847b2f19e24dcee46 |
 | `pm_boot.py` | 3df4e8fd61782e0b384acef65b4bdd7f8a0765040ab95f1a19b8cd8290e22666 |
 
 `pm_byver.py` groups r054 separately as `r54+`. `pm_boot.py` counts r054 as G.
+
+### Hash correction (22:43 request)
+
+**What happened.** I originally listed `pm_byver.py` as `91469edb…`. That was the hash of my working copy, which had **CRLF** line endings. The repo uses `core.autocrlf=true`, so git normalised the file to LF when committing.
+
+**The committed bytes** at `af74ac7` and later hash to `cc892c72c3be0677acb3920b1308c32e8a16bf0f34d886065ef465bdd68300a4`. The two versions differ **only in line endings**; `tr -d ''` of the old file gives the committed hash.
+
+**Results did not change.** Running the committed bytes reproduces `pm_byver_out.txt` exactly, apart from line endings.
+
+**What I changed.** The working copy is now LF. All hashes listed above are of the committed blob bytes (`git show <commit>:<path> | sha256sum`), and they equal the current working files.
