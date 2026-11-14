@@ -137,7 +137,7 @@ def build(before=None):
                         pot += amt - bets[s]
                         bets[s] = amt
                     elif a == "call":
-                        add = max(0, min(amt, cur) - bets[s]) if amt >= bets[s] else amt
+                        add = amt  # engine call amounts are incremental, not raise-to totals
                         pot += add
                         bets[s] += add
             for s in vp:

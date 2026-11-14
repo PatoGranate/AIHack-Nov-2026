@@ -86,6 +86,9 @@ def make(spec, seed, fixed_iters=80):
     if kind == "v2":
         from pokerbot.v2 import Agent as V2
         return V2(params=spec.get("params"), seed=seed)
+    if kind == "fieldbot":
+        from sim.fieldbot import FieldBot
+        return FieldBot(spec["name"], seed=seed, profile=spec.get("profile"))
     if kind == "statbot":
         from sim.statbot import StatBot
         return StatBot(spec["profile"], seed=seed)
@@ -112,7 +115,7 @@ def label(spec):
     if spec["kind"] == "v2":
         return "v2:" + spec.get("strategy_id", "?")
     sid = spec.get("strategy_id", "?")
-    return sid if sid.startswith(("clone:", "stat:")) else "pablo:%s" % sid
+    return sid if sid.startswith(("clone:", "stat:", "fb:")) else "pablo:%s" % sid
 
 
 # ---------------------------------------------------------------- lineups

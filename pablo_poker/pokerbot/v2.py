@@ -230,6 +230,9 @@ P = {
     'size_read': 0.0,     # 0..1: weight on the real P(hand level | bet size) tables when reading a bettor
     'fold_cal': 0,        # rescale the continue model so the field's fold rate per bet size matches reality
     'ident': 0,           # recognise which known bot sits in each seat (bet-size fingerprints) and use its profile
+    # --- v3.2: preflop discipline measured on real rounds (tools/replay_decisions.py and the open/3-bet tables)
+    'vs3_pct': 1.0,       # after raising, continue against a re-raise only with the top this-share of hands (1 = off)
+    'vs4_pct': 1.0,       # same against a second re-raise (4-bet or more)
     'id_k': 30,           # how many hands of evidence a confident identification is worth
 }
 
@@ -863,6 +866,10 @@ class Agent:
             real = 1.0
         ev_call = e * real * (pot + tc) - tc
         nr = len(raises)
+        if nr >= 2 and tc > 0.25 * pot and any(h["seat"] == me for h in raises):
+            # we raised and were re-raised: real rounds show hands below the top slice lose more by continuing
+            if pct > (self.P["vs3_pct"] if nr == 2 else self.P["vs4_pct"]):
+                return {"action": "fold"}
         if (self.P.get("q_3bet") and nr == 1 and not extra and "raise" in state["legal_actions"]
                 and pct <= self.P["q_3bet_range"] and self.fold3(raiser)[1] >= self.P.get("q_min_obs", 8)
                 and self.fold3(raiser)[0] >= self.P["q_3bet_ftr"] and cur <= 5 * bb):
@@ -1268,6 +1275,7 @@ class Agent:
         dead_c = [self.start - state["stacks"][j] for j in range(n) if j not in live]
         self.ctx = (self.start - state["stacks"][me], dead_c, tc)
         e, evs = self.simulate(state["hole_cards"], state["board"], models, cands, my_bet, pot, tc > 0, b)
+        self.last_e = e
         if (tc == 0 and self.P.get("q_trap") and not ip and street != "river" and e >= self.P["q_trap_eq"]
                 and any(self.af(m[0]) >= self.P["q_trap_af"] and not m[5] for m in models)):
             return {"action": "check"}

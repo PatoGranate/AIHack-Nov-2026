@@ -3,9 +3,16 @@
  "bank_s": 7.0,
  "bluff_af": 0.4,
  "hard_ms": 8.0,
+ "id_k": 40,
  "ident": 1,
  "max_ms": 5.0,
  "max_sims": 6000,
- "size_read": 0.6,
+ "o_co": 0.36,
+ "o_ep": 0.12,
+ "o_hj": 0.26,
+ "o_mp": 0.16,
+ "size_read": 1.0,
+ "vs3_pct": 0.1,
+ "vs4_pct": 0.04,
  "w_b_weak": 0.45
 }

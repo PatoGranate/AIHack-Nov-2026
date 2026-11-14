@@ -1,15 +1,10 @@
-"""Autonomous tuner for the v2 engine (pokerbot/v2.py): the RSI loop on the new bot.
+"""Guarded entry point for field-based tuning.
 
-Each cycle:
-  1. propose ~6 candidates around the champion (single-knob steps from a bandit
-     over knobs, plus one random 3-knob package)
-  2. selection: paired duplicate tables vs the champion on two realistic fields
-     (real WBot/Red code + equity clones of every real bot; real code only)
-  3. the best candidate goes to a holdout on fresh seeds (twice the tables)
-  4. promote if the holdout gain is positive at 80% one-sided confidence and the
-     selection agreed; then write data/v2_params.json, export bot.py, timing-check it
+    python -m rsi.v2_tuner candidate/validation_SEED.json
 
-    python -m rsi.v2_tuner            # until data/STOP_V2 exists
+Dispatches to tools.tune_field, which requires calibrated field evidence and
+writes isolated candidate artifacts. Legacy soft-field helpers remain below for
+historical reference; their autonomous entry point is disabled.
 """
 import json
 import math
@@ -155,7 +150,11 @@ def export_and_check(params):
     return ok, info
 
 
-def main():
+def legacy_main():
+    raise RuntimeError("Legacy soft-field tuner is retired. Run tools/tune_field.py with a passing field validation report.")
+
+
+def _legacy_cycle_reference():
     rng = random.Random()
     hist = load_history()
     while not os.path.exists(STOP_FILE):
@@ -207,6 +206,13 @@ def main():
         save_history(hist)
     os.remove(STOP_FILE)
     print("[v2] STOP_V2 found; exiting")
+
+
+def main():
+    # Preserve the familiar entry point, but require calibration before any
+    # selection. The new tuner writes only candidate artifacts, never live code.
+    from tools.tune_field import main as calibrated_main
+    calibrated_main()
 
 
 if __name__ == "__main__":
