@@ -1,0 +1,56 @@
+{
+ "rounds": [
+  "sunday/s1/r001"
+ ],
+ "opponents": [
+  "Anker Batteries",
+  "Anton",
+  "Chinese people can fly",
+  "GamesGone",
+  "Poke",
+  "Resonance Qt",
+  "YSL_TWIZZY"
+ ],
+ "previous": "Saturday pooled (g_profile_adapter.py)",
+ "prior": {
+  "vpip": 0.2371,
+  "pfr": 0.1549,
+  "big": 0.0022,
+  "f3": 0.6914,
+  "ftr": 0.7945,
+  "ftb": 0.4369,
+  "af": 0.4006
+ },
+ "observed": {
+  "vpip": {
+   "rate": 0.2286,
+   "n": 7000
+  },
+  "pfr": {
+   "rate": 0.148,
+   "n": 7000
+  },
+  "big": {
+   "rate": 0.0019,
+   "n": 7000
+  },
+  "f3": {
+   "rate": 0.6987,
+   "n": 239
+  },
+  "ftr": {
+   "rate": 0.7974,
+   "n": 3988
+  },
+  "ftb": {
+   "rate": 0.4458,
+   "n": 922
+  },
+  "af": {
+   "rate": 0.4301,
+   "n": 1623
+  }
+ },
+ "bot_file": "G_profile_td_sunday_s1_r001.py",
+ "sha256": "29a88f125565cd39efae73c506cbddea2b6b9691033ce3abe5c9eb7ad95dacbf"
+}
