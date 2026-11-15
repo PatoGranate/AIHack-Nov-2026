@@ -101,6 +101,14 @@ def main():
             log((r.stdout + r.stderr).strip().splitlines()[-1] if (r.stdout + r.stderr).strip() else "refresh: no output")
             done.add(os.path.basename(f))
             save_state(done)
+            if r.returncode == 0:   # local copy for manual upload on the website (new file per round, never overwritten)
+                up = os.path.join(ROOT, "upload")
+                os.makedirs(up, exist_ok=True)
+                for b in sorted(set(glob.glob(os.path.join(HERE, "G_profile_td_*.py"))) - before):
+                    dst = os.path.join(up, os.path.basename(b))
+                    if not os.path.exists(dst):
+                        shutil.copy(b, dst)
+                        log("ready to upload: %s" % dst)
             if r.returncode == 0 and a.push:
                 after = set(glob.glob(os.path.join(HERE, "G_profile_td_*.py")) + glob.glob(os.path.join(HERE, "profiles", "td_prior_*.json")))
                 push(sorted(after - before), os.path.basename(f)[:-5])
