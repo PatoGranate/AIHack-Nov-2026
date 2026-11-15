@@ -1258,7 +1258,7 @@ class Agent:
                             if r > 0:
                                 if my_strong:
                                     a2 = max(add, min(add2[ci], cap0 - my_bet))
-                                    raised = sh * (pot + 2 * a2) - a2
+                                    raised = sh * (pot + 2 * a2 - (bet_j - my_bet)) - a2
                                 else:
                                     raised = -add
                                 EV[ci] += w * ((1 - c) * pot + (c - r) * called + r * raised)
