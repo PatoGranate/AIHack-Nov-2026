@@ -29,6 +29,7 @@ sys.path.insert(0, ROOT)
 from gbot.calib_drift_real import summaries  # noqa: E402
 
 PROFILE_DIR = os.path.join(HERE, "profiles")
+SAT_ROUNDS = 3.0  # cumulative mode: the Saturday profile counts as this many rounds of Sunday data
 STEP_CAP = 0.25   # ROOK (issue #1): each round moves the profile at most 25% toward that round
 K = {"vpip": 2000, "pfr": 2000, "big": 2000, "f3": 100, "ftr": 400, "ftb": 400, "af": 600}
 
@@ -71,6 +72,7 @@ def main():
     ap.add_argument("--dir")
     ap.add_argument("--pattern", default="*")
     ap.add_argument("--last", type=int, default=1)
+    ap.add_argument("--step", action="store_true", help="old mode: nudge the latest profile (25%% cap) instead of cumulative")
     a = ap.parse_args()
     files = list(a.files)
     if a.dir:
@@ -78,7 +80,17 @@ def main():
     if not files:
         sys.exit("no round files given")
     G = load_g()
-    prior, prior_src = current_prior()
+    if not a.step:
+        # cumulative: average over EVERY Sunday round up to the newest given one, Saturday profile = SAT_ROUNDS rounds
+        last = max(files, key=os.path.basename)
+        pref = os.path.basename(last).split("_")[0]
+        files = sorted(f for f in glob.glob(os.path.join(os.path.dirname(last), pref + "*.json"))
+                       if os.path.basename(f) <= os.path.basename(last))
+        src = open(os.path.join(HERE, "g_profile_adapter.py"), encoding="utf-8").read()
+        prior = ast.literal_eval(re.search(r"GP_ROSTER = (\{.*?\})", src, re.S).group(1))
+        prior_src = "Saturday pooled x %.0f rounds + %d Sunday rounds" % (SAT_ROUNDS, len(files))
+    else:
+        prior, prior_src = current_prior()
     tot, refs, opps = None, [], set()
     for f in files:
         ref, c, players = round_counts(f, G)
@@ -91,10 +103,18 @@ def main():
     for key, (num, den) in num_den.items():
         n = tot[den]
         obs[key] = (tot[num] / n if n else None, n)
+        if not a.step:
+            kk = SAT_ROUNDS * n / max(1, len(files))
+            new[key] = round((prior[key] * kk + tot[num]) / (kk + n), 4) if n else prior[key]
+            continue
         new[key] = round(prior[key] + min(STEP_CAP, n / (K[key] + n)) * ((tot[num] / n if n else prior[key]) - prior[key]), 4)
     acts = tot["pbet"] + tot["pcall"] + tot["pcheck"]
     obs["af"] = (tot["pbet"] / acts if acts else None, acts)
-    new["af"] = round(prior["af"] + min(STEP_CAP, acts / (K["af"] + acts)) * ((tot["pbet"] / acts if acts else prior["af"]) - prior["af"]), 4)
+    if not a.step:
+        kk = SAT_ROUNDS * acts / max(1, len(files))
+        new["af"] = round((prior["af"] * kk + tot["pbet"]) / (kk + acts), 4) if acts else prior["af"]
+    else:
+        new["af"] = round(prior["af"] + min(STEP_CAP, acts / (K["af"] + acts)) * ((tot["pbet"] / acts if acts else prior["af"]) - prior["af"]), 4)
     tag = re.sub(r"[^A-Za-z0-9]+", "_", refs[-1]).strip("_")
     os.makedirs(PROFILE_DIR, exist_ok=True)
     jpath = os.path.join(PROFILE_DIR, "td_prior_%s.json" % tag)
