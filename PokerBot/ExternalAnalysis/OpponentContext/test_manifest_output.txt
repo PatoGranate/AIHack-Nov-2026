@@ -1,0 +1,11 @@
+test_changed_bytes_fail_even_if_json_semantics_unchanged (test_manifest.ManifestChecks.test_changed_bytes_fail_even_if_json_semantics_unchanged) ... ok
+test_changed_input_set_fails (test_manifest.ManifestChecks.test_changed_input_set_fails) ... ok
+test_duplicate_used_paths_fail (test_manifest.ManifestChecks.test_duplicate_used_paths_fail) ... ok
+test_matching_manifest_loads (test_manifest.ManifestChecks.test_matching_manifest_loads) ... ok
+test_missing_manifest_fails (test_manifest.ManifestChecks.test_missing_manifest_fails) ... ok
+test_wrong_hash_fails (test_manifest.ManifestChecks.test_wrong_hash_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.044s
+
+OK
