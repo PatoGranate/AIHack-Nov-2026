@@ -1,0 +1,45 @@
+real = Saturday responses by the 7 table-4 teams (all tables); clone = arena dump (48 tables)
+                     mean_real  size_real  mean_clone  size_clone
+name                                                             
+AnkerBatteries           0.457       3060       0.448        2669
+Anton                    0.472       2871       0.493        4963
+Chinesepeoplecanfly      0.458       5320       0.450        2818
+GamesGone                0.427       3603       0.426        1884
+Poke                     0.549       2969       0.410        1862
+ResonanceQt              0.386       2636       0.426        2707
+YSLTWIZZY                0.264       2469       0.289        1676
+
+    mean_real  size_real  mean_clone  size_clone
+mw                                              
+0       0.392      18845        0.43       12343
+1       0.647       4083        0.45        6236
+
+    mean_real  size_real  mean_clone  size_clone
+ip                                              
+0       0.535       8423       0.582        5521
+1       0.381      14505       0.375       13058
+
+        mean_real  size_real  mean_clone  size_clone
+sz                                                  
+<.45        0.211       6251       0.356        4756
+.45-.8      0.477       9867       0.470       12079
+>.8         0.588       6810       0.429        1744
+
+       mean_real  size_real  mean_clone  size_clone
+kind                                               
+bet        0.428      20193       0.452       16572
+raise      0.504       2735       0.310        2007
+
+        mean_real  size_real  mean_clone  size_clone
+street                                              
+flop        0.469      13133       0.528       11944
+river       0.415       3434       0.484        2222
+turn        0.384       6361       0.166        4413
+
+       mean_real  size_real  mean_clone  size_clone
+mw ip                                              
+0  0       0.505       6989       0.583        4147
+   1       0.325      11856       0.353        8196
+1  0       0.679       1434       0.581        1374
+   1       0.630       2649       0.413        4862
+
