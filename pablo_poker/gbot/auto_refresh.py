@@ -112,8 +112,7 @@ def main():
                         os.makedirs(folder, exist_ok=True)
                         shutil.copy(b, dst)
                         open(os.path.join(folder, "SOURCE.txt"), "w").write(
-                            "bot.py = gbot/%s (profile refreshed from %s)
-" % (os.path.basename(b), tag))
+                            "bot.py = gbot/%s (profile refreshed from %s)\n" % (os.path.basename(b), tag))
                         log("ready to upload: %s" % dst)
             if r.returncode == 0 and a.push:
                 after = set(glob.glob(os.path.join(HERE, "G_profile_td_*.py")) + glob.glob(os.path.join(HERE, "profiles", "td_prior_*.json")))
