@@ -39,3 +39,26 @@ G_profile_tdf 1.3 s, G_profile_td 1.2 s, frozen G 1.1 s worst round; 0 timeouts,
 - Roster priors were computed from the same Saturday data the clones were built from, so their
   benefit here is partly in-sample.
 - No candidate is promoted; the orchestrator's independent test should decide.
+
+## Matthias/SCOUT findings tested (2026-11-15 07:00-08:00, vs frozen G, paired tables × 1,000 hands)
+
+| Candidate (separate file; G untouched) | Adaptation slope* | td_fb | td |
+|---|---|---|---|
+| frozen G | −0.01 | — | — |
+| `G_heroftb` per-seat fold rate to OUR bets (SCOUT rec. 1) | +0.08 | −0.1 ± 3.7 | −1.4 ± 3.5 |
+| `G_steal3b` per-seat steal + light 3-bet on (G's idle paths) | — | +4.7 ± 4.4 | +1.1 ± 3.7 |
+| `G_adaptA` heroftb + honest check value, no bet bonus | +0.34 | −15.8 ± 4.8 | −10.0 ± 4.3 |
+| `G_adaptB` A + c_mid 0.85 | +0.45 | −2.7 ± 5.4 | −13.8 ± 4.7 |
+
+*Adaptation slope = change in heads-up bet rate per +1.0 in the opponent's in-round fold rate to other bettors
+(`adapt_sim` on 24 logged td_fb tables). Real Saturday: Market Makers +1.13, Attention +0.83, Resonance +0.80,
+WBot +0.03, Red +0.07.
+
+Reading:
+- The winners' edge is per-opponent, learned within the round: they bet into folders and away from stations
+  (vs YSL: bet 41% at 1.08 pot, 19% air shown; ours: 82% at 0.70, 50% air).
+- G does not adapt (slope ≈ 0) because its bet bonus and discounted check value make betting win regardless
+  of fold rate. Removing that bias makes G adapt (slope +0.34 to +0.45) but loses chips in both clone fields.
+- Clone fields are static frequency bots that pay off over-betting (they over-reward aggression by 18-42 bb/100
+  for our live bots), so they cannot credit adaptation. The sign of the adaptive change in reality is unknown.
+- None of these is promoted. Safe upload: frozen G. `G_steal3b` is the only non-negative change, not significant.

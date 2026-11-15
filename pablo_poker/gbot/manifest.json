@@ -3,5 +3,9 @@
  "G_profile.py": "e8851a7a8805d12bb408d65b325f8048f9ae11f15c7fd2d88a6bae2a3e85706d",
  "G_profile_td.py": "4983bb07247ab449fd81d8b06e620ac36b7a9e606b5e3b1a2d9653865feb8fb7",
  "G_profile_tdf.py": "e234849f22212d78ee68ced2497066e6b5abb2e7436fd3f435fafca69cfeaf3e",
- "g_profile_adapter.py": "9cc4a7ce529768fb0ed8e4158d88c822da343605e49d0766db7a7569fa0fe5d0"
+ "g_profile_adapter.py": "9cc4a7ce529768fb0ed8e4158d88c822da343605e49d0766db7a7569fa0fe5d0",
+ "G_heroftb.py": "43f1c58643067f17672b6eeaae3e593f42556336b743a70fa3c681156e14b5ee",
+ "G_steal3b.py": "ae78231fbe87bbb56520334fd2d1a32dd5b40dfa3e4a7929fd712c70836ba3de",
+ "G_adaptA.py": "c1d12b61d7b03ac7acf33acc7c694837701ba2fcecfe24020240e8f54064bf8c",
+ "G_adaptB.py": "8461a56d99938c0575c368f36fa4d834198fd410230f9e0e54dac0e64dbccf38"
 }
