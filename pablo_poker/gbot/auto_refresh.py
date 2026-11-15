@@ -83,10 +83,23 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--push", action="store_true")
     ap.add_argument("--every", type=int, default=60)
+    ap.add_argument("--start", help="local HH:MM:SS of the first check; later checks every --every seconds on that grid")
     a = ap.parse_args()
+    next_t = time.time()
+    if a.start:
+        h, m, sec = [int(x) for x in a.start.split(":")]
+        lt = time.localtime()
+        next_t = time.mktime((lt.tm_year, lt.tm_mon, lt.tm_mday, h, m, sec, 0, 0, -1))
+        log("first check at %s, then every %d s" % (a.start, a.every))
     done = load_state()
     log("watching %s (already processed: %d)" % (FEED, len(done)))
     while True:
+        wait = next_t - time.time()
+        if wait > 0:
+            time.sleep(wait)
+        next_t += a.every
+        while next_t < time.time():      # never fire a burst of missed checks
+            next_t += a.every
         try:
             fetch()
         except Exception as e:      # a failed fetch must never stop the loop
@@ -117,7 +130,6 @@ def main():
             if r.returncode == 0 and a.push:
                 after = set(glob.glob(os.path.join(HERE, "G_profile_td_*.py")) + glob.glob(os.path.join(HERE, "profiles", "td_prior_*.json")))
                 push(sorted(after - before), os.path.basename(f)[:-5])
-        time.sleep(a.every)
 
 
 if __name__ == "__main__":
