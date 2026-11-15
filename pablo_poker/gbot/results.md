@@ -62,3 +62,18 @@ Reading:
 - Clone fields are static frequency bots that pay off over-betting (they over-reward aggression by 18-42 bb/100
   for our live bots), so they cannot credit adaptation. The sign of the adaptive change in reality is unknown.
 - None of these is promoted. Safe upload: frozen G. `G_steal3b` is the only non-negative change, not significant.
+
+## Second batch (08:00-08:30): winner-style adaptation and combinations (vs frozen G, 128 × 1,000)
+
+| Candidate | Slope | td_fb | td |
+|---|---|---|---|
+| `G_adaptC` heroftb + per-seat bluff gate (no bluffs vs < 30% folders) + pot-size value vs stations + bluffs vs > 55% folders; G's value betting kept | **+0.52** | −7.5 ± 3.7 | +2.2 ± 3.8 |
+| `G_combo1` adaptC + steal3b | — | −5.4 ± 3.8 | +2.4 ± 3.8 |
+| `G_combo2` combo1 + Table D priors / change detection (profile layer) | — | −0.9 ± 3.8 | −2.7 ± 4.0 |
+
+Preflop adaptation (real Saturday): slope of 3-bet rate vs the opener's in-round fold-to-3bet: Resonance +0.36,
+Attention +0.33, Anker +0.33, Gherkers +0.21; WBot 0.00, Red −0.02, kaiserbot 0.00 (`adapt_pf`).
+
+**Independent confirmation (ROOK, issue #1 6891492567 / 6891585466):** `G_profile_td` vs G = +4.8 ± 1.9 on Table D
+fields (most of it where opponents switch policy mid-round), +0.5 ± 1.8 pooled over 8 broad fields. Only clone fields;
+roster priors in-sample; no runtime gate yet. Strongest candidate so far. Combining more mechanisms did not add.

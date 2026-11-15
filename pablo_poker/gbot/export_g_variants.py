@@ -59,6 +59,59 @@ class Agent(_HFBase):
         return (c[1] + prior * HF_K) / (c[0] + HF_K)
 '''
 
+ADAPTC = '''
+
+# ===================================================================== per-opponent bluff gate + value sizing
+# What the winners do (real Saturday hands): vs a station (YSL) they bet 41% at 1.08 pot with 19% air shown;
+# vs a folder (Poke) they bet more. G's value betting is kept as is; only heads-up, only when checked to:
+#   opponent folds < AC_FLO to our bets: no bluffs (equity < AC_EBLUFF -> check); value (equity >= AC_EVAL)
+#                                        uses the largest size up to AC_VSIZE x pot
+#   opponent folds > AC_FHI:             a weak hand G would check is bet at about 0.6 pot instead
+AC_FLO, AC_FHI = 0.30, 0.55
+AC_EBLUFF, AC_EVAL = 0.40, 0.60
+AC_VSIZE = 1.15
+AC_MIN_N = 8          # our-bet observations of that seat before the gate acts
+_ACBase = Agent
+
+
+class Agent(_ACBase):
+    def simulate(self, hole, board, models, cands, my_bet, pot, raising, budget):
+        e, evs = _ACBase.simulate(self, hole, board, models, cands, my_bet, pot, raising, budget)
+        self._ac = (e, list(cands))
+        return e, evs
+
+    def postflop(self, state):
+        self._ac = None
+        act = _ACBase.postflop(self, state)
+        try:
+            if state["to_call"] != 0 or self._ac is None:
+                return act
+            me = state["seat"]
+            live = [j for j in range(len(state["folded"])) if j != me and not state["folded"][j]]
+            if len(live) != 1:
+                return act
+            j = live[0]
+            if self.hf.get(j, (0, 0))[0] < AC_MIN_N:
+                return act
+            f = self.ftb(j)
+            e, cands = self._ac
+            pot = state["pot"]
+            my_bet = state["bets"][me]
+            if f < AC_FLO:
+                if act.get("action") == "raise" and e < AC_EBLUFF:
+                    return {"action": "check"}
+                if e >= AC_EVAL and cands:
+                    big = [R for R in cands if R - my_bet <= AC_VSIZE * pot]
+                    if big:
+                        return self.r(max(big))
+            elif f > AC_FHI and act.get("action") == "check" and e < AC_EBLUFF and cands:
+                tgt = my_bet + 0.6 * pot
+                return self.r(min(cands, key=lambda R: abs(R - tgt)))
+        except Exception:
+            pass
+        return act
+'''
+
 STEAL3B = '''
 
 # ===================================================================== per-seat steal + light 3-bet (SCOUT rec. 6)
@@ -78,7 +131,15 @@ if __name__ == "__main__":
     ADAPT_A = HEROFTB + ("\n\n# honest check value, no bet bonus: lets the opponent's fold rate decide bet vs check\n"
                          "P.update({'chk_ip': 1.0, 'chk_oop': 0.9, 'bet_margin': 0.0})\n")
     ADAPT_B = ADAPT_A + "P.update({'c_mid': 0.85})   # top pair no longer always calls: fold rate scales more hands\n"
-    for name, add in (("G_heroftb.py", HEROFTB), ("G_steal3b.py", STEAL3B), ("G_adaptA.py", ADAPT_A), ("G_adaptB.py", ADAPT_B)):
+    ADAPT_C = HEROFTB + ADAPTC
+    # combinations: profile layer (Table D priors, whole-round evidence, change detection) goes first so the
+    # hero-bettor fold rate is built on top of its per-seat reads
+    prof = open(os.path.join(HERE, "g_profile_adapter.py"), encoding="utf-8").read()
+    prof = prof.replace("GP_ROSTER_PRIOR = False", "GP_ROSTER_PRIOR = True").replace("GP_WINDOW = 400", "GP_WINDOW = 1000")
+    COMBO1 = HEROFTB + ADAPTC + STEAL3B
+    COMBO2 = "\n" + prof + HEROFTB + ADAPTC + STEAL3B
+    for name, add in (("G_heroftb.py", HEROFTB), ("G_steal3b.py", STEAL3B), ("G_adaptA.py", ADAPT_A), ("G_adaptB.py", ADAPT_B),
+                      ("G_adaptC.py", ADAPT_C), ("G_combo1.py", COMBO1), ("G_combo2.py", COMBO2)):
         src = base + add
         ast.parse(src)
         p = os.path.join(HERE, name)
