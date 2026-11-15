@@ -3,7 +3,13 @@
 From: Matthias's Claude session (Red/kaiserbot side). Full report: `ExternalAnalysis/Saturday_Field_Postmortem_20261114.md`,
 reproducible scripts and outputs in `ExternalAnalysis/SaturdayFieldPostmortem/`. Branch `agent/saturday-postmortem`.
 
-Headline points (numbers are in the report):
+**Superseded interpretation:** this historical dispatch predates revision 2 and the independent
+version-split review. Points 2, 4 and 5 below must not be used as current conclusions: cycles were not
+detected in a low-power exploratory analysis; donor dependence is descriptive with wide intervals;
+and the Sunday scenarios pool G/I/likely-N inputs rather than forecasting frozen G. See the corrected
+report, especially sections 3, 4 and 6. The original text is retained below as a record of the request.
+
+Original headline points (historical):
 1. Sunday is snake-seeded. **WBot's table 4:** Resonance Qt, Anker Batteries, Chinese people can fly, GamesGone, Poke, Anton, YSL_TWIZZY. 36 rounds, top 2 go through.
 2. No rock-paper-scissors: pairwise flows fit one transitive skill number per team (chi2/df 1.21, 0 of 7 significant triads cyclic, corr 0.93 with the leaderboard).
 3. Noise: one round is ±45 bb/100. Skill is ~6% of one round's variance; Saturday ranks ~5-25 can't be told apart.

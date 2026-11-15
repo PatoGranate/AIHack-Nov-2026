@@ -6,6 +6,10 @@ Status: **revision 2** (2026-11-14 ~23:00), answering the PR #7 review (`pelayo-
 `b3097de`). What changed is listed at the end. All results are descriptive or exploratory unless stated otherwise.
 None of them is release evidence.
 
+**Interpretation correction:** all WBot totals, styles, head-to-head inputs and Sunday scenarios below
+pool server versions v5-v9. They describe the account's historical mixture, not frozen G, I or N.
+The version-separated check in section 4 is required before applying an account-level conclusion to G.
+
 Reproduce from the repo alone (Python 3.12, numpy 2.x; the outputs were made with 3.12.13 / numpy 2.4.6):
 
     cd PokerBot/ExternalAnalysis/SaturdayFieldPostmortem
@@ -29,8 +33,10 @@ Please challenge this in `channel/to_bot_team/` (new file per topic). Section 9 
   Hashes are of the checked-out bytes. Analyses use parsed JSON, so line-ending conversion can't change a result.
 - Integrity: every hand sums to zero, and our seat's totals match the official per-round chips (665
   team-rounds, max diff 0).
-- `data/leaderboard_history_r13_r48.csv`: a per-minute archive of the public leaderboard. It gives every team's
-  exact chips in every round 14-48, including tables we didn't sit at.
+- `data/leaderboard_history_r13_r48.csv`: 39 archived leaderboard snapshots covering played rounds 13-48.
+  Consecutive-round differences give exact chips for eligible team-rounds 14-48, including tables we did
+  not sit at. Rounds 49-54 have no per-round leaderboard increments in this archive. Rook independently
+  reconciled all 665 overlapping hand-derived team-rounds with zero discrepancies.
 
 ## 1. Facts and sources
 
@@ -85,7 +91,14 @@ should be judged by arena tests, not assumed from this result.
 ## 4. Where profits came from (allocation-dependent, descriptive)
 
 Per 100 of the team's own hands, using the allocation above. Donors = the 11 teams that finished below 0 plus
-ediz_slow. 90% intervals from resampling whole tables:
+ediz_slow. These are the `from_donors` / `from_others` sets, distinct from the fixed seven-bot
+`BIG7` set used in the following with/without comparison. Brackets are 5th-95th bootstrap percentiles,
+so they are **90% intervals**, not 95% intervals. Tables in the same five-minute slot share field and
+version conditions; table resampling does not preserve that cross-table dependence, so uncertainty may
+be understated. The top-21 column is seven times the exposure-weighted per-opponent rate: it is a
+normalization, not an observed result at a table of seven top-21 opponents.
+
+90% intervals from resampling whole tables:
 
 | team | from donors | from everyone else | edge vs top 21, per 7 such opponents |
 |---|---|---|---|
@@ -115,6 +128,29 @@ Reading: WBot's Saturday profit is consistent with coming mainly from the weakes
 everyone else is near zero, with wide intervals. This is a hypothesis about WBot's weakness against competent
 opponents, supported by both views, not a proven fact. WBot's r14-31 vs r32-48 averages (+26.9 -> +4.5) fit it too.
 
+### WBot split by server version
+
+Rook's independent `pm_boot.py` output at validation commit
+`c91fe39b11702caf9f3cec63b20228d2e1616c1e` separates the same top-21 normalization:
+
+| Server versions / behavioral attribution | Tables | Top-21 normalization (bb/100) | 90% table-bootstrap interval |
+|---|---:|---:|---|
+| v5, v7, v9 / G-compatible | 25 | +2.0 | [-28.5, +38.0] |
+| v6 / I-compatible | 24 | -34.3 | [-61.5, -5.7] |
+| v8 / likely N | 5 | -20.2 | [-70.2, +16.6] |
+
+The G-compatible window is r001-r023, r048 and r054; I-compatible is r024-r047; likely N is r049-r053.
+These are behavioral/documentary source attributions, not deployed-artifact hash proofs. Rook's
+`pm_byver.py` output separates r054 as `r54+`, whereas `pm_boot.py` includes it in the G-compatible group;
+the table above uses the latter consistently. The pooled negative estimate is therefore not evidence
+that frozen G has that same deficit. Calendar time, opponents and source versions are confounded;
+the splits are not a controlled comparison of G versus I/N.
+
+Evidence: `PokerBot/ExternalAnalysis/AgentReports/ROOK_PR7_validation/pm_boot_out.txt` and
+`ROOK_PR7_validation.md` on the validation branch at the exact commit above. The validation artifacts
+are external review evidence until separately integrated into main; do not mistake their branch paths
+for files already added by this PR.
+
 ## 5. Style vs result (35 ranked teams, final bb/100; correlations, descriptive)
 
 | stat | corr |
@@ -143,11 +179,15 @@ Opponent styles (Saturday, every table we saw; frequencies, not profitability):
 | YSL_TWIZZY | -20.6 | 21 | 16 | 4 | 0 | 26 | 39 | 45 | 53 |
 
 Scenario model (`05_sunday_table4.py`):
+- **The WBot seat uses pooled historical G/I/likely-N inputs.** Its probabilities are not estimates for
+  the currently selected frozen G artifact. A G-only scenario requires a separate recomputation; none
+  is claimed here.
 - Expected result = sum of pairwise rates (additive model, shrunk toward the observed head-to-head with
   tau = assumed SD of a pair's deviation).
 - Sunday-edge uncertainty and round noise are both drawn **zero-sum across the table**.
 - In the "edge X" scenarios the other seats are rebalanced so the table stays zero-sum.
-- All of them assume every seat keeps its Saturday bot. Overnight uploads will break that.
+- All of them assume the pooled Saturday tendencies remain stable. WBot already changed policy during
+  Saturday; Sunday uploads and opponent adaptation can invalidate that assumption.
 
 | assumption set | WBot's P(top 2) | our expected edge needed for 50% |
 |---|---|---|
