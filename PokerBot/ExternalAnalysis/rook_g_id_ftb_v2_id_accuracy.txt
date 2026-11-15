@@ -1,0 +1,5 @@
+hand   25: seats  171  top-1 correct 0.39  wrong-with-conf>=0.9 0.00  mean conf 0.17
+hand  100: seats  171  top-1 correct 0.82  wrong-with-conf>=0.9 0.00  mean conf 0.58
+hand  300: seats  171  top-1 correct 0.91  wrong-with-conf>=0.9 0.00  mean conf 0.80
+hand 1000: seats  171  top-1 correct 0.93  wrong-with-conf>=0.9 0.04  mean conf 0.90
+clone check (out-of-library bet sizes) 200h: {'ResonanceQt': ('Peanut Cookies', 0.0, 41), 'AnkerBatteries': ('Lehman Brothers', 0.0, 41), 'GamesGone': ('Peanut Cookies', 0.998, 63), 'Anton': ('AAST', 0.0, 73), 'Poke': ('Peanut Cookies', 0.0, 41), 'YSLTWIZZY': ('YSL_TWIZZY', 0.0, 28), 'Chinesepeoplecanfly': ('Lehman Brothers', 1.0, 42)} id_fallbacks 0
