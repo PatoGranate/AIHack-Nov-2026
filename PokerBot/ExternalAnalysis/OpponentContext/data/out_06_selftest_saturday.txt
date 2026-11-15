@@ -1,0 +1,108 @@
+Pre-registered Sunday check - SELF-TEST ON SATURDAY (exploratory, public actions only)
+python 3.12.13, numpy 2.4.6; seed 20261123; 2000 table resamples
+54 unique counted WBot tables, 54000 hands
+  0d61b49b83856c19  saturday/r006  ../../Hand_data/ExternalTeamData/external_team_02/SaturdayRealRounds/saturday_r006.json
+  9b08be60eac6b79f  saturday/r010  ../../Hand_data/ExternalTeamData/external_team_02/SaturdayRealRounds/saturday_r010.json
+  341b0ff3b0619dd3  saturday/r018  ../../Hand_data/ExternalTeamData/external_team_02/SaturdayRealRounds/saturday_r018.json
+  4d991d23d8aad67d  saturday/r023  ../../Hand_data/ExternalTeamData/external_team_02/SaturdayRealRounds/saturday_r023.json
+  1dd6cf8de2bf85f3  saturday/r039  ../../Hand_data/ExternalTeamData/external_team_02/SaturdayRealRounds/saturday_r039.json
+  eb2180f01f961afc  saturday/r050  ../../Hand_data/ExternalTeamData/external_team_02/SaturdayRealRounds/saturday_r050.json
+  5c1f9ce1b0d21ace  saturday/r025  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r025.json
+  b715933610d42b33  saturday/r026  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r026.json
+  37c6a82029d452a0  saturday/r027  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r027.json
+  662f9c196b1ab8e1  saturday/r031  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r031.json
+  057f50701fdd1e7d  saturday/r036  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r036.json
+  a7828ec56e28e6db  saturday/r037  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r037.json
+  c0f4e30f9a5a6b00  saturday/r040  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r040.json
+  2a646ef1c57bab6d  saturday/r041  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r041.json
+  89e9fb174e129486  saturday/r043  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r043.json
+  caef3fe0480ff49a  saturday/r046  ../../Hand_data/ExternalTeamData/external_team_03/SaturdayRealRounds/saturday_r046.json
+  5ba093746a47819a  saturday/r001  ../../Hand_data/SaturdayRealRounds/saturday_r001.json
+  671c526f7825f675  saturday/r002  ../../Hand_data/SaturdayRealRounds/saturday_r002.json
+  b4861dba31da79dc  saturday/r003  ../../Hand_data/SaturdayRealRounds/saturday_r003.json
+  a28391e441379b0b  saturday/r004  ../../Hand_data/SaturdayRealRounds/saturday_r004.json
+  11d0062b0a0dc248  saturday/r005  ../../Hand_data/SaturdayRealRounds/saturday_r005.json
+  c5db2eeb4e7d5bd6  saturday/r007  ../../Hand_data/SaturdayRealRounds/saturday_r007.json
+  7358c648ccf3da6c  saturday/r008  ../../Hand_data/SaturdayRealRounds/saturday_r008.json
+  22a37ab66bdd761d  saturday/r009  ../../Hand_data/SaturdayRealRounds/saturday_r009.json
+  84e4ac5d03f9a9a1  saturday/r011  ../../Hand_data/SaturdayRealRounds/saturday_r011.json
+  057f2eed769790e3  saturday/r012  ../../Hand_data/SaturdayRealRounds/saturday_r012.json
+  79391478dec8c792  saturday/r013  ../../Hand_data/SaturdayRealRounds/saturday_r013.json
+  0bdbd88ce212e934  saturday/r014  ../../Hand_data/SaturdayRealRounds/saturday_r014.json
+  4e1cfe16573cd292  saturday/r015  ../../Hand_data/SaturdayRealRounds/saturday_r015.json
+  6711dfd47b8b1c23  saturday/r016  ../../Hand_data/SaturdayRealRounds/saturday_r016.json
+  ee5d2ffb20d1d7a7  saturday/r017  ../../Hand_data/SaturdayRealRounds/saturday_r017.json
+  a1929385dcc4eb99  saturday/r019  ../../Hand_data/SaturdayRealRounds/saturday_r019.json
+  f9b1d08771b8e0ac  saturday/r020  ../../Hand_data/SaturdayRealRounds/saturday_r020.json
+  cccae8fd44d3eb17  saturday/r021  ../../Hand_data/SaturdayRealRounds/saturday_r021.json
+  d1b27d88c2226459  saturday/r022  ../../Hand_data/SaturdayRealRounds/saturday_r022.json
+  00c5b39e54e9edb3  saturday/r024  ../../Hand_data/SaturdayRealRounds/saturday_r024.json
+  e338079a9f134a00  saturday/r028  ../../Hand_data/SaturdayRealRounds/saturday_r028.json
+  0c45990eb5607153  saturday/r029  ../../Hand_data/SaturdayRealRounds/saturday_r029.json
+  dcf127aa4b84362e  saturday/r030  ../../Hand_data/SaturdayRealRounds/saturday_r030.json
+  500e61ed6d607057  saturday/r032  ../../Hand_data/SaturdayRealRounds/saturday_r032.json
+  cb8761ab5b645c69  saturday/r033  ../../Hand_data/SaturdayRealRounds/saturday_r033.json
+  c49b8c5c221d15d8  saturday/r034  ../../Hand_data/SaturdayRealRounds/saturday_r034.json
+  9e8dce15531d34d1  saturday/r035  ../../Hand_data/SaturdayRealRounds/saturday_r035.json
+  c89e922c0d102f42  saturday/r038  ../../Hand_data/SaturdayRealRounds/saturday_r038.json
+  efe87aa576e8131b  saturday/r042  ../../Hand_data/SaturdayRealRounds/saturday_r042.json
+  6f62ec755f01d372  saturday/r044  ../../Hand_data/SaturdayRealRounds/saturday_r044.json
+  749c342df998e6df  saturday/r045  ../../Hand_data/SaturdayRealRounds/saturday_r045.json
+  31623db71793b104  saturday/r047  ../../Hand_data/SaturdayRealRounds/saturday_r047.json
+  a09357376b3a0e1f  saturday/r048  ../../Hand_data/SaturdayRealRounds/saturday_r048.json
+  1e44585b2eabde59  saturday/r049  ../../Hand_data/SaturdayRealRounds/saturday_r049.json
+  36d69cf33cdf2f4e  saturday/r051  ../../Hand_data/SaturdayRealRounds/saturday_r051.json
+  d8d7aa2dd81a5484  saturday/r052  ../../Hand_data/SaturdayRealRounds/saturday_r052.json
+  872c4f23905a5b62  saturday/r053  ../../Hand_data/SaturdayRealRounds/saturday_r053.json
+  ee3a36fb22d5c009  saturday/r054  ../../Hand_data/SaturdayRealRounds/saturday_r054.json
+
+== A. Fold rate vs WBot's first bets minus vs other bettors' (stratified MH, 90% table-bootstrap CI) ==
+all opponents      -12.3 [-13.8,-10.7]  tables=54  n vs WBot=17350, vs others=25743  | Saturday -12.3 [-13.9,-10.7]
+                   reading: CI below 0: gap persists
+table-4 opponents  -13.2 [-15.6,-10.5]  tables=45  n vs WBot=3648, vs others=5350  | Saturday -13.2 [-15.7,-10.6]
+                   reading: CI below 0: gap persists
+
+== B. Table-4 opponents: fold rates, this input vs Saturday WBot tables (90% table-bootstrap CI) ==
+'vs others' bets' is the cleanest version-change signal: 'all' and 'vs WBot' also move with WBot's own policy.
+Resonance Qt             all first-bet    37% [34,40] n=1034 t=9       | Saturday 37% [34,41] n=1034 t=9
+Resonance Qt             vs others' bets  46% [43,50] n=646 t=9        | Saturday 46% [43,50] n=646 t=9
+Resonance Qt             vs WBot's bets   22% [17,26] n=388 t=9        | Saturday 22% [17,26] n=388 t=9
+Resonance Qt             HU               33% [30,36] n=869 t=9        | Saturday 33% [30,36] n=869 t=9
+Resonance Qt             MW               61% [53,71] n=165 t=9        | Saturday 61% [53,71] n=165 t=9
+Resonance Qt             facing a raise   41% [28,52] n=71 t=9         | Saturday 41% [28,52] n=71 t=9
+Anker Batteries          all first-bet    41% [39,43] n=1276 t=11      | Saturday 41% [39,43] n=1276 t=11
+Anker Batteries          vs others' bets  53% [50,55] n=715 t=11       | Saturday 53% [50,55] n=715 t=11
+Anker Batteries          vs WBot's bets   26% [23,29] n=561 t=11       | Saturday 26% [23,29] n=561 t=11
+Anker Batteries          HU               35% [32,38] n=1018 t=11      | Saturday 35% [33,38] n=1018 t=11
+Anker Batteries          MW               63% [57,69] n=258 t=11       | Saturday 63% [57,69] n=258 t=11
+Anker Batteries          facing a raise   44% [37,51] n=170 t=11       | Saturday 44% [37,51] n=170 t=11
+Chinese people can fly   all first-bet    39% [37,40] n=2353 t=10      | Saturday 39% [37,40] n=2353 t=10
+Chinese people can fly   vs others' bets  45% [42,49] n=1475 t=10      | Saturday 45% [42,49] n=1475 t=10
+Chinese people can fly   vs WBot's bets   27% [24,31] n=878 t=10       | Saturday 27% [24,31] n=878 t=10
+Chinese people can fly   HU               33% [32,35] n=1782 t=10      | Saturday 33% [32,35] n=1782 t=10
+Chinese people can fly   MW               56% [53,58] n=571 t=10       | Saturday 56% [53,58] n=571 t=10
+Chinese people can fly   facing a raise   54% [50,59] n=342 t=10       | Saturday 54% [50,60] n=342 t=10
+GamesGone                all first-bet    37% [35,40] n=1258 t=8       | Saturday 37% [35,40] n=1258 t=8
+GamesGone                vs others' bets  51% [48,54] n=628 t=8        | Saturday 51% [48,54] n=628 t=8
+GamesGone                vs WBot's bets   24% [21,28] n=630 t=8        | Saturday 24% [21,28] n=630 t=8
+GamesGone                HU               32% [28,35] n=935 t=8        | Saturday 32% [28,35] n=935 t=8
+GamesGone                MW               54% [50,60] n=323 t=8        | Saturday 54% [50,60] n=323 t=8
+GamesGone                facing a raise   58% [51,72] n=275 t=8        | Saturday 58% [51,73] n=275 t=8
+Poke                     all first-bet    51% [47,56] n=712 t=5        | Saturday 51% [47,56] n=712 t=5
+Poke                     vs others' bets  59% [53,65] n=465 t=5        | Saturday 59% [53,65] n=465 t=5
+Poke                     vs WBot's bets   37% [35,40] n=247 t=5        | Saturday 37% [35,40] n=247 t=5
+Poke                     HU               50% [44,56] n=590 t=5        | Saturday 50% [44,56] n=590 t=5
+Poke                     MW               58% [51,62] n=122 t=5        | Saturday 58% [52,62] n=122 t=5
+Poke                     facing a raise   44% [41,46] n=186 t=5        | Saturday 44% [41,47] n=186 t=5
+Anton                    all first-bet    47% [44,50] n=1364 t=11      | Saturday 47% [44,50] n=1364 t=11
+Anton                    vs others' bets  57% [52,61] n=885 t=11       | Saturday 57% [52,61] n=885 t=11
+Anton                    vs WBot's bets   29% [24,33] n=479 t=11       | Saturday 29% [24,33] n=479 t=11
+Anton                    HU               43% [40,47] n=1165 t=11      | Saturday 43% [40,47] n=1165 t=11
+Anton                    MW               68% [61,76] n=199 t=11       | Saturday 68% [61,76] n=199 t=11
+Anton                    facing a raise   57% [40,70] n=100 t=11       | Saturday 57% [39,71] n=100 t=11
+YSL_TWIZZY               all first-bet    26% [22,30] n=1001 t=7       | Saturday 26% [22,30] n=1001 t=7
+YSL_TWIZZY               vs others' bets  39% [36,42] n=536 t=7        | Saturday 39% [36,42] n=536 t=7
+YSL_TWIZZY               vs WBot's bets   12% [ 9,15] n=465 t=7        | Saturday 12% [ 9,14] n=465 t=7
+YSL_TWIZZY               HU               22% [19,24] n=846 t=7        | Saturday 22% [19,24] n=846 t=7
+YSL_TWIZZY               MW               52% [36,62] n=155 t=7        | Saturday 52% [36,62] n=155 t=7
+YSL_TWIZZY               facing a raise   12% [ 5,20] n=66 t=7         | Saturday 12% [ 5,19] n=66 t=7
