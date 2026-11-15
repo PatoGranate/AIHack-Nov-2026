@@ -32,12 +32,14 @@ def main():
     r = pd.read_csv(a.events)
     r = r[r.name.isin(NAMES)].copy()
     r["name"] = r.name.map(NAMES)
+    r["to_us"] = (r.bettor == "WBot").astype(int)   # real: bettor is WBot
+    c["to_us"] = (c.bettor == "HERO").astype(int)   # arena: bettor is the hero seat
     for df in (r, c):
         df["sz"] = pd.cut(df["size"], [0, .45, .8, 99], labels=["<.45", ".45-.8", ">.8"])
     tab = lambda df, by: df.groupby(by, observed=True).fold.agg(["mean", "size"]).round(3)
     print("real = Saturday responses by the 7 table-4 teams (all tables); clone = arena dump (%d tables)"
           % len(glob.glob(os.path.join(a.dump, "*.json"))))
-    for by in ["name", "mw", "ip", "sz", "kind", "street", ["mw", "ip"]]:
+    for by in ["name", "mw", "ip", "sz", "kind", "street", ["mw", "ip"], "to_us"]:
         t = tab(r, by).join(tab(c, by), lsuffix="_real", rsuffix="_clone")
         print(t.to_string())
         print()

@@ -1,0 +1,45 @@
+## A0 G vs G, t4ctx, 960x300, seed 73501
+clone fold-to-bet in the base run (target = mean real-data p, t4ctx only):
+field=t4ctx tables=960 hands=300 seed=73501
+  cand submissions/G_v7_final/bot.py       +39.4 bb/100 (se 4.1)
+  base submissions/G_v7_final/bot.py       +37.5 bb/100 (se 4.1)
+  DIFF                                      +1.8 bb/100 (se 2.4)  z=0.77
+## P1 g_ctx_v1 vs G, t4ctx, 1920x300, seed 73502
+clone fold-to-bet in the base run (target = mean real-data p, t4ctx only):
+field=t4ctx tables=1920 hands=300 seed=73502
+  cand tools/cands/g_ctx_v1.py             +47.5 bb/100 (se 2.9)
+  base submissions/G_v7_final/bot.py       +39.7 bb/100 (se 2.9)
+  DIFF                                      +7.8 bb/100 (se 1.5)  z=5.31
+## C1 g_ctx_v1 vs G, t4v2, 1920x300, seed 73503
+clone fold-to-bet in the base run (target = mean real-data p, t4ctx only):
+field=t4v2 tables=1920 hands=300 seed=73503
+  cand tools/cands/g_ctx_v1.py             +52.9 bb/100 (se 2.7)
+  base submissions/G_v7_final/bot.py       +49.4 bb/100 (se 2.7)
+  DIFF                                      +3.5 bb/100 (se 1.4)  z=2.42
+## S1 forge_ctx_v1 vs N_real, t4ctx, 1920x300, seed 73504
+## S2 g_ctx_v1 vs G, t4ctx, 576x1000, seed 73505
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\matth\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\multiprocessing\spawn.py", line 108, in spawn_main
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\matth\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\multiprocessing\spawn.py", line 108, in spawn_main
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\matth\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\multiprocessing\spawn.py", line 108, in spawn_main
+    source_process = _winapi.OpenProcess(
+    source_process = _winapi.OpenProcess(
+    source_process = _winapi.OpenProcess(
+                     ^^^^^^^^^^^^^^^^^^^^
+                     ^^^^^^^^^^^^^^^^^^^^
+                     ^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 87] The parameter is incorrect
+OSError: [WinError 87] The parameter is incorrect
+OSError: [WinError 87] The parameter is incorrect
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\matth\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\multiprocessing\spawn.py", line 108, in spawn_main
+    source_process = _winapi.OpenProcess(
+                     ^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 87] The parameter is incorrect
+done
