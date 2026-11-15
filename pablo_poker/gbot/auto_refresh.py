@@ -93,6 +93,8 @@ def main():
         log("first check at %s, then every %d s" % (a.start, a.every))
     done = load_state()
     log("watching %s (already processed: %d)" % (FEED, len(done)))
+    calibrating = bool(a.start)   # until the first new round arrives
+    first_check = True
     while True:
         wait = next_t - time.time()
         if wait > 0:
@@ -106,9 +108,12 @@ def main():
             log("fetch failed: %r" % (e,))
         new = sorted(f for f in glob.glob(os.path.join(FEED, "*.json"))
                      if not os.path.basename(f).startswith(("saturday", "round-")) and os.path.basename(f) not in done)
+        found_at = time.time()
+        processed = 0
         for f in new:
             if not complete(f):
                 continue
+            processed += 1
             before = set(glob.glob(os.path.join(HERE, "G_profile_td_*.py")) + glob.glob(os.path.join(HERE, "profiles", "td_prior_*.json")))
             r = subprocess.run([sys.executable, os.path.join(HERE, "refresh_profile.py"), f], capture_output=True, text=True, cwd=ROOT)
             log((r.stdout + r.stderr).strip().splitlines()[-1] if (r.stdout + r.stderr).strip() else "refresh: no output")
@@ -130,6 +135,15 @@ def main():
             if r.returncode == 0 and a.push:
                 after = set(glob.glob(os.path.join(HERE, "G_profile_td_*.py")) + glob.glob(os.path.join(HERE, "profiles", "td_prior_*.json")))
                 push(sorted(after - before), os.path.basename(f)[:-5])
+        if calibrating:
+            if processed:
+                calibrating = False
+                if not first_check:     # data arrived after the planned time: re-anchor the 5-minute grid
+                    next_t = found_at + 10 + a.every
+                log("round data found; next checks from %s every %d s" % (time.strftime("%H:%M:%S", time.localtime(next_t)), a.every))
+            else:
+                next_t = time.time() + 10   # not there yet: poll every 10 s
+        first_check = False
 
 
 if __name__ == "__main__":
