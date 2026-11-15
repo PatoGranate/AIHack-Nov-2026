@@ -64,7 +64,8 @@ def load_tables():
     files = sorted(f for g in GLOBS for f in glob.glob(g))
     seen, out = set(), []
     for f in files:
-        b = open(f, "rb").read()
+        with open(f, "rb") as fh:
+            b = fh.read()
         d = json.loads(b.decode("utf-8-sig"))
         if "practice" in d["ref"]:
             continue
@@ -73,12 +74,19 @@ def load_tables():
             continue
         seen.add(key)
         out.append((os.path.relpath(f, os.path.dirname(POKER)).replace("\\", "/"), hashlib.sha256(b).hexdigest(), d))
-    if os.path.exists(PM_MANIFEST):
-        with open(PM_MANIFEST, encoding="utf-8") as fh:
-            pm = {r["path"] for r in csv.DictReader(fh) if r["status"] == "used"}
-        mine = {p for p, _, _ in out}
-        if pm != mine:
-            raise SystemExit("input set differs from the post-mortem manifest: %d vs %d files" % (len(mine), len(pm)))
+    if not os.path.isfile(PM_MANIFEST):
+        raise SystemExit("required post-mortem input manifest is missing: " + PM_MANIFEST)
+    with open(PM_MANIFEST, encoding="utf-8-sig", newline="") as fh:
+        used = [r for r in csv.DictReader(fh) if r["status"] == "used"]
+    pm = {r["path"]: r["sha256"].lower() for r in used}
+    if len(pm) != len(used):
+        raise SystemExit("duplicate used paths in the post-mortem input manifest")
+    mine = {p: digest for p, digest, _ in out}
+    if pm.keys() != mine.keys():
+        raise SystemExit("input set differs from the post-mortem manifest: %d vs %d files" % (len(mine), len(pm)))
+    mismatches = [p for p in mine if mine[p] != pm[p]]
+    if mismatches:
+        raise SystemExit("input SHA256 differs from the post-mortem manifest: " + ", ".join(sorted(mismatches)))
     return out
 
 

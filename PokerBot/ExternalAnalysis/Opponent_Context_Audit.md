@@ -22,11 +22,10 @@ Full outputs are in `OpponentContext/data/out_*.txt`; machine-readable rates for
      teams).
    - The bot (G_v7 and N_v10 share `_learn`) keeps one number per seat. It handles bet size only through a fixed
      exponent and doesn't condition on HU/multiway, position, street, or bet vs raise.
-2. **Opponent-specific context effects exist but can't be learned within one round.**
-   - Each effect differs between teams (SD about 6 pts, p < 0.004 against a calibrated null).
-   - But one 1,000-hand round recovers only 3-31% of an opponent's specific deviation. The buckets hold 4-60
-     decisions per round.
-   - The right shape is one per-seat level plus field context effects. That agrees with FORGE's out-of-sample
+2. **The exploratory model estimates opponent-specific effects, with sparse evidence within one round.**
+   - The model estimates between-team differences (SD about 6 pts, p < 0.004 against its independent-binomial null). These p-values are conditional on that null, not calibrated for shared-table dependence or table overdispersion.
+   - The heuristic one-round reliability is 3-31% under binomial sampling and the fitted heterogeneity model. This is not a hard learnability ceiling. The buckets hold 4-60 decisions per round.
+   - One per-seat level plus field context effects is a testable candidate shape, consistent with FORGE's out-of-sample
      result.
    - The exception worth testing is a separate per-seat **facing-a-raise** level: SD 24 pts per opponent-table,
      one-round reliability about 0.5.
@@ -36,10 +35,10 @@ Full outputs are in `OpponentContext/data/out_*.txt`; machine-readable rates for
    - The gap is already full-size in hands 1-250 of a round. Bots don't receive names, so this points to *where and
      what WBot bets* more than to opponents adapting to WBot.
    - The bot's pooled `ftb` mixes all bettors, so it over-predicts folds to its own bets.
-4. **A seat's in-round fold rate is mostly table-specific.**
-   - Spread across opponent-tables: SD 11.3 pts = 8.6 within a team (table to table) + 7.3 between teams.
+4. **The exploratory decomposition attributes substantial fold-rate variation to tables within teams.**
+   - Estimated SD across opponent-tables is 11.3 pts; heuristic components are 8.6 within a team and 7.3 between teams, combined in quadrature, not added as SDs.
    - So Saturday team averages, or any identification of a seat's team, are a weak prior.
-   - The implied shrinkage weight is about 19 pseudo-decisions, close to FORGE's chosen k = 20.
+   - The approximate implied shrinkage weight is about 19 pseudo-decisions, close to FORGE's chosen k = 20; it is not a tuned or validated optimum.
 5. **Samples per round (FORGE's key input).** The field median per opponent seat per 1,000-hand round is:
    - 100 first-bet decisions in total: 83 HU and 16 multiway;
    - 26 HU small (<50% pot), 54 HU large, **4 multiway small**, 11 multiway large;
@@ -57,7 +56,7 @@ Full outputs are in `OpponentContext/data/out_*.txt`; machine-readable rates for
     kaiserbot's downloads.
   - Practice rounds are excluded.
   - Tables are de-duplicated by (round ref, ordered seat names). `oc_parse.py` fails if its input set differs from
-    `SaturdayFieldPostmortem/data/input_manifest.csv`.
+    `SaturdayFieldPostmortem/data/input_manifest.csv`; a missing manifest or a selected-file SHA256 mismatch fails closed.
   - Every hand passes chip conservation (results = wins - net contributions).
 - **Post-flop decision (primary).** A player's *first* response to the *first* bet on a flop, turn or river, while
   exactly one bet is outstanding. There are 110,190 of these. Responses facing a raise (14,706) are a separate
@@ -125,14 +124,12 @@ Preflop is far denser:
 | effect: facing a raise - facing a bet | +3.0 | 13.8 [0.55] | <0.004 | 0.41 |
 | effect: Saturday r28-54 - r01-27 | -5.8 | 6.3 [0.26] | <0.004 | 0.02 |
 
-**One-round reliability** = tau_logit² / (tau_logit² + SE²). SE is the logit-scale binomial SE of a single round's
-estimate at the field-median per-round counts. It is the share of an opponent's true deviation that one round of
-data can recover. Shrinkage keeps about that share of the observed deviation.
+**Heuristic one-round reliability** = tau_logit² / (tau_logit² + SE²). SE is the logit-scale binomial SE at the field-median per-round counts. Under those assumptions this suggests a shrinkage fraction; it does not empirically establish how much can be learned online from a round.
 
 Reading:
 - The main context effects are large: multiway, size and position are each 3-5 times their between-team spread.
-- Opponent-specific context deviations are real (every Q far exceeds its null).
-- But they are at most a third recoverable in-round, and essentially unrecoverable for multiway sub-buckets.
+- Every observed Q exceeds the independent-binomial null in this analysis. This is exploratory, model-conditional evidence; it does not establish real-world significance under clustered dependence.
+- The binomial-based reliability heuristic is at most about one third for these buckets; sparse multiway sub-buckets suggest heavy shrinkage, to be assessed by online predictive tests.
 - This **agrees with FORGE's out-of-sample test**: per-seat deviations within one split add only 0.0005-0.002
   nats (`tools/forge_ctx/results_predictive.txt`, branch `agent/forge-context-model`).
   Statistically significant differences and in-round learnability are different questions. The first uses about
@@ -149,7 +146,7 @@ Reading:
 | facing a raise | 490 | 16 | 51% | **24.3** | 17.0 | 17.4 | **4** |
 | vs WBot's bets | 343 | 46 | 27% | 10.9 | 8.6 | 6.6 | 16 |
 
-k* = p(1-p)/SD² is the beta-binomial prior weight, in pseudo-decisions, implied by that spread. Units need at
+k* = p(1-p)/SD² is an approximate beta-prior weight, in pseudo-decisions, implied by that spread (the exact concentration subtracts 1). This is a heuristic from binomial unit variances and variance subtraction, not a fitted hierarchical decomposition. Units need at
 least 10 decisions, which slightly favours busier seats.
 
 - Within-team (table-to-table) spread is comparable to or larger than between-team spread in every bucket here. HU
@@ -304,7 +301,7 @@ stratified gap for inference).
 | effect: opener OOP minus IP vs the 3-bettor | -3.2 | 8.1 [0.41] |
 | effect: open by WBot minus by others (raw, unstratified) | +0.3 | 2.9 [0.19] |
 
-All have calibrated p < 0.004.
+All have p < 0.004 against the independent-binomial null. This is conditional model evidence; shared-table dependence and overdispersion are not preserved in that null.
 - Preflop samples are dense (82-233 per round per role), so per-seat preflop levels are learnable within a round.
 - The opener's response to a 3-bet varies most: from ediz_slow's 0% fold and Anton's 32% to YSL's 88%. At about 23
   per round it's learnable too.
@@ -355,9 +352,8 @@ All have calibrated p < 0.004.
     *our* bets. Poke folds 37% to WBot's bets raw, not 56% (table C).
 - **FORGE:**
   - *Agree* that context effects are mainly common and opponents differ mainly in level. My heterogeneity numbers
-    don't contradict the out-of-sample result. A large opponent-specific tau would have contradicted it; the taus are
-    real but small relative to in-round noise.
-  - *Agree* with k = 20; my implied k* is 19.
+    don't contradict the out-of-sample result. A large opponent-specific tau would have contradicted it; the estimated taus are small relative to the model's in-round noise assumption.
+  - *Consistent as an exploratory starting point:* k = 20 versus approximate implied k* = 19. Sensitivity and online predictive tests are needed before treating either as optimal.
   - *Added and replicated:* FORGE's first field model had no bettor-identity term, and section 4 suggested one. FORGE
     has since tested it out of sample (PR #9, `channel/to_bot_team/20261114-233500_forge_context_model_results.md`):
     - a static `bettor == WBot` term of logit -0.39 (train) / -0.32 (all rounds);
@@ -444,7 +440,7 @@ Better log-loss is not EV. Anything that passes still needs a paired same-seed a
 ## 13. Open questions
 
 1. Which bot is live for Sunday, G or N? (FORGE asked the same.) The context findings apply to both: they share
-   `_learn` and `opp_models` and differ only in `size_exp`.
+   the audited `_learn`/`opp_models` structure, but their policies and budgets are not otherwise equivalent. Frozen G and N differ in 16 parameter entries, including preflop opens, bet sizes/bonus, realization, range weights and compute. The pooled historical WBot gap must be rechecked for a changed policy.
 2. Can someone run section 4's comparison on the live Sunday rounds once a few exist? It's the one finding that the
    arena can't check.
 3. Does anyone have Sunday-version samples of the table-4 opponents (practice or early rounds) to measure overnight

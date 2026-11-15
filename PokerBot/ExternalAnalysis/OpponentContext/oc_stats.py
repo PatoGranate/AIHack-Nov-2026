@@ -1,7 +1,8 @@
 """Table-bootstrap rates and between-opponent heterogeneity, shared by the audit scripts (numpy only).
 
-Uncertainty always resamples whole tables (1,000-hand rounds) with replacement, never single decisions, because
-decisions within a table share an opponent version, a table mix and hand-level dependence.
+Rate intervals resample whole tables (1,000-hand rounds). The heterogeneity null is independent-binomial
+conditional on observed counts; unit_tau uses binomial variances and a heuristic variance decomposition.
+Those components do not preserve shared-table dependence or table overdispersion and are exploratory.
 """
 import os
 import sys
@@ -194,7 +195,9 @@ def unit_tau(groups, a, min_n=10, rng=None):
     """Between-unit SD where a unit is one opponent at one table (= what an in-round estimate must learn).
 
     Returns total tau over opponent-table units, and its split into between-team and within-team (table-to-table)
-    components, from binomial variances. Calibrated against a binomial null with the real per-unit counts.
+    components, from binomial variances and variance subtraction (not a fitted hierarchical model).
+    Calibrated against a binomial null with real per-unit counts; kstar is an approximate prior concentration
+    (the exact beta concentration subtracts 1), not an optimized learning parameter.
     """
     rng = rng or np.random.default_rng(SEED)
     k, n, team = [], [], []
