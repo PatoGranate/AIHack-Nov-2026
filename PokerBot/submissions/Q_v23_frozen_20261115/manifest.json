@@ -1,0 +1,15 @@
+{
+  "frozen_utc": "2026-11-15T10:56:05.571167+00:00",
+  "sha256": "8233d8fa67ed0e8ff3fe10dfdffdcf09feb56ba6bdc60883a7455b9cb38109b1",
+  "source": "original local submissions/Q_P_x4/bot.py",
+  "reported_server_version": 23,
+  "identity_evidence": "Rook issue1 comment6893163746 reports this source live for Sundayr020 onward; not independently downloaded from server.",
+  "status": "frozen reference for review; no deployment or policy edit performed",
+  "known_limits": [
+    "Historical fold-to-jam signal is not measured counterfactual Q profit.",
+    "Current >=600 four-bet response label is broader than actual all-in.",
+    "HU matched-cap jam EV is consistent; multiway continuation/payoff is approximate.",
+    "Inherited FixB aggressor guard counts earlier streets; a strict alternative is separate.",
+    "Internal action/learning fallbacks remain incompletely observable."
+  ]
+}
