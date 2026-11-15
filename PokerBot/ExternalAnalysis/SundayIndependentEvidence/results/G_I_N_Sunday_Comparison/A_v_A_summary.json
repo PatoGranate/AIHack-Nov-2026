@@ -1,0 +1,17 @@
+{
+  "G": {
+    "full_engine_trajectory_match": true,
+    "policy_summary_match": true,
+    "trajectory_sha256": "a15c60bd2b047546a8a823d253218985cd92bd950e627ab6c8f9b5f360d7ef7f"
+  },
+  "I": {
+    "full_engine_trajectory_match": true,
+    "policy_summary_match": true,
+    "trajectory_sha256": "cc6b3829495ff75d3ebda8ed1a47552ba99bc3cf6ab87ad6706ebd579c340e16"
+  },
+  "N": {
+    "full_engine_trajectory_match": true,
+    "policy_summary_match": true,
+    "trajectory_sha256": "c4501822e2d8e1931070fed75cfed701d493389d41c5a0d6bd306f99d60760a8"
+  }
+}

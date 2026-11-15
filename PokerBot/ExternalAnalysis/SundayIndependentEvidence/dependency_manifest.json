@@ -1,0 +1,65 @@
+{
+  "frozen_input_root": "inputs/PokerBot",
+  "note": "Snapshots preserve exact original bytes including line endings; not production replacements.",
+  "raw_result_audits": [
+    {
+      "comparison": "I minus G",
+      "mean_bb100": 9.9334375,
+      "raw_sha256": "08a5ac6ad8572f7715ee232732889fa08cfaa9c6160eafc8826b82d40cb89132",
+      "rows": 16,
+      "run": "G_I_N_Sunday_Comparison"
+    },
+    {
+      "comparison": "N minus G",
+      "mean_bb100": -1.2275,
+      "raw_sha256": "c6cf9aed191dcb996e03784b66f82d46b82af46c2d535a1906cba00da7c09d60",
+      "rows": 16,
+      "run": "G_I_N_Sunday_Comparison"
+    },
+    {
+      "comparison": "I minus G",
+      "mean_bb100": -0.8416406249999998,
+      "raw_sha256": "b269cc64800bd911c5b497bb33c8282bde7d8ec33658dfa20580cb570d61ec76",
+      "rows": 64,
+      "run": "G_I_Sunday_Confirmation"
+    },
+    {
+      "comparison": "Pablo v4 minus G",
+      "mean_bb100": -15.2315625,
+      "raw_sha256": "cf3323e1f2575932121e4cba818d3270f928f0f037c28a011588b0e3c7288188",
+      "rows": 32,
+      "run": "Pablo_V4_Confirmation_89100000"
+    }
+  ],
+  "source_path_sha256": {
+    "ExternalAnalysis/I_vs_G_Matched_Budget_20261114.md": "01fa12f363ec2d9e7afb26e36b4ed7621e49ed10e44267fe4bb64a73e7d2a677",
+    "ExternalAnalysis/Pablo_Model_Independent_Review.md": "daccb9af09b0b6afbeb422270ed0ad24506c6faab7aa6296f8ca420a1a41c386",
+    "kit/engine/__init__.py": "6cf00fea48ae50f3523fc4b2fd2341219c05da4359bfabe160d2ec6915e576a6",
+    "kit/engine/bot_runner.py": "2be056d363f56b7f22a2065c68460a409934d18a119550e777543dc248df4d81",
+    "kit/engine/cards.py": "5f9ea3b912d580c7b0cd923a681bb1a52c1079d48b2489736b49c58b538b5370",
+    "kit/engine/game.py": "a55013f8453805d5e4d7fd5294bc31c003c83cbfd549191a11ac815553946533",
+    "kit/engine/icm.py": "90618de4a262ebd9c30303e4002c726f68351c0f59b2c2a2d43be7ddf2de2986",
+    "kit/engine/players.py": "43ec0ded2f4ffefde7693b0b59a1a41c77bb3b6ebec20e1d7856e6fdbc133974",
+    "submissions/G_v7_final/bot.py": "b8a22e4b9085cf8c634a129deba71faf479834cac7ab127b84f551e2b0f0c16a",
+    "submissions/I_v9_25ms/bot.py": "d45a39b72c0e990efe06c8a233c7f2061f468a5c1f3279924c5ae07fc060f46c",
+    "submissions/N_v10_tuned/bot.py": "5c2b4b2c0ed3ddd5177fe758959e1c32e3a113f8c500a373f6b5d11d5bb7845f",
+    "tools/arena.py": "20f42e8a10c13e74dbdafe199f74f8a764fa411a46a745899b9cce493dc06f0f",
+    "tools/cands/g_matched_srv_i.py": "7e7f7c7e68b1af3e27b835dae211190b13d4d84d52f12094b055fe1bfb6fdb4d",
+    "tools/cands/srv_I.py": "117adab218b509302b805f5cdf2066054ea60cb1de382082a4ab37fc7ce99b89",
+    "tools/independent_ctx_pr11/opponents/_common.py": "cf6303808032710bd0073e29fddf699c57690de35b538fa29e770dd77427d8da",
+    "tools/independent_ctx_pr11/opponents/sunday_v2/MANIFEST.json": "c26ef1a7fa1dea1cbe0e2878cbf6f6aca4642546b65e471e3655da5ce380f213",
+    "tools/independent_ctx_pr11/opponents/sunday_v2/r_AnkerBatteries.py": "35d35b77b9643b89d37b6d2fe5fc5aa13490ea8b166786fdea8b47285170e030",
+    "tools/independent_ctx_pr11/opponents/sunday_v2/r_Anton.py": "44da98d81e83e38b3462e69f3a092da5d49c53881134aff85c59fb5d817e462b",
+    "tools/independent_ctx_pr11/opponents/sunday_v2/r_Chinesepeoplecanfly.py": "42479fa43200a6a553de08c0cfc5fea16ff31c5b1874f54d35316ad229c7037c",
+    "tools/independent_ctx_pr11/opponents/sunday_v2/r_GamesGone.py": "3a9beb40e7f60df6633d38af24355c7fc76618289a349fbff7b7ff5ef22bc906",
+    "tools/independent_ctx_pr11/opponents/sunday_v2/r_Poke.py": "f84ecef6a499bd9b78aef0ff757e648ae81e10adf2ed99820ab9d051848073b3",
+    "tools/independent_ctx_pr11/opponents/sunday_v2/r_ResonanceQt.py": "6622fb3a6b0973ba35578eb25973e68c0a035e4a1ae15fb7e0b68f9c17dca560",
+    "tools/independent_ctx_pr11/opponents/sunday_v2/r_YSLTWIZZY.py": "f287f330c9660c6e9629947e0e7c84125829c2103628f6bf61124ef704d25564",
+    "tools/independent_g_in/run_confirmation.py": "cf16bcb542d304e4974eb0785805f47037c46cab39a7317ac428a541c7c1de0f",
+    "tools/independent_g_in/run_gate.py": "9cada6d2f585c03d53dd6eaf54353f5e41966ad765529705e83e9c25bfbce785",
+    "tools/independent_pablo/bot.py": "8458e3b17263d808607917fcef1b1d3188b776bff912a9b097c3cce3ec749108",
+    "tools/independent_pablo/run_confirmation.py": "cdab67bf62f2c70c03e7ec30bb9c7344ea699cbc009da07edfe9db63b36cb4a4",
+    "tools/independent_pablo/run_review.py": "929e3b0945dbb02f7a216476ee749e4ee1164d72457a292091855e88633b676a",
+    "tools/sunday_early_adapt_pilot.py": "e71dd55352233bbd764d1121d4c6473e2619f8c46c92656fb9e6e41f1e760d68"
+  }
+}
