@@ -1,0 +1,550 @@
+# Frozen G/I/N Sunday clone comparison
+
+## Decision summary
+
+Neither challenger demonstrates an improvement over G in this screen. Keep G as the development/release reference pending stronger evidence; this does not establish that G is intrinsically superior.
+
+| Challenger minus G | Mean bb/100 | Paired SE | Ordinary 95% t interval | Two-comparison Bonferroni interval |
+|---|---:|---:|---|---|
+| I | +9.93 | 8.46 | [-8.10, +27.97] | [-11.14, +31.00] |
+| N | -1.23 | 9.72 | [-21.94, +19.49] | [-25.43, +22.97] |
+
+Both comparisons have 16 pairs and zero reported errors across all seats. G/I/N each passed deterministic A-v-A controls before profit runs. The comparisons use separate preregistered seed sets, so the absolute I and N returns must not be compared as a direct I-versus-N match. The early-window estimates are descriptive and do not override the whole-table primary endpoints. Uncertainty is substantial; no selected candidate is promoted from these results.
+
+Raw-result audit: each comparison has exactly 16 JSONL rows, and each arm's three window-chip totals sum to its recorded full-table total. Independently recalculated paired means agree with the summaries. This evidence does not certify production timeout/bank behavior or hidden internal fallbacks.
+
+One preregistered diagnostic screen. Frozen I and N are each compared to frozen G on16fresh paired1000-hand tables, hero seats0-7 twice, same seven sunday_v2 clones and seeded shuffle within each pair.64000profit table-hands plus120A-v-A QA table-hands.
+
+All three models passed full engine-trajectory/policy-summary A-v-A equality before profit. Fixed32MC work and per-decision RNG seeding are identical for baseline and challenger. Original source files were not modified. Production clock/bank stopping is overridden in RAM only; this is a strategy diagnostic, not exported-artifact runtime certification. The field reproduces public frequencies imperfectly, not actual opponent strategy/strength.
+
+Primary endpoints are whole-table paired effects. Ordinary95% t intervals are descriptive; Bonferroni97.5% marginal intervals account for the two fixed comparisons at nominal95% family coverage. Window/action analyses are secondary, not alternative selection endpoints. No tuning, retries or favorable-seed filtering occurred. No release is authorized by this screen.
+
+Run once: `python tools/independent_g_in/run_gate.py` from PokerBot. Evidence: `ExternalAnalysis/AgentReports/G_I_N_Sunday_Comparison/` contains pre-run manifest, full20-hand A-v-A traces, per-pair chips/windows/actions/errors, summary and hashes.
+
+```json
+{
+  "A_v_A": {
+    "G": {
+      "full_engine_trajectory_match": true,
+      "policy_summary_match": true,
+      "trajectory_sha256": "a15c60bd2b047546a8a823d253218985cd92bd950e627ab6c8f9b5f360d7ef7f"
+    },
+    "I": {
+      "full_engine_trajectory_match": true,
+      "policy_summary_match": true,
+      "trajectory_sha256": "cc6b3829495ff75d3ebda8ed1a47552ba99bc3cf6ab87ad6706ebd579c340e16"
+    },
+    "N": {
+      "full_engine_trajectory_match": true,
+      "policy_summary_match": true,
+      "trajectory_sha256": "c4501822e2d8e1931070fed75cfed701d493389d41c5a0d6bd306f99d60760a8"
+    }
+  },
+  "comparisons": {
+    "I": {
+      "action_counts": {
+        "baseline": {
+          "1-50|flop|call": 9,
+          "1-50|flop|check": 4,
+          "1-50|flop|fold": 35,
+          "1-50|flop|raise": 79,
+          "1-50|preflop|call": 107,
+          "1-50|preflop|check": 2,
+          "1-50|preflop|fold": 633,
+          "1-50|preflop|raise": 140,
+          "1-50|river|call": 1,
+          "1-50|river|check": 3,
+          "1-50|river|fold": 6,
+          "1-50|river|raise": 7,
+          "1-50|turn|call": 6,
+          "1-50|turn|check": 2,
+          "1-50|turn|fold": 2,
+          "1-50|turn|raise": 15,
+          "201-1000|flop|call": 211,
+          "201-1000|flop|check": 51,
+          "201-1000|flop|fold": 364,
+          "201-1000|flop|raise": 1379,
+          "201-1000|preflop|call": 1743,
+          "201-1000|preflop|check": 37,
+          "201-1000|preflop|fold": 10224,
+          "201-1000|preflop|raise": 1961,
+          "201-1000|river|call": 30,
+          "201-1000|river|check": 37,
+          "201-1000|river|fold": 64,
+          "201-1000|river|raise": 162,
+          "201-1000|turn|call": 75,
+          "201-1000|turn|check": 31,
+          "201-1000|turn|fold": 89,
+          "201-1000|turn|raise": 354,
+          "51-200|flop|call": 44,
+          "51-200|flop|check": 12,
+          "51-200|flop|fold": 64,
+          "51-200|flop|raise": 248,
+          "51-200|preflop|call": 331,
+          "51-200|preflop|check": 2,
+          "51-200|preflop|fold": 1905,
+          "51-200|preflop|raise": 378,
+          "51-200|river|call": 8,
+          "51-200|river|check": 7,
+          "51-200|river|fold": 8,
+          "51-200|river|raise": 24,
+          "51-200|turn|call": 16,
+          "51-200|turn|check": 6,
+          "51-200|turn|fold": 15,
+          "51-200|turn|raise": 60
+        },
+        "candidate": {
+          "1-50|flop|call": 17,
+          "1-50|flop|check": 3,
+          "1-50|flop|fold": 41,
+          "1-50|flop|raise": 107,
+          "1-50|preflop|call": 166,
+          "1-50|preflop|check": 2,
+          "1-50|preflop|fold": 594,
+          "1-50|preflop|raise": 140,
+          "1-50|river|call": 2,
+          "1-50|river|check": 3,
+          "1-50|river|fold": 7,
+          "1-50|river|raise": 14,
+          "1-50|turn|call": 7,
+          "1-50|turn|check": 3,
+          "1-50|turn|fold": 11,
+          "1-50|turn|raise": 27,
+          "201-1000|flop|call": 307,
+          "201-1000|flop|check": 62,
+          "201-1000|flop|fold": 604,
+          "201-1000|flop|raise": 1859,
+          "201-1000|preflop|call": 2818,
+          "201-1000|preflop|check": 37,
+          "201-1000|preflop|fold": 9460,
+          "201-1000|preflop|raise": 1961,
+          "201-1000|river|call": 43,
+          "201-1000|river|check": 47,
+          "201-1000|river|fold": 91,
+          "201-1000|river|raise": 327,
+          "201-1000|turn|call": 111,
+          "201-1000|turn|check": 36,
+          "201-1000|turn|fold": 154,
+          "201-1000|turn|raise": 590,
+          "51-200|flop|call": 65,
+          "51-200|flop|check": 22,
+          "51-200|flop|fold": 121,
+          "51-200|flop|raise": 332,
+          "51-200|preflop|call": 540,
+          "51-200|preflop|check": 2,
+          "51-200|preflop|fold": 1749,
+          "51-200|preflop|raise": 378,
+          "51-200|river|call": 11,
+          "51-200|river|check": 9,
+          "51-200|river|fold": 15,
+          "51-200|river|raise": 53,
+          "51-200|turn|call": 27,
+          "51-200|turn|check": 5,
+          "51-200|turn|fold": 22,
+          "51-200|turn|raise": 108
+        }
+      },
+      "all_seat_errors": {
+        "baseline": 0,
+        "candidate": 0
+      },
+      "primary": {
+        "G_bb100": 18.6921875,
+        "candidate_bb100": 28.625625000000003,
+        "difference_bb100": 9.933437500000002,
+        "n_pairs": 16,
+        "negative_pairs": 7,
+        "ordinary_t95_CI": [
+          -8.102739509414397,
+          27.9696145094144
+        ],
+        "pair_differences": [
+          52.605000000000004,
+          -15.200000000000001,
+          -7.075000000000003,
+          29.565000000000012,
+          -7.219999999999999,
+          27.345,
+          -47.215,
+          2.535,
+          14.405,
+          -4.964999999999975,
+          -26.814999999999998,
+          19.50999999999999,
+          5.175000000000011,
+          23.665,
+          99.215,
+          -6.595000000000001
+        ],
+        "paired_se": 8.461930073358339,
+        "positive_pairs": 9,
+        "two_comparison_bonferroni_t975_CI": [
+          -11.13575044186067,
+          31.002625441860673
+        ]
+      },
+      "raw_sha256": "08a5ac6ad8572f7715ee232732889fa08cfaa9c6160eafc8826b82d40cb89132",
+      "windows": {
+        "1-50": {
+          "G_bb100": -23.543749999999992,
+          "candidate_bb100": 5.712499999999999,
+          "difference_bb100": 29.25624999999999,
+          "n_pairs": 16,
+          "negative_pairs": 7,
+          "ordinary_t95_CI": [
+            -58.359916865028765,
+            116.87241686502875
+          ],
+          "pair_differences": [
+            -28.6,
+            -218.8,
+            31.199999999999996,
+            495.30000000000007,
+            14.899999999999977,
+            238.2,
+            -144.4000000000001,
+            -103.30000000000001,
+            142.4,
+            -53.8,
+            -9.099999999999994,
+            67.39999999999999,
+            7.0,
+            -50.00000000000003,
+            6.399999999999977,
+            73.3
+          ],
+          "paired_se": 41.10637619716071,
+          "positive_pairs": 9,
+          "two_comparison_bonferroni_t975_CI": [
+            -73.09368177662614,
+            131.60618177662613
+          ]
+        },
+        "201-1000": {
+          "G_bb100": 11.417187499999999,
+          "candidate_bb100": 13.571484374999999,
+          "difference_bb100": 2.154296875000001,
+          "n_pairs": 16,
+          "negative_pairs": 8,
+          "ordinary_t95_CI": [
+            -13.167584442758656,
+            17.47617819275866
+          ],
+          "pair_differences": [
+            30.031250000000014,
+            3.80625,
+            2.21875,
+            -2.106250000000003,
+            -0.82500000000001,
+            18.7875,
+            -51.775,
+            2.66875,
+            -10.025000000000006,
+            -10.193749999999994,
+            -22.681250000000006,
+            19.75625000000001,
+            -5.6875,
+            32.125,
+            68.65,
+            -40.28125
+          ],
+          "paired_se": 7.188479478522198,
+          "positive_pairs": 8,
+          "two_comparison_bonferroni_t975_CI": [
+            -15.744152277402858,
+            20.052746027402858
+          ]
+        },
+        "51-200": {
+          "G_bb100": 71.57083333333333,
+          "candidate_bb100": 116.55208333333333,
+          "difference_bb100": 44.98125,
+          "n_pairs": 16,
+          "negative_pairs": 4,
+          "ordinary_t95_CI": [
+            -7.735974100805279,
+            97.69847410080529
+          ],
+          "pair_differences": [
+            200.06666666666663,
+            -48.69999999999993,
+            -69.4,
+            43.233333333333334,
+            -48.69999999999999,
+            2.700000000000017,
+            9.500000000000014,
+            37.10000000000001,
+            102.0333333333333,
+            39.19999999999999,
+            -54.766666666666666,
+            2.2333333333333485,
+            62.5,
+            3.0999999999999943,
+            293.1666666666667,
+            146.43333333333334
+          ],
+          "paired_se": 24.73303870159006,
+          "positive_pairs": 12,
+          "two_comparison_bonferroni_t975_CI": [
+            -16.60104106829531,
+            106.56354106829531
+          ]
+        }
+      }
+    },
+    "N": {
+      "action_counts": {
+        "baseline": {
+          "1-50|flop|call": 15,
+          "1-50|flop|fold": 24,
+          "1-50|flop|raise": 83,
+          "1-50|preflop|call": 108,
+          "1-50|preflop|check": 4,
+          "1-50|preflop|fold": 642,
+          "1-50|preflop|raise": 127,
+          "1-50|river|call": 2,
+          "1-50|river|check": 3,
+          "1-50|river|fold": 4,
+          "1-50|river|raise": 9,
+          "1-50|turn|call": 2,
+          "1-50|turn|check": 3,
+          "1-50|turn|fold": 10,
+          "1-50|turn|raise": 18,
+          "201-1000|flop|call": 229,
+          "201-1000|flop|check": 64,
+          "201-1000|flop|fold": 392,
+          "201-1000|flop|raise": 1461,
+          "201-1000|preflop|call": 1798,
+          "201-1000|preflop|check": 39,
+          "201-1000|preflop|fold": 10151,
+          "201-1000|preflop|raise": 1991,
+          "201-1000|river|call": 37,
+          "201-1000|river|check": 46,
+          "201-1000|river|fold": 60,
+          "201-1000|river|raise": 220,
+          "201-1000|turn|call": 73,
+          "201-1000|turn|check": 34,
+          "201-1000|turn|fold": 90,
+          "201-1000|turn|raise": 403,
+          "51-200|flop|call": 36,
+          "51-200|flop|check": 12,
+          "51-200|flop|fold": 76,
+          "51-200|flop|raise": 266,
+          "51-200|preflop|call": 344,
+          "51-200|preflop|check": 4,
+          "51-200|preflop|fold": 1887,
+          "51-200|preflop|raise": 393,
+          "51-200|river|call": 6,
+          "51-200|river|check": 7,
+          "51-200|river|fold": 6,
+          "51-200|river|raise": 43,
+          "51-200|turn|call": 9,
+          "51-200|turn|check": 13,
+          "51-200|turn|fold": 23,
+          "51-200|turn|raise": 76
+        },
+        "candidate": {
+          "1-50|flop|call": 22,
+          "1-50|flop|check": 3,
+          "1-50|flop|fold": 38,
+          "1-50|flop|raise": 131,
+          "1-50|preflop|call": 192,
+          "1-50|preflop|check": 4,
+          "1-50|preflop|fold": 579,
+          "1-50|preflop|raise": 118,
+          "1-50|river|call": 1,
+          "1-50|river|check": 6,
+          "1-50|river|fold": 11,
+          "1-50|river|raise": 18,
+          "1-50|turn|call": 5,
+          "1-50|turn|check": 5,
+          "1-50|turn|fold": 15,
+          "1-50|turn|raise": 35,
+          "201-1000|flop|call": 306,
+          "201-1000|flop|check": 121,
+          "201-1000|flop|fold": 685,
+          "201-1000|flop|raise": 2137,
+          "201-1000|preflop|call": 3110,
+          "201-1000|preflop|check": 39,
+          "201-1000|preflop|fold": 9198,
+          "201-1000|preflop|raise": 1854,
+          "201-1000|river|call": 44,
+          "201-1000|river|check": 92,
+          "201-1000|river|fold": 97,
+          "201-1000|river|raise": 363,
+          "201-1000|turn|call": 84,
+          "201-1000|turn|check": 85,
+          "201-1000|turn|fold": 198,
+          "201-1000|turn|raise": 682,
+          "51-200|flop|call": 55,
+          "51-200|flop|check": 16,
+          "51-200|flop|fold": 119,
+          "51-200|flop|raise": 386,
+          "51-200|preflop|call": 595,
+          "51-200|preflop|check": 4,
+          "51-200|preflop|fold": 1722,
+          "51-200|preflop|raise": 368,
+          "51-200|river|call": 5,
+          "51-200|river|check": 13,
+          "51-200|river|fold": 18,
+          "51-200|river|raise": 64,
+          "51-200|turn|call": 14,
+          "51-200|turn|check": 20,
+          "51-200|turn|fold": 47,
+          "51-200|turn|raise": 125
+        }
+      },
+      "all_seat_errors": {
+        "baseline": 0,
+        "candidate": 0
+      },
+      "primary": {
+        "G_bb100": 83.8784375,
+        "candidate_bb100": 82.6509375,
+        "difference_bb100": -1.2275000000000027,
+        "n_pairs": 16,
+        "negative_pairs": 7,
+        "ordinary_t95_CI": [
+          -21.943557467594978,
+          19.488557467594973
+        ],
+        "pair_differences": [
+          39.99999999999994,
+          -22.084999999999994,
+          37.654999999999994,
+          9.819999999999993,
+          -44.8,
+          1.8850000000000193,
+          8.259999999999991,
+          -5.594999999999999,
+          8.215000000000002,
+          47.390000000000015,
+          -96.155,
+          21.569999999999993,
+          42.17500000000001,
+          -11.484999999999996,
+          -55.195,
+          -1.295000000000016
+        ],
+        "paired_se": 9.719234269821191,
+        "positive_pairs": 9,
+        "two_comparison_bonferroni_t975_CI": [
+          -25.427224141724658,
+          22.972224141724652
+        ]
+      },
+      "raw_sha256": "c6cf9aed191dcb996e03784b66f82d46b82af46c2d535a1906cba00da7c09d60",
+      "windows": {
+        "1-50": {
+          "G_bb100": 35.5,
+          "candidate_bb100": -8.793750000000008,
+          "difference_bb100": -44.29375000000001,
+          "n_pairs": 16,
+          "negative_pairs": 10,
+          "ordinary_t95_CI": [
+            -177.3657351999751,
+            88.77823519997506
+          ],
+          "pair_differences": [
+            -409.6,
+            209.7,
+            -41.299999999999955,
+            -54.199999999999996,
+            -552.9000000000001,
+            142.5,
+            -199.3,
+            48.500000000000014,
+            -296.6,
+            418.0999999999999,
+            -74.69999999999999,
+            297.6,
+            -149.70000000000002,
+            -0.09999999999999432,
+            -54.79999999999998,
+            8.100000000000001
+          ],
+          "paired_se": 62.432622661520746,
+          "positive_pairs": 6,
+          "two_comparison_bonferroni_t975_CI": [
+            -199.7434699994939,
+            111.15596999949386
+          ]
+        },
+        "201-1000": {
+          "G_bb100": 95.19257812500001,
+          "candidate_bb100": 92.269921875,
+          "difference_bb100": -2.9226562500000055,
+          "n_pairs": 16,
+          "negative_pairs": 7,
+          "ordinary_t95_CI": [
+            -23.932767412116434,
+            18.08745491211642
+          ],
+          "pair_differences": [
+            49.66875000000002,
+            -32.5125,
+            37.2,
+            -17.25625000000008,
+            -11.318750000000001,
+            -21.64375000000001,
+            0.2874999999999943,
+            14.36875000000002,
+            23.731250000000003,
+            22.112499999999983,
+            -92.93125,
+            -19.65625,
+            33.962500000000006,
+            30.368750000000002,
+            -72.2125,
+            9.068749999999994
+          ],
+          "paired_se": 9.857193760879323,
+          "positive_pairs": 9,
+          "two_comparison_bonferroni_t975_CI": [
+            -27.465882928411734,
+            21.62057042841172
+          ]
+        },
+        "51-200": {
+          "G_bb100": 39.6625,
+          "candidate_bb100": 61.83125,
+          "difference_bb100": 22.16874999999999,
+          "n_pairs": 16,
+          "negative_pairs": 6,
+          "ordinary_t95_CI": [
+            -41.526476868928945,
+            85.86397686892892
+          ],
+          "pair_differences": [
+            138.29999999999998,
+            -43.73333333333335,
+            66.39999999999998,
+            175.56666666666666,
+            -54.000000000000014,
+            80.5,
+            119.96666666666661,
+            -130.10000000000002,
+            27.066666666666663,
+            58.63333333333334,
+            -120.50000000000001,
+            149.43333333333334,
+            149.9333333333333,
+            -238.50000000000003,
+            35.43333333333335,
+            -59.69999999999999
+          ],
+          "paired_se": 29.883525510435852,
+          "positive_pairs": 10,
+          "two_comparison_bonferroni_t975_CI": [
+            -52.23763363664463,
+            96.57513363664461
+          ]
+        }
+      }
+    }
+  },
+  "completed_utc": "2026-11-15T05:27:14.409791+00:00",
+  "manifest_sha256": "ab21bd03a8978e179a474d302d11a60336559bb28af3f37f1f2b50ff6cc3c0e4",
+  "total_table_hands": 64120
+}
+```

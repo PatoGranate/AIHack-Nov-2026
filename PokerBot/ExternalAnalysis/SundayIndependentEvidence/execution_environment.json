@@ -1,0 +1,7 @@
+{
+  "python_version": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "stdlib_only_runners": true,
+  "engine_mode": "LocalPlayer in-process",
+  "note": "Environment used for G/I/N runs and packaging; historical Pablo report records its original harness. This is not server hardware certification."
+}
