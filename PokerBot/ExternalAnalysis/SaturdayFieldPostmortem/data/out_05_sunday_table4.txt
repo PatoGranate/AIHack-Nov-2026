@@ -1,0 +1,90 @@
+Opponent styles at table 4 (observed Saturday, all tables we saw):
+team                       LB | VPIP  PFR   3b limp  FvB   AF WTSD W$SD | note
+Resonance Qt            +24.0 |   22   16   12    0   39   57   24   52 | solid, 3-bets 12%
+Anker Batteries         +23.1 |   23   17   13    0   46   61   24   58 | solid, 3-bets 13%
+Chinese people can fly  +13.6 |   36   22    7    0   46   63   27   51 | loose (VPIP 36) but profitable
+WBot                    +13.4 |   33   21    5    0   48   87   32   47 | tiny bets (median 18% pot), AF 87%
+GamesGone                +5.0 |   26   16    3    0   43   69   27   44 | loses at showdown (-19), wins without
+Poke                     +4.5 |   34   16    4   10   55   78   27   51 | limps 10% of hands; folds to bets 55%
+Anton                   -20.4 |   32   26   25    3   47   59   38   48 | 3-bets 25%, pre-flop jam 1.9%; improved -33 -> +17 in 2nd half
+YSL_TWIZZY              -20.6 |   21   16    4    0   26   39   45   53 | goes to showdown 45%, folds to bets 26%: calling station
+
+Head-to-head vs WBot (net bb per 100 hands together; + = WBot wins):
+   vs Resonance Qt           model+obs   +3.5   observed   +8.8 ± 6.7 (9000 hands)
+   vs Anker Batteries        model+obs   -5.5   observed   -9.9 ± 7.0 (11000 hands)
+   vs Chinese people can fly model+obs   -5.4   observed  -15.7 ± 8.3 (10000 hands)
+   vs GamesGone              model+obs   +5.6   observed  +16.0 ±10.1 (8000 hands)
+   vs Poke                   model+obs   +6.6   observed  +33.3 ±13.3 (5000 hands)
+   vs Anton                  model+obs   +1.9   observed   +1.3 ± 7.6 (11000 hands)
+   vs YSL_TWIZZY             model+obs   +4.0   observed   +7.4 ± 7.7 (7000 hands)
+
+ILLUSTRATIVE SCENARIOS, not a validated qualification forecast. Assumptions: every seat keeps its
+Saturday bot; 36 rounds; per-round SD 45; Sunday-edge uncertainty SD 10; tau 6; zero-sum draws.
+
+with WBot       in our seat: expected bb/100 and P(top 2)
+   Anker Batteries         +29.6   86.7%
+   Resonance Qt            +22.9   72.7%
+   WBot                    +10.8   30.1%   <- us
+   Poke                     -7.2    3.2%
+   Chinese people can fly   -7.7    3.5%
+   GamesGone                -9.4    2.6%
+   Anton                   -15.7    1.0%
+   YSL_TWIZZY              -23.3    0.2%
+
+with Red        in our seat: expected bb/100 and P(top 2)
+   Resonance Qt            +29.7   88.3%
+   Anker Batteries         +28.4   86.8%
+   GamesGone                +2.1   10.9%
+   Poke                     +1.5    9.6%
+   Chinese people can fly   -9.2    2.0%
+   Anton                   -11.5    1.6%
+   Red                     -17.0    0.7%   <- us
+   YSL_TWIZZY              -24.0    0.1%
+
+with kaiserbot  in our seat: expected bb/100 and P(top 2)
+   Resonance Qt            +26.8   80.5%
+   Anker Batteries         +23.0   71.0%
+   kaiserbot               +12.4   34.5%   <- us
+   Poke                     -0.9    8.5%
+   GamesGone                -7.2    3.6%
+   Chinese people can fly  -12.9    1.3%
+   YSL_TWIZZY              -20.3    0.4%
+   Anton                   -21.0    0.3%
+
+with AAST       in our seat: expected bb/100 and P(top 2)
+   Resonance Qt            +23.9   68.0%
+   AAST                    +23.9   67.0%   <- us
+   Anker Batteries         +20.5   56.3%
+   Poke                     -4.3    4.7%
+   GamesGone                -9.1    1.9%
+   Chinese people can fly  -11.5    1.5%
+   YSL_TWIZZY              -21.2    0.2%
+   Anton                   -22.2    0.2%
+
+Scenario: P(top 2) if our seat's expected bb/100 were X (others rebalanced to stay zero-sum):
+   X =  +0  ->   10.3%
+   X = +10  ->   28.7%
+   X = +20  ->   54.0%
+   X = +30  ->   78.2%
+   X = +40  ->   92.8%
+
+Sensitivity: WBot's P(top 2), and the X that gives 50%, across assumptions
+   tau            skill_sd  sd_round     P(WBot)  X for 50%
+   model only     5         45             24.9%        +12
+   model only     5         65             26.9%        +14
+   model only     10        45             27.2%        +14
+   model only     10        65             28.2%        +16
+   model only     15        45             28.1%        +16
+   model only     15        65             28.8%        +18
+   6              5         45             21.7%        +20
+   6              5         65             28.0%        +20
+   6              10        45             30.8%        +20
+   6              10        65             31.5%        +20
+   6              15        45             33.8%        +20
+   6              15        65             33.8%        +20
+   observed only  5         45             65.5%        +38
+   observed only  5         65             62.4%        +38
+   observed only  10        45             63.0%        +38
+   observed only  10        65             60.8%        +38
+   observed only  15        45             60.3%        +38
+   observed only  15        65             59.3%        +36
