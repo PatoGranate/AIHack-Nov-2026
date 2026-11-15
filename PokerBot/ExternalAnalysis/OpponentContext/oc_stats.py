@@ -103,13 +103,15 @@ def _effect_stats(K, N, a, b, w):
     return dp, dl
 
 
-def heterogeneity(groups, a, b=None, min_n=30, min_tables=5, rng=None):
+def heterogeneity(groups, a, b=None, min_n=30, min_tables=5, rng=None, null="binomial"):
     """Between-opponent SD of a level (b is None: bucket a) or of a context effect (bucket a minus bucket b).
 
     Each opponent's estimate and variance come from its own table bootstrap. tau is DerSimonian-Laird. The Q
     statistic is calibrated by simulation: null = every opponent shares the level (or effect), each table keeps
     its real decision counts, outcomes are binomial; the same bootstrap/Q pipeline is re-run on each simulation.
-    Returns dict or None when fewer than 4 opponents qualify.
+    null="perm" instead shuffles team labels across the real opponent-table rows (each team keeps its number of
+    rows of each non-empty-bucket pattern), so every null table keeps its observed overdispersion; teams are
+    exchangeable under that null, so for effects it also equalises levels. Returns dict or None when fewer than 4 opponents qualify.
     """
     rng = rng or np.random.default_rng(SEED)
     rows = []
@@ -153,9 +155,36 @@ def heterogeneity(groups, a, b=None, min_n=30, min_tables=5, rng=None):
             vl.append(max(np.nanvar(dl), fl))
         tp = dl_tau2(np.array(yp), np.array(vp))
         tl = dl_tau2(np.array(yl), np.array(vl))
-        return tp, tl, np.array(yp), np.array(vp)
+        return tp, tl, np.array(yp), np.array(vp), np.array(vl)
 
-    (tau2p, qp, mup), (tau2l, ql, mul), yp, vp = stats([(K, N) for _, K, N in rows], B)
+    (tau2p, qp, mup), (tau2l, ql, mul), yp, vp, vl = stats([(K, N) for _, K, N in rows], B)
+    if null == "perm":
+        allK = np.concatenate([K for _, K, _ in rows])
+        allN = np.concatenate([N for _, _, N in rows])
+        owner = np.concatenate([np.full(K.shape[0], i) for i, (_, K, _) in enumerate(rows)])
+        used = [a] if b is None else [a, b]
+        # permute within strata of rows sharing the same non-empty pattern over the used buckets, so a team never
+        # receives only empty rows (e.g. "open by WBot" exists only at WBot tables)
+        pattern = (allN[:, used] > 0) @ (2 ** np.arange(len(used)))
+        null_q = []
+        for _ in range(SIM):
+            perm = np.arange(len(owner))
+            for s in np.unique(pattern):
+                ix = np.flatnonzero(pattern == s)
+                perm[ix] = rng.permutation(ix)
+            sim = [(allK[perm[owner == i]], allN[perm[owner == i]]) for i in range(len(rows))]
+            (_, q, _), (_, q2, _), _, _, _ = stats(sim, SIM_B)
+            null_q.append((q, q2))
+        null_q = np.array(null_q)
+        cw = lambda v: float(np.sum(1.0 / v) - np.sum(1.0 / v ** 2) / np.sum(1.0 / v))  # DL denominator
+        return dict(k=len(rows), mean=mup, tau=float(np.sqrt(tau2p)), q=qp, c=cw(vp),
+                    p_sim=float((1 + np.sum(null_q[:, 0] >= qp)) / (1 + len(null_q))),
+                    q_null_med=float(np.median(null_q[:, 0])),
+                    mean_logit=mul, tau_logit=float(np.sqrt(tau2l)), q_logit=ql,
+                    c_logit=cw(vl),
+                    p_sim_logit=float((1 + np.sum(null_q[:, 1] >= ql)) / (1 + len(null_q))),
+                    q_null_med_logit=float(np.median(null_q[:, 1])),
+                    names=[r[0] for r in rows], y=yp, se=np.sqrt(vp))
     # Null simulations. Level: one shared rate. Effect: each opponent keeps its own midpoint and the effect is
     # shared, on the probability scale for Q and on the logit scale for Q_logit (two separate null sets).
     sig = lambda x: 1.0 / (1.0 + np.exp(-x))
@@ -179,7 +208,7 @@ def heterogeneity(groups, a, b=None, min_n=30, min_tables=5, rng=None):
                     Ks[:, a] = rng.binomial(N[:, a].astype(int), min(max(pa, 0.005), 0.995))
                     Ks[:, b] = rng.binomial(N[:, b].astype(int), min(max(pb, 0.005), 0.995))
                 sim.append((Ks, N))
-            (_, q, _), (_, q2, _), _, _ = stats(sim, SIM_B)
+            (_, q, _), (_, q2, _), _, _, _ = stats(sim, SIM_B)
             qs.append(q if scale == "p" else q2)
         null_q.append((qs[0], qs[-1] if b is not None else q2))
     null_q = np.array(null_q)

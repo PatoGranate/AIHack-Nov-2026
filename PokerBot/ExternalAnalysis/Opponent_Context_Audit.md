@@ -157,6 +157,36 @@ least 10 decisions, which slightly favours busier seats.
   identification tries this; I haven't checked it), the postflop fold-rate prior it could gain is limited. A Saturday
   team average explains well under half of a seat's in-round spread. Sunday uploads will add more drift.
 
+### 3c. Robustness to the null model (`out_05`, answering the PR #14 review)
+
+The PR #14 review notes that the 3a nulls are independent-binomial, so they keep no table-level overdispersion. The
+*observed* Q already uses each team's own table-bootstrap variance. Only the null was binomial. `05_null_robustness.py`
+tests both remaining assumptions directly. Exploratory, like the rest.
+
+- **Team-label permutation null.** Team labels are shuffled across the real opponent-table rows, within strata of
+  rows with the same non-empty buckets, and the same bootstrap and Q pipeline is rerun (300 permutations). Every null
+  table keeps its real overdispersion and table mix.
+  - All 23 postflop and 9 preflop rows keep p_perm <= 0.003, except:
+    - MW 1+ callers - 0 callers: 0.013 (logit 0.037);
+    - MW L - S, logit scale: 0.007;
+    - preflop WBot open - others: 0.010.
+  - The median null Q is 47-58 for 40-43 teams, close to k - 1. So bootstrap-variance noise inflates Q very little.
+- **Noise-corrected tau**, tau_adj² = max(0, (Q - median null Q) / c), is within 0.1-0.6 pts of tau in every row. So
+  k* and the one-round reliabilities in 3a do not move materially.
+  - Example: level all first-bet: tau 6.2 vs 6.1; k* 65 vs 66.
+  - Example: level facing a raise: 16.1 vs 16.0.
+- **Within-hand clustering of the 3b units.** A seat can answer a first bet on the flop, turn and river of one hand.
+  - The hand-cluster variance is 1.02-1.18 times the binomial variance: 1.02 on the flop alone, 1.18 for all
+    first-bet decisions.
+  - Recomputed with it, unit tau moves by at most 0.4 pts: 11.3 -> 11.0 for all first-bet decisions. The
+    within-team component is 8.3 and k* rises from 19 to 21.
+- **What this does not test.** Opponents at one table share that table's mix, and permuting rows does not break
+  that dependence. For effects, the permutation null also equalises team levels, so on the probability scale it can
+  still pick up level-driven differences. Read the logit columns for effects.
+- **Reading.** The qualitative 3a/3b conclusions survive a null that keeps table overdispersion. PR #14's wording
+  that they are "conditional on an independent-binomial null" is now tested rather than assumed. The decomposition is
+  still a moment estimator, not a fitted hierarchical model.
+
 ## 4. Opponents fold less to WBot's bets (exploratory, `out_01` section 5, `out_04`)
 
 Same 54 tables, responders other than WBot. Fold rate by the bettor's size bucket:
