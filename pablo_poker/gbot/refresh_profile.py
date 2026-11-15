@@ -29,6 +29,7 @@ sys.path.insert(0, ROOT)
 from gbot.calib_drift_real import summaries  # noqa: E402
 
 PROFILE_DIR = os.path.join(HERE, "profiles")
+STEP_CAP = 0.25   # ROOK (issue #1): each round moves the profile at most 25% toward that round
 K = {"vpip": 2000, "pfr": 2000, "big": 2000, "f3": 100, "ftr": 400, "ftb": 400, "af": 600}
 
 
@@ -90,10 +91,10 @@ def main():
     for key, (num, den) in num_den.items():
         n = tot[den]
         obs[key] = (tot[num] / n if n else None, n)
-        new[key] = round((prior[key] * K[key] + tot[num]) / (K[key] + n), 4)
+        new[key] = round(prior[key] + min(STEP_CAP, n / (K[key] + n)) * ((tot[num] / n if n else prior[key]) - prior[key]), 4)
     acts = tot["pbet"] + tot["pcall"] + tot["pcheck"]
     obs["af"] = (tot["pbet"] / acts if acts else None, acts)
-    new["af"] = round((prior["af"] * K["af"] + tot["pbet"]) / (K["af"] + acts), 4)
+    new["af"] = round(prior["af"] + min(STEP_CAP, acts / (K["af"] + acts)) * ((tot["pbet"] / acts if acts else prior["af"]) - prior["af"]), 4)
     tag = re.sub(r"[^A-Za-z0-9]+", "_", refs[-1]).strip("_")
     os.makedirs(PROFILE_DIR, exist_ok=True)
     jpath = os.path.join(PROFILE_DIR, "td_prior_%s.json" % tag)
