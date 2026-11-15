@@ -1,0 +1,4 @@
+hand   25: seats  171  top-1 correct 0.37  wrong-with-conf>=0.9 0.00  mean conf 0.42
+hand  100: seats  171  top-1 correct 0.81  wrong-with-conf>=0.9 0.02  mean conf 0.86
+hand  300: seats  171  top-1 correct 0.90  wrong-with-conf>=0.9 0.06  mean conf 0.96
+hand 1000: seats  171  top-1 correct 0.93  wrong-with-conf>=0.9 0.06  mean conf 0.99
