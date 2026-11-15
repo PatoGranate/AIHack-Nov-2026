@@ -105,9 +105,15 @@ def main():
                 up = os.path.join(ROOT, "upload")
                 os.makedirs(up, exist_ok=True)
                 for b in sorted(set(glob.glob(os.path.join(HERE, "G_profile_td_*.py"))) - before):
-                    dst = os.path.join(up, os.path.basename(b))
+                    tag = os.path.basename(b)[len("G_profile_td_"):-3]
+                    folder = os.path.join(up, "after_" + tag)   # bot for the round AFTER this one
+                    dst = os.path.join(folder, "bot.py")
                     if not os.path.exists(dst):
+                        os.makedirs(folder, exist_ok=True)
                         shutil.copy(b, dst)
+                        open(os.path.join(folder, "SOURCE.txt"), "w").write(
+                            "bot.py = gbot/%s (profile refreshed from %s)
+" % (os.path.basename(b), tag))
                         log("ready to upload: %s" % dst)
             if r.returncode == 0 and a.push:
                 after = set(glob.glob(os.path.join(HERE, "G_profile_td_*.py")) + glob.glob(os.path.join(HERE, "profiles", "td_prior_*.json")))
