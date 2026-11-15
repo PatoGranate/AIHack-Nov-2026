@@ -8,7 +8,8 @@ replacement. Fields: t4real = tools/opponents/real/r_<name>.py; t4heldout = held
 chosen per seat per table. --dump DIR writes the BASE run's hand logs in Hand_data format so
 extract_events.py can measure the clones' fold-to-bet by context.
 Added 2026-11-15: t4v2 = tools/opponents/sunday_v2 clones (ROOK PR #10) with deterministic
-per-decision RNG; t4ctx = the same clones with real-data fold-to-bet (ctx_clone.py). --calib PATH
+per-decision RNG; t4ctx = the same clones with real-data fold-to-bet (ctx_clone.py); t4ctxh = t4ctx
+plus the real fold-less-to-WBot effect applied to the hero seat. --calib PATH
 writes per-clone strength-score CDFs by street x bet/raise measured on the BASE run's clones (input to t4ctx).
 """
 import argparse
@@ -34,7 +35,7 @@ def seats_for(field, rng):
         opps = ["tools/opponents/real/r_%s.py" % n for n in T4]
     elif field == "t4heldout":
         opps = ["tools/opponents/heldout/r_%s_j%d.py" % (n, rng.randrange(2)) for n in T4]
-    elif field in ("t4v2", "t4ctx"):
+    elif field in ("t4v2", "t4ctx", "t4ctxh"):
         opps = ["%s:%s" % (field[2:], n) for n in T4]
     else:
         raise SystemExit("unknown field " + field)
@@ -51,7 +52,7 @@ def run(args):
     for who in (cand, base):
         seats = list(opps)
         seats.insert(hero, who)
-        players = [LocalPlayer(_resolve(p)) for p in seats]
+        players = [LocalPlayer(_resolve(p, hero)) for p in seats]
         rec = bool(dump) and who == base
         res = FixedHandsTable(players, hands=hands, config={"betting": "no_limit", "raise_cap": 0},
                               seed=seed, record=rec).play()
@@ -78,11 +79,11 @@ def run(args):
     return chips, errs, recs
 
 
-def _resolve(p):
+def _resolve(p, hero):
     if ":" in p and not os.path.isabs(p):
         import ctx_clone
         variant, stem = p.split(":")
-        return ctx_clone.make(stem, variant)
+        return ctx_clone.make(stem, variant, hero if variant == "ctxh" else None)
     return arena.load(p)
 
 

@@ -7,7 +7,7 @@ betting and raising logic, but when it faces a post-flop bet its fold PROBABILIT
 logistic fitted on real Saturday events (t4ctx_coef.json: field features, shrunk to the field fit), and
 it folds its WEAKEST hands first. Hand strength is mapped to an approximately uniform u by a randomised
 probability-integral transform of score = 2*made_cat + draw, using per-clone CDFs by street x bet/raise
-(pooled over clones where a cell has < 300 decisions) measured on this field (t4ctx_cdf.json, from calibrate_ctx.py). Fold iff u < p. If not folding and the base clone would
+(pooled over clones where a cell has < 300 decisions) measured on this field (t4ctx_cdf.json, from arena_t4.py --calib). Fold iff u < p. If not folding and the base clone would
 fold, the clone calls; otherwise the base clone's call/raise stands.
 
 Variant "v2" is the plain sunday_v2 clone with the same deterministic per-decision RNG and score
@@ -15,7 +15,10 @@ recording (the paired control and the calibration source).
 
 RNG: each decision reseeds from (hole, board, history length, seat), so cand and base runs share clone
 randomness wherever the visible state is identical (better pairing than the unseeded ParamBot RNG).
-The hero term (opponents fold less to WBot) is NOT in the generator: the clones can't tell who the hero is.
+Variant "ctxh" (added 2026-11-15 after SCOUT's review): per-player fits include the bettor-is-WBot column
+(t4ctxh_coef.json, prior field_coef_hero.json) and the arena tells each clone the hero seat, so clones fold
+less to the hero's bets, as real table-4 opponents did to WBot (SCOUT out_04: -13 pts, flat from hand 1).
+Variant "ctx" has no hero term: the clones fold to the hero at the all-bettor rate (over-folds to us).
 """
 import importlib.util
 import json
@@ -25,7 +28,9 @@ import random
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OPP = os.path.join(HERE, "..", "opponents")
-_COEF = json.load(open(os.path.join(HERE, "t4ctx_coef.json"), encoding="utf-8"))
+_COEFS = {v: json.load(open(os.path.join(HERE, f), encoding="utf-8"))
+          for v, f in (("ctx", "t4ctx_coef.json"), ("ctxh", "t4ctxh_coef.json"))
+          if os.path.exists(os.path.join(HERE, f))}
 _CDF_PATH = os.path.join(HERE, "t4ctx_cdf.json")
 _CDF = json.load(open(_CDF_PATH, encoding="utf-8")) if os.path.exists(_CDF_PATH) else None
 _mods = {}
@@ -67,22 +72,24 @@ def context(state):
     order = lambda x: (x - btn - 1) % n
     ip = 1 if aggr is not None and order(me) > order(aggr) else 0
     allin = 1 if state["to_call"] >= state["stacks"][me] else 0
-    return street, ("bet" if naggr == 1 else "raise"), ratio, (1 if live_others >= 2 else 0), ip, allin
+    return street, ("bet" if naggr == 1 else "raise"), ratio, (1 if live_others >= 2 else 0), ip, allin, aggr
 
 
-def fold_prob(stem, ctx):
-    street, kind, size, mw, ip, allin = ctx
-    cols, edges = _COEF["columns"], _COEF["size_edges"]
+def fold_prob(stem, ctx, variant="ctx", hero=None):
+    street, kind, size, mw, ip, allin, aggr = ctx
+    coef = _COEFS[variant]
+    cols, edges = coef["columns"], coef["size_edges"]
     sb = sum(1 for e in edges if size >= e)
     v = {"const": 1.0, "raise": float(kind == "raise"), "mw": mw, "turn": float(street == "turn"),
-         "river": float(street == "river"), "ip": ip, "allin": allin, "mw_ip": mw * ip}
+         "river": float(street == "river"), "ip": ip, "allin": allin, "mw_ip": mw * ip,
+         "hero": float(hero is not None and aggr == hero)}
     for k in range(1, len(edges) + 1):
         v["sz%d" % k] = float(sb == k)
-    x = sum(b * v[c] for b, c in zip(_COEF["players"][stem]["coef"], cols))
+    x = sum(b * v[c] for b, c in zip(coef["players"][stem]["coef"], cols))
     return 1 / (1 + math.exp(-x))
 
 
-def make(stem, variant):
+def make(stem, variant, hero=None):
     base = _base_module(stem).Agent
     from _common import made  # importable once a sunday_v2 module has put tools/opponents on sys.path
 
@@ -105,7 +112,7 @@ def make(stem, variant):
                 out = base.act(self, state)
                 self.rec.append((key, score, out.get("action") == "fold"))
                 return out
-            p = fold_prob(stem, ctx)
+            p = fold_prob(stem, ctx, variant, hero)
             cdf = _CDF["cdf"][stem][key]
             lo = cdf[score - 1] if score > 0 else 0.0
             u = lo + self.rng.random() * (cdf[score] - lo)
@@ -122,4 +129,6 @@ def make(stem, variant):
             return out
 
     Agent.__name__ = "%s_%s" % (variant, stem)
+    if variant == "ctxh" and hero is None:
+        raise ValueError("ctxh clones need the hero seat")
     return Agent

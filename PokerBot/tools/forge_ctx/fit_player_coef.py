@@ -6,6 +6,8 @@ chosen per player by 5-fold CV (log-loss) over a small grid. Uses all Saturday r
 generator for a test field, not a held-out claim). Features are exactly those of field_coef.json.
 
     python fit_player_coef.py --events events.csv --out t4ctx_coef.json      (needs numpy)
+    python fit_player_coef.py --events events.csv --prior field_coef_hero.json --out t4ctxh_coef.json
+      (hero variant: adds the bettor-is-WBot column; used by the t4ctxh field)
 """
 import argparse
 import csv
@@ -26,7 +28,8 @@ def features(r, cols, edges):
     sb = sum(1 for e in edges if float(r["size"]) >= e)
     v = {"const": 1.0, "raise": float(r["kind"] == "raise"), "mw": float(r["mw"]),
          "turn": float(r["street"] == "turn"), "river": float(r["street"] == "river"),
-         "ip": float(r["ip"]), "allin": float(r["allin_call"]), "mw_ip": float(r["mw"]) * float(r["ip"])}
+         "ip": float(r["ip"]), "allin": float(r["allin_call"]), "mw_ip": float(r["mw"]) * float(r["ip"]),
+         "hero": float(r["bettor"] == "WBot")}
     for k in range(1, len(edges) + 1):
         v["sz%d" % k] = float(sb == k)
     return [v[c] for c in cols]
@@ -54,8 +57,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--events", required=True)
     ap.add_argument("--out", default=os.path.join(HERE, "t4ctx_coef.json"))
+    ap.add_argument("--prior", default="field_coef.json")
     a = ap.parse_args()
-    fc = json.load(open(os.path.join(HERE, "field_coef.json")))
+    fc = json.load(open(os.path.join(HERE, a.prior)))
     cols, edges = fc["columns"], fc["size_edges"]
     b0 = np.array(fc["coef"], dtype=float)
     rows = {n: [] for n in T4}
