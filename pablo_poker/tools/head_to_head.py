@@ -27,7 +27,7 @@ def one(job):
     import sim.fieldbot as fb
     from sim import arena, opponents
     from engine import FixedHandsTable
-    fb._MODEL.clear()
+    fb.reset_state()
     fb.model()
     nb = len(files)
     seats = 8 if fill == "clones" else nb

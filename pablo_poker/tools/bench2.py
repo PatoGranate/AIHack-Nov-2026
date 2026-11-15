@@ -84,11 +84,10 @@ def style(log, hs, n):
 def one(job):
     field, seed, name, params, hands = job
     import sim.fieldbot as fb
-    if _FIELD[0] != field:
-        os.environ["FB_ADAPT"] = "off" if field == "A" else os.path.join(ROOT, "data", "field_adapt.json")
-        fb._MODEL.clear()
-        fb.model()
-        _FIELD[0] = field
+    os.environ["FB_ADAPT"] = "off" if field == "A" else os.path.join(ROOT, "data", "field_adapt.json")
+    fb.reset_state()
+    fb.model()
+    _FIELD[0] = field
     from sim import arena, opponents
     from engine import FixedHandsTable
     opps = opponents.lineup(seed, 7, mix=fb.mix("recent"))

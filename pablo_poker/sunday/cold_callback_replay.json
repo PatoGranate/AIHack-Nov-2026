@@ -1,0 +1,454 @@
+{
+  "hands": 1000,
+  "max_callback_ms": 2.5346999973407947,
+  "mean_callback_ms": 0.3662280000571627,
+  "context_failures": 0,
+  "historical_identity": false,
+  "tags": {
+    "0": {
+      "tags": [
+        "insufficient_distinctive_evidence"
+      ],
+      "metrics": {
+        "vpip": {
+          "success": 177,
+          "observed_n": 500,
+          "mean": 0.354,
+          "low": 0.31334158354314207,
+          "high": 0.39688480506788165
+        },
+        "pfr": {
+          "success": 104,
+          "observed_n": 500,
+          "mean": 0.208,
+          "low": 0.17471574281917435,
+          "high": 0.2457370344028732
+        },
+        "flop_bet": {
+          "success": 12,
+          "observed_n": 41,
+          "mean": 0.2926829268292683,
+          "low": 0.1760901763305888,
+          "high": 0.44479757076139725
+        },
+        "turn_bet": {
+          "success": 13,
+          "observed_n": 27,
+          "mean": 0.48148148148148145,
+          "low": 0.3074295064970908,
+          "high": 0.6601467541378958
+        },
+        "river_bet": {
+          "success": 22,
+          "observed_n": 25,
+          "mean": 0.88,
+          "low": 0.7004380781662651,
+          "high": 0.9583325864293191
+        },
+        "small_bet_fold": {
+          "success": 23,
+          "observed_n": 95,
+          "mean": 0.24210526315789474,
+          "low": 0.1670872321759837,
+          "high": 0.3371700845813331
+        },
+        "big_bet_fold": {
+          "success": 21,
+          "observed_n": 42,
+          "mean": 0.5,
+          "low": 0.3552574591652803,
+          "high": 0.6447425408347197
+        },
+        "postflop_raise": {
+          "success": 15,
+          "observed_n": 149,
+          "mean": 0.10067114093959731,
+          "low": 0.06196045893037417,
+          "high": 0.15945570002111548
+        },
+        "fold_to_3bet": {
+          "success": 22,
+          "observed_n": 28,
+          "mean": 0.7857142857142857,
+          "low": 0.6046105292072612,
+          "high": 0.8978767829881058
+        }
+      },
+      "regime_change_suspected": [],
+      "total_hands_seen": 1000,
+      "active_window": "rolling",
+      "caveat": "intervals assume Bernoulli samples; repeated testing and dependence require temporal calibration"
+    },
+    "1": {
+      "tags": [
+        "insufficient_distinctive_evidence"
+      ],
+      "metrics": {
+        "vpip": {
+          "success": 75,
+          "observed_n": 500,
+          "mean": 0.15,
+          "low": 0.12137548023138253,
+          "high": 0.1839617527402498
+        },
+        "pfr": {
+          "success": 52,
+          "observed_n": 500,
+          "mean": 0.104,
+          "low": 0.08019382152134363,
+          "high": 0.13384487635513181
+        },
+        "flop_bet": {
+          "success": 9,
+          "observed_n": 28,
+          "mean": 0.32142857142857145,
+          "low": 0.1793304754342074,
+          "high": 0.5066149544436882
+        },
+        "turn_bet": {
+          "success": 6,
+          "observed_n": 18,
+          "mean": 0.3333333333333333,
+          "low": 0.1627855436366286,
+          "high": 0.5625093065574964
+        },
+        "river_bet": {
+          "success": 1,
+          "observed_n": 9,
+          "mean": 0.1111111111111111,
+          "low": 0.019890371327130535,
+          "high": 0.4350062147680601
+        },
+        "small_bet_fold": {
+          "success": 12,
+          "observed_n": 48,
+          "mean": 0.25,
+          "low": 0.1492048880971003,
+          "high": 0.3878464374792707
+        },
+        "big_bet_fold": {
+          "success": 5,
+          "observed_n": 12,
+          "mean": 0.4166666666666667,
+          "low": 0.19325746190524656,
+          "high": 0.6804926643446272
+        },
+        "postflop_raise": {
+          "success": 2,
+          "observed_n": 64,
+          "mean": 0.03125,
+          "low": 0.00861195771251659,
+          "high": 0.10697493882294247
+        },
+        "fold_to_3bet": {
+          "success": 5,
+          "observed_n": 7,
+          "mean": 0.7142857142857143,
+          "low": 0.35892909014821267,
+          "high": 0.9177828342909844
+        }
+      },
+      "regime_change_suspected": [],
+      "total_hands_seen": 1000,
+      "active_window": "rolling",
+      "caveat": "intervals assume Bernoulli samples; repeated testing and dependence require temporal calibration"
+    },
+    "2": {
+      "tags": [
+        "insufficient_distinctive_evidence"
+      ],
+      "metrics": {
+        "vpip": {
+          "success": 119,
+          "observed_n": 500,
+          "mean": 0.238,
+          "low": 0.20275841101838787,
+          "high": 0.2772368890918055
+        },
+        "pfr": {
+          "success": 101,
+          "observed_n": 500,
+          "mean": 0.202,
+          "low": 0.16914066023346225,
+          "high": 0.2394036124109562
+        },
+        "flop_bet": {
+          "success": 32,
+          "observed_n": 39,
+          "mean": 0.8205128205128205,
+          "low": 0.6733164837555724,
+          "high": 0.9102284818853
+        },
+        "turn_bet": {
+          "success": 10,
+          "observed_n": 20,
+          "mean": 0.5,
+          "low": 0.2992949144298199,
+          "high": 0.7007050855701801
+        },
+        "river_bet": {
+          "success": 2,
+          "observed_n": 9,
+          "mean": 0.2222222222222222,
+          "low": 0.06322376231222723,
+          "high": 0.5474166563271946
+        },
+        "small_bet_fold": {
+          "success": 10,
+          "observed_n": 32,
+          "mean": 0.3125,
+          "low": 0.17952352116618736,
+          "high": 0.4856699969803239
+        },
+        "big_bet_fold": {
+          "success": 8,
+          "observed_n": 12,
+          "mean": 0.6666666666666666,
+          "low": 0.3906175873976139,
+          "high": 0.8618821601026385
+        },
+        "postflop_raise": {
+          "success": 10,
+          "observed_n": 59,
+          "mean": 0.1694915254237288,
+          "low": 0.0947573785633763,
+          "high": 0.28463461654814215
+        },
+        "fold_to_3bet": {
+          "success": 5,
+          "observed_n": 9,
+          "mean": 0.5555555555555556,
+          "low": 0.2666473457440297,
+          "high": 0.811224570528086
+        }
+      },
+      "regime_change_suspected": [],
+      "total_hands_seen": 1000,
+      "active_window": "rolling",
+      "caveat": "intervals assume Bernoulli samples; repeated testing and dependence require temporal calibration"
+    },
+    "3": {
+      "tags": [
+        "insufficient_distinctive_evidence"
+      ],
+      "metrics": {
+        "vpip": {
+          "success": 116,
+          "observed_n": 500,
+          "mean": 0.232,
+          "low": 0.19712863776715053,
+          "high": 0.27095815776541365
+        },
+        "pfr": {
+          "success": 96,
+          "observed_n": 500,
+          "mean": 0.192,
+          "low": 0.15987567270959485,
+          "high": 0.22882109230544162
+        },
+        "flop_bet": {
+          "success": 20,
+          "observed_n": 44,
+          "mean": 0.45454545454545453,
+          "low": 0.3170500778685361,
+          "high": 0.599340678293465
+        },
+        "turn_bet": {
+          "success": 8,
+          "observed_n": 27,
+          "mean": 0.2962962962962963,
+          "low": 0.15852853317647564,
+          "high": 0.4848103338083759
+        },
+        "river_bet": {
+          "success": 2,
+          "observed_n": 17,
+          "mean": 0.11764705882352941,
+          "low": 0.03287908001292092,
+          "high": 0.3433684249770991
+        },
+        "small_bet_fold": {
+          "success": 18,
+          "observed_n": 69,
+          "mean": 0.2608695652173913,
+          "low": 0.17185419574593983,
+          "high": 0.3751079797142367
+        },
+        "big_bet_fold": {
+          "success": 11,
+          "observed_n": 22,
+          "mean": 0.5,
+          "low": 0.3072180469247956,
+          "high": 0.6927819530752044
+        },
+        "postflop_raise": {
+          "success": 3,
+          "observed_n": 97,
+          "mean": 0.030927835051546393,
+          "low": 0.010573153364052894,
+          "high": 0.08702149011641547
+        },
+        "fold_to_3bet": {
+          "success": 10,
+          "observed_n": 11,
+          "mean": 0.9090909090909091,
+          "low": 0.6226353745137962,
+          "high": 0.9837682477371741
+        }
+      },
+      "regime_change_suspected": [],
+      "total_hands_seen": 1000,
+      "active_window": "rolling",
+      "caveat": "intervals assume Bernoulli samples; repeated testing and dependence require temporal calibration"
+    },
+    "4": {
+      "tags": [
+        "insufficient_distinctive_evidence"
+      ],
+      "metrics": {
+        "vpip": {
+          "success": 77,
+          "observed_n": 500,
+          "mean": 0.154,
+          "low": 0.12501019573842537,
+          "high": 0.18826604028495975
+        },
+        "pfr": {
+          "success": 60,
+          "observed_n": 500,
+          "mean": 0.12,
+          "low": 0.09437448030757052,
+          "high": 0.15142022977591602
+        },
+        "flop_bet": {
+          "success": 23,
+          "observed_n": 34,
+          "mean": 0.6764705882352942,
+          "low": 0.5084258404811939,
+          "high": 0.8086854867354143
+        },
+        "turn_bet": {
+          "success": 11,
+          "observed_n": 13,
+          "mean": 0.8461538461538461,
+          "low": 0.5776482949136899,
+          "high": 0.9567427368172621
+        },
+        "river_bet": {
+          "success": 0,
+          "observed_n": 1,
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.7934567085261071
+        },
+        "small_bet_fold": {
+          "success": 4,
+          "observed_n": 16,
+          "mean": 0.25,
+          "low": 0.10181901984237346,
+          "high": 0.49498768929398645
+        },
+        "big_bet_fold": {
+          "success": 9,
+          "observed_n": 9,
+          "mean": 1.0,
+          "low": 0.7008472464490407,
+          "high": 1.0
+        },
+        "postflop_raise": {
+          "success": 7,
+          "observed_n": 36,
+          "mean": 0.19444444444444445,
+          "low": 0.09752972019453349,
+          "high": 0.350283620635152
+        },
+        "fold_to_3bet": {
+          "success": 8,
+          "observed_n": 10,
+          "mean": 0.8,
+          "low": 0.49015684672072335,
+          "high": 0.9433190520193067
+        }
+      },
+      "regime_change_suspected": [],
+      "total_hands_seen": 1000,
+      "active_window": "rolling",
+      "caveat": "intervals assume Bernoulli samples; repeated testing and dependence require temporal calibration"
+    },
+    "5": {
+      "tags": [
+        "loose_preflop",
+        "frequent_flop_bettor"
+      ],
+      "metrics": {
+        "vpip": {
+          "success": 221,
+          "observed_n": 500,
+          "mean": 0.442,
+          "low": 0.39907517838464235,
+          "high": 0.4858092773649425
+        },
+        "pfr": {
+          "success": 89,
+          "observed_n": 500,
+          "mean": 0.178,
+          "low": 0.14696436225520904,
+          "high": 0.2139458920786927
+        },
+        "flop_bet": {
+          "success": 110,
+          "observed_n": 127,
+          "mean": 0.8661417322834646,
+          "low": 0.7960649043048902,
+          "high": 0.9147182105454328
+        },
+        "turn_bet": {
+          "success": 48,
+          "observed_n": 78,
+          "mean": 0.6153846153846154,
+          "low": 0.5044258131764942,
+          "high": 0.7155112359525552
+        },
+        "river_bet": {
+          "success": 18,
+          "observed_n": 47,
+          "mean": 0.3829787234042553,
+          "low": 0.2579048266351308,
+          "high": 0.5257369155602367
+        },
+        "small_bet_fold": {
+          "success": 33,
+          "observed_n": 67,
+          "mean": 0.4925373134328358,
+          "low": 0.37651970947161373,
+          "high": 0.6093642908897559
+        },
+        "big_bet_fold": {
+          "success": 17,
+          "observed_n": 21,
+          "mean": 0.8095238095238095,
+          "low": 0.599990134607267,
+          "high": 0.9233255938482269
+        },
+        "postflop_raise": {
+          "success": 20,
+          "observed_n": 130,
+          "mean": 0.15384615384615385,
+          "low": 0.101853111526678,
+          "high": 0.22571021706473152
+        },
+        "fold_to_3bet": {
+          "success": 12,
+          "observed_n": 18,
+          "mean": 0.6666666666666666,
+          "low": 0.4374906934425036,
+          "high": 0.8372144563633714
+        }
+      },
+      "regime_change_suspected": [],
+      "total_hands_seen": 1000,
+      "active_window": "rolling",
+      "caveat": "intervals assume Bernoulli samples; repeated testing and dependence require temporal calibration"
+    }
+  }
+}

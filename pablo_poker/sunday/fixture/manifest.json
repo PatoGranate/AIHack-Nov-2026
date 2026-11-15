@@ -1,0 +1,30 @@
+{
+  "status": "uncalibrated_fixture_no_promotion",
+  "roster": [
+    "Resonance Qt",
+    "Anker Batteries",
+    "Chinese people can fly",
+    "GamesGone",
+    "Poke",
+    "Anton",
+    "YSL_TWIZZY"
+  ],
+  "training_before": 1794683700.0,
+  "dependencies": {
+    "sunday\\fixture\\field_model.json": "0d41b8c26ab2326fc3d4b945fe3d18f141045e4d3fb7da31658e442479d94ea2",
+    "sunday\\fixture\\v3_model.json": "f213fbabf810489165bf3c0bfe28fc2abcf7bf060e0bce1f735b48f3ad47e7c6",
+    "sunday\\fixture\\field_skill.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "sunday\\fixture\\field_adapt.json": "6c35a9d025aebba4b8f6526f599c29f4a02741b330c3fe899979f7948fd009bc",
+    "sunday\\fixture\\hs_pool.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "sim\\fieldbot.py": "6c22025a2b9ab62abdeb9a90a37bc8ac283c633d670af51df292e4e3ae6ed66d",
+    "engine\\game.py": "a55013f8453805d5e4d7fd5294bc31c003c83cbfd549191a11ac815553946533",
+    "engine\\cards.py": "5f9ea3b912d580c7b0cd923a681bb1a52c1079d48b2489736b49c58b538b5370",
+    "pokerbot\\v2.py": "0e9e93c009ca6fdf12517c913372274a7b1c40defda5d79927bd61dc058b63c4",
+    "sunday\\v4_baseline.py": "8458e3b17263d808607917fcef1b1d3188b776bff912a9b097c3cce3ec749108"
+  },
+  "disabled": [
+    "skill: no independent temporal fit",
+    "adaptation: no independent temporal fit",
+    "warm pool: no independent temporal fit"
+  ]
+}

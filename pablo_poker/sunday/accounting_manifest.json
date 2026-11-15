@@ -1,0 +1,8 @@
+{
+  "status": "untested_profit_ablation",
+  "sha256": "870ec7d93497f8424edb033a66a91e3b4a8430a1c3f30ce79c09d35791e479e6",
+  "fixes": [
+    "no phantom raise after effective all-in",
+    "raised branch subtracts opponent chips already included in pot"
+  ]
+}

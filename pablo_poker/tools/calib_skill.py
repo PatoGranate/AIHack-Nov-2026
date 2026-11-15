@@ -10,6 +10,7 @@ import glob
 import json
 import os
 import sys
+import argparse
 from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +32,7 @@ def wsd(docs):
     return C
 
 
-def real_docs(lo=38):
+def real_docs(lo=38,before=None):
     seen = set()
     pats = ["hands/saturday_r0*.json", "hands/external/WBot/saturday_r0*.json", "hands/external/Red/saturday_r0*.json"]
     for pat in pats:
@@ -39,6 +40,8 @@ def real_docs(lo=38):
             if int(f[-8:-5]) < lo:
                 continue
             d = json.load(open(f, encoding="utf-8"))
+            if before is not None and d.get('round',{}).get('slot','') >= before:
+                continue
             k = (d["round"].get("slot"), tuple(d["players"]))
             if k not in seen:
                 seen.add(k)
@@ -46,10 +49,14 @@ def real_docs(lo=38):
 
 
 if __name__ == "__main__":
-    gain = float(sys.argv[2]) if len(sys.argv) > 2 else 5.0
-    R = wsd(real_docs())
-    S = wsd(json.load(open(f, encoding="utf-8")) for f in glob.glob(os.path.join(sys.argv[1], "*.json")))
-    sk = json.load(open(OUT)) if os.path.exists(OUT) else {}
+    ap=argparse.ArgumentParser()
+    ap.add_argument('simdir');ap.add_argument('gain',type=float,nargs='?',default=5.)
+    ap.add_argument('--before',required=True,help='exclusive ISO training cutoff; never fit on held-out rounds')
+    ap.add_argument('--out',default=os.path.join(ROOT,'sunday','field_skill_candidate.json'))
+    a=ap.parse_args();gain=a.gain
+    R = wsd(real_docs(before=a.before))
+    S = wsd(json.load(open(f, encoding="utf-8")) for f in glob.glob(os.path.join(a.simdir, "*.json")))
+    sk = json.load(open(a.out)) if os.path.exists(a.out) else {}
     rows = []
     for name in sorted(set(R) & set(S)):
         if name == "kaiserbot" or R[name][0] < 120 or S[name][0] < 120:
@@ -58,7 +65,9 @@ if __name__ == "__main__":
         old = sk.get(name, 0.0)
         sk[name] = round(max(-1.0, min(3.0, old + gain * (r - s))), 3)
         rows.append((name, r, s, old, sk[name]))
-    json.dump(sk, open(OUT, "w"), indent=1, sort_keys=True)
+    json.dump(sk, open(a.out, "w"), indent=1, sort_keys=True)
+    json.dump({'training_before':a.before,'simdir':os.path.abspath(a.simdir),
+               'status':'fit_only_requires_independent_validation','gain':gain},open(a.out+'.manifest.json','w'),indent=2)
     err = sum(abs(r - s) for _, r, s, _, _ in rows) / max(1, len(rows))
     print("mean |real - sim| showdown win rate: %.3f over %d bots" % (err, len(rows)))
     for name, r, s, o, nw in sorted(rows, key=lambda x: -x[1]):

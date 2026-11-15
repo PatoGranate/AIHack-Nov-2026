@@ -1,0 +1,125 @@
+{
+  "status": "pass",
+  "scope": "same code/cards/frozen files after reset; reversed job order",
+  "profit_claim": false,
+  "first": [
+    {
+      "engine": "v4_baseline.py",
+      "seed": 930101,
+      "hands": 8,
+      "hash": "8c8c51f4e7a4ef0d80302434b7127273a79123f1255fea1fd1567a8caa450574",
+      "chips": [
+        262,
+        -1975,
+        -74,
+        2156,
+        -142,
+        -505,
+        101,
+        177
+      ],
+      "context_failures": null,
+      "tags": {}
+    },
+    {
+      "engine": "v4_identity_bot.py",
+      "seed": 930101,
+      "hands": 8,
+      "hash": "8c818d96dd4bb9a345f6956bca6681fd40e9f3a71013dc652b7de674b190d2fe",
+      "chips": [
+        262,
+        -19,
+        -74,
+        200,
+        -142,
+        -505,
+        101,
+        177
+      ],
+      "context_failures": 0,
+      "tags": {
+        "1": [
+          "insufficient_distinctive_evidence"
+        ],
+        "2": [
+          "insufficient_distinctive_evidence"
+        ],
+        "3": [
+          "insufficient_distinctive_evidence"
+        ],
+        "4": [
+          "insufficient_distinctive_evidence"
+        ],
+        "5": [
+          "insufficient_distinctive_evidence"
+        ],
+        "6": [
+          "insufficient_distinctive_evidence"
+        ],
+        "7": [
+          "insufficient_distinctive_evidence"
+        ]
+      }
+    }
+  ],
+  "second": [
+    {
+      "engine": "v4_identity_bot.py",
+      "seed": 930101,
+      "hands": 8,
+      "hash": "8c818d96dd4bb9a345f6956bca6681fd40e9f3a71013dc652b7de674b190d2fe",
+      "chips": [
+        262,
+        -19,
+        -74,
+        200,
+        -142,
+        -505,
+        101,
+        177
+      ],
+      "context_failures": 0,
+      "tags": {
+        "1": [
+          "insufficient_distinctive_evidence"
+        ],
+        "2": [
+          "insufficient_distinctive_evidence"
+        ],
+        "3": [
+          "insufficient_distinctive_evidence"
+        ],
+        "4": [
+          "insufficient_distinctive_evidence"
+        ],
+        "5": [
+          "insufficient_distinctive_evidence"
+        ],
+        "6": [
+          "insufficient_distinctive_evidence"
+        ],
+        "7": [
+          "insufficient_distinctive_evidence"
+        ]
+      }
+    },
+    {
+      "engine": "v4_baseline.py",
+      "seed": 930101,
+      "hands": 8,
+      "hash": "8c8c51f4e7a4ef0d80302434b7127273a79123f1255fea1fd1567a8caa450574",
+      "chips": [
+        262,
+        -1975,
+        -74,
+        2156,
+        -142,
+        -505,
+        101,
+        177
+      ],
+      "context_failures": null,
+      "tags": {}
+    }
+  ]
+}

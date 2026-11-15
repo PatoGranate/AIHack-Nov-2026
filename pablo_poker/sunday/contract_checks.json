@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "tests": [
+    {
+      "command": [
+        "C:\\Users\\pablo\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-B",
+        "tools/test_sunday.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ".............\n----------------------------------------------------------------------\nRan 13 tests in 0.332s\n\nOK\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\pablo\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-B",
+        "tools/test_field_changes.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.207s\n\nOK\n"
+    }
+  ]
+}

@@ -20,6 +20,8 @@ def one(job):
     field, seed, name, params, hands = job
     from sim import arena, opponents
     if field == "field":
+        from sim import fieldbot
+        fieldbot.reset_state()
         from sim.fieldbot import mix as fbmix
         mix = fbmix("recent")
     else:

@@ -104,9 +104,39 @@ def _cdf(xs, v):
     return (_bisect.bisect_left(s, v) + _bisect.bisect_right(s, v)) * 0.5 / len(s)
 
 
+def bet_probability(q,frequency,beta):
+    if frequency<=0:return 0.
+    if frequency>=1:return 1.
+    bluff_mass=min(.99,frequency*max(0.,min(1.,beta)))
+    if q<bluff_mass:return 1.
+    value_target=max(0.,min(1.,(frequency-bluff_mass)/(1-bluff_mass)))
+    value_q=max(0.,(q-bluff_mass)/(1-bluff_mass))
+    return 1./(1.+_math.exp(-(value_q-_soft_t(value_target,SOFT_W))/SOFT_W))
+
+
 _V3 = {}
 SKILL_FILE = os.path.join(ROOT, "data", "field_skill.json")
 _SKILL = {}
+
+
+def reset_state(pool=None):
+    """Start an independent experiment. Copy supplied frozen warm-start values."""
+    for cache in (_MODEL, _POOL, _OWN, _SOFT, _SKILL, _V3):
+        cache.clear()
+    if pool is not None:
+        _POOL.update({k: list(v) for k, v in pool.items()})
+
+
+def normalize_response(pf, pr):
+    pf = min(.97, max(.02, pf))
+    pr = min(1.0-pf, max(0.0, pr))
+    return pf, 1.0-pf-pr, pr
+
+
+def strength_bucket(b):
+    # The older live model has no overbet bucket. Borrow its largest first-bet
+    # bucket, never its raise bucket, for a >=2-pot FIRST bet.
+    return str(5 if b == 7 else b)
 
 
 def v3pop():
@@ -137,11 +167,22 @@ def hand_strength_vs(hole, bd, acc, nopp, rng, m=72):
     deck = [c for c in range(52) if c not in dead]
     need = 5 - len(bd)
     tot = 0.0
+    fallback = None
     for _ in range(m):
         for _t in range(8):
             a, b = rng.sample(deck, 2)
             if rng.random() < acc[level_street(a, b, bd)]:
                 break
+        else:
+            # Exact weighted fallback; never accept a failed rejection sample.
+            if fallback is None:
+                combos = [(x,y) for i,x in enumerate(deck) for y in deck[i+1:]]
+                weights = [acc[level_street(x,y,bd)] for x,y in combos]
+                fallback = combos, weights
+            combos,weights = fallback
+            if sum(weights) <= 0:
+                raise ValueError("opponent range has no feasible positive mass")
+            a,b = rng.choices(combos, weights=weights, k=1)[0]
         rest = [c for c in deck if c != a and c != b]
         s = rng.sample(rest, 2 * (nopp - 1) + need)
         full = bd + s[2 * (nopp - 1):]
@@ -506,7 +547,7 @@ class FieldBot:
         hole = [to_int(c) for c in s["hole_cards"]]
         pot, tc = s["pot"], s["to_call"]
         alive = sum(1 for f in s["folded"] if not f)
-        nopp = max(1, min(3, alive - 1))
+        nopp = max(1, alive - 1)
         hs = hand_strength(hole, bd, nopp, self.rng)
         sk = skill_of(self.name)
         if sk < 0:
@@ -525,8 +566,7 @@ class FieldBot:
             self._note(key, hs)
             if q is None:
                 q = hs
-            pv = 1.0 / (1.0 + _math.exp(-(q - _soft_t(F * (1 - beta), SOFT_W)) / SOFT_W))
-            bet = q < F * beta or self.rng.random() < pv
+            bet = self.rng.random() < bet_probability(q,F,beta)
             if bet and q > 0.8 and q >= F * beta:
                 order = lambda x: (x - s["button"] - 1) % len(s["stacks"])
                 behind = [j for j in range(len(s["stacks"])) if not s["folded"][j] and order(j) > order(me)]
@@ -563,7 +603,7 @@ class FieldBot:
                 bettor = h["seat"]
         pf, pc, pr = self._adapt(street, b, bettor, pf, pc, pr)
         if sk > 0:
-            tab = v3pop().get("lvl", {}).get(street, {}).get(str(min(b, 6)))
+            tab = v3pop().get("lvl", {}).get(street, {}).get(strength_bucket(b))
             if tab:
                 base = v3pop()["base"][street]
                 f = [tab[L] / max(1e-3, base[L]) for L in range(4)]
@@ -626,9 +666,7 @@ class FieldBot:
         d = ad[street].get(str(b))
         if not d:
             return pf, pc, pr
-        pf = min(0.97, max(0.02, pf + a * d[0]))
-        pr = min(0.6, max(0.0, pr + a * d[1]))
-        return pf, max(0.0, 1.0 - pf - pr), pr
+        return normalize_response(pf + a*d[0], min(.6, pr + a*d[1]))
 
     def act(self, s):
         if s["hand_number"] != self.hand:

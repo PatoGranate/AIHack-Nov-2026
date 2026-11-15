@@ -1,0 +1,25 @@
+{
+  "status": "candidate_not_promoted",
+  "default_mode": "cold_start_no_named_history",
+  "historical_identity": "optional_uncalibrated",
+  "roster": [
+    "Resonance Qt",
+    "Anker Batteries",
+    "Chinese people can fly",
+    "GamesGone",
+    "Poke",
+    "Anton",
+    "YSL_TWIZZY"
+  ],
+  "sha256": "dfe86ea939a14f2c5a1d035d77e721a867d452206b99c124f7cee1e3c0e2e503",
+  "inputs": {
+    "sunday\\v4_baseline.py": "8458e3b17263d808607917fcef1b1d3188b776bff912a9b097c3cce3ec749108",
+    "pokerbot\\opponent_identity.py": "79a649e0ae2795147a1758890d4637bc78d108c0463a38907da8f2404cd8392d",
+    "pokerbot\\context_model.py": "455edb1385f2db15f84dbbd723c2808545a3c90dfd2962a371745aa3f63c4453",
+    "pokerbot\\opponent_evidence.py": "f3e4bca2ce82bd9f0c8aebb808d69430daf174fcccc9e061ea55ac98316dc567",
+    "pokerbot\\behavior_profile.py": "cd331bf8b42065b072bdd757ef088f51cb0a7960603831377e6ca602786bd7e8",
+    "sunday\\identity_adapter.py": "a3763aa33d4e3c1eb013faca7a1ea9e5e789593129ccacc1c9b6f2cd8d763184",
+    "sunday\\export_identity.py": "94fbd338cf71d3842cd0f100df153c6cf4ca3dd15af1221c82e078f669f68906",
+    "sunday/evidence.json": "a0306ced232b7ac381566392b3e26642648a7bc174ff3aaf0b4403b52521ba89"
+  }
+}

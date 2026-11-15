@@ -9,6 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import statistics
 import sys
@@ -32,7 +33,7 @@ def run(job):
     overrides = job[5] if len(job)>5 else {}
     from engine import FixedHandsTable
     from sim import fieldbot
-    fieldbot._MODEL.clear()
+    fieldbot.reset_state()
     fieldbot._MODEL.update(json.loads((ROOT / 'candidate/field_model.json').read_text()))
     mod = load(ROOT / ('candidate/baseline.py' if engine == 'baseline' else 'candidate/engine.py'), 'hero')
     # Fixed work makes paired comparisons reproducible. Runtime is tested separately.
@@ -74,10 +75,11 @@ def run(job):
     from tools.call_equity import measure
     field = Counter()
     for name, c in counts.items():
-        if name != 'kaiserbot':
+        if name != names[hero_seat]:
             field.update(c)
     return dict(seed=seed, engine=engine, hands=count, chips=result['chips'][hero_seat],
-                sd_chips=sd, field=dict(field), hero=dict(counts['kaiserbot']),call_equity=measure([doc]))
+                sd_chips=sd, field=dict(field), hero=dict(counts[names[hero_seat]]),
+                call_equity=measure([doc],hero_name=names[hero_seat]))
 
 
 def subprocess_run(job):
@@ -131,13 +133,18 @@ def main():
     ap.add_argument('--seed',type=int,default=731000)
     ap.add_argument('--freeze',action='store_true',help='reuse saved model and real comparison cohort')
     ap.add_argument('--holdout-rounds',type=int,default=4)
+    ap.add_argument('--hero',default='WBot')
     a=ap.parse_args()
     cohort_path=ROOT/'candidate/cohort.json'
     if a.freeze and cohort_path.exists():
         cohort=json.loads(cohort_path.read_text())
         held,cutoff,real_field=cohort['held'],cohort['cutoff'],Counter(cohort['field'])
+        if any(d['players'][d['seat']] != a.hero for d in held):
+            raise ValueError('frozen cohort belongs to another hero; rebuild explicitly')
     else:
-        own=[json.loads(p.read_text()) for p in (ROOT/'hands').glob('*.json')]
+        directory = ROOT/'hands'/'external'/a.hero if (ROOT/'hands'/'external'/a.hero).exists() else ROOT/'hands'
+        own=[json.loads(p.read_text()) for p in directory.glob('*.json')]
+        own=[d for d in own if d.get('players',[None])[d.get('seat',0)]==a.hero]
         own.sort(key=lambda d:slot_ts(d.get('round',{})))
         held=own[-a.holdout_rounds:]
         cutoff=slot_ts(held[0]['round'])
@@ -146,11 +153,11 @@ def main():
         real_counts,_=collect(after=cutoff)
         real_field=Counter()
         for name,c in real_counts.items():
-            if name!='kaiserbot':real_field.update(c)
+            if name!=a.hero:real_field.update(c)
         cohort_path.write_text(json.dumps(dict(held=held,cutoff=cutoff,field=dict(real_field))))
     jobs=[]
     for i in range(a.tables):
-        d=held[i%len(held)]; names=d['players'];seat=names.index('kaiserbot')
+        d=held[i%len(held)]; names=d['players'];seat=names.index(a.hero)
         for engine in ('baseline','candidate'):
             jobs.append((a.seed+i,a.hands,names,seat,engine))
     rows=[]
@@ -158,6 +165,8 @@ def main():
                     'candidate/live_model_snapshot.json','sim/fieldbot.py','tools/validate_field.py',
                     'tools/build_field_model.py','tools/call_equity.py')
     artifact_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in artifact_paths}
+    for rel in ('data/hs_pool.json','data/field_skill.json','data/field_adapt.json','data/v3_model.json'):
+        if (ROOT/rel).exists():artifact_hashes[rel]=hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()
     with (ThreadPoolExecutor(max_workers=a.workers) if a.workers > 1 else nullcontext()) as pool:
         results = pool.map(subprocess_run,jobs) if pool else map(run,jobs)
         for r in results:
@@ -180,7 +189,9 @@ def main():
     real_sd=sum(h['results'][d['seat']] for d in held for h in d['hands'] if str(d['seat']) in h.get('showdown',{}))
     out['real']=dict(hands=real_hands,bb100=real_chips*5/real_hands,sd_bb100=real_sd*5/real_hands)
     from tools.call_equity import measure
-    out['real']['call_equity']=measure(held)
+    out['real']['call_equity']=measure(held,hero_name=a.hero)
+    out['hero']=a.hero
+    out['field_environment']={key:os.environ.get(key) for key in ('FB_MODE','FB_SKILL','FB_ADAPT','FB_SOFT','FB_PF3B')}
     for key in ('bb100','sd_bb100'):
         vals=[]
         for d in held:

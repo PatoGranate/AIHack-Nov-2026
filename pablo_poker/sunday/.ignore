@@ -1,0 +1,3 @@
+# Inaccessible empty directories from sandbox tempfile diagnostics.
+tmp*/
+__pycache__/

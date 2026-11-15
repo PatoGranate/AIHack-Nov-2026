@@ -1,0 +1,31 @@
+{
+ "3b_ip": 3.6,
+ "3b_oop": 4.3,
+ "ans_cal": 1,
+ "bank_s": 7.0,
+ "bb_def": 0.25,
+ "bet_margin": 0.0,
+ "bluff_af": 0.4,
+ "chk_r_ip": 1.0,
+ "chk_r_oop": 0.85,
+ "hard_ms": 8.0,
+ "id_k": 40,
+ "ident": 1,
+ "max_ms": 4.0,
+ "max_sims": 6000,
+ "o_co": 0.36,
+ "o_ep": 0.12,
+ "o_hj": 0.26,
+ "o_mp": 0.16,
+ "raise_lam": [
+  0.1,
+  0.2,
+  1.0,
+  4.0
+ ],
+ "size_read": 1.0,
+ "tb_pct": 0.14,
+ "vs3_pct": 0.1,
+ "vs4_pct": 0.04,
+ "w_b_weak": 0.45
+}
